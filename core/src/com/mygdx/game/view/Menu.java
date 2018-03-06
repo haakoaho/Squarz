@@ -21,7 +21,6 @@ public class Menu extends State {
         super(gsm);
         batch = new SpriteBatch();
         play = new Sprite(new Texture(Gdx.files.internal("play.png")));
-        history = new Sprite(new Texture(Gdx.files.internal("history.png")));
         play.setCenter(cam.viewportWidth);
         settings = new Sprite(new Texture(Gdx.files.internal("settings.png")));
         settings.setCenter();
