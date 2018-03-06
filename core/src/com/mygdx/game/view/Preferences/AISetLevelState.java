@@ -27,13 +27,8 @@ public class AISetLevelState extends State{
         this.background = new Texture(Gdx.files.internal("background.png"));
         this.add = new Texture(Gdx.files.internal("add.png"));
         this.delete = new Texture(Gdx.files.internal("delete.png"));
-<<<<<<< HEAD
-
-        this.tap = 0;
-=======
+        // this.tap = 0;
         this.back = new Texture(Gdx.files.internal("back.png"));
-
->>>>>>> mathieu
     }
     @Override
     public void handleInput() {
