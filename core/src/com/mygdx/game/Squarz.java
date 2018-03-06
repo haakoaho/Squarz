@@ -4,8 +4,8 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.State.GameStateManager;
-import com.mygdx.game.State.MenuState;
+import com.mygdx.game.control.GameStateManager;
+import com.mygdx.game.view.Menu;
 
 public class Squarz extends ApplicationAdapter {
 	public final String TITLE = "Squarz";
@@ -20,7 +20,7 @@ public class Squarz extends ApplicationAdapter {
 		gsm = new GameStateManager();
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 
-		gsm.push(new MenuState(gsm));
+		gsm.push(new Menu(gsm));
 	}
 
 	@Override
