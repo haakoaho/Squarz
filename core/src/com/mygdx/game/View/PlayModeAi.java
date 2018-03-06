@@ -34,7 +34,9 @@ public class PlayModeAi extends State {
         this.centerMap = new HashMap<Integer, Square>();
         this.rightMap = new HashMap<Integer, Square>();
         square = new Square();
-        this.leftCounter = 1;
+        this.leftCounter = 0;
+        this.centerCounter = 0;
+        this.rightCounter = 0;
 
     }
 
@@ -43,15 +45,20 @@ public class PlayModeAi extends State {
         if(Gdx.input.isTouched()){
             if(Gdx.input.getX()>Gdx.graphics.getWidth()/4 && Gdx.input.getX()<Gdx.graphics.getWidth()/2 ){
                 firstTouch = true;
-                square.setPosition(new Vector2(Gdx.graphics.getWidth()*5/16, 0));
+                leftMap.put(leftCounter, new Square());
+                leftMap.get(leftCounter).setPosition(new Vector2(Gdx.graphics.getWidth()*5/16, 0));
+                leftCounter = leftCounter +1 ;
             }
             else if (Gdx.input.getX()>Gdx.graphics.getWidth()/2 && Gdx.input.getX()<Gdx.graphics.getWidth()*3/4 ){
                 firstTouch = true;
-                square.setPosition(new Vector2(Gdx.graphics.getWidth()*9/16, 0));
+                centerMap.put(centerCounter, new Square());
+                centerMap.get(centerCounter).setPosition(new Vector2(Gdx.graphics.getWidth()*9/16, 0));
+                centerCounter = centerCounter +1 ;
             }
             else if (Gdx.input.getX()>Gdx.graphics.getWidth()*3/4){
-                firstTouch = true;
-                square.setPosition(new Vector2(Gdx.graphics.getWidth()*13/16, 0));
+                rightMap.put(rightCounter, new Square());
+                rightMap.get(rightCounter).setPosition(new Vector2(Gdx.graphics.getWidth()*13/16, 0));
+                rightCounter = rightCounter +1 ;
             }
         }
     }
@@ -66,12 +73,16 @@ public class PlayModeAi extends State {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         if (firstTouch) {
-            square.move();
+            for (int i=0; i<leftCounter; i++) {
+                leftMap.get(i).move();
+            }
         }
         sb.begin();
         sb.draw(background, 0, 0);
         if (firstTouch) {
-            sb.draw(square.getTexture(), square.getPosition().x, square.getPosition().y);
+            for (int i=0; i<leftCounter; i++) {
+                sb.draw(leftMap.get(i).getTexture(), leftMap.get(i).getPosition().x, leftMap.get(i).getPosition().y);
+            }
         }
         sb.end();
     }
@@ -80,7 +91,9 @@ public class PlayModeAi extends State {
     public void dispose() {
         background.dispose();
         if (firstTouch){
-            square.getTexture().dispose();
+            for (int i=0; i<leftCounter; i++) {
+                leftMap.get(i).getTexture().dispose();
+            }
         }
     }
 }
