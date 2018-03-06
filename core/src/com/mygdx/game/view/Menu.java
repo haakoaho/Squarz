@@ -1,7 +1,9 @@
 package com.mygdx.game.view;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.model.State;
@@ -9,27 +11,54 @@ import com.mygdx.game.model.State;
 public class Menu extends State {
     SpriteBatch batch;
     Texture text;
+    private Sprite play;
+    private Sprite settings;
+    private Sprite history;
+    private Texture background;
+
 
     public Menu(GameStateManager gsm) {
         super(gsm);
         batch = new SpriteBatch();
-        text = new Texture(Gdx.files.internal("badlogic.jpg"));
+        play = new Sprite(new Texture(Gdx.files.internal("play.png")));
+        history = new Sprite(new Texture(Gdx.files.internal("history.png")));
+        settings = new Sprite(new Texture(Gdx.files.internal("settings.png")));
     }
 
     @Override
     public void handleInput() {
-        gsm.push(new Settings(gsm));
+            if (Gdx.input.justTouched()) {
+                if (play.getBoundingRectangle().contains(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY())) {
+                    gsm.set(new Settings(gsm));
+                }
+
+                if (settings.getBoundingRectangle().contains(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY())) {
+                    gsm.set(new Settings(gsm));
+                }
+
+                if (history.getBoundingRectangle().contains(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY())) {
+                    gsm.set(new Settings(gsm));
+                }
+
+               // System.out.println(Gdx.input.getX() + "_____________" +Gdx.input.getY() );
+
+            }
+
+
     }
 
     @Override
     public void update(float dt) {
+        handleInput();
 
     }
 
     @Override
     public void render(SpriteBatch sb) {
         batch.begin();
-        batch.draw(text,0,0);
+        batch.draw(play,0,100);
+        batch.draw(history, 100,100);
+        batch.draw(settings, 200,200);
         batch.end();
     }
 
