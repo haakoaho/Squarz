@@ -28,6 +28,8 @@ public class Menu extends State {
 
     @Override
     public void render(SpriteBatch sb) {
+        cam.update();
+        batch.setProjectionMatrix(cam.combined);
         batch.begin();
         batch.draw(text,0,0);
         batch.end();
@@ -35,7 +37,9 @@ public class Menu extends State {
 
     @Override
     public void dispose() {
-
+        text.dispose();
     }
+
+
 }
 
