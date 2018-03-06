@@ -4,9 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Squarz;
-import com.mygdx.game.control.aI.Settings;
-import com.mygdx.game.view.AIPreferencesState;
-import com.mygdx.game.view.GameStateManager;
+import com.mygdx.game.control.aI.PreferencesSettings;
+import com.mygdx.game.view.AIPreferences;
+import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.model.State;
 
 /**
@@ -15,13 +15,15 @@ import com.mygdx.game.model.State;
 
 public class AISetLevelState extends State{
     private Texture background, add, delete, beginer, medium, advanced, expert, back;
-    private Settings set;
+    private PreferencesSettings set;
     private int tap;
 
 
     public AISetLevelState(GameStateManager gsm){
         super(gsm);
-        this.set = new Settings();
+        this.set = new PreferencesSettings();
+        this.add = new Texture(Gdx.files.internal("add.png"));
+        this.delete = new Texture(Gdx.files.internal("delete.png"));
         this.tap = 0;
     }
     @Override
@@ -29,7 +31,7 @@ public class AISetLevelState extends State{
 
         if(Gdx.input.isTouched()){
             if(tap > 30){
-                gsm.set(new AIPreferencesState(gsm));
+                gsm.set(new AIPreferences(gsm));
             }
             else{
                 tap ++;
@@ -48,7 +50,8 @@ public class AISetLevelState extends State{
         sb.begin();
         sb.draw(background, 0, 0, Squarz.WIDTH, Squarz.HEIGHT);
         for(int i=0; i<4; i++){
-
+            sb.draw(add, Gdx.graphics.getWidth()/3-add.getWidth()/2, Gdx.graphics.getHeight()*(5-i)/6-add.getHeight()/2);
+            sb.draw(add, Gdx.graphics.getWidth()/3-add.getWidth()/2, Gdx.graphics.getHeight()*(5-i)/6-add.getHeight()/2);
         }
         sb.end();
     }

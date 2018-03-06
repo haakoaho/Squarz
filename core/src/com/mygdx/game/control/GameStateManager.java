@@ -1,4 +1,4 @@
-package com.mygdx.game.view;
+package com.mygdx.game.control;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.model.State;

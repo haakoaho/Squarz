@@ -4,8 +4,8 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.view.AIPreferencesState;
-import com.mygdx.game.view.GameStateManager;
+import com.mygdx.game.view.AIPreferences;
+import com.mygdx.game.control.GameStateManager;
 
 public class Squarz extends ApplicationAdapter {
 	public final String TITLE = "Squarz";
@@ -20,7 +20,7 @@ public class Squarz extends ApplicationAdapter {
 	public void create () {
 		batch = new SpriteBatch();
 		gsm = new GameStateManager();
-		gsm.push(new AIPreferencesState(gsm));
+		gsm.push(new AIPreferences(gsm));
 	}
 
 	@Override
