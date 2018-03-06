@@ -18,7 +18,7 @@ public class Squarz extends ApplicationAdapter {
 	public void create () {
 		batch = new SpriteBatch();
 		gsm = new GameStateManager();
-		Gdx.gl.glClearColor(214, 214, 214, 1);
+		Gdx.gl.glClearColor((float)0.84,(float)0.84,(float)0.84, 1);
 
 		gsm.push(new Menu(gsm));
 	}
