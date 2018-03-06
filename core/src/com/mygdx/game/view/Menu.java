@@ -20,26 +20,23 @@ public class Menu extends State {
         super(gsm);
         batch = new SpriteBatch();
         play = new Sprite(new Texture(Gdx.files.internal("play.png")));
-        play.setCenter(cam.viewportWidth);
         settings = new Sprite(new Texture(Gdx.files.internal("settings.png")));
-        settings.setCenter();
         history = new Sprite(new Texture(Gdx.files.internal("history.png")));
-        history.setCenter();
     }
 
     @Override
     public void handleInput() {
             if (Gdx.input.justTouched()) {
                 if (play.getBoundingRectangle().contains(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY())) {
-                    gsm.set(new Settings(gsm));
+                    gsm.set(new AIPreferences(gsm));
                 }
 
                 if (settings.getBoundingRectangle().contains(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY())) {
-                    gsm.set(new Settings(gsm));
+                    gsm.set(new AIPreferences(gsm));
                 }
 
                 if (history.getBoundingRectangle().contains(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY())) {
-                    gsm.set(new Settings(gsm));
+                    gsm.set(new AIPreferences(gsm));
                 }
 
                // System.out.println(Gdx.input.getX() + "_____________" +Gdx.input.getY() );

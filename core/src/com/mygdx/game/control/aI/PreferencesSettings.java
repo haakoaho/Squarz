@@ -4,14 +4,14 @@ package com.mygdx.game.control.aI;
  * Created by mathi on 06/03/2018.
  */
 
-public class Settings {
+public class PreferencesSettings {
     //vitesse stepX, Between2launch dt, between2waves
     private int stepX;
     private float dtLaunching;
     private float dtWaves;
     private int squaresize;
 
-    public Settings(){
+    public PreferencesSettings(){
         //default settings
         this.stepX = 6;
         this.dtLaunching = 5;

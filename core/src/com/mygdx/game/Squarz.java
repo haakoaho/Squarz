@@ -4,16 +4,13 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-<<<<<<< HEAD
 import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.view.Menu;
-=======
-import com.mygdx.game.view.AIPreferencesState;
-import com.mygdx.game.view.GameStateManager;
->>>>>>> mathieu
 
 public class Squarz extends ApplicationAdapter {
 	public final String TITLE = "Squarz";
+	public final static int WIDTH = 720;
+	public final static int HEIGHT = 1240;
 
 	private GameStateManager gsm;
 	private SpriteBatch batch;
@@ -39,5 +36,5 @@ public class Squarz extends ApplicationAdapter {
 	@Override
 	public void dispose () {
 		batch.dispose();
-	} // Hello
+	}
 }

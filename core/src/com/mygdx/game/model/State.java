@@ -3,12 +3,11 @@ package com.mygdx.game.model;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.viewport.FillViewport;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.control.GameStateManager;
-import com.mygdx.game.view.GameStateManager;
+
+import static java.awt.SystemColor.control;
 
 public abstract class State {
     protected OrthographicCamera cam;
