@@ -1,4 +1,4 @@
-package com.mygdx.game.State;
+package com.mygdx.game.state;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 class SettingsState extends State {
 
+
     public SettingsState(GameStateManager gsm) {
         super(gsm);
         Gdx.gl.glClearColor(0,0,0, 1);
@@ -16,7 +17,7 @@ class SettingsState extends State {
 
     @Override
     public void handleInput() {
-        //ieuvghaiuegvitule
+
     }
 
     @Override
