@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.control.GameStateManager;
+import com.mygdx.game.view.GameStateManager;
 
 public abstract class State {
     protected OrthographicCamera cam;
