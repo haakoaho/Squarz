@@ -15,7 +15,7 @@ public class Squarz extends ApplicationAdapter {
 
 	
 	@Override
-	public void create () {
+	public void create () { // Hellotoi
 		batch = new SpriteBatch();
 		gsm = new GameStateManager();
 		Gdx.gl.glClearColor(1, 1, 1, 1);
