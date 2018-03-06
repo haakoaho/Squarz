@@ -1,9 +1,9 @@
 package com.mygdx.game.view;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.model.State;
 
@@ -20,8 +20,11 @@ public class Menu extends State {
         super(gsm);
         batch = new SpriteBatch();
         play = new Sprite(new Texture(Gdx.files.internal("play.png")));
-        history = new Sprite(new Texture(Gdx.files.internal("history.png")));
+        play.setCenter(cam.viewportWidth);
         settings = new Sprite(new Texture(Gdx.files.internal("settings.png")));
+        settings.setCenter();
+        history = new Sprite(new Texture(Gdx.files.internal("history.png")));
+        history.setCenter();
     }
 
     @Override
@@ -48,6 +51,7 @@ public class Menu extends State {
 
     @Override
     public void update(float dt) {
+
         handleInput();
 
     }
