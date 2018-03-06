@@ -30,7 +30,7 @@ public class AIPreferences extends State {
     public void handleInput() {
         if(Gdx.input.justTouched()){
             if(Gdx.input.getY()<Gdx.graphics.getHeight()/4){
-                gsm.set(new AISetLevelState(gsm));
+                gsm.set(new Menu(gsm));
             }
         }
     }

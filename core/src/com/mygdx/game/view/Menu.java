@@ -8,8 +8,6 @@ import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.model.State;
 
 public class Menu extends State {
-    SpriteBatch batch;
-    Texture text;
     private Sprite play;
     private Sprite settings;
     private Sprite history;
@@ -18,7 +16,6 @@ public class Menu extends State {
 
     public Menu(GameStateManager gsm) {
         super(gsm);
-        batch = new SpriteBatch();
         play = new Sprite(new Texture(Gdx.files.internal("play.png")));
         settings = new Sprite(new Texture(Gdx.files.internal("settings.png")));
         history = new Sprite(new Texture(Gdx.files.internal("history.png")));
@@ -28,15 +25,15 @@ public class Menu extends State {
     public void handleInput() {
             if (Gdx.input.justTouched()) {
                 if (play.getBoundingRectangle().contains(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY())) {
-                    gsm.set(new AIPreferences(gsm));
+                    gsm.set(new PlayModeAi(gsm));
                 }
 
                 if (settings.getBoundingRectangle().contains(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY())) {
-                    gsm.set(new AIPreferences(gsm));
+                    gsm.set(new PlayModeAi(gsm));
                 }
 
                 if (history.getBoundingRectangle().contains(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY())) {
-                    gsm.set(new AIPreferences(gsm));
+                    gsm.set(new PlayModeAi(gsm));
                 }
 
                // System.out.println(Gdx.input.getX() + "_____________" +Gdx.input.getY() );
@@ -48,25 +45,21 @@ public class Menu extends State {
 
     @Override
     public void update(float dt) {
-
         handleInput();
-
     }
 
     @Override
     public void render(SpriteBatch sb) {
-        cam.update();
-        batch.setProjectionMatrix(cam.combined);
-        batch.begin();
-        batch.draw(play,0,100);
-        batch.draw(history, 100,100);
-        batch.draw(settings, 200,200);
-        batch.end();
+        sb.begin();
+        sb.draw(play,0,100);
+        sb.draw(history, 100,100);
+        sb.draw(settings, 200,200);
+        sb.end();
     }
 
     @Override
     public void dispose() {
-        text.dispose();
+
     }
 
 
