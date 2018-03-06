@@ -55,6 +55,8 @@ public class Menu extends State {
 
     @Override
     public void render(SpriteBatch sb) {
+        cam.update();
+        batch.setProjectionMatrix(cam.combined);
         batch.begin();
         batch.draw(play,0,100);
         batch.draw(history, 100,100);
@@ -64,7 +66,9 @@ public class Menu extends State {
 
     @Override
     public void dispose() {
-
+        text.dispose();
     }
+
+
 }
 
