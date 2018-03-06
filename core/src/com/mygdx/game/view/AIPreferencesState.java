@@ -1,16 +1,17 @@
-package com.mygdx.game.State;
+package com.mygdx.game.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Squarz;
-import com.mygdx.game.State.Preferences.AISetLevelState;
+import com.mygdx.game.model.State;
+import com.mygdx.game.view.Preferences.AISetLevelState;
 
 /**
  * Created by mathi on 06/03/2018.
  */
 
-public class AIPreferencesState extends State{
+public class AIPreferencesState extends State {
     private Texture background;
     private Texture setAILevel, setTimer, setBonuses, play;
 

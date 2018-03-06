@@ -1,4 +1,4 @@
-package com.mygdx.game.AI;
+package com.mygdx.game.control.aI;
 
 /**
  * Created by mathi on 06/03/2018.
@@ -9,12 +9,14 @@ public class Settings {
     private int stepX;
     private float dtLaunching;
     private float dtWaves;
+    private int squaresize;
 
     public Settings(){
         //default settings
         this.stepX = 6;
         this.dtLaunching = 5;
         this.dtWaves = 100;
+        this.squaresize = 2;
     }
 
     public int getStepX() {

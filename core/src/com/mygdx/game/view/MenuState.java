@@ -1,8 +1,9 @@
-package com.mygdx.game.State;
+package com.mygdx.game.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.model.State;
 
 public class MenuState extends State {
     SpriteBatch batch;

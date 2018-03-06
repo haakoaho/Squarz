@@ -4,9 +4,8 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.State.AIPreferencesState;
-import com.mygdx.game.State.GameStateManager;
-import com.mygdx.game.State.MenuState;
+import com.mygdx.game.view.AIPreferencesState;
+import com.mygdx.game.view.GameStateManager;
 
 public class Squarz extends ApplicationAdapter {
 	public final String TITLE = "Squarz";
