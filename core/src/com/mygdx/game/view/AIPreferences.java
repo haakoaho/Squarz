@@ -14,7 +14,7 @@ import com.mygdx.game.view.Preferences.AISetLevelState;
 
 public class AIPreferences extends State {
     private Texture background;
-    private Texture setAILevel, setTimer, setBonuses, play;
+    private Texture setAILevel, setTimer, setBonuses, play, add, delete;
 
     public AIPreferences(GameStateManager gsm){
         super(gsm);

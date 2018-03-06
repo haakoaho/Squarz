@@ -19,28 +19,31 @@ import com.mygdx.game.model.State;
 public class AISetLevelState extends State{
     private Texture background, add, delete, beginer, medium, advanced, expert, back;
     private PreferencesSettings set;
-    private int tap;
 
 
     public AISetLevelState(GameStateManager gsm){
         super(gsm);
         this.set = new PreferencesSettings();
+        this.background = new Texture(Gdx.files.internal("background.png"));
         this.add = new Texture(Gdx.files.internal("add.png"));
         this.delete = new Texture(Gdx.files.internal("delete.png"));
+<<<<<<< HEAD
 
         this.tap = 0;
+=======
+        this.back = new Texture(Gdx.files.internal("back.png"));
+
+>>>>>>> mathieu
     }
     @Override
     public void handleInput() {
 
         if(Gdx.input.isTouched()){
-            if(tap > 30){
+            if(Gdx.input.getY()>Gdx.graphics.getHeight()*5/6-back.getHeight()/2){
                 gsm.set(new AIPreferences(gsm));
             }
-            else{
-                tap ++;
-            }
         }
+
 
     }
 
@@ -55,8 +58,9 @@ public class AISetLevelState extends State{
         sb.draw(background, 0, 0, Squarz.WIDTH, Squarz.HEIGHT);
         for(int i=0; i<4; i++){
             sb.draw(add, Gdx.graphics.getWidth()/3-add.getWidth()/2, Gdx.graphics.getHeight()*(5-i)/6-add.getHeight()/2);
-            sb.draw(add, Gdx.graphics.getWidth()/3-add.getWidth()/2, Gdx.graphics.getHeight()*(5-i)/6-add.getHeight()/2);
+            sb.draw(delete, Gdx.graphics.getWidth()*2/3-delete.getWidth()/2, Gdx.graphics.getHeight()*(5-i)/6-delete.getHeight()/2);
         }
+        sb.draw(back, Gdx.graphics.getWidth()/2 - back.getWidth()/2, Gdx.graphics.getHeight()/6-back.getHeight()/2);
         sb.end();
     }
 
