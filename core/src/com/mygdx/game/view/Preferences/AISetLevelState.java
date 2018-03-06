@@ -4,9 +4,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Squarz;
+<<<<<<< HEAD
 import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.control.aI.PreferencesSettings;
 import com.mygdx.game.view.AIPreferences;
+=======
+import com.mygdx.game.control.aI.PreferencesSettings;
+import com.mygdx.game.view.AIPreferences;
+import com.mygdx.game.control.GameStateManager;
+>>>>>>> mathieu
 import com.mygdx.game.model.State;
 
 /**
@@ -22,6 +28,11 @@ public class AISetLevelState extends State{
     public AISetLevelState(GameStateManager gsm){
         super(gsm);
         this.set = new PreferencesSettings();
+<<<<<<< HEAD
+=======
+        this.add = new Texture(Gdx.files.internal("add.png"));
+        this.delete = new Texture(Gdx.files.internal("delete.png"));
+>>>>>>> mathieu
         this.tap = 0;
     }
     @Override
@@ -48,7 +59,8 @@ public class AISetLevelState extends State{
         sb.begin();
         sb.draw(background, 0, 0, Squarz.WIDTH, Squarz.HEIGHT);
         for(int i=0; i<4; i++){
-
+            sb.draw(add, Gdx.graphics.getWidth()/3-add.getWidth()/2, Gdx.graphics.getHeight()*(5-i)/6-add.getHeight()/2);
+            sb.draw(add, Gdx.graphics.getWidth()/3-add.getWidth()/2, Gdx.graphics.getHeight()*(5-i)/6-add.getHeight()/2);
         }
         sb.end();
     }
