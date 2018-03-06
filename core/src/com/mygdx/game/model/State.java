@@ -3,7 +3,9 @@ package com.mygdx.game.model;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.control.GameStateManager;
 
@@ -17,7 +19,7 @@ public abstract class State {
     protected State(GameStateManager gsm){
         this.gsm = gsm;
         cam = new OrthographicCamera();
-        viewport = new FitViewport(800,480,cam);
+        viewport = new StretchViewport(800,480,cam);
         viewport.apply();
         mouse = new Vector3();
         cam.position.set(cam.viewportWidth/2,cam.viewportHeight/2,0);
