@@ -20,6 +20,7 @@ public abstract class State {
         viewport = new FitViewport(800,480,cam);
         viewport.apply();
         mouse = new Vector3();
+        cam.setToOrtho(false);
         cam.position.set(cam.viewportWidth/2,cam.viewportHeight/2,0);
     }
 
