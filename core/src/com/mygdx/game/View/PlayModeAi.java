@@ -1,11 +1,11 @@
-package com.mygdx.game.State;
+package com.mygdx.game.View;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.Square;
+import com.mygdx.game.Model.Square;
 
 /**
  * Created by Antoine Dc on 06/03/2018.
@@ -25,10 +25,10 @@ public class PlayModeAi extends State {
     @Override
     public void handleInput() {
         if(Gdx.input.isTouched()){
-            if(Gdx.input.getX()>Gdx.graphics.getWidth()/4 && Gdx.input.getX()>Gdx.graphics.getWidth()/2 ){
+            if(Gdx.input.getX()>Gdx.graphics.getWidth()/4 && Gdx.input.getX()<Gdx.graphics.getWidth()/2 ){
                 firstTouch = true;
                 sq1 = new Square();
-                sq1.setPosition(new Vector2(Gdx.graphics.getWidth()/4, 0));
+                sq1.setPosition(new Vector2(Gdx.graphics.getWidth()*5/16, 0));
             }
         }
     }
