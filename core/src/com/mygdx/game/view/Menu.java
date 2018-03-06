@@ -1,14 +1,16 @@
-package com.mygdx.game.View;
+package com.mygdx.game.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.control.GameStateManager;
+import com.mygdx.game.model.State;
 
-public class MenuState extends State {
+public class Menu extends State {
     SpriteBatch batch;
     Texture text;
 
-    public MenuState(GameStateManager gsm) {
+    public Menu(GameStateManager gsm) {
         super(gsm);
         batch = new SpriteBatch();
         text = new Texture(Gdx.files.internal("badlogic.jpg"));
@@ -16,7 +18,7 @@ public class MenuState extends State {
 
     @Override
     public void handleInput() {
-        gsm.push(new SettingsState(gsm));
+        gsm.push(new Settings(gsm));
     }
 
     @Override
