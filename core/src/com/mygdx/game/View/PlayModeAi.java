@@ -12,6 +12,8 @@ import com.mygdx.game.model.State;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.mygdx.game.Squarz.WIDTH;
+
 /**
  * Created by Antoine Dc on 06/03/2018.
  */
@@ -43,17 +45,17 @@ public class PlayModeAi extends State {
     @Override
     public void handleInput() {
         if(Gdx.input.justTouched()){
-            if(Gdx.input.getX()>Gdx.graphics.getWidth()/4 && Gdx.input.getX()<Gdx.graphics.getWidth()/2 ){
+            if(Gdx.input.getX()>WIDTH/4 && Gdx.input.getX()<WIDTH/2 ){
                 firstTouch = true;
                 leftMap.put(leftCounter, new Square());
-                leftMap.get(leftCounter).setPosition(new Vector2(Gdx.graphics.getWidth()*5/16, 0));
+                leftMap.get(leftCounter).setPosition(new Vector2(WIDTH*5/16, 0));
                 if (leftCounter != 0 && leftMap.get(leftCounter-1).getPosition().y < square.getTexture().getHeight() + 5 ) {
                     leftMap.get(leftCounter).setPosition(new Vector2(Gdx.graphics.getWidth()*5/16,
                             leftMap.get(leftCounter-1).getPosition().y-square.getTexture().getHeight()-5));
                 }
                 leftCounter = leftCounter +1 ;
             }
-            else if (Gdx.input.getX()>Gdx.graphics.getWidth()/2 && Gdx.input.getX()<Gdx.graphics.getWidth()*3/4 ){
+            else if (Gdx.input.getX()>WIDTH/2 && Gdx.input.getX()<WIDTH*3/4 ){
                 firstTouch = true;
                 centerMap.put(centerCounter, new Square());
                 centerMap.get(centerCounter).setPosition(new Vector2(Gdx.graphics.getWidth()*9/16, 0));
@@ -63,7 +65,7 @@ public class PlayModeAi extends State {
                 }
                 centerCounter = centerCounter +1 ;
             }
-            else if (Gdx.input.getX()>Gdx.graphics.getWidth()*3/4){
+            else if (Gdx.input.getX()>WIDTH*3/4){
                 rightMap.put(rightCounter, new Square());
                 rightMap.get(rightCounter).setPosition(new Vector2(Gdx.graphics.getWidth()*13/16, 0));
                 if (rightCounter != 0 && rightMap.get(rightCounter-1).getPosition().y < square.getTexture().getHeight() + 5 ) {

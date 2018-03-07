@@ -6,6 +6,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Squarz;
 import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.model.State;
+import com.mygdx.game.view.beginning.Menu;
+
+import static com.mygdx.game.Squarz.HEIGHT;
+import static com.mygdx.game.Squarz.WIDTH;
 
 /**
  * Created by mathi on 06/03/2018.
@@ -19,10 +23,10 @@ public class AIPreferences extends State {
         super(gsm);
 
         this.background = new Texture(Gdx.files.internal("background.png"));
-        this.setAILevel = new Texture(Gdx.files.internal("setAILevel.png"));
-        this.setTimer = new Texture(Gdx.files.internal("setTimer.png"));
-        this.setBonuses = new Texture(Gdx.files.internal("setBonus.png"));
-        this.play = new Texture(Gdx.files.internal("play.png"));
+        this.setAILevel = new Texture(Gdx.files.internal("ai_settings/setAILevel.png"));
+        this.setTimer = new Texture(Gdx.files.internal("ai_settings/setTimer.png"));
+        this.setBonuses = new Texture(Gdx.files.internal("ai_settings/setBonus.png"));
+        this.play = new Texture(Gdx.files.internal("menu/play.png"));
     }
 
     @Override
@@ -42,11 +46,11 @@ public class AIPreferences extends State {
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
-        sb.draw(background, 0, 0, Squarz.WIDTH, Squarz.HEIGHT);
-        sb.draw(setAILevel, Gdx.graphics.getWidth()/2-setAILevel.getWidth()/2, Gdx.graphics.getHeight()*4/5-setAILevel.getHeight()/2);
-        sb.draw(setTimer, Gdx.graphics.getWidth()/2-setTimer.getWidth()/2, Gdx.graphics.getHeight()*3/5-setTimer.getHeight()/2);
-        sb.draw(setBonuses, Gdx.graphics.getWidth()/2-setBonuses.getWidth()/2, Gdx.graphics.getHeight()*2/5-setBonuses.getHeight()/2);
-        sb.draw(play,Gdx.graphics.getWidth()/2-play.getWidth()/2, Gdx.graphics.getHeight()/5-play.getHeight()/2);
+        sb.draw(background, 0, 0, WIDTH, HEIGHT);
+        sb.draw(setAILevel, WIDTH/2-setAILevel.getWidth()/2, HEIGHT*4/5-setAILevel.getHeight()/2);
+        sb.draw(setTimer, WIDTH/2-setTimer.getWidth()/2, HEIGHT*3/5-setTimer.getHeight()/2);
+        sb.draw(setBonuses, WIDTH/2-setBonuses.getWidth()/2, HEIGHT*2/5-setBonuses.getHeight()/2);
+        sb.draw(play,WIDTH/2-play.getWidth()/2, HEIGHT/5-play.getHeight()/2);
         sb.end();
 
     }
