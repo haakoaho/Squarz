@@ -42,7 +42,7 @@ public class PlayModeAi extends State {
 
     @Override
     public void handleInput() {
-        if(Gdx.input.isTouched()){
+        if(Gdx.input.justTouched()){
             if(Gdx.input.getX()>Gdx.graphics.getWidth()/4 && Gdx.input.getX()<Gdx.graphics.getWidth()/2 ){
                 firstTouch = true;
                 leftMap.put(leftCounter, new Square());
