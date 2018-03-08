@@ -12,6 +12,7 @@ import com.mygdx.game.model.State;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
 
 /**
@@ -81,7 +82,7 @@ public class PlayModeAi extends State {
             else if (Gdx.input.getX()>WIDTH/2 && Gdx.input.getX()<WIDTH*3/4 ){
                 firstTouch = true;
                 centerMap.put(centerCounter, new Square());
-                centerMap.get(centerCounter).setPosition(new Vector2(Gdx.graphics.getWidth()*9/16, 0));
+                centerMap.get(centerCounter).setPosition(new Vector2(WIDTH*9/16, 0));
                 centerMap.get(centerCounter).setTexture(texture);
                 if (centerCounter != 0 && centerMap.get(centerCounter-1).getPosition().y < choiceSquare.getTexture().getHeight() + 5 ) {
                     centerMap.get(centerCounter).setPosition(new Vector2(Gdx.graphics.getWidth()*9/16,
@@ -109,8 +110,6 @@ public class PlayModeAi extends State {
 
     @Override
     public void render(SpriteBatch sb) {
-        Gdx.gl.glClearColor(1, 1, 1, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         if (firstTouch) {
             for (int i=0; i<leftCounter; i++) {
                 leftMap.get(i).move();
@@ -124,7 +123,7 @@ public class PlayModeAi extends State {
         }
         sb.begin();
         sb.draw(background, 0, 0);
-        sb.draw(choiceSquare.getTexture(), (float) Gdx.graphics.getWidth()*1/16, (float) Gdx.graphics.getHeight()*1/5);
+        sb.draw(choiceSquare.getTexture(), WIDTH*1/16, HEIGHT*1/5);
         if (firstTouch) {
             for (int i=0; i<leftCounter; i++) {
                 sb.draw(leftMap.get(i).getTexture(), leftMap.get(i).getPosition().x, leftMap.get(i).getPosition().y);
