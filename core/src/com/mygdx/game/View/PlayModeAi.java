@@ -20,7 +20,7 @@ import static com.mygdx.game.Squarz.WIDTH;
 
 public class PlayModeAi extends State {
     private Texture background;
-    private Square square;
+    private Square choiceSquare;
     private Map<Integer, Square> leftMap;
     private Map<Integer, Square> centerMap;
     private Map<Integer, Square> rightMap;
@@ -28,6 +28,8 @@ public class PlayModeAi extends State {
     private Integer leftCounter;
     private Integer centerCounter;
     private Integer rightCounter;
+    private Texture texture;
+    private Integer count;
 
     public PlayModeAi(GameStateManager gsm) {
         super(gsm);
@@ -35,23 +37,44 @@ public class PlayModeAi extends State {
         this.leftMap = new HashMap<Integer, Square>();
         this.centerMap = new HashMap<Integer, Square>();
         this.rightMap = new HashMap<Integer, Square>();
-        square = new Square();
+        choiceSquare = new Square();
         this.leftCounter = 0;
         this.centerCounter = 0;
         this.rightCounter = 0;
+        this.texture=new  Texture(Gdx.files.internal("square.png"));
+        this.count = 0;
 
     }
 
     @Override
     public void handleInput() {
         if(Gdx.input.justTouched()){
+            if(Gdx.input.getX()<WIDTH/4){
+                this.count = this.count + 1;
+                if (this.count == 3){
+                    this.count = 0;
+                }
+                if(this.count == 0) {
+                    this.texture = new Texture(Gdx.files.internal("square_red.png"));
+                }else {
+                    if(this.count == 1){
+                        this.texture = new Texture(Gdx.files.internal("square_blue.png"));
+                    }
+                    else {
+                        this.texture = new Texture(Gdx.files.internal("square_yellow.png"));
+                    }
+                }
+                this.choiceSquare.setTexture(texture);
+            }
+
             if(Gdx.input.getX()>WIDTH/4 && Gdx.input.getX()<WIDTH/2 ){
                 firstTouch = true;
                 leftMap.put(leftCounter, new Square());
                 leftMap.get(leftCounter).setPosition(new Vector2(WIDTH*5/16, 0));
-                if (leftCounter != 0 && leftMap.get(leftCounter-1).getPosition().y < square.getTexture().getHeight() + 5 ) {
+                leftMap.get(leftCounter).setTexture(texture);
+                if (leftCounter != 0 && leftMap.get(leftCounter-1).getPosition().y < choiceSquare.getTexture().getHeight() + 5 ) {
                     leftMap.get(leftCounter).setPosition(new Vector2(Gdx.graphics.getWidth()*5/16,
-                            leftMap.get(leftCounter-1).getPosition().y-square.getTexture().getHeight()-5));
+                            leftMap.get(leftCounter-1).getPosition().y-choiceSquare.getTexture().getHeight()-5));
                 }
                 leftCounter = leftCounter +1 ;
             }
@@ -59,18 +82,20 @@ public class PlayModeAi extends State {
                 firstTouch = true;
                 centerMap.put(centerCounter, new Square());
                 centerMap.get(centerCounter).setPosition(new Vector2(Gdx.graphics.getWidth()*9/16, 0));
-                if (centerCounter != 0 && centerMap.get(centerCounter-1).getPosition().y < square.getTexture().getHeight() + 5 ) {
+                centerMap.get(centerCounter).setTexture(texture);
+                if (centerCounter != 0 && centerMap.get(centerCounter-1).getPosition().y < choiceSquare.getTexture().getHeight() + 5 ) {
                     centerMap.get(centerCounter).setPosition(new Vector2(Gdx.graphics.getWidth()*9/16,
-                            centerMap.get(centerCounter-1).getPosition().y-square.getTexture().getHeight()-5));
+                            centerMap.get(centerCounter-1).getPosition().y-choiceSquare.getTexture().getHeight()-5));
                 }
                 centerCounter = centerCounter +1 ;
             }
             else if (Gdx.input.getX()>WIDTH*3/4){
                 rightMap.put(rightCounter, new Square());
                 rightMap.get(rightCounter).setPosition(new Vector2(Gdx.graphics.getWidth()*13/16, 0));
-                if (rightCounter != 0 && rightMap.get(rightCounter-1).getPosition().y < square.getTexture().getHeight() + 5 ) {
+                rightMap.get(rightCounter).setTexture(texture);
+                if (rightCounter != 0 && rightMap.get(rightCounter-1).getPosition().y < choiceSquare.getTexture().getHeight() + 5 ) {
                     rightMap.get(rightCounter).setPosition(new Vector2(Gdx.graphics.getWidth()*13/16,
-                            rightMap.get(rightCounter-1).getPosition().y-square.getTexture().getHeight()-5));
+                            rightMap.get(rightCounter-1).getPosition().y-choiceSquare.getTexture().getHeight()-5));
                 }
                 rightCounter = rightCounter +1 ;
             }
@@ -99,6 +124,7 @@ public class PlayModeAi extends State {
         }
         sb.begin();
         sb.draw(background, 0, 0);
+        sb.draw(choiceSquare.getTexture(), (float) Gdx.graphics.getWidth()*1/16, (float) Gdx.graphics.getHeight()*1/5);
         if (firstTouch) {
             for (int i=0; i<leftCounter; i++) {
                 sb.draw(leftMap.get(i).getTexture(), leftMap.get(i).getPosition().x, leftMap.get(i).getPosition().y);
@@ -116,6 +142,7 @@ public class PlayModeAi extends State {
     @Override
     public void dispose() {
         background.dispose();
+        choiceSquare.getTexture().dispose();
         if (firstTouch){
             for (int i=0; i<leftCounter; i++) {
                 leftMap.get(i).getTexture().dispose();

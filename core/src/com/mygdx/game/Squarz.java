@@ -25,7 +25,7 @@ public class Squarz extends ApplicationAdapter {
 		WIDTH = Gdx.graphics.getWidth();
 		HEIGHT = Gdx.graphics.getHeight();
 
-		gsm.push(new Menu(gsm));
+		gsm.push(new PlayModeAi(gsm));
 	}
 
 	@Override
