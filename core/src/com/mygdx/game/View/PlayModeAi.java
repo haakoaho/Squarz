@@ -13,6 +13,7 @@ import com.mygdx.game.model.State;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
 
 /**
@@ -40,6 +41,7 @@ public class PlayModeAi extends State {
         this.centerMap = new HashMap<Integer, Square>();
         this.rightMap = new HashMap<Integer, Square>();
         this.choiceSquare = new Square();
+        this.choiceSquare.setPosition(new Vector2(WIDTH * 1 / 16, HEIGHT * 1 / 5));
         this.leftCounter = 0;
         this.centerCounter = 0;
         this.rightCounter = 0;
