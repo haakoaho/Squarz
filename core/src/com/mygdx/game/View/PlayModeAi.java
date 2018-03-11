@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.control.GameStateManager;
+import com.mygdx.game.model.Score;
 import com.mygdx.game.model.Square;
 import com.mygdx.game.model.State;
 
@@ -30,6 +31,7 @@ public class PlayModeAi extends State {
     private Integer rightCounter;
     private Texture texture;
     private Integer count;
+    private Score score;
 
     public PlayModeAi(GameStateManager gsm) {
         super(gsm);
@@ -37,12 +39,13 @@ public class PlayModeAi extends State {
         this.leftMap = new HashMap<Integer, Square>();
         this.centerMap = new HashMap<Integer, Square>();
         this.rightMap = new HashMap<Integer, Square>();
-        choiceSquare = new Square();
+        this.choiceSquare = new Square();
         this.leftCounter = 0;
         this.centerCounter = 0;
         this.rightCounter = 0;
         this.texture=new  Texture(Gdx.files.internal("square.png"));
         this.count = 0;
+        this.score = new Score(0,0);
 
     }
 
