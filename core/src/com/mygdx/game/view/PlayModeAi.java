@@ -2,6 +2,7 @@ package com.mygdx.game.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
@@ -21,6 +22,7 @@ import static com.mygdx.game.Squarz.WIDTH;
  */
 
 public class PlayModeAi extends State implements GestureDetector.GestureListener {
+    BitmapFont fontTxt;
     private Texture background;
     private Square choiceSquare;
     private Map<Integer, Square> leftMap;
@@ -37,6 +39,8 @@ public class PlayModeAi extends State implements GestureDetector.GestureListener
 
     public PlayModeAi(GameStateManager gsm) {
         super(gsm);
+        fontTxt = new BitmapFont();
+        fontTxt.getData().setScale(3);
         this.background = new Texture(Gdx.files.internal("background.png"));
         this.leftMap = new HashMap<Integer, Square>();
         this.centerMap = new HashMap<Integer, Square>();
@@ -117,20 +121,23 @@ public class PlayModeAi extends State implements GestureDetector.GestureListener
         if (firstTouch) {
             for (int i = 0; i < leftCounter; i++) {
                 leftMap.get(i).move();
-                if (leftMap.get(i).getPosition().y == HEIGHT){
-                    this.score.setUserScore(this.score.getUserScore()+1);
+                if (leftMap.get(i).getPosition().y >= HEIGHT &&
+                        leftMap.get(i).getPosition().y < HEIGHT + this.choiceSquare.getSpeed().y){
+                    this.score.updateUser();
                 }
             }
             for (int i = 0; i < centerCounter; i++) {
                 centerMap.get(i).move();
-                if (centerMap.get(i).getPosition().y == HEIGHT){
-                    this.score.setUserScore(this.score.getUserScore()+1);
+                if ( centerMap.get(i).getPosition().y >= HEIGHT &&
+                        centerMap.get(i).getPosition().y < HEIGHT + this.choiceSquare.getSpeed().y){
+                    this.score.updateUser();
                 }
             }
             for (int i = 0; i < rightCounter; i++) {
                 rightMap.get(i).move();
-                if (rightMap.get(i).getPosition().y == HEIGHT){
-                    this.score.setUserScore(this.score.getUserScore()+1);
+                if (rightMap.get(i).getPosition().y >= HEIGHT &&
+                        rightMap.get(i).getPosition().y < HEIGHT + this.choiceSquare.getSpeed().y){
+                    this.score.updateUser();
                 }
             }
         }
@@ -149,6 +156,8 @@ public class PlayModeAi extends State implements GestureDetector.GestureListener
                 sb.draw(rightMap.get(i).getTexture(), rightMap.get(i).getPosition().x, rightMap.get(i).getPosition().y);
             }
         }
+        fontTxt.draw(sb, String.valueOf(score.getUserScore()),
+                WIDTH * 1/ 8 , HEIGHT/2 - HEIGHT/10);
         sb.end();
     }
 
@@ -212,6 +221,110 @@ public class PlayModeAi extends State implements GestureDetector.GestureListener
     @Override
     public void pinchStop() {
 
+    }
+
+    public BitmapFont getFontTxt() {
+        return fontTxt;
+    }
+
+    public void setFontTxt(BitmapFont fontTxt) {
+        this.fontTxt = fontTxt;
+    }
+
+    public Texture getBackground() {
+        return background;
+    }
+
+    public void setBackground(Texture background) {
+        this.background = background;
+    }
+
+    public Square getChoiceSquare() {
+        return choiceSquare;
+    }
+
+    public void setChoiceSquare(Square choiceSquare) {
+        this.choiceSquare = choiceSquare;
+    }
+
+    public Map<Integer, Square> getLeftMap() {
+        return leftMap;
+    }
+
+    public void setLeftMap(Map<Integer, Square> leftMap) {
+        this.leftMap = leftMap;
+    }
+
+    public Map<Integer, Square> getCenterMap() {
+        return centerMap;
+    }
+
+    public void setCenterMap(Map<Integer, Square> centerMap) {
+        this.centerMap = centerMap;
+    }
+
+    public Map<Integer, Square> getRightMap() {
+        return rightMap;
+    }
+
+    public void setRightMap(Map<Integer, Square> rightMap) {
+        this.rightMap = rightMap;
+    }
+
+    public boolean isFirstTouch() {
+        return firstTouch;
+    }
+
+    public void setFirstTouch(boolean firstTouch) {
+        this.firstTouch = firstTouch;
+    }
+
+    public Integer getLeftCounter() {
+        return leftCounter;
+    }
+
+    public void setLeftCounter(Integer leftCounter) {
+        this.leftCounter = leftCounter;
+    }
+
+    public Integer getCenterCounter() {
+        return centerCounter;
+    }
+
+    public void setCenterCounter(Integer centerCounter) {
+        this.centerCounter = centerCounter;
+    }
+
+    public Integer getRightCounter() {
+        return rightCounter;
+    }
+
+    public void setRightCounter(Integer rightCounter) {
+        this.rightCounter = rightCounter;
+    }
+
+    public Texture getTexture() {
+        return texture;
+    }
+
+    public void setTexture(Texture texture) {
+        this.texture = texture;
+    }
+
+    public Integer getCounter() {
+        return counter;
+    }
+
+    public void setCounter(Integer counter) {
+        this.counter = counter;
+    }
+
+    public Score getScore() {
+        return score;
+    }
+
+    public void setScore(Score score) {
+        this.score = score;
     }
 }
 
