@@ -142,7 +142,7 @@ public class PlayModeAi extends State implements GestureDetector.GestureListener
             }
         }
         sb.begin();
-        sb.draw(background, 0, 0);
+        sb.draw(background, 0, 0, WIDTH, HEIGHT);
         sb.draw(choiceSquare.getTexture(), WIDTH * 1 / 16, HEIGHT * 1 / 5);
         if (firstTouch) {
             for (int i = 0; i < leftCounter; i++) {
