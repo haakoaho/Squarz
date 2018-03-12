@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Squarz;
 import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.model.State;
+import com.mygdx.game.view.PlayModeAi;
+import com.mygdx.game.view.Preferences.AISetLevelState;
 
 import javax.xml.soap.Text;
 
@@ -33,8 +35,13 @@ public class Pref extends State {
     @Override
     public void handleInput() {
         if(Gdx.input.justTouched()) {
-            gsm.set(new Menu(gsm));
-            dispose();
+            if(Gdx.input.getY()<7*HEIGHT/10 && Gdx.input.getX()<WIDTH/2){
+                gsm.set(new PlayModeAi(gsm));
+                dispose();
+            } else {
+                gsm.set(new Menu(gsm));
+                dispose();
+            }
         }
     }
 //
