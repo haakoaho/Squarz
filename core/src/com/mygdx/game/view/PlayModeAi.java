@@ -48,7 +48,7 @@ public class PlayModeAi extends State implements GestureDetector.GestureListener
         this.rightCounter = 0;
         this.texture = new Texture(Gdx.files.internal("square.png"));
         score = new Score();
-
+        this.counter=0;
     }
 
     @Override

@@ -2,9 +2,16 @@ package com.mygdx.game.view.beginning;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Slider;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.model.State;
+
+import javax.swing.event.ChangeListener;
 
 import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
@@ -14,7 +21,7 @@ import static com.mygdx.game.Squarz.WIDTH;
  */
 
 public class Settings extends State {
-    Texture background, sound, vibration, back;
+    private Texture background, sound, vibration, back;
 
     public Settings(GameStateManager gsm) {
         super(gsm);
@@ -22,6 +29,8 @@ public class Settings extends State {
         sound = new Texture(Gdx.files.internal("settings/sound.png"));
         vibration = new Texture(Gdx.files.internal("settings/vibration.png"));
         back = new Texture(Gdx.files.internal("back.png"));
+
+
     }
 
     @Override
