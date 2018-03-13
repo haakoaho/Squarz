@@ -5,8 +5,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.control.GameStateManager;
-import com.mygdx.game.view.AIPreferences;
-import com.mygdx.game.view.EndModeAI;
 import com.mygdx.game.view.beginning.Menu;
 
 public class Squarz extends ApplicationAdapter {
@@ -14,16 +12,19 @@ public class Squarz extends ApplicationAdapter {
 	public static int WIDTH;
 	public static int HEIGHT;
 
+	public static int valueVolume, valueVibration;
+
 	private GameStateManager gsm;
 	private SpriteBatch batch;
 
-	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		gsm = new GameStateManager();
 		WIDTH = Gdx.graphics.getWidth();
 		HEIGHT = Gdx.graphics.getHeight();
+		valueVolume=50;
+		valueVibration=50;
 
 		gsm.push(new Menu(gsm));
 	}

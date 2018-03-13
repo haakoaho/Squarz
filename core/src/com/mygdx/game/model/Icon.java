@@ -10,12 +10,11 @@ import static com.mygdx.game.Squarz.HEIGHT;
  * Created by Lucas on 12/03/2018.
  */
 
-public class Icon extends Rectangle {
+public class Icon {
     private Texture texture;
     private int posx,posy;
 
     public Icon (Texture texture, int posx, int posy) {
-        super();
         this.texture = texture;
         this.posx=posx;
         this.posy=posy;
