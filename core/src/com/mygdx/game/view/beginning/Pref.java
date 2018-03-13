@@ -34,7 +34,7 @@ public class Pref extends State {
     public void handleInput() {
         if(Gdx.input.justTouched()) {
             if(Gdx.input.getY()<7*HEIGHT/10 && Gdx.input.getX()<WIDTH/2){
-                gsm.set(new PlayModeAi(gsm));
+                // gsm.set(new PlayModeAi(gsm));
                 dispose();
             } else {
                 gsm.set(new Menu(gsm));

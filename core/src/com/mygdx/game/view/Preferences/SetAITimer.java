@@ -17,7 +17,7 @@ import java.util.WeakHashMap;
 
 public class SetAITimer extends State {
     private PreferencesSettings set;
-    private Texture add, delete, timer, background;
+    private Texture add, delete, timer;
 
 
     public SetAITimer(GameStateManager gsm, PreferencesSettings setting){
@@ -26,7 +26,6 @@ public class SetAITimer extends State {
         this.add = new Texture(Gdx.files.internal("add.png"));
         this.delete = new Texture(Gdx.files.internal("delete.png"));
         this.timer = new Texture(Gdx.files.internal("ai_settings/setTimer.png"));
-        this.background = new Texture(Gdx.files.internal("background.png"));
     }
 
 
@@ -58,7 +57,6 @@ public class SetAITimer extends State {
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
-        sb.draw(background, 0, 0, Squarz.WIDTH, Squarz.HEIGHT);
         sb.draw(add, Gdx.graphics.getWidth()/2-add.getWidth()/2, Gdx.graphics.getHeight()*2/3-add.getHeight()/2);
         sb.draw(delete, Gdx.graphics.getWidth()/2-add.getWidth()/2, Gdx.graphics.getHeight()/3-add.getHeight()/2);
 

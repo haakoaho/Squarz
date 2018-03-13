@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.control.GameStateManager;
+import com.mygdx.game.view.AIPreferences;
 import com.mygdx.game.view.beginning.Menu;
 
 public class Squarz extends ApplicationAdapter {
@@ -23,12 +24,7 @@ public class Squarz extends ApplicationAdapter {
 		WIDTH = Gdx.graphics.getWidth();
 		HEIGHT = Gdx.graphics.getHeight();
 
-<<<<<<< HEAD
 		gsm.push(new AIPreferences(gsm));
-=======
-		gsm.push(new Menu(gsm));
-
->>>>>>> Lucas-le-BG-du-27
 	}
 
 	@Override

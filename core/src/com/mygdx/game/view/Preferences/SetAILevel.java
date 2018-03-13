@@ -14,7 +14,7 @@ import com.mygdx.game.model.State;
  */
 
 public class SetAILevel extends State{
-    private Texture background, add, delete, levelToDraw, beginer, medium, advanced, expert;
+    private Texture add, delete, levelToDraw, beginer, medium, advanced, expert;
     private PreferencesSettings set;
 
 
@@ -22,7 +22,6 @@ public class SetAILevel extends State{
         super(gsm);
         this.set = setting;
 
-        this.background = new Texture(Gdx.files.internal("background.png"));
         this.add = new Texture(Gdx.files.internal("add.png"));
         this.delete = new Texture(Gdx.files.internal("delete.png"));
         this.beginer = new Texture(Gdx.files.internal("ai_settings/ai_levels/beginer.png"));
@@ -57,8 +56,6 @@ public class SetAILevel extends State{
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
-        sb.draw(background, 0, 0, Squarz.WIDTH, Squarz.HEIGHT);
-
         sb.draw(add, Gdx.graphics.getWidth()/2-add.getWidth()/2, Gdx.graphics.getHeight()*2/3-add.getHeight()/2);
         sb.draw(delete, Gdx.graphics.getWidth()/2-add.getWidth()/2, Gdx.graphics.getHeight()/3-add.getHeight()/2);
         sb.draw(levelToDraw, Gdx.graphics.getWidth()/2-levelToDraw.getWidth()/2, Gdx.graphics.getHeight()/2-levelToDraw.getHeight()/2);

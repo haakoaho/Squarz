@@ -7,18 +7,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.control.GameStateManager;
-<<<<<<< HEAD
-import com.mygdx.game.control.aI.PreferencesSettings;
-import com.mygdx.game.model.Square;
-import com.mygdx.game.model.State;
-import com.mygdx.game.view.beginning.Pref;
-=======
 //import com.mygdx.game.model.CountDown;
+import com.mygdx.game.control.aI.PreferencesSettings;
 import com.mygdx.game.model.Score;
 import com.mygdx.game.model.Square;
 import com.mygdx.game.model.State;
 //import com.mygdx.game.view.beginning.Pref;
->>>>>>> Lucas-le-BG-du-27
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,17 +24,12 @@ import static com.mygdx.game.Squarz.WIDTH;
  * Created by Maxime Dc on 06/03/2018.
  */
 
-<<<<<<< HEAD
-public class PlayModeAi extends State {
-    private PreferencesSettings settings;
-    private Texture background;
-    private Square square;
-=======
+
 public class PlayModeAi extends State implements GestureDetector.GestureListener {
+    private PreferencesSettings settings;
     private BitmapFont fontTxt;
     private BitmapFont timeTxt;
     private Square choiceSquare;
->>>>>>> Lucas-le-BG-du-27
     private Map<Integer, Square> leftMap;
     private Map<Integer, Square> centerMap;
     private Map<Integer, Square> rightMap;
@@ -56,20 +45,8 @@ public class PlayModeAi extends State implements GestureDetector.GestureListener
 
     public PlayModeAi(GameStateManager gsm, PreferencesSettings settings) {
         super(gsm);
-<<<<<<< HEAD
-        this.background=new Texture(Gdx.files.internal("background.png"));
+
         this.settings = settings;
-
-        this.leftMap = new HashMap<Integer, Square>();
-        this.centerMap = new HashMap<Integer, Square>();
-        this.rightMap = new HashMap<Integer, Square>();
-
-        square = new Square();
-
-        this.leftCounter = 0;
-        this.centerCounter = 0;
-        this.rightCounter = 0;
-=======
         this.fontTxt = new BitmapFont();
         this.fontTxt.getData().setScale(3);
         this.timeTxt = new BitmapFont();
@@ -87,7 +64,6 @@ public class PlayModeAi extends State implements GestureDetector.GestureListener
         this.counter = 0;
         //this.countDown = new CountDown(1);
 
->>>>>>> Lucas-le-BG-du-27
     }
 
     @Override

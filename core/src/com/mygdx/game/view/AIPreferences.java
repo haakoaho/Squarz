@@ -19,13 +19,8 @@ import static com.mygdx.game.Squarz.WIDTH;
  */
 
 public class AIPreferences extends State {
-<<<<<<< HEAD
-    private Texture background;
-    private Texture setAILevel, setTimer, setBonuses, play;
-    private PreferencesSettings setting;
-=======
     private Texture setAILevel, setTimer, setBonuses, play, add, delete;
->>>>>>> Lucas-le-BG-du-27
+    private PreferencesSettings setting;
 
     public AIPreferences(GameStateManager gsm){
         super(gsm);
@@ -42,7 +37,6 @@ public class AIPreferences extends State {
     public AIPreferences(GameStateManager gsm, PreferencesSettings setting){
         super(gsm);
 
-        this.background = new Texture(Gdx.files.internal("background.png"));
         this.setAILevel = new Texture(Gdx.files.internal("ai_settings/setAILevel.png"));
         this.setTimer = new Texture(Gdx.files.internal("ai_settings/setTimer.png"));
         this.setBonuses = new Texture(Gdx.files.internal("ai_settings/setBonus.png"));
