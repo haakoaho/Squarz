@@ -61,7 +61,6 @@ public class AIPreferences extends State {
     @Override
     public void handleInput() {
         if (Gdx.input.justTouched()) {
-<<<<<<< HEAD
             int x = Gdx.input.getX();
             int y = HEIGHT - Gdx.input.getY();
             if (setAILevel.isIn(x,y)) {
@@ -71,15 +70,6 @@ public class AIPreferences extends State {
                 gsm.set(new SetAITimer(gsm, setting));
             }
             if (play.isIn(x,y)) {
-=======
-            if (Gdx.input.getY() < Gdx.graphics.getHeight() / 4 + 30) {
-                gsm.set(new SetAILevel(gsm, setting));
-            }
-            if (Gdx.input.getY() < Gdx.graphics.getHeight() / 2 && Gdx.input.getY() > Gdx.graphics.getHeight() / 4 + 30) {
-                gsm.set(new SetAITimer(gsm, setting));
-            }
-            if (Gdx.input.getY() > Gdx.graphics.getHeight() * 3 / 4) {
->>>>>>> mathieu
                 gsm.set(new PlayModeAi(gsm, setting));
             }
         }
@@ -103,12 +93,5 @@ public class AIPreferences extends State {
 
     @Override
     public void dispose() {
-<<<<<<< HEAD
-        setAILevel.getTexture().dispose();
-        setTimer.getTexture().dispose();
-        setBonuses.getTexture().dispose();
-        play.getTexture().dispose();
-=======
->>>>>>> mathieu
     }
 }
