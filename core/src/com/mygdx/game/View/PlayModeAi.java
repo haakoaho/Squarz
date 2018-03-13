@@ -11,6 +11,7 @@ import com.mygdx.game.model.CountDown;
 import com.mygdx.game.model.Score;
 import com.mygdx.game.model.Square;
 import com.mygdx.game.model.State;
+import com.mygdx.game.view.beginning.Menu;
 import com.mygdx.game.view.beginning.Pref;
 
 import java.util.HashMap;
@@ -57,7 +58,7 @@ public class PlayModeAi extends State implements GestureDetector.GestureListener
         this.texture = new Texture(Gdx.files.internal("square.png"));
         this.score = new Score();
         this.counter = 0;
-        this.countDown = new CountDown(300, 0);
+        this.countDown = new CountDown(10, 0);
 
     }
 
@@ -124,6 +125,10 @@ public class PlayModeAi extends State implements GestureDetector.GestureListener
 
     @Override
     public void render(SpriteBatch sb) {
+        if (this.countDown.getTimeUp()){
+            gsm.set(new Menu(gsm));
+
+        }
 
 
 
