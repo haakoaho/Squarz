@@ -5,8 +5,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.control.GameStateManager;
-import com.mygdx.game.view.AIPreferences;
-import com.mygdx.game.view.PlayModeAi;
 import com.mygdx.game.view.beginning.Menu;
 
 public class Squarz extends ApplicationAdapter {
@@ -25,12 +23,18 @@ public class Squarz extends ApplicationAdapter {
 		WIDTH = Gdx.graphics.getWidth();
 		HEIGHT = Gdx.graphics.getHeight();
 
+<<<<<<< HEAD
 		gsm.push(new AIPreferences(gsm));
+=======
+		gsm.push(new Menu(gsm));
+
+>>>>>>> Lucas-le-BG-du-27
 	}
 
 	@Override
 	public void render () {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		Gdx.gl.glClearColor(.84f,.84f,.84f, 1);
 
 		gsm.updtate(Gdx.graphics.getDeltaTime());
 		gsm.render(batch);

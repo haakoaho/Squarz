@@ -14,11 +14,10 @@ import static com.mygdx.game.Squarz.WIDTH;
  */
 
 public class History extends State {
-    Texture background, back;
+    Texture back;
 
     public History(GameStateManager gsm) {
         super(gsm);
-        background = new Texture(Gdx.files.internal("background.png"));
         back = new Texture(Gdx.files.internal("back.png"));
     }
 
@@ -38,14 +37,12 @@ public class History extends State {
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
-        sb.draw(background,0,0);
         sb.draw(back,back.getWidth()/2,back.getHeight()/2);
         sb.end();
     }
 
     @Override
     public void dispose() {
-        background.dispose();
         back.dispose();
     }
 }

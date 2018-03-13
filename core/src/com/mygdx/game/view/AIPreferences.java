@@ -19,14 +19,17 @@ import static com.mygdx.game.Squarz.WIDTH;
  */
 
 public class AIPreferences extends State {
+<<<<<<< HEAD
     private Texture background;
     private Texture setAILevel, setTimer, setBonuses, play;
     private PreferencesSettings setting;
+=======
+    private Texture setAILevel, setTimer, setBonuses, play, add, delete;
+>>>>>>> Lucas-le-BG-du-27
 
     public AIPreferences(GameStateManager gsm){
         super(gsm);
 
-        this.background = new Texture(Gdx.files.internal("background.png"));
         this.setAILevel = new Texture(Gdx.files.internal("ai_settings/setAILevel.png"));
         this.setTimer = new Texture(Gdx.files.internal("ai_settings/setTimer.png"));
         this.setBonuses = new Texture(Gdx.files.internal("ai_settings/setBonus.png"));
@@ -75,7 +78,6 @@ public class AIPreferences extends State {
     @Override
     public void render(SpriteBatch sb){
         sb.begin();
-        sb.draw(background, 0, 0, WIDTH, HEIGHT);
         sb.draw(setAILevel, WIDTH/2-setAILevel.getWidth()/2, HEIGHT*4/5-setAILevel.getHeight()/2);
         sb.draw(setTimer, WIDTH/2-setTimer.getWidth()/2, HEIGHT*3/5-setTimer.getHeight()/2);
         sb.draw(setBonuses, WIDTH/2-setBonuses.getWidth()/2, HEIGHT*2/5-setBonuses.getHeight()/2);
