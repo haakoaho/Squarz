@@ -4,15 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.control.GameStateManager;
+import com.mygdx.game.model.Ai;
 import com.mygdx.game.model.CountDown;
 import com.mygdx.game.model.Score;
 import com.mygdx.game.model.Square;
 import com.mygdx.game.model.State;
 import com.mygdx.game.view.beginning.Menu;
-import com.mygdx.game.view.beginning.Pref;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,14 +23,15 @@ import static com.mygdx.game.Squarz.WIDTH;
  * Created by Maxime Dc on 06/03/2018.
  */
 
-public class PlayModeAi extends State implements GestureDetector.GestureListener {
-    private BitmapFont fontTxt;
+public class PlayModeAi extends State {
+    private BitmapFont userScoreTxt;
+    private BitmapFont aiScoreTxt;
     private BitmapFont timeTxt;
     private Square choiceSquare;
     private Map<Integer, Square> leftMap;
     private Map<Integer, Square> centerMap;
     private Map<Integer, Square> rightMap;
-    private boolean firstTouch = false;
+    private Boolean firstTouch = false;
     private Integer leftCounter;
     private Integer centerCounter;
     private Integer rightCounter;
@@ -39,12 +39,15 @@ public class PlayModeAi extends State implements GestureDetector.GestureListener
     private Integer counter;
     private Score score;
     private CountDown countDown;
+    private Ai ai;
 
 
     public PlayModeAi(GameStateManager gsm) {
         super(gsm);
-        this.fontTxt = new BitmapFont();
-        this.fontTxt.getData().setScale(3);
+        this.userScoreTxt = new BitmapFont();
+        this.userScoreTxt.getData().setScale(3);
+        this.aiScoreTxt = new BitmapFont();
+        this.aiScoreTxt.getData().setScale(3);
         this.timeTxt = new BitmapFont();
         this.timeTxt.getData().setScale(3);
         this.leftMap = new HashMap<Integer, Square>();
@@ -59,6 +62,7 @@ public class PlayModeAi extends State implements GestureDetector.GestureListener
         this.score = new Score();
         this.counter = 0;
         this.countDown = new CountDown(10, 0);
+        this.ai = new Ai();
 
     }
 
@@ -105,6 +109,7 @@ public class PlayModeAi extends State implements GestureDetector.GestureListener
                 }
                 centerCounter = centerCounter + 1;
             } else if (Gdx.input.getX() > WIDTH * 3 / 4) {
+                firstTouch = true;
                 rightMap.put(rightCounter, new Square());
                 rightMap.get(rightCounter).setPosition(new Vector2(WIDTH * 13 / 16, 0));
                 rightMap.get(rightCounter).setTexture(texture);
@@ -129,6 +134,15 @@ public class PlayModeAi extends State implements GestureDetector.GestureListener
             gsm.set(new Menu(gsm));
 
         }
+
+        ai.send(countDown);
+
+        /* test management of time event
+        if ( this.countDown.getWorldTimer() == 5){
+            this.leftMap.put(0, new Square());
+            this.leftMap.get(0).setPosition(new Vector2(5/8*WIDTH, 0));
+        }
+        */
 
 
 
@@ -155,12 +169,34 @@ public class PlayModeAi extends State implements GestureDetector.GestureListener
                 }
             }
         }
+        //Ai squares
+        for (int i = 0; i < ai.getLeftCounter(); i++) {
+            ai.getLeftMap().get(i).reverseMove();
+            if (ai.getLeftMap().get(i).getPosition().y <= 0 &&
+                    ai.getLeftMap().get(i).getPosition().y > - this.choiceSquare.getSpeed().y){
+                this.score.updateAi();
+            }
+        }
+        for (int i = 0; i < ai.getCenterCounter(); i++) {
+            ai.getCenterMap().get(i).reverseMove();
+            if ( ai.getCenterMap().get(i).getPosition().y <= 0 &&
+                    ai.getCenterMap().get(i).getPosition().y > - this.choiceSquare.getSpeed().y){
+                this.score.updateAi();
+            }
+        }
+        for (int i = 0; i < ai.getRightCounter(); i++) {
+            ai.getRightMap().get(i).reverseMove();
+            if (ai.getRightMap().get(i).getPosition().y <= 0 &&
+                    ai.getRightMap().get(i).getPosition().y > - this.choiceSquare.getSpeed().y){
+                this.score.updateAi();
+            }
+        }
+
         sb.begin();
         sb.draw(choiceSquare.getTexture(), WIDTH * 1 / 16, HEIGHT * 1 / 5);
         if (firstTouch) {
             for (int i = 0; i < leftCounter; i++) {
                 sb.draw(leftMap.get(i).getTexture(), leftMap.get(i).getPosition().x, leftMap.get(i).getPosition().y);
-
             }
             for (int i = 0; i < centerCounter; i++) {
                 sb.draw(centerMap.get(i).getTexture(), centerMap.get(i).getPosition().x, centerMap.get(i).getPosition().y);
@@ -169,82 +205,39 @@ public class PlayModeAi extends State implements GestureDetector.GestureListener
                 sb.draw(rightMap.get(i).getTexture(), rightMap.get(i).getPosition().x, rightMap.get(i).getPosition().y);
             }
         }
-        fontTxt.draw(sb, String.valueOf(score.getUserScore()),
+
+        //Ai drawing
+        for (int i = 0; i < ai.getLeftCounter(); i++) {
+            sb.draw(ai.getLeftMap().get(i).getTexture(), ai.getLeftMap().get(i).getPosition().x, ai.getLeftMap().get(i).getPosition().y);
+        }
+        for (int i = 0; i < ai.getCenterCounter(); i++) {
+            sb.draw(ai.getCenterMap().get(i).getTexture(), ai.getCenterMap().get(i).getPosition().x, ai.getCenterMap().get(i).getPosition().y);
+        }
+        for (int i = 0; i < ai.getRightCounter(); i++) {
+            sb.draw(ai.getRightMap().get(i).getTexture(), ai.getRightMap().get(i).getPosition().x, ai.getRightMap().get(i).getPosition().y);
+        }
+        userScoreTxt.draw(sb, String.valueOf(score.getUserScore()),
                 WIDTH * 1/ 8 , HEIGHT/2 - HEIGHT/10);
 
-        //timeTxt.draw(sb, String.valueOf(this.countDown.getTime()),
-        //        WIDTH * 1/ 8 , HEIGHT/2 + HEIGHT/10);
+        aiScoreTxt.draw(sb, String.valueOf(score.getAiScore()),
+                WIDTH * 1/ 8 , HEIGHT/2 + HEIGHT*3/10);
+
+        timeTxt.draw(sb, String.valueOf(this.countDown.getCountdownLabel().getText()),
+                WIDTH * 1/ 8 - 3/2*this.countDown.getCountdownLabel().getWidth() , HEIGHT*3/4);
+
         sb.end();
     }
 
     @Override
     public void dispose() {
-        choiceSquare.getTexture().dispose();
-        if (firstTouch) {
-            for (int i = 0; i < leftCounter; i++) {
-                leftMap.get(i).getTexture().dispose();
-            }
-            for (int i = 0; i < centerCounter; i++) {
-                centerMap.get(i).getTexture().dispose();
-            }
-            for (int i = 0; i < rightCounter; i++) {
-                rightMap.get(i).getTexture().dispose();
-            }
-        }
-        countDown.dispose();
     }
 
-    @Override
-    public boolean touchDown(float x, float y, int pointer, int button) {
-        return false;
+    public BitmapFont getUserScoreTxt() {
+        return userScoreTxt;
     }
 
-    @Override
-    public boolean tap(float x, float y, int count, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean longPress(float x, float y) {
-        return false;
-    }
-
-    @Override
-    public boolean fling(float velocityX, float velocityY, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean pan(float x, float y, float deltaX, float deltaY) {
-        return false;
-    }
-
-    @Override
-    public boolean panStop(float x, float y, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean zoom(float initialDistance, float distance) {
-        return false;
-    }
-
-    @Override
-    public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) {
-        return false;
-    }
-
-    @Override
-    public void pinchStop() {
-
-    }
-
-    public BitmapFont getFontTxt() {
-        return fontTxt;
-    }
-
-    public void setFontTxt(BitmapFont fontTxt) {
-        this.fontTxt = fontTxt;
+    public void setUserScoreTxt(BitmapFont userScoreTxt) {
+        this.userScoreTxt = userScoreTxt;
     }
 
     public Square getChoiceSquare() {

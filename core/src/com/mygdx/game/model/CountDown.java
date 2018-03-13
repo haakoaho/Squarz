@@ -3,25 +3,28 @@ package com.mygdx.game.model;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.utils.Disposable;
 
 
 /**
  * Created by Antoine Dc on 12/03/2018.
  */
 
-public class CountDown implements Disposable {
+public class CountDown {
     private Integer worldTimer;
+    private Integer fullCounter;
     private float timeCount;
     private Label countdownLabel;
     private Boolean timeUp;
+    private Label timeLabel;
 
     public CountDown(Integer worldTimer, float timeCount) {
         this.worldTimer = worldTimer;
         this.timeCount = timeCount;
         this.countdownLabel = new Label(String.format("%03d", worldTimer),
                 new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        this.timeLabel = new Label("TIME", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         this.timeUp = false;
+        this.fullCounter = worldTimer;
     }
 
     public Integer getWorldTimer() {
@@ -69,8 +72,19 @@ public class CountDown implements Disposable {
         this.timeUp = timeUp;
     }
 
-    @Override
-    public void dispose() {
+    public Label getTimeLabel() {
+        return timeLabel;
+    }
 
+    public void setTimeLabel(Label timeLabel) {
+        this.timeLabel = timeLabel;
+    }
+
+    public Integer getFullCounter() {
+        return fullCounter;
+    }
+
+    public void setFullCounter(Integer fullCounter) {
+        this.fullCounter = fullCounter;
     }
 }
