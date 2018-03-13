@@ -80,8 +80,7 @@ public class PlayModeAi extends State {
             if(Gdx.input.getY()<HEIGHT/4){
                 gsm.set(new EndModeAI(gsm, settings, score));
             }
-
-
+            
             //Colour choice button
             if ((Gdx.input.getX() < WIDTH / 4) && (HEIGHT - Gdx.input.getY() >= this.choiceSquare.getPosition().y)
                     && (HEIGHT - Gdx.input.getY() <= this.choiceSquare.getPosition().y + this.choiceSquare.getTexture().getHeight()) ) {
