@@ -46,13 +46,13 @@ public class AIPreferences extends State {
     @Override
     public void handleInput() {
         if (Gdx.input.justTouched()) {
-            if (Gdx.input.getY() < Gdx.graphics.getHeight() / 4 + setAILevel.getHeight() / 2) {
+            if (Gdx.input.getY() < Gdx.graphics.getHeight() / 4 + 30) {
                 gsm.set(new SetAILevel(gsm, setting));
             }
-            if (Gdx.input.getY() < Gdx.graphics.getHeight() / 2 + setTimer.getHeight() / 2 && Gdx.input.getY() > Gdx.graphics.getHeight() / 4 - setTimer.getHeight() / 2) {
+            if (Gdx.input.getY() < Gdx.graphics.getHeight() / 2 && Gdx.input.getY() > Gdx.graphics.getHeight() / 4 + 30) {
                 gsm.set(new SetAITimer(gsm, setting));
             }
-            if (Gdx.input.getY() > Gdx.graphics.getHeight() *3 / 4 - play.getHeight() / 2) {
+            if (Gdx.input.getY() > Gdx.graphics.getHeight() * 3 / 4) {
                 gsm.set(new PlayModeAi(gsm, setting));
             }
         }
@@ -76,6 +76,5 @@ public class AIPreferences extends State {
 
     @Override
     public void dispose() {
-
     }
 }

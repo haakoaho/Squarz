@@ -1,7 +1,7 @@
 package com.mygdx.game.control.aI;
 
-import com.mygdx.game.control.Bonus;
-import com.mygdx.game.control.Timer;
+import com.mygdx.game.model.Bonus;
+import com.mygdx.game.model.Timer;
 
 /**
  * Created by mathi on 06/03/2018.
