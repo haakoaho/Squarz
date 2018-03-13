@@ -21,11 +21,7 @@ import static com.mygdx.game.Squarz.WIDTH;
  */
 
 public class Settings extends State {
-<<<<<<< HEAD
-    private Texture background, sound, vibration, back;
-=======
-    Texture sound, vibration, back;
->>>>>>> Maxime
+    private Texture sound, vibration, back;
 
     public Settings(GameStateManager gsm) {
         super(gsm);

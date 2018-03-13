@@ -23,7 +23,6 @@ import static com.mygdx.game.Squarz.WIDTH;
 
 public class PlayModeAi extends State implements GestureDetector.GestureListener {
     BitmapFont fontTxt;
-    private Texture background;
     private Square choiceSquare;
     private Map<Integer, Square> leftMap;
     private Map<Integer, Square> centerMap;
@@ -41,7 +40,6 @@ public class PlayModeAi extends State implements GestureDetector.GestureListener
         super(gsm);
         fontTxt = new BitmapFont();
         fontTxt.getData().setScale(3);
-        this.background = new Texture(Gdx.files.internal("background.png"));
         this.leftMap = new HashMap<Integer, Square>();
         this.centerMap = new HashMap<Integer, Square>();
         this.rightMap = new HashMap<Integer, Square>();
@@ -52,12 +50,8 @@ public class PlayModeAi extends State implements GestureDetector.GestureListener
         this.rightCounter = 0;
         this.texture = new Texture(Gdx.files.internal("square.png"));
         score = new Score();
-<<<<<<< HEAD
         this.counter=0;
-=======
-        this.counter = 0;
 
->>>>>>> Maxime
     }
 
     @Override
@@ -146,7 +140,6 @@ public class PlayModeAi extends State implements GestureDetector.GestureListener
             }
         }
         sb.begin();
-        sb.draw(background, 0, 0, WIDTH, HEIGHT);
         sb.draw(choiceSquare.getTexture(), WIDTH * 1 / 16, HEIGHT * 1 / 5);
         if (firstTouch) {
             for (int i = 0; i < leftCounter; i++) {
@@ -167,7 +160,6 @@ public class PlayModeAi extends State implements GestureDetector.GestureListener
 
     @Override
     public void dispose() {
-        background.dispose();
         choiceSquare.getTexture().dispose();
         if (firstTouch) {
             for (int i = 0; i < leftCounter; i++) {
@@ -233,14 +225,6 @@ public class PlayModeAi extends State implements GestureDetector.GestureListener
 
     public void setFontTxt(BitmapFont fontTxt) {
         this.fontTxt = fontTxt;
-    }
-
-    public Texture getBackground() {
-        return background;
-    }
-
-    public void setBackground(Texture background) {
-        this.background = background;
     }
 
     public Square getChoiceSquare() {
