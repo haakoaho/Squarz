@@ -7,9 +7,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.control.GameStateManager;
+//import com.mygdx.game.model.CountDown;
 import com.mygdx.game.model.Score;
 import com.mygdx.game.model.Square;
 import com.mygdx.game.model.State;
+//import com.mygdx.game.view.beginning.Pref;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +24,13 @@ import static com.mygdx.game.Squarz.WIDTH;
  */
 
 public class PlayModeAi extends State implements GestureDetector.GestureListener {
+<<<<<<< HEAD
     BitmapFont fontTxt;
+=======
+    private BitmapFont fontTxt;
+    private BitmapFont timeTxt;
+    private Texture background;
+>>>>>>> 5e75b03bd572479a6436f1fcd66f4e69897038ca
     private Square choiceSquare;
     private Map<Integer, Square> leftMap;
     private Map<Integer, Square> centerMap;
@@ -34,23 +42,38 @@ public class PlayModeAi extends State implements GestureDetector.GestureListener
     private Texture texture;
     private Integer counter;
     private Score score;
+    //private CountDown countDown;
 
 
     public PlayModeAi(GameStateManager gsm) {
         super(gsm);
+<<<<<<< HEAD
         fontTxt = new BitmapFont();
         fontTxt.getData().setScale(3);
+=======
+        this.fontTxt = new BitmapFont();
+        this.fontTxt.getData().setScale(3);
+        this.timeTxt = new BitmapFont();
+        this.timeTxt.getData().setScale(3);
+        this.background = new Texture(Gdx.files.internal("background.png"));
+>>>>>>> 5e75b03bd572479a6436f1fcd66f4e69897038ca
         this.leftMap = new HashMap<Integer, Square>();
         this.centerMap = new HashMap<Integer, Square>();
         this.rightMap = new HashMap<Integer, Square>();
-        choiceSquare = new Square();
+        this.choiceSquare = new Square();
         this.choiceSquare.setPosition(new Vector2(WIDTH * 1 / 16, HEIGHT * 1 / 5));
         this.leftCounter = 0;
         this.centerCounter = 0;
         this.rightCounter = 0;
         this.texture = new Texture(Gdx.files.internal("square.png"));
+<<<<<<< HEAD
         score = new Score();
         this.counter=0;
+=======
+        this.score = new Score();
+        this.counter = 0;
+        //this.countDown = new CountDown(1);
+>>>>>>> 5e75b03bd572479a6436f1fcd66f4e69897038ca
 
     }
 
@@ -116,6 +139,14 @@ public class PlayModeAi extends State implements GestureDetector.GestureListener
 
     @Override
     public void render(SpriteBatch sb) {
+
+        /*
+        if(this.countDown.getTime() > 0){
+            this.countDown.setTime(this.countDown.getTime()-this.countDown.getPeriod());
+        }else{
+            gsm.set(new Pref(gsm));
+        }
+*/
         if (firstTouch) {
             for (int i = 0; i < leftCounter; i++) {
                 leftMap.get(i).move();
@@ -155,6 +186,9 @@ public class PlayModeAi extends State implements GestureDetector.GestureListener
         }
         fontTxt.draw(sb, String.valueOf(score.getUserScore()),
                 WIDTH * 1/ 8 , HEIGHT/2 - HEIGHT/10);
+
+      // timeTxt.draw(sb, String.valueOf(this.countDown.getTime()),
+        //        WIDTH * 1/ 8 , HEIGHT/2 + HEIGHT/10);
         sb.end();
     }
 
