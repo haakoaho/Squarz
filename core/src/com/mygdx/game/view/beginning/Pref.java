@@ -3,13 +3,8 @@ package com.mygdx.game.view.beginning;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.Squarz;
 import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.model.State;
-import com.mygdx.game.view.PlayModeAi;
-import com.mygdx.game.view.Preferences.AISetLevelState;
-
-import javax.xml.soap.Text;
 
 import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
