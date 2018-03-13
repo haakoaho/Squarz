@@ -30,6 +30,7 @@ public class Squarz extends ApplicationAdapter {
 	@Override
 	public void render () {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		Gdx.gl.glClearColor(.84f,.84f,.84f, 1);
 
 		gsm.updtate(Gdx.graphics.getDeltaTime());
 		gsm.render(batch);
