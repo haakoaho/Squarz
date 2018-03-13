@@ -5,8 +5,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Squarz;
 import com.mygdx.game.control.GameStateManager;
+import com.mygdx.game.control.aI.PreferencesSettings;
 import com.mygdx.game.model.State;
-import com.mygdx.game.view.Preferences.AISetLevelState;
+import com.mygdx.game.view.Preferences.SetAILevel;
+import com.mygdx.game.view.Preferences.SetAITimer;
 
 /**
  * Created by mathi on 06/03/2018.
@@ -14,7 +16,8 @@ import com.mygdx.game.view.Preferences.AISetLevelState;
 
 public class AIPreferences extends State {
     private Texture background;
-    private Texture setAILevel, setTimer, setBonuses, play, add, delete;
+    private Texture setAILevel, setTimer, setBonuses, play;
+    private PreferencesSettings setting;
 
     public AIPreferences(GameStateManager gsm){
         super(gsm);
@@ -24,13 +27,31 @@ public class AIPreferences extends State {
         this.setTimer = new Texture(Gdx.files.internal("setTimer.png"));
         this.setBonuses = new Texture(Gdx.files.internal("setBonus.png"));
         this.play = new Texture(Gdx.files.internal("play.png"));
+
+        this.setting = new PreferencesSettings();
+    }
+
+    //used once a setting is changed
+    public AIPreferences(GameStateManager gsm, PreferencesSettings setting){
+        super(gsm);
+
+        this.background = new Texture(Gdx.files.internal("background.png"));
+        this.setAILevel = new Texture(Gdx.files.internal("setAILevel.png"));
+        this.setTimer = new Texture(Gdx.files.internal("setTimer.png"));
+        this.setBonuses = new Texture(Gdx.files.internal("setBonus.png"));
+        this.play = new Texture(Gdx.files.internal("play.png"));
+
+        this.setting = setting;
     }
 
     @Override
     public void handleInput() {
         if(Gdx.input.justTouched()){
-            if(Gdx.input.getY()<Gdx.graphics.getHeight()/4){
-                gsm.set(new AISetLevelState(gsm));
+            if(Gdx.input.getY()<Gdx.graphics.getHeight()/4+setAILevel.getHeight()/2){
+                gsm.set(new SetAILevel(gsm, setting));
+            }
+            if(Gdx.input.getY()<Gdx.graphics.getHeight()/2+setAILevel.getHeight()/2 && Gdx.input.getY()>Gdx.graphics.getHeight()/4+setAILevel.getHeight()/2){
+                gsm.set(new SetAITimer(gsm, setting));
             }
         }
     }
