@@ -1,4 +1,4 @@
-package com.mygdx.game.control;
+package com.mygdx.game.model;
 
 /**
  * Created by mathi on 12/03/2018.
