@@ -4,28 +4,35 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.control.GameStateManager;
+import com.mygdx.game.model.Icon;
 import com.mygdx.game.model.State;
 
 import static com.mygdx.game.Squarz.HEIGHT;
-import static com.mygdx.game.Squarz.WIDTH;
 
 /**
  * Created by Olivier on 06/03/2018.
  */
 
 public class History extends State {
-    Texture back;
+    Icon back;
 
     public History(GameStateManager gsm) {
         super(gsm);
-        back = new Texture(Gdx.files.internal("back.png"));
+        back = new Icon(new Texture(Gdx.files.internal("back.png")),0,0);
+
+        back.setPosx(back.getTexture().getWidth()/2);
+        back.setPosy(back.getTexture().getHeight()/2);
     }
 
     @Override
     public void handleInput() {
         if(Gdx.input.justTouched()) {
-            gsm.set(new Menu(gsm));
-            dispose();
+            int x = Gdx.input.getX();
+            int y = HEIGHT - Gdx.input.getY();
+            if (back.contains(x,y)) {
+                gsm.set(new Menu(gsm));
+                dispose();
+            }
         }
     }
 
@@ -37,12 +44,12 @@ public class History extends State {
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
-        sb.draw(back,back.getWidth()/2,back.getHeight()/2);
+        sb.draw(back.getTexture(),back.getPosx(),back.getPosy());
         sb.end();
     }
 
     @Override
     public void dispose() {
-        back.dispose();
+        back.getTexture().dispose();
     }
 }
