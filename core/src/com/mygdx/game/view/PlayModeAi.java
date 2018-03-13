@@ -7,11 +7,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.control.GameStateManager;
-//import com.mygdx.game.model.CountDown;
+import com.mygdx.game.model.CountDown;
 import com.mygdx.game.model.Score;
 import com.mygdx.game.model.Square;
 import com.mygdx.game.model.State;
-//import com.mygdx.game.view.beginning.Pref;
+import com.mygdx.game.view.beginning.Pref;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,7 +38,7 @@ public class PlayModeAi extends State implements GestureDetector.GestureListener
     private Texture texture;
     private Integer counter;
     private Score score;
-    //private CountDown countDown;
+    private CountDown countDown;
 
 
     public PlayModeAi(GameStateManager gsm) {
@@ -59,7 +59,7 @@ public class PlayModeAi extends State implements GestureDetector.GestureListener
         this.texture = new Texture(Gdx.files.internal("square.png"));
         this.score = new Score();
         this.counter = 0;
-        //this.countDown = new CountDown(1);
+        this.countDown = new CountDown(300, 0);
 
     }
 
@@ -121,18 +121,14 @@ public class PlayModeAi extends State implements GestureDetector.GestureListener
     @Override
     public void update(float dt) {
         handleInput();
+        countDown.update(dt);
     }
 
     @Override
     public void render(SpriteBatch sb) {
 
-        /*
-        if(this.countDown.getTime() > 0){
-            this.countDown.setTime(this.countDown.getTime()-this.countDown.getPeriod());
-        }else{
-            gsm.set(new Pref(gsm));
-        }
-*/
+
+
         if (firstTouch) {
             for (int i = 0; i < leftCounter; i++) {
                 leftMap.get(i).move();
@@ -174,7 +170,7 @@ public class PlayModeAi extends State implements GestureDetector.GestureListener
         fontTxt.draw(sb, String.valueOf(score.getUserScore()),
                 WIDTH * 1/ 8 , HEIGHT/2 - HEIGHT/10);
 
-      // timeTxt.draw(sb, String.valueOf(this.countDown.getTime()),
+        //timeTxt.draw(sb, String.valueOf(this.countDown.getTime()),
         //        WIDTH * 1/ 8 , HEIGHT/2 + HEIGHT/10);
         sb.end();
     }
@@ -194,6 +190,7 @@ public class PlayModeAi extends State implements GestureDetector.GestureListener
                 rightMap.get(i).getTexture().dispose();
             }
         }
+        countDown.dispose();
     }
 
     @Override
