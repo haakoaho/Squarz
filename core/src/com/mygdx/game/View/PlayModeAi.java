@@ -59,7 +59,7 @@ public class PlayModeAi extends State implements GestureDetector.GestureListener
         if (Gdx.input.justTouched()) {
             //go to end mode just to test it
             if(Gdx.input.getY()<HEIGHT/4){
-
+                gsm.set(new EndModeAI(gsm, settings, score));
             }
 
 

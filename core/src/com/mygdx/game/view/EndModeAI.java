@@ -4,10 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.control.GameStateManager;
+import com.mygdx.game.control.aI.PreferencesSettings;
 import com.mygdx.game.model.Score;
 import com.mygdx.game.model.State;
 
-import javax.swing.Icon;
 
 import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
@@ -17,27 +17,29 @@ import static com.mygdx.game.Squarz.WIDTH;
  */
 
 public class EndModeAI extends State {
-    private AIPreferences setting;
+    private PreferencesSettings setting;
     private Score score;
     private Texture gameOver, scoreTex;
     //private Icon replay, back;
     private Texture replay, backToMenu;
 
-    public EndModeAI(GameStateManager gsm, AIPreferences setting, Score s){
+    public EndModeAI(GameStateManager gsm, PreferencesSettings setting, Score s){
         super(gsm);
         this.setting = setting;
         this.score  = s;
         //vrai textures:
-        this.gameOver = new Texture(Gdx.files.internal("gameOver.png"));
-        this.scoreTex = new Texture(Gdx.files.internal("scoreTex.png"));
+        this.gameOver = new Texture(Gdx.files.internal("temporary/gameOver.png"));
+        this.scoreTex = new Texture(Gdx.files.internal("temporary/scoreTex.png"));
 
         //a mettre en icon:
-        this.replay = new Texture(Gdx.files.internal("replay.png"));
-        this.backToMenu = new Texture(Gdx.files.internal("backToMenu.png"));
+        this.replay = new Texture(Gdx.files.internal("endMode/replay.png"));
+        this.backToMenu = new Texture(Gdx.files.internal("endMode/backToMenu.png"));
     }
 
     @Override
     public void handleInput() {
+        if(Gdx.input.justTouched()){
+        }
 
     }
 
