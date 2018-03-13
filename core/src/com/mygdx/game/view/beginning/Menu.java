@@ -4,39 +4,47 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.control.GameStateManager;
+import com.mygdx.game.model.Icon;
 import com.mygdx.game.model.State;
 
 import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
 
 public class Menu extends State {
-    private Texture play, settings, history;
+    private Icon play, settings, history;
 
     public Menu(GameStateManager gsm) {
         super(gsm);
-        play = new Texture(Gdx.files.internal("menu/play.png"));
-        settings = new Texture(Gdx.files.internal("menu/settings.png"));
-        history = new Texture(Gdx.files.internal("menu/history.png"));
+        play = new Icon(new Texture(Gdx.files.internal("menu/play.png")),0,0);
+        settings = new Icon(new Texture(Gdx.files.internal("menu/settings.png")),0,0);
+        history = new Icon(new Texture(Gdx.files.internal("menu/history.png")),0,0);
+
+        play.setPosx(WIDTH/2-play.getTexture().getWidth()/2);
+        play.setPosy(HEIGHT*3/4-play.getTexture().getHeight()/2);
+        settings.setPosx(WIDTH/2-settings.getTexture().getWidth()/2);
+        settings.setPosy(HEIGHT*2/4-settings.getTexture().getHeight()/2);
+        history.setPosx(WIDTH/2-history.getTexture().getWidth()/2);
+        history.setPosy(HEIGHT*1/4-history.getTexture().getHeight()/2);
     }
 
     @Override
     public void handleInput() {
         if(Gdx.input.justTouched()){
-            if(Gdx.input.getY()<HEIGHT/3){
+            int x = Gdx.input.getX();
+            int y = HEIGHT - Gdx.input.getY();
+            if (play.isIn(x,y)) {
                 gsm.set(new Pref(gsm));
                 dispose();
             }
-            if(Gdx.input.getY()<2*HEIGHT/3 && Gdx.input.getY()>=HEIGHT/3){
+            if(settings.isIn(x,y)){
                 gsm.set(new Settings(gsm));
                 dispose();
             }
-            if(Gdx.input.getY()>=2*HEIGHT/3){
+            if(history.isIn(x,y)){
                 gsm.set(new History(gsm));
                 dispose();
             }
         }
-
-
     }
 
     @Override
@@ -47,17 +55,17 @@ public class Menu extends State {
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
-        sb.draw(play, WIDTH/2-play.getWidth()/2, HEIGHT*3/4-play.getHeight()/2);
-        sb.draw(settings, WIDTH/2-settings.getWidth()/2, HEIGHT*2/4-settings.getHeight()/2);
-        sb.draw(history, WIDTH/2-history.getWidth()/2, HEIGHT*1/4-history.getHeight()/2);
+        sb.draw(play.getTexture(), play.getPosx(), play.getPosy());
+        sb.draw(settings.getTexture(), settings.getPosx(), settings.getPosy());
+        sb.draw(history.getTexture(), history.getPosx(), history.getPosy());
         sb.end();
     }
 
     @Override
     public void dispose() {
-        play.dispose();
-        settings.dispose();
-        history.dispose();
+        play.getTexture().dispose();
+        settings.getTexture().dispose();
+        history.getTexture().dispose();
     }
 
 
