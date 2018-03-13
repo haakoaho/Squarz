@@ -7,8 +7,8 @@ import com.mygdx.game.Squarz;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.width = Squarz.WIDTH;
-		config.height = Squarz.HEIGHT;
+		config.width = 400;
+		config.height = 700;
 		new LwjglApplication(new Squarz(), config);
 	}
 }

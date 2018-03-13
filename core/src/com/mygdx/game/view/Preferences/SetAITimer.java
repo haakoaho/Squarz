@@ -25,7 +25,7 @@ public class SetAITimer extends State {
         this.set = setting;
         this.add = new Texture(Gdx.files.internal("add.png"));
         this.delete = new Texture(Gdx.files.internal("delete.png"));
-        this.timer = new Texture(Gdx.files.internal("settingTimer.png"));
+        this.timer = new Texture(Gdx.files.internal("ai_settings/setTimer.png"));
         this.background = new Texture(Gdx.files.internal("background.png"));
     }
 

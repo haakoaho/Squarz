@@ -25,10 +25,10 @@ public class SetAILevel extends State{
         this.background = new Texture(Gdx.files.internal("background.png"));
         this.add = new Texture(Gdx.files.internal("add.png"));
         this.delete = new Texture(Gdx.files.internal("delete.png"));
-        this.beginer = new Texture(Gdx.files.internal("settingBeginer.png"));
-        this.medium = new Texture(Gdx.files.internal("settingMedium.png"));
-        this.advanced = new Texture(Gdx.files.internal("settingAdvanced.png"));
-        this.expert = new Texture(Gdx.files.internal("settingExpert.png"));
+        this.beginer = new Texture(Gdx.files.internal("ai_settings/ai_levels/beginer.png"));
+        this.medium = new Texture(Gdx.files.internal("ai_settings/ai_levels/medium.png"));
+        this.advanced = new Texture(Gdx.files.internal("ai_settings/ai_levels/advanced.png"));
+        this.expert = new Texture(Gdx.files.internal("ai_settings/ai_levels/expert.png"));
 
         setTextureToDraw();
     }
