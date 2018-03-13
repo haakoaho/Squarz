@@ -8,7 +8,6 @@ import com.mygdx.game.model.Icon;
 import com.mygdx.game.model.State;
 
 import static com.mygdx.game.Squarz.HEIGHT;
-import static com.mygdx.game.Squarz.WIDTH;
 
 /**
  * Created by Olivier on 06/03/2018.
@@ -30,7 +29,7 @@ public class History extends State {
         if(Gdx.input.justTouched()) {
             int x = Gdx.input.getX();
             int y = HEIGHT - Gdx.input.getY();
-            if (back.isIn(x,y)) {
+            if (back.contains(x,y)) {
                 gsm.set(new Menu(gsm));
                 dispose();
             }

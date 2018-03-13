@@ -63,13 +63,13 @@ public class AIPreferences extends State {
         if (Gdx.input.justTouched()) {
             int x = Gdx.input.getX();
             int y = HEIGHT - Gdx.input.getY();
-            if (setAILevel.isIn(x,y)) {
+            if (setAILevel.contains(x,y)) {
                 gsm.set(new SetAILevel(gsm, setting));
             }
-            if (setTimer.isIn(x,y)) {
+            if (setTimer.contains(x,y)) {
                 gsm.set(new SetAITimer(gsm, setting));
             }
-            if (play.isIn(x,y)) {
+            if (play.contains(x,y)) {
                 gsm.set(new PlayModeAi(gsm, setting));
             }
         }

@@ -1,7 +1,6 @@
 package com.mygdx.game.view.beginning;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.model.Icon;
@@ -32,15 +31,15 @@ public class Menu extends State {
         if(Gdx.input.justTouched()){
             int x = Gdx.input.getX();
             int y = HEIGHT - Gdx.input.getY();
-            if (play.isIn(x,y)) {
+            if (play.contains(x,y)) {
                 gsm.set(new Pref(gsm));
                 dispose();
             }
-            if(settings.isIn(x,y)){
+            if(settings.contains(x,y)){
                 gsm.set(new Settings(gsm));
                 dispose();
             }
-            if(history.isIn(x,y)){
+            if(history.contains(x,y)){
                 gsm.set(new History(gsm));
                 dispose();
             }
