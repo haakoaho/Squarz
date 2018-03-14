@@ -4,14 +4,18 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.control.GameStateManager;
-import com.mygdx.game.control.aI.PreferencesSettings;
-import com.mygdx.game.model.Player;
+import com.mygdx.game.model.Ai;
+import com.mygdx.game.model.CountDown;
 import com.mygdx.game.model.Score;
 import com.mygdx.game.model.Square;
 import com.mygdx.game.model.State;
+import com.mygdx.game.view.beginning.Menu;
+import com.mygdx.game.control.aI.PreferencesSettings;
+import com.mygdx.game.model.Player;
+
+
 
 import java.util.Map;
 
@@ -23,35 +27,50 @@ import static com.mygdx.game.Squarz.WIDTH;
  */
 
 
-public class PlayModeAi extends State implements GestureDetector.GestureListener {
+public class PlayModeAi extends State {
     private PreferencesSettings settings;
-    private BitmapFont fontTxt;
+
+    private BitmapFont userScoreTxt;
+    private BitmapFont aiScoreTxt;
     private BitmapFont timeTxt;
+
     private Square choiceSquare;
-    private Player player;
-    private boolean firstTouch = false;
+    private Boolean firstTouch = false;
     private Texture texture;
     private Integer counter;
+
     private Score score;
+    private CountDown countDown;
+
+    private Ai ai;
+    private Player player;
+
 
 
     public PlayModeAi(GameStateManager gsm, PreferencesSettings settings) {
         super(gsm);
-
-        this.settings = settings;
-        this.fontTxt = new BitmapFont();
-        this.fontTxt.getData().setScale(3);
+        this.userScoreTxt = new BitmapFont();
+        this.userScoreTxt.getData().setScale(3);
+        this.aiScoreTxt = new BitmapFont();
+        this.aiScoreTxt.getData().setScale(3);
         this.timeTxt = new BitmapFont();
         this.timeTxt.getData().setScale(3);
 
+        this.settings = settings;
+
         player = new Player();
+        this.ai = new Ai();
 
         this.choiceSquare = new Square();
         this.choiceSquare.setPosition(new Vector2(WIDTH * 1 / 16, HEIGHT * 1 / 5));
 
         this.texture = new Texture(Gdx.files.internal("square.png"));
-        this.score = new Score();
         this.counter = 0;
+
+        this.score = new Score();
+
+        this.countDown = new CountDown(10, 0);
+
     }
 
     @Override
@@ -59,10 +78,9 @@ public class PlayModeAi extends State implements GestureDetector.GestureListener
         if (Gdx.input.justTouched()) {
             //go to end mode just to test it
             if(Gdx.input.getY()<HEIGHT/4){
-
+                gsm.set(new EndModeAI(gsm, settings, score));
             }
-
-
+            
             //Colour choice button
             if ((Gdx.input.getX() < WIDTH / 4) && (HEIGHT - Gdx.input.getY() >= this.choiceSquare.getPosition().y)
                     && (HEIGHT - Gdx.input.getY() <= this.choiceSquare.getPosition().y + this.choiceSquare.getTexture().getHeight()) ) {
@@ -101,6 +119,15 @@ public class PlayModeAi extends State implements GestureDetector.GestureListener
     @Override
     public void update(float dt) {
         handleInput();
+
+        countDown.update(dt);
+        if (this.countDown.getTimeUp()){
+            gsm.set(new Menu(gsm));
+        }
+
+        ai.send(countDown);
+
+
         if (firstTouch) {
             for (int i = 0; i < player.getLeftCounter(); i++) {
                 player.getLeft().get(i).move();
@@ -124,7 +151,30 @@ public class PlayModeAi extends State implements GestureDetector.GestureListener
                 }
             }
         }
+        //Ai squares
+        for (int i = 0; i < ai.getLeftCounter(); i++) {
+            ai.getLeftMap().get(i).reverseMove();
+            if (ai.getLeftMap().get(i).getPosition().y <= 0 &&
+                    ai.getLeftMap().get(i).getPosition().y > - this.choiceSquare.getSpeed().y){
+                this.score.updateAi();
+            }
+        }
+        for (int i = 0; i < ai.getCenterCounter(); i++) {
+            ai.getCenterMap().get(i).reverseMove();
+            if ( ai.getCenterMap().get(i).getPosition().y <= 0 &&
+                    ai.getCenterMap().get(i).getPosition().y > - this.choiceSquare.getSpeed().y){
+                this.score.updateAi();
+            }
+        }
+        for (int i = 0; i < ai.getRightCounter(); i++) {
+            ai.getRightMap().get(i).reverseMove();
+            if (ai.getRightMap().get(i).getPosition().y <= 0 &&
+                    ai.getRightMap().get(i).getPosition().y > - this.choiceSquare.getSpeed().y){
+                this.score.updateAi();
+            }
+        }
     }
+
 
     @Override
     public void render(SpriteBatch sb) {
@@ -141,11 +191,25 @@ public class PlayModeAi extends State implements GestureDetector.GestureListener
                 sb.draw(player.getRight().get(i).getTexture(), player.getRight().get(i).getPosition().x, player.getRight().get(i).getPosition().y);
             }
         }
-        fontTxt.draw(sb, String.valueOf(score.getUserScore()),
-                WIDTH * 1/ 8 , HEIGHT/2 - HEIGHT/10);
 
-      // timeTxt.draw(sb, String.valueOf(this.countDown.getTime()),
-        //        WIDTH * 1/ 8 , HEIGHT/2 + HEIGHT/10);
+        //Ai drawing
+        for (int i = 0; i < ai.getLeftCounter(); i++) {
+            sb.draw(ai.getLeftMap().get(i).getTexture(), ai.getLeftMap().get(i).getPosition().x, ai.getLeftMap().get(i).getPosition().y);
+        }
+        for (int i = 0; i < ai.getCenterCounter(); i++) {
+            sb.draw(ai.getCenterMap().get(i).getTexture(), ai.getCenterMap().get(i).getPosition().x, ai.getCenterMap().get(i).getPosition().y);
+        }
+        for (int i = 0; i < ai.getRightCounter(); i++) {
+            sb.draw(ai.getRightMap().get(i).getTexture(), ai.getRightMap().get(i).getPosition().x, ai.getRightMap().get(i).getPosition().y);
+        }
+
+        userScoreTxt.draw(sb, String.valueOf(score.getUserScore()),
+                WIDTH * 1/ 8 , HEIGHT/2 - HEIGHT/10);
+        aiScoreTxt.draw(sb, String.valueOf(score.getAiScore()),
+                WIDTH * 1/ 8 , HEIGHT/2 + HEIGHT*3/10);
+
+        timeTxt.draw(sb, String.valueOf(this.countDown.getCountdownLabel().getText()),
+                WIDTH * 1/ 8 - 3/2*this.countDown.getCountdownLabel().getWidth() , HEIGHT*3/4);
         sb.end();
     }
 
@@ -153,57 +217,16 @@ public class PlayModeAi extends State implements GestureDetector.GestureListener
     public void dispose() {
     }
 
-    @Override
-    public boolean touchDown(float x, float y, int pointer, int button) {
-        return false;
+
+
+
+
+    public BitmapFont getUserScoreTxt() {
+        return userScoreTxt;
     }
 
-    @Override
-    public boolean tap(float x, float y, int count, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean longPress(float x, float y) {
-        return false;
-    }
-
-    @Override
-    public boolean fling(float velocityX, float velocityY, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean pan(float x, float y, float deltaX, float deltaY) {
-        return false;
-    }
-
-    @Override
-    public boolean panStop(float x, float y, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean zoom(float initialDistance, float distance) {
-        return false;
-    }
-
-    @Override
-    public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) {
-        return false;
-    }
-
-    @Override
-    public void pinchStop() {
-
-    }
-
-    public BitmapFont getFontTxt() {
-        return fontTxt;
-    }
-
-    public void setFontTxt(BitmapFont fontTxt) {
-        this.fontTxt = fontTxt;
+    public void setUserScoreTxt(BitmapFont userScoreTxt) {
+        this.userScoreTxt = userScoreTxt;
     }
 
     public Square getChoiceSquare() {

@@ -8,8 +8,6 @@ import com.mygdx.game.model.Icon;
 import com.mygdx.game.model.State;
 import com.mygdx.game.view.AIPreferences;
 
-import java.awt.Rectangle;
-
 import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
 
@@ -45,11 +43,11 @@ public class Pref extends State {
         if(Gdx.input.justTouched()) {
             int x = Gdx.input.getX();
             int y = HEIGHT - Gdx.input.getY();
-            if(ai.isIn(x,y)){
+            if(ai.contains(x,y)){
                 gsm.set(new AIPreferences(gsm));
                 dispose();
             }
-            if (back.isIn(x,y)) {
+            if (back.contains(x,y)) {
                 gsm.set(new Menu(gsm));
                 dispose();
             }

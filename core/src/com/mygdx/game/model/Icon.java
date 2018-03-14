@@ -44,7 +44,7 @@ public class Icon {
         this.posy = posy;
     }
 
-    public boolean isIn(int x, int y) {  // return true if (x,y) is in the icon (this = the icon)
+    public boolean contains(int x, int y) {  // return true if (x,y) is in the icon (this = the icon)
         return (this.posx < x && x < this.posx + this.texture.getWidth() && this.posy < y && y < this.posy + this.texture.getHeight());
     }
 }

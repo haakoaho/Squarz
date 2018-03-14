@@ -22,6 +22,7 @@ public class Square {
         this.speed = new Vector2(0, 4);
     }
 
+
     public Sprite getSprite() {
         return sprite;
     }
@@ -56,5 +57,9 @@ public class Square {
 
     public void move(){
         this.setPosition(new Vector2(this.getPosition().x, this.getPosition().y + this.getSpeed().y));
+    }
+
+    public void reverseMove(){
+        this.setPosition(new Vector2(this.getPosition().x, this.getPosition().y - this.getSpeed().y));
     }
 }

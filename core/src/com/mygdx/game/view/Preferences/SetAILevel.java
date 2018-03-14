@@ -3,7 +3,6 @@ package com.mygdx.game.view.Preferences;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.Squarz;
 import com.mygdx.game.control.aI.PreferencesSettings;
 import com.mygdx.game.model.Icon;
 import com.mygdx.game.view.AIPreferences;
@@ -43,15 +42,15 @@ public class SetAILevel extends State{
         if(Gdx.input.justTouched()){
             int x = Gdx.input.getX();
             int y = HEIGHT - Gdx.input.getY();
-            if(add.isIn(x,y)){ //add
+            if(add.contains(x,y)){ //add
                 this.set.AILevelUp();
                 setTextureToDraw();
             }
-            if(delete.isIn(x,y)){ //delete
+            if(delete.contains(x,y)){ //delete
                 this.set.AILevelDown();
                 setTextureToDraw();
             }
-            if(levelToDraw.isIn(x,y)){
+            if(levelToDraw.contains(x,y)){
                 gsm.set(new AIPreferences(gsm, set));
             }
         }

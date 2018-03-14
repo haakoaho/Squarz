@@ -3,14 +3,11 @@ package com.mygdx.game.view.Preferences;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.Squarz;
 import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.control.aI.PreferencesSettings;
 import com.mygdx.game.model.Icon;
 import com.mygdx.game.model.State;
 import com.mygdx.game.view.AIPreferences;
-
-import java.util.WeakHashMap;
 
 import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
@@ -45,17 +42,17 @@ public class SetAITimer extends State {
         if(Gdx.input.justTouched()){
             int x = Gdx.input.getX();
             int y = HEIGHT - Gdx.input.getY();
-            if(add.isIn(x,y)) { //add
+            if(add.contains(x,y)) { //add
                 if (this.set.getTimer().getDuration() != 60) {
                     this.set.getTimer().increment();
                 }
             }
-            if(delete.isIn(x,y)) { //delete
+            if(delete.contains(x,y)) { //delete
                 if (this.set.getTimer().getDuration() != 30) {
                     this.set.getTimer().decrement();
                 }
             }
-            if(timer.isIn(x,y)){
+            if(timer.contains(x,y)){
                 gsm.set(new AIPreferences(gsm, set));
             }
         }
