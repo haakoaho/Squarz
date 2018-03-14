@@ -19,24 +19,16 @@ public class Square {
     private Sprite sprite;
     private Texture texture;
     private Vector2 position;
-<<<<<<< HEAD
     private int speed;
-=======
-    private Vector2 speed;
     private Rectangle rectangle;
->>>>>>> Maxime
 
     public Square (){
         this.texture = new Texture(Gdx.files.internal("square.png"));
         this.sprite = new Sprite(texture);
         this.position = new Vector2 (0, 0);
-<<<<<<< HEAD
-        this.speed = 0;
-=======
-        this.speed = new Vector2(0, 4);
+        this.speed = 4;
         this.rectangle = new Rectangle(this.getPosition().x, this.getPosition().y,
                 this.getTexture().getWidth(), this.getTexture().getHeight());
->>>>>>> Maxime
     }
 
 
