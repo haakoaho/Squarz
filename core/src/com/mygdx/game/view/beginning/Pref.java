@@ -26,16 +26,16 @@ public class Pref extends State {
         answer = new Icon(new Texture(Gdx.files.internal("modes/answer.png")),0,0);
         back = new Icon(new Texture(Gdx.files.internal("back.png")),0,0);
 
-        ai.setPosx(WIDTH/4-ai.getTexture().getWidth()/2);
-        ai.setPosy(7*HEIGHT/10-ai.getTexture().getHeight()/2);
-        quick.setPosx(3*WIDTH/4-quick.getTexture().getWidth()/2);
-        quick.setPosy(7*HEIGHT/10-quick.getTexture().getHeight()/2);
-        invite.setPosx(WIDTH/4-invite.getTexture().getWidth()/2);
-        invite.setPosy(3*HEIGHT/10-invite.getTexture().getHeight()/2);
-        answer.setPosx(3*WIDTH/4-answer.getTexture().getWidth()/2);
-        answer.setPosy(3*HEIGHT/10-answer.getTexture().getHeight()/2);
-        back.setPosx(back.getTexture().getWidth()/2);
-        back.setPosy(back.getTexture().getHeight()/2);
+        ai.setPosX(WIDTH/4-ai.getTexture().getWidth()/2);
+        ai.setPosY(7*HEIGHT/10-ai.getTexture().getHeight()/2);
+        quick.setPosX(3*WIDTH/4-quick.getTexture().getWidth()/2);
+        quick.setPosY(7*HEIGHT/10-quick.getTexture().getHeight()/2);
+        invite.setPosX(WIDTH/4-invite.getTexture().getWidth()/2);
+        invite.setPosY(3*HEIGHT/10-invite.getTexture().getHeight()/2);
+        answer.setPosX(3*WIDTH/4-answer.getTexture().getWidth()/2);
+        answer.setPosY(3*HEIGHT/10-answer.getTexture().getHeight()/2);
+        back.setPosX(back.getTexture().getWidth()/2);
+        back.setPosY(back.getTexture().getHeight()/2);
     }
 
     @Override
@@ -62,11 +62,11 @@ public class Pref extends State {
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
-        sb.draw(ai.getTexture(), ai.getPosx(),ai.getPosy() );
-        sb.draw(quick.getTexture(),quick.getPosx() ,quick.getPosy() );
-        sb.draw(invite.getTexture(), invite.getPosx(), invite.getPosy());
-        sb.draw(answer.getTexture(),answer.getPosx(),answer.getPosy());
-        sb.draw(back.getTexture(),back.getPosx(),back.getPosy());
+        sb.draw(ai.getTexture(), ai.getPosX(),ai.getPosY() );
+        sb.draw(quick.getTexture(),quick.getPosX() ,quick.getPosY() );
+        sb.draw(invite.getTexture(), invite.getPosX(), invite.getPosY());
+        sb.draw(answer.getTexture(),answer.getPosX(),answer.getPosY());
+        sb.draw(back.getTexture(),back.getPosX(),back.getPosY());
         sb.end();
     }
 

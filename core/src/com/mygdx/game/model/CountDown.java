@@ -64,7 +64,7 @@ public class CountDown {
         this.countdownLabel = countdownLabel;
     }
 
-    public Boolean getTimeUp() {
+    public Boolean isTimeUp() {
         return timeUp;
     }
 

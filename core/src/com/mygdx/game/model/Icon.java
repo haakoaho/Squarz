@@ -4,21 +4,18 @@ import com.badlogic.gdx.graphics.Texture;
 
 import java.awt.Rectangle;
 
-import static com.mygdx.game.Squarz.HEIGHT;
-
 /**
  * Created by Lucas on 12/03/2018.
  */
 
-public class Icon extends Rectangle {
+public class Icon {
     private Texture texture;
-    private int posx,posy;
+    private int posX, posY;
 
     public Icon (Texture texture, int posx, int posy) {
-        super();
         this.texture = texture;
-        this.posx=posx;
-        this.posy=posy;
+        this.posX = posx;
+        this.posY = posy;
     }
 
     public Texture getTexture() {
@@ -29,23 +26,23 @@ public class Icon extends Rectangle {
         this.texture = texture;
     }
 
-    public int getPosx() {
-        return this.posx;
+    public int getPosX() {
+        return this.posX;
     }
 
-    public void setPosx (int posx) {
-        this.posx = posx;
+    public void setPosX(int posX) {
+        this.posX = posX;
     }
 
-    public int getPosy() {
-        return this.posy;
+    public int getPosY() {
+        return this.posY;
     }
 
-    public void setPosy (int posy) {
-        this.posy = posy;
+    public void setPosY(int posY) {
+        this.posY = posY;
     }
 
     public boolean contains(int x, int y) {  // return true if (x,y) is in the icon (this = the icon)
-        return (this.posx < x && x < this.posx + this.texture.getWidth() && this.posy < y && y < this.posy + this.texture.getHeight());
+        return (this.posX < x && x < this.posX + this.texture.getWidth() && this.posY < y && y < this.posY + this.texture.getHeight());
     }
 }

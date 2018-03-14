@@ -28,12 +28,12 @@ public class SetAITimer extends State {
         timer = new Icon(new Texture(Gdx.files.internal("ai_settings/setTimer.png")),0,0);
         set = setting;
 
-        add.setPosx(WIDTH/2-add.getTexture().getWidth()/2);
-        add.setPosy(HEIGHT*2/3-add.getTexture().getHeight()/2);
-        delete.setPosx(WIDTH/2-add.getTexture().getWidth()/2);
-        delete.setPosy(HEIGHT/3-add.getTexture().getHeight()/2);
-        timer.setPosx(WIDTH/2-timer.getTexture().getWidth()/2);
-        timer.setPosy(HEIGHT/2 - timer.getTexture().getHeight()/2);
+        add.setPosX(WIDTH/2-add.getTexture().getWidth()/2);
+        add.setPosY(HEIGHT*2/3-add.getTexture().getHeight()/2);
+        delete.setPosX(WIDTH/2-add.getTexture().getWidth()/2);
+        delete.setPosY(HEIGHT/3-add.getTexture().getHeight()/2);
+        timer.setPosX(WIDTH/2-timer.getTexture().getWidth()/2);
+        timer.setPosY(HEIGHT/2 - timer.getTexture().getHeight()/2);
     }
 
 
@@ -68,20 +68,20 @@ public class SetAITimer extends State {
     public void render(SpriteBatch sb) {
         sb.begin();
 
-        sb.draw(add.getTexture(), add.getPosx(), add.getPosy());
-        sb.draw(delete.getTexture(),delete.getPosx(), delete.getPosy());
+        sb.draw(add.getTexture(), add.getPosX(), add.getPosY());
+        sb.draw(delete.getTexture(),delete.getPosX(), delete.getPosY());
 
         if(this.set.getTimer().getDuration() == 30){
-            sb.draw(timer.getTexture(),timer.getPosx() ,timer.getPosy());
+            sb.draw(timer.getTexture(),timer.getPosX() ,timer.getPosY());
         }
         if(this.set.getTimer().getDuration() == 45){
-            sb.draw(timer.getTexture(),timer.getPosx()-timer.getTexture().getWidth()/2 -5 ,timer.getPosy());
-            sb.draw(timer.getTexture(),timer.getPosx()+timer.getTexture().getWidth()/2 +5,timer.getPosy());
+            sb.draw(timer.getTexture(),timer.getPosX()-timer.getTexture().getWidth()/2 -5 ,timer.getPosY());
+            sb.draw(timer.getTexture(),timer.getPosX()+timer.getTexture().getWidth()/2 +5,timer.getPosY());
         }
         if(this.set.getTimer().getDuration() == 60){
-            sb.draw(timer.getTexture(),timer.getPosx()-timer.getTexture().getWidth()-10 ,timer.getPosy());
-            sb.draw(timer.getTexture(),timer.getPosx() ,timer.getPosy());
-            sb.draw(timer.getTexture(),timer.getPosx()+timer.getTexture().getWidth()+10 ,timer.getPosy());
+            sb.draw(timer.getTexture(),timer.getPosX()-timer.getTexture().getWidth()-10 ,timer.getPosY());
+            sb.draw(timer.getTexture(),timer.getPosX() ,timer.getPosY());
+            sb.draw(timer.getTexture(),timer.getPosX()+timer.getTexture().getWidth()+10 ,timer.getPosY());
         }
 
 

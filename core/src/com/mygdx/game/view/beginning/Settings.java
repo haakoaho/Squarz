@@ -23,12 +23,12 @@ public class Settings extends State {
         vibration = new Icon(new Texture(Gdx.files.internal("settings/vibration.png")),0,0);
         back = new Icon(new Texture(Gdx.files.internal("back.png")),0,0);
 
-        sound.setPosx(WIDTH/6-sound.getTexture().getWidth()/2);
-        sound.setPosy(7*HEIGHT/10-sound.getTexture().getHeight()/2);
-        vibration.setPosx(WIDTH/6-vibration.getTexture().getWidth()/2);
-        vibration.setPosy(3*HEIGHT/10-vibration.getTexture().getHeight()/2);
-        back.setPosx(back.getTexture().getWidth()/2);
-        back.setPosy(back.getTexture().getHeight()/2);
+        sound.setPosX(WIDTH/6-sound.getTexture().getWidth()/2);
+        sound.setPosY(7*HEIGHT/10-sound.getTexture().getHeight()/2);
+        vibration.setPosX(WIDTH/6-vibration.getTexture().getWidth()/2);
+        vibration.setPosY(3*HEIGHT/10-vibration.getTexture().getHeight()/2);
+        back.setPosX(back.getTexture().getWidth()/2);
+        back.setPosY(back.getTexture().getHeight()/2);
 
     }
 
@@ -52,9 +52,9 @@ public class Settings extends State {
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
-        sb.draw(sound.getTexture(),sound.getPosx() ,sound.getPosy());
-        sb.draw(vibration.getTexture(),vibration.getPosx(),vibration.getPosy());
-        sb.draw(back.getTexture(),back.getPosx(),back.getPosy());
+        sb.draw(sound.getTexture(),sound.getPosX() ,sound.getPosY());
+        sb.draw(vibration.getTexture(),vibration.getPosX(),vibration.getPosY());
+        sb.draw(back.getTexture(),back.getPosX(),back.getPosY());
         sb.end();
     }
 

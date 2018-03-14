@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
 
 /**
@@ -87,6 +88,34 @@ public class Player {
             row.get(counter).setPosition(new Vector2(WIDTH * 13 / 16, 0));
             row.get(counter).setTexture(t);
             if (counter != 0 && row.get(counter - 1).getPosition().y < t.getHeight() + 5) {
+                row.get(counter).setPosition(new Vector2(Gdx.graphics.getWidth() * 13 / 16,
+                        row.get(counter - 1).getPosition().y - t.getHeight() - 5));
+            }
+        }
+    }
+
+    public void incrementAI(Map<Integer, Square> row, Integer counter, Texture t, Integer columnKey){
+        row.put(counter, new Square());
+        if(columnKey == 0) {
+            row.get(counter).setPosition(new Vector2(WIDTH * 5 / 16, HEIGHT));
+            row.get(counter).setTexture(t);
+            if (counter != 0 && row.get(counter - 1).getPosition().y >= HEIGHT - (t.getHeight()) - 5) {
+                row.get(counter).setPosition(new Vector2(Gdx.graphics.getWidth() * 5 / 16,
+                        row.get(counter - 1).getPosition().y - t.getHeight() - 5));
+            }
+        }
+        else if(columnKey == 1){
+            row.get(counter).setPosition(new Vector2(WIDTH * 9 / 16, HEIGHT));
+            row.get(counter).setTexture(t);
+            if (counter != 0 && row.get(counter - 1).getPosition().y >= HEIGHT - (t.getHeight()) - 5) {
+                row.get(counter).setPosition(new Vector2(Gdx.graphics.getWidth() * 9 / 16,
+                        row.get(counter - 1).getPosition().y - t.getHeight() - 5));
+            }
+        }
+        else if( columnKey == 2){
+            row.get(counter).setPosition(new Vector2(WIDTH * 13 / 16, HEIGHT));
+            row.get(counter).setTexture(t);
+            if (counter != 0 && row.get(counter - 1).getPosition().y >= HEIGHT - (t.getHeight()) - 5) {
                 row.get(counter).setPosition(new Vector2(Gdx.graphics.getWidth() * 13 / 16,
                         row.get(counter - 1).getPosition().y - t.getHeight() - 5));
             }
