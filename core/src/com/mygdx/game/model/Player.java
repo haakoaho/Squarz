@@ -13,9 +13,15 @@ import static com.mygdx.game.Squarz.WIDTH;
  * Created by mathi on 13/03/2018.
  */
 
+// Color - number association
+// red == 0; blue == 1; yellow == 2;
+// Collision convention
+//    red < blue < yellow < red
+
 public class Player {
     private Map<Integer, Square> left, middle, right;
     private Integer leftCounter, middleCounter, rightCounter;
+    private Map<Integer, Integer> leftColor, middleColor, rightColor;
 
     public Player(){
         this.left = new HashMap<Integer, Square>();
@@ -24,6 +30,9 @@ public class Player {
         this.leftCounter = 0;
         this.middleCounter = 0;
         this.rightCounter = 0;
+        this.leftColor = new HashMap<Integer, Integer>();
+        this.middleColor = new HashMap<Integer, Integer>();
+        this.rightColor = new HashMap<Integer, Integer>();
     }
 
     //setters and getters;
@@ -64,7 +73,24 @@ public class Player {
     public void setRightCounter(Integer rightCounter) {
         this.rightCounter = rightCounter;
     }
-
+    public Map<Integer, Integer> getLeftColor() {
+        return leftColor;
+    }
+    public void setLeftColor(Map<Integer, Integer> leftColor) {
+        this.leftColor = leftColor;
+    }
+    public Map<Integer, Integer> getMiddleColor() {
+        return middleColor;
+    }
+    public void setMiddleColor(Map<Integer, Integer> middleColor) {
+        this.middleColor = middleColor;
+    }
+    public Map<Integer, Integer> getRightColor() {
+        return rightColor;
+    }
+    public void setRightColor(Map<Integer, Integer> rightColor) {
+        this.rightColor = rightColor;
+    }
 
     public void increment(Map<Integer, Square> row, Integer counter, Texture t, Integer columnKey){
         row.put(counter, new Square());

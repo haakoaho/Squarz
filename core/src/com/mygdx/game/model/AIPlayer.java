@@ -10,6 +10,11 @@ import static com.badlogic.gdx.math.MathUtils.random;
  * Created by Antoine Dc on 13/03/2018.
  */
 
+// Color - number association
+// red == 0; blue == 1; yellow == 2;
+// Collision convention
+//    red < blue < yellow < red
+
 public class AIPlayer {
     private Player computer;
     private PreferencesSettings settings;
@@ -47,10 +52,13 @@ public class AIPlayer {
     public void setTheRandomTexture(int colorKey){
         if (colorKey == 0) {
             this.texture = new Texture(Gdx.files.internal("square_red.png"));
+            this.computer.getLeftColor().put(this.computer.getLeftCounter(), colorKey);
         } else if (colorKey == 1) {
             this.texture = new Texture(Gdx.files.internal("square_blue.png"));
+            this.computer.getMiddleColor().put(this.computer.getMiddleCounter(), colorKey);
         } else {
             this.texture = new Texture(Gdx.files.internal("square_yellow.png"));
+            this.computer.getRightColor().put(this.computer.getRightCounter(), colorKey);
         }
     }
 
