@@ -35,6 +35,8 @@ public class Squarz extends ApplicationAdapter {
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/Alcubierre.otf"));
 		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
 		parameter.size = 50;
+		parameter.borderWidth = 2;
+		parameter.borderColor = Color.WHITE;
 		font = generator.generateFont(parameter);
 		generator.dispose();
 
