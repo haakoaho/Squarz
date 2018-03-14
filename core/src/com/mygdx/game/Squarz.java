@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.view.beginning.Menu;
 import com.mygdx.game.view.beginning.Settings;
@@ -30,8 +31,12 @@ public class Squarz extends ApplicationAdapter {
 		HEIGHT = Gdx.graphics.getHeight();
 		valueVolume=5;
 		valueVibration=5;
-		font = new BitmapFont(Gdx.files.internal("font/timeless.fnt"), false);
-		font.setColor(Color.GREEN);
+
+		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/Alcubierre.otf"));
+		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+		parameter.size = 50;
+		font = generator.generateFont(parameter);
+		generator.dispose();
 
 		gsm.push(new Settings(gsm));
 	}

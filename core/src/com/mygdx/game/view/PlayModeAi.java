@@ -36,10 +36,6 @@ public class PlayModeAi extends State {
 
     private PreferencesSettings settings;
 
-    private BitmapFont userScoreTxt;
-    private BitmapFont aiScoreTxt;
-    private BitmapFont timeTxt;
-
     private Square choiceSquare;
     private Boolean firstTouch = false;
     private Texture texture;
@@ -55,12 +51,6 @@ public class PlayModeAi extends State {
 
     public PlayModeAi(GameStateManager gsm, PreferencesSettings settings) {
         super(gsm);
-        this.userScoreTxt = new BitmapFont();
-        this.userScoreTxt.getData().setScale(3);
-        this.aiScoreTxt = new BitmapFont();
-        this.aiScoreTxt.getData().setScale(3);
-        this.timeTxt = new BitmapFont();
-        this.timeTxt.getData().setScale(3);
 
         this.settings = settings;
 
@@ -227,12 +217,11 @@ public class PlayModeAi extends State {
             sb.draw(ai.getRightMap().get(i).getTexture(), ai.getRightMap().get(i).getPosition().x, ai.getRightMap().get(i).getPosition().y);
         }
 
-        userScoreTxt.draw(sb, String.valueOf(score.getUserScore()),
+        Squarz.font.draw(sb, String.valueOf(score.getUserScore()),
                 WIDTH * 1/ 8 , HEIGHT/2 - HEIGHT/10);
-        aiScoreTxt.draw(sb, String.valueOf(score.getAiScore()),
+        Squarz.font.draw(sb, String.valueOf(score.getAiScore()),
                 WIDTH * 1/ 8 , HEIGHT/2 + HEIGHT*3/10);
-
-        timeTxt.draw(sb, String.valueOf(this.countDown.getCountdownLabel().getText()),
+        Squarz.font.draw(sb, String.valueOf(this.countDown.getCountdownLabel().getText()),
                 WIDTH * 1/ 8 - 3/2*this.countDown.getCountdownLabel().getWidth() , HEIGHT*3/4);
         sb.end();
     }
@@ -243,17 +232,6 @@ public class PlayModeAi extends State {
         music.dispose();
     }
 
-
-
-
-
-    public BitmapFont getUserScoreTxt() {
-        return userScoreTxt;
-    }
-
-    public void setUserScoreTxt(BitmapFont userScoreTxt) {
-        this.userScoreTxt = userScoreTxt;
-    }
 
     public Square getChoiceSquare() {
         return choiceSquare;
