@@ -130,12 +130,8 @@ public class PlayModeAi extends State {
 
         //updating the countdown
         countDown.update(dt);
-<<<<<<< HEAD
-        if (this.countDown.getTimeUp()){
-            music.stop();
-=======
         if (this.countDown.isTimeUp()){
->>>>>>> mathieu
+            music.stop();
             gsm.set(new Menu(gsm));
         }
 
@@ -148,68 +144,31 @@ public class PlayModeAi extends State {
                 player.getLeft().get(i).move();
                 //dealing with the score
                 if (player.getLeft().get(i).getPosition().y >= HEIGHT &&
-<<<<<<< HEAD
-                        player.getLeft().get(i).getPosition().y < HEIGHT + this.choiceSquare.getSpeed().y){
+                        player.getLeft().get(i).getPosition().y < HEIGHT + this.choiceSquare.getSpeed()){
                     sound.play(Squarz.valueVolume*0.1f);
                     Gdx.input.vibrate(Squarz.valueVibration*100);
-=======
-                        player.getLeft().get(i).getPosition().y < HEIGHT + this.choiceSquare.getSpeed()){
->>>>>>> mathieu
                     this.score.updateUser();
                 }
             }
             for (int i = 0; i < player.getMiddleCounter(); i++) {
                 player.getMiddle().get(i).move();
                 if ( player.getMiddle().get(i).getPosition().y >= HEIGHT &&
-<<<<<<< HEAD
-                        player.getMiddle().get(i).getPosition().y < HEIGHT + this.choiceSquare.getSpeed().y){
+                        player.getMiddle().get(i).getPosition().y < HEIGHT + this.choiceSquare.getSpeed()){
                     sound.play(Squarz.valueVolume*0.1f);
                     Gdx.input.vibrate(Squarz.valueVibration*100);
-=======
-                        player.getMiddle().get(i).getPosition().y < HEIGHT + this.choiceSquare.getSpeed()){
->>>>>>> mathieu
                     this.score.updateUser();
                 }
             }
             for (int i = 0; i < player.getRightCounter(); i++) {
                 player.getRight().get(i).move();
                 if (player.getRight().get(i).getPosition().y >= HEIGHT &&
-<<<<<<< HEAD
-                        player.getRight().get(i).getPosition().y < HEIGHT + this.choiceSquare.getSpeed().y){
+                        player.getRight().get(i).getPosition().y < HEIGHT + this.choiceSquare.getSpeed()){
                     sound.play(Squarz.valueVolume*0.1f);
                     Gdx.input.vibrate(Squarz.valueVibration*100);
-=======
-                        player.getRight().get(i).getPosition().y < HEIGHT + this.choiceSquare.getSpeed()){
->>>>>>> mathieu
                     this.score.updateUser();
                 }
             }
         }
-<<<<<<< HEAD
-        //Ai squares
-        for (int i = 0; i < ai.getLeftCounter(); i++) {
-            ai.getLeftMap().get(i).reverseMove();
-            if (ai.getLeftMap().get(i).getPosition().y <= 0 &&
-                    ai.getLeftMap().get(i).getPosition().y > - this.choiceSquare.getSpeed().y){
-                sound.play(Squarz.valueVolume*0.1f);
-                this.score.updateAi();
-            }
-        }
-        for (int i = 0; i < ai.getCenterCounter(); i++) {
-            ai.getCenterMap().get(i).reverseMove();
-            if ( ai.getCenterMap().get(i).getPosition().y <= 0 &&
-                    ai.getCenterMap().get(i).getPosition().y > - this.choiceSquare.getSpeed().y){
-                sound.play(Squarz.valueVolume*0.1f);
-                this.score.updateAi();
-            }
-        }
-        for (int i = 0; i < ai.getRightCounter(); i++) {
-            ai.getRightMap().get(i).reverseMove();
-            if (ai.getRightMap().get(i).getPosition().y <= 0 &&
-                    ai.getRightMap().get(i).getPosition().y > - this.choiceSquare.getSpeed().y){
-                sound.play(Squarz.valueVolume*0.1f);
-=======
-
 
         //mooving the Ai's squares
         for (int i = 0; i < ai.getComputer().getLeftCounter(); i++) {
@@ -232,7 +191,6 @@ public class PlayModeAi extends State {
             ai.getComputer().getRight().get(i).reverseMove();
             if (ai.getComputer().getRight().get(i).getPosition().y <= 0 &&
                     ai.getComputer().getRight().get(i).getPosition().y > - this.choiceSquare.getSpeed()){
->>>>>>> mathieu
                 this.score.updateAi();
             }
         }
@@ -268,12 +226,7 @@ public class PlayModeAi extends State {
             sb.draw(ai.getComputer().getRight().get(i).getTexture(), ai.getComputer().getRight().get(i).getPosition().x, ai.getComputer().getRight().get(i).getPosition().y);
         }
 
-<<<<<<< HEAD
         Squarz.font.draw(sb, String.valueOf(score.getUserScore()),
-=======
-        //drawing the score and time
-        userScoreTxt.draw(sb, String.valueOf(score.getUserScore()),
->>>>>>> mathieu
                 WIDTH * 1/ 8 , HEIGHT/2 - HEIGHT/10);
         Squarz.font.draw(sb, String.valueOf(score.getAiScore()),
                 WIDTH * 1/ 8 , HEIGHT/2 + HEIGHT*3/10);

@@ -29,7 +29,6 @@ public class Squarz extends ApplicationAdapter {
 		gsm = new GameStateManager();
 		WIDTH = Gdx.graphics.getWidth();
 		HEIGHT = Gdx.graphics.getHeight();
-<<<<<<< HEAD
 		valueVolume=5;
 		valueVibration=5;
 
@@ -40,9 +39,6 @@ public class Squarz extends ApplicationAdapter {
 		generator.dispose();
 
 		gsm.push(new Settings(gsm));
-=======
-		gsm.push(new Menu(gsm));
->>>>>>> mathieu
 	}
 
 	@Override
