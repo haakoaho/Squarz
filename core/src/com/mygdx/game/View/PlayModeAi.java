@@ -11,11 +11,8 @@ import com.mygdx.game.model.CountDown;
 import com.mygdx.game.model.Score;
 import com.mygdx.game.model.Square;
 import com.mygdx.game.model.State;
-import com.mygdx.game.view.beginning.Menu;
 import com.mygdx.game.control.aI.PreferencesSettings;
 import com.mygdx.game.model.Player;
-
-
 
 import java.util.Map;
 
@@ -23,7 +20,7 @@ import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
 
 /**
- * Created by Maxime Dc on 06/03/2018.
+ * Created by Max on 06/03/2018.
  */
 
 
@@ -69,7 +66,7 @@ public class PlayModeAi extends State {
 
         this.score = new Score();
 
-        this.countDown = new CountDown(10, 0);
+        this.countDown = new CountDown(30, 0);
 
     }
 
@@ -80,7 +77,7 @@ public class PlayModeAi extends State {
             if(Gdx.input.getY()<HEIGHT/4){
                 gsm.set(new EndModeAI(gsm, settings, score));
             }
-            
+
             //Colour choice button
             if ((Gdx.input.getX() < WIDTH / 4) && (HEIGHT - Gdx.input.getY() >= this.choiceSquare.getPosition().y)
                     && (HEIGHT - Gdx.input.getY() <= this.choiceSquare.getPosition().y + this.choiceSquare.getTexture().getHeight()) ) {
@@ -122,7 +119,7 @@ public class PlayModeAi extends State {
 
         countDown.update(dt);
         if (this.countDown.getTimeUp()){
-            gsm.set(new Menu(gsm));
+            gsm.set(new EndModeAI(gsm, settings, score));
         }
 
         ai.send(countDown);
@@ -204,12 +201,12 @@ public class PlayModeAi extends State {
         }
 
         userScoreTxt.draw(sb, String.valueOf(score.getUserScore()),
-                WIDTH * 1/ 8 , HEIGHT/2 - HEIGHT/10);
+                WIDTH * 1/ 8 , HEIGHT/2 - HEIGHT*1/10);
         aiScoreTxt.draw(sb, String.valueOf(score.getAiScore()),
-                WIDTH * 1/ 8 , HEIGHT/2 + HEIGHT*3/10);
+                WIDTH * 1/ 8 , HEIGHT/2 + HEIGHT*1/10);
 
         timeTxt.draw(sb, String.valueOf(this.countDown.getCountdownLabel().getText()),
-                WIDTH * 1/ 8 - 3/2*this.countDown.getCountdownLabel().getWidth() , HEIGHT*3/4);
+                WIDTH * 1/ 8 - 3/2*this.countDown.getCountdownLabel().getWidth() , HEIGHT/2);
         sb.end();
     }
 

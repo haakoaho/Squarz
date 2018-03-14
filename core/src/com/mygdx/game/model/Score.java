@@ -1,7 +1,7 @@
 package com.mygdx.game.model;
 
 /**
- * Created by Antoine Dc on 11/03/2018.
+ * Created by Max on 11/03/2018.
  */
 
 public class Score {

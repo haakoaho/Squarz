@@ -3,7 +3,6 @@ package com.mygdx.game.model;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.view.PlayModeAi;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,7 +10,7 @@ import java.util.Map;
 import static com.badlogic.gdx.math.MathUtils.random;
 
 /**
- * Created by Antoine Dc on 13/03/2018.
+ * Created by Max on 13/03/2018.
  */
 
 public class Ai {

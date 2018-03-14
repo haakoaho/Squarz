@@ -1,9 +1,11 @@
 package com.mygdx.game.control;
 
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.model.State;
 
 import java.util.Stack;
+
 
 public class GameStateManager {
     private Stack<State> states;
