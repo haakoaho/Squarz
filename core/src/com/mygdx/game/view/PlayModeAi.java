@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.model.AIPlayer;
-import com.mygdx.game.model.Ai;
 import com.mygdx.game.model.CountDown;
 import com.mygdx.game.model.Score;
 import com.mygdx.game.model.Square;
@@ -44,7 +43,6 @@ public class PlayModeAi extends State {
     private CountDown countDown;
 
     private AIPlayer ai;
-    //private Ai ai;
     private Player player;
 
 
@@ -62,6 +60,7 @@ public class PlayModeAi extends State {
 
         player = new Player();
         this.ai = new AIPlayer();
+        this.ai.setSettings(settings);
 
         this.choiceSquare = new Square();
         this.choiceSquare.setPosition(new Vector2(WIDTH * 1 / 16, HEIGHT * 1 / 5));
@@ -105,14 +104,17 @@ public class PlayModeAi extends State {
             if (Gdx.input.getX() > WIDTH / 4 && Gdx.input.getX() < WIDTH / 2) {
                 firstTouch = true;
                 player.increment(player.getLeft(), player.getLeftCounter(), texture, 0);
+                player.getLeft().get(player.getLeftCounter()).setSpeed(settings.getStepX());
                 player.setLeftCounter(player.getLeftCounter() + 1);
             } if (Gdx.input.getX() > WIDTH / 2 && Gdx.input.getX() < WIDTH * 3 / 4) {
                 firstTouch = true;
                 player.increment(player.getMiddle(), player.getMiddleCounter(), texture, 1);
+                player.getMiddle().get(player.getMiddleCounter()).setSpeed(settings.getStepX());
                 player.setMiddleCounter(player.getMiddleCounter() + 1);
             } if (Gdx.input.getX() > WIDTH * 3 / 4) {
                 firstTouch = true;
                 player.increment(player.getRight(), player.getRightCounter(), texture, 2);
+                player.getRight().get(player.getRightCounter()).setSpeed(settings.getStepX());
                 player.setRightCounter(player.getRightCounter() + 1);
             }
         }
@@ -137,21 +139,21 @@ public class PlayModeAi extends State {
                 player.getLeft().get(i).move();
                 //dealing with the score
                 if (player.getLeft().get(i).getPosition().y >= HEIGHT &&
-                        player.getLeft().get(i).getPosition().y < HEIGHT + this.choiceSquare.getSpeed().y){
+                        player.getLeft().get(i).getPosition().y < HEIGHT + this.choiceSquare.getSpeed()){
                     this.score.updateUser();
                 }
             }
             for (int i = 0; i < player.getMiddleCounter(); i++) {
                 player.getMiddle().get(i).move();
                 if ( player.getMiddle().get(i).getPosition().y >= HEIGHT &&
-                        player.getMiddle().get(i).getPosition().y < HEIGHT + this.choiceSquare.getSpeed().y){
+                        player.getMiddle().get(i).getPosition().y < HEIGHT + this.choiceSquare.getSpeed()){
                     this.score.updateUser();
                 }
             }
             for (int i = 0; i < player.getRightCounter(); i++) {
                 player.getRight().get(i).move();
                 if (player.getRight().get(i).getPosition().y >= HEIGHT &&
-                        player.getRight().get(i).getPosition().y < HEIGHT + this.choiceSquare.getSpeed().y){
+                        player.getRight().get(i).getPosition().y < HEIGHT + this.choiceSquare.getSpeed()){
                     this.score.updateUser();
                 }
             }
@@ -163,7 +165,7 @@ public class PlayModeAi extends State {
             ai.getComputer().getLeft().get(i).reverseMove();
             //dealing with the score
             if (ai.getComputer().getLeft().get(i).getPosition().y <= 0 &&
-                    ai.getComputer().getLeft().get(i).getPosition().y > - this.choiceSquare.getSpeed().y){
+                    ai.getComputer().getLeft().get(i).getPosition().y > - this.choiceSquare.getSpeed()){
                 this.score.updateAi();
             }
         }
@@ -171,42 +173,17 @@ public class PlayModeAi extends State {
             ai.getComputer().getMiddle().get(i).reverseMove();
             //dealing with the score
             if (ai.getComputer().getMiddle().get(i).getPosition().y <= 0 &&
-                    ai.getComputer().getMiddle().get(i).getPosition().y > - this.choiceSquare.getSpeed().y){
+                    ai.getComputer().getMiddle().get(i).getPosition().y > - this.choiceSquare.getSpeed()){
                 this.score.updateAi();
             }
         }
         for (int i = 0; i < ai.getComputer().getRightCounter(); i++) {
             ai.getComputer().getRight().get(i).reverseMove();
             if (ai.getComputer().getRight().get(i).getPosition().y <= 0 &&
-                    ai.getComputer().getRight().get(i).getPosition().y > - this.choiceSquare.getSpeed().y){
+                    ai.getComputer().getRight().get(i).getPosition().y > - this.choiceSquare.getSpeed()){
                 this.score.updateAi();
             }
         }
-
-
-        /*
-        for (int i = 0; i < ai.getLeftCounter(); i++) {
-            ai.getLeftMap().get(i).reverseMove();
-            //dealing with the score
-            if (ai.getLeftMap().get(i).getPosition().y <= 0 &&
-                    ai.getLeftMap().get(i).getPosition().y > - this.choiceSquare.getSpeed().y){
-                this.score.updateAi();
-            }
-        }
-        for (int i = 0; i < ai.getCenterCounter(); i++) {
-            ai.getCenterMap().get(i).reverseMove();
-            if ( ai.getCenterMap().get(i).getPosition().y <= 0 &&
-                    ai.getCenterMap().get(i).getPosition().y > - this.choiceSquare.getSpeed().y){
-                this.score.updateAi();
-            }
-        }
-        for (int i = 0; i < ai.getRightCounter(); i++) {
-            ai.getRightMap().get(i).reverseMove();
-            if (ai.getRightMap().get(i).getPosition().y <= 0 &&
-                    ai.getRightMap().get(i).getPosition().y > - this.choiceSquare.getSpeed().y){
-                this.score.updateAi();
-            }
-        }*/
     }
 
 
@@ -238,17 +215,6 @@ public class PlayModeAi extends State {
         for (int i = 0; i < ai.getComputer().getRightCounter(); i++) {
             sb.draw(ai.getComputer().getRight().get(i).getTexture(), ai.getComputer().getRight().get(i).getPosition().x, ai.getComputer().getRight().get(i).getPosition().y);
         }
-        /*
-        for (int i = 0; i < ai.getLeftCounter(); i++) {
-            sb.draw(ai.getLeftMap().get(i).getTexture(), ai.getLeftMap().get(i).getPosition().x, ai.getLeftMap().get(i).getPosition().y);
-        }
-        for (int i = 0; i < ai.getCenterCounter(); i++) {
-            sb.draw(ai.getCenterMap().get(i).getTexture(), ai.getCenterMap().get(i).getPosition().x, ai.getCenterMap().get(i).getPosition().y);
-        }
-        for (int i = 0; i < ai.getRightCounter(); i++) {
-            sb.draw(ai.getRightMap().get(i).getTexture(), ai.getRightMap().get(i).getPosition().x, ai.getRightMap().get(i).getPosition().y);
-        }
-        */
 
         //drawing the score and time
         userScoreTxt.draw(sb, String.valueOf(score.getUserScore()),

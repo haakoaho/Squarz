@@ -22,8 +22,8 @@ public class PreferencesSettings {
     public PreferencesSettings(){
         //default AI level settings
         this.levelKey = 1;
-        this.stepX = 6;
-        this.dtLaunching = 15;
+        this.stepX = 3;
+        this.dtLaunching = 70;
         this.dtWaves = 300;
         this.squaresize = 3;
 
@@ -93,34 +93,33 @@ public class PreferencesSettings {
 
     public void setBeginner(){
         setLevelKey(0);
-        setStepX(4);
-        setDtLaunching(20);
+        setStepX(3);
+        setDtLaunching(80);
         setDtWaves(400);
         setSquaresize(2);
     }
 
     public void setMedium(){
         setLevelKey(1);
-        setStepX(6);
-        setDtLaunching(15);
+        setStepX(3);
+        setDtLaunching(60);
         setDtWaves(300);
         setSquaresize(3);
     }
 
     public void setAdvanced(){
         setLevelKey(2);
-        setStepX(8);
-        setDtLaunching(10);
+        setStepX(4);
+        setDtLaunching(50);
         setDtWaves(200);
         setSquaresize(5);
     }
 
     public void setExpert(){
         setLevelKey(3);
-        setStepX(10);
-        setDtLaunching(5);
+        setStepX(5);
+        setDtLaunching(40);
         setDtWaves(150);
         setSquaresize(7);
     }
-
 }
