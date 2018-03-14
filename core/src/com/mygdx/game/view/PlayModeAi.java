@@ -1,10 +1,13 @@
 package com.mygdx.game.view;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.Squarz;
 import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.model.Ai;
 import com.mygdx.game.model.CountDown;
@@ -28,6 +31,9 @@ import static com.mygdx.game.Squarz.WIDTH;
 
 
 public class PlayModeAi extends State {
+    private Music music;
+    private Sound sound;
+
     private PreferencesSettings settings;
 
     private BitmapFont userScoreTxt;
@@ -71,6 +77,13 @@ public class PlayModeAi extends State {
 
         this.countDown = new CountDown(10, 0);
 
+        music=Gdx.audio.newMusic(Gdx.files.internal("sound/dkr.mp3"));
+        music.setLooping(true);
+        music.setVolume(Squarz.valueVolume*0.1f);
+        music.play();
+
+        sound = Gdx.audio.newSound(Gdx.files.internal("sound/meuh.mp3"));
+
     }
 
     @Override
@@ -78,6 +91,7 @@ public class PlayModeAi extends State {
         if (Gdx.input.justTouched()) {
             //go to end mode just to test it
             if(Gdx.input.getY()<HEIGHT/4){
+                music.stop();
                 gsm.set(new EndModeAI(gsm, settings, score));
             }
             
@@ -122,6 +136,7 @@ public class PlayModeAi extends State {
 
         countDown.update(dt);
         if (this.countDown.getTimeUp()){
+            music.stop();
             gsm.set(new Menu(gsm));
         }
 
@@ -133,6 +148,8 @@ public class PlayModeAi extends State {
                 player.getLeft().get(i).move();
                 if (player.getLeft().get(i).getPosition().y >= HEIGHT &&
                         player.getLeft().get(i).getPosition().y < HEIGHT + this.choiceSquare.getSpeed().y){
+                    sound.play(Squarz.valueVolume*0.1f);
+                    Gdx.input.vibrate(Squarz.valueVibration*100);
                     this.score.updateUser();
                 }
             }
@@ -140,6 +157,8 @@ public class PlayModeAi extends State {
                 player.getMiddle().get(i).move();
                 if ( player.getMiddle().get(i).getPosition().y >= HEIGHT &&
                         player.getMiddle().get(i).getPosition().y < HEIGHT + this.choiceSquare.getSpeed().y){
+                    sound.play(Squarz.valueVolume*0.1f);
+                    Gdx.input.vibrate(Squarz.valueVibration*100);
                     this.score.updateUser();
                 }
             }
@@ -147,6 +166,8 @@ public class PlayModeAi extends State {
                 player.getRight().get(i).move();
                 if (player.getRight().get(i).getPosition().y >= HEIGHT &&
                         player.getRight().get(i).getPosition().y < HEIGHT + this.choiceSquare.getSpeed().y){
+                    sound.play(Squarz.valueVolume*0.1f);
+                    Gdx.input.vibrate(Squarz.valueVibration*100);
                     this.score.updateUser();
                 }
             }
@@ -156,6 +177,7 @@ public class PlayModeAi extends State {
             ai.getLeftMap().get(i).reverseMove();
             if (ai.getLeftMap().get(i).getPosition().y <= 0 &&
                     ai.getLeftMap().get(i).getPosition().y > - this.choiceSquare.getSpeed().y){
+                sound.play(Squarz.valueVolume*0.1f);
                 this.score.updateAi();
             }
         }
@@ -163,6 +185,7 @@ public class PlayModeAi extends State {
             ai.getCenterMap().get(i).reverseMove();
             if ( ai.getCenterMap().get(i).getPosition().y <= 0 &&
                     ai.getCenterMap().get(i).getPosition().y > - this.choiceSquare.getSpeed().y){
+                sound.play(Squarz.valueVolume*0.1f);
                 this.score.updateAi();
             }
         }
@@ -170,6 +193,7 @@ public class PlayModeAi extends State {
             ai.getRightMap().get(i).reverseMove();
             if (ai.getRightMap().get(i).getPosition().y <= 0 &&
                     ai.getRightMap().get(i).getPosition().y > - this.choiceSquare.getSpeed().y){
+                sound.play(Squarz.valueVolume*0.1f);
                 this.score.updateAi();
             }
         }
@@ -215,6 +239,8 @@ public class PlayModeAi extends State {
 
     @Override
     public void dispose() {
+        sound.dispose();
+        music.dispose();
     }
 
 

@@ -2,15 +2,20 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.view.beginning.Menu;
+import com.mygdx.game.view.beginning.Settings;
 
 public class Squarz extends ApplicationAdapter {
 	public final String TITLE = "Squarz";
 	public static int WIDTH;
 	public static int HEIGHT;
+
+	public static BitmapFont font;
 
 	public static int valueVolume, valueVibration;
 
@@ -23,10 +28,12 @@ public class Squarz extends ApplicationAdapter {
 		gsm = new GameStateManager();
 		WIDTH = Gdx.graphics.getWidth();
 		HEIGHT = Gdx.graphics.getHeight();
-		valueVolume=50;
-		valueVibration=50;
+		valueVolume=5;
+		valueVibration=5;
+		font = new BitmapFont(Gdx.files.internal("font/timeless.fnt"), false);
+		font.setColor(Color.GREEN);
 
-		gsm.push(new Menu(gsm));
+		gsm.push(new Settings(gsm));
 	}
 
 	@Override
