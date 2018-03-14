@@ -28,12 +28,12 @@ public class SetAILevel extends State{
         levelToDraw = new Icon(new Texture(Gdx.files.internal("ai_settings/ai_levels/beginer.png")),0,0);
         set = setting;
 
-        add.setPosx(WIDTH/2-add.getTexture().getWidth()/2);
-        add.setPosy(HEIGHT*2/3-add.getTexture().getHeight()/2);
-        delete.setPosx(WIDTH/2-delete.getTexture().getWidth()/2);
-        delete.setPosy(HEIGHT/3-delete.getTexture().getHeight()/2);
-        levelToDraw.setPosx(WIDTH/2-levelToDraw.getTexture().getWidth()/2);
-        levelToDraw.setPosy(HEIGHT/2-levelToDraw.getTexture().getHeight()/2);
+        add.setPosX(WIDTH/2-add.getTexture().getWidth()/2);
+        add.setPosY(HEIGHT*2/3-add.getTexture().getHeight()/2);
+        delete.setPosX(WIDTH/2-delete.getTexture().getWidth()/2);
+        delete.setPosY(HEIGHT/3-delete.getTexture().getHeight()/2);
+        levelToDraw.setPosX(WIDTH/2-levelToDraw.getTexture().getWidth()/2);
+        levelToDraw.setPosY(HEIGHT/2-levelToDraw.getTexture().getHeight()/2);
 
         setTextureToDraw();
     }
@@ -64,9 +64,9 @@ public class SetAILevel extends State{
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
-        sb.draw(add.getTexture(), add.getPosx(),add.getPosy() );
-        sb.draw(delete.getTexture(),delete.getPosx() ,delete.getPosy() );
-        sb.draw(levelToDraw.getTexture(),levelToDraw.getPosx() , levelToDraw.getPosy());
+        sb.draw(add.getTexture(), add.getPosX(),add.getPosY() );
+        sb.draw(delete.getTexture(),delete.getPosX() ,delete.getPosY() );
+        sb.draw(levelToDraw.getTexture(),levelToDraw.getPosX() , levelToDraw.getPosY());
 
         sb.end();
     }

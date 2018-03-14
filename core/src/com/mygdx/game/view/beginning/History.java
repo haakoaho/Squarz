@@ -20,8 +20,8 @@ public class History extends State {
         super(gsm);
         back = new Icon(new Texture(Gdx.files.internal("back.png")),0,0);
 
-        back.setPosx(back.getTexture().getWidth()/2);
-        back.setPosy(back.getTexture().getHeight()/2);
+        back.setPosX(back.getTexture().getWidth()/2);
+        back.setPosY(back.getTexture().getHeight()/2);
     }
 
     @Override
@@ -44,7 +44,7 @@ public class History extends State {
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
-        sb.draw(back.getTexture(),back.getPosx(),back.getPosy());
+        sb.draw(back.getTexture(),back.getPosX(),back.getPosY());
         sb.end();
     }
 

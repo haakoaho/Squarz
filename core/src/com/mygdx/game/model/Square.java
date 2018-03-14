@@ -10,6 +10,11 @@ import com.badlogic.gdx.math.Vector2;
  * Created by Max on 06/03/2018.
  */
 
+// Color - number association
+// red == 0; blue == 1; yellow == 2;
+// Collision convention
+//    red < blue < yellow < red
+
 public class Square {
     private Sprite sprite;
     private Texture texture;

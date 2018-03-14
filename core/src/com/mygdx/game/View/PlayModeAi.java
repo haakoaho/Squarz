@@ -6,7 +6,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.control.GameStateManager;
-import com.mygdx.game.model.Ai;
+import com.mygdx.game.model.AIPlayer;
+import com.mygdx.game.model.Collision;
 import com.mygdx.game.model.CountDown;
 import com.mygdx.game.model.Score;
 import com.mygdx.game.model.Square;
@@ -23,6 +24,10 @@ import static com.mygdx.game.Squarz.WIDTH;
  * Created by Max on 06/03/2018.
  */
 
+// Color - number association
+// red == 0; blue == 1; yellow == 2;
+// Collision convention
+//    red < blue < yellow < red
 
 public class PlayModeAi extends State {
     private PreferencesSettings settings;
@@ -39,8 +44,11 @@ public class PlayModeAi extends State {
     private Score score;
     private CountDown countDown;
 
-    private Ai ai;
+    private AIPlayer ai;
+    //private Ai ai;
     private Player player;
+
+    private Collision collision;
 
 
 
@@ -56,7 +64,7 @@ public class PlayModeAi extends State {
         this.settings = settings;
 
         player = new Player();
-        this.ai = new Ai();
+        this.ai = new AIPlayer();
 
         this.choiceSquare = new Square();
         this.choiceSquare.setPosition(new Vector2(WIDTH * 1 / 16, HEIGHT * 1 / 5));
@@ -67,6 +75,9 @@ public class PlayModeAi extends State {
         this.score = new Score();
 
         this.countDown = new CountDown(30, 0);
+
+        this.collision = new Collision();
+
 
     }
 
@@ -100,14 +111,17 @@ public class PlayModeAi extends State {
             if (Gdx.input.getX() > WIDTH / 4 && Gdx.input.getX() < WIDTH / 2) {
                 firstTouch = true;
                 player.increment(player.getLeft(), player.getLeftCounter(), texture, 0);
+                this.player.getLeftColor().put(this.getCounter(), this.player.getLeftCounter());
                 player.setLeftCounter(player.getLeftCounter() + 1);
             } if (Gdx.input.getX() > WIDTH / 2 && Gdx.input.getX() < WIDTH * 3 / 4) {
                 firstTouch = true;
                 player.increment(player.getMiddle(), player.getMiddleCounter(), texture, 1);
+                this.player.getMiddleColor().put(this.getCounter(), this.player.getMiddleCounter());
                 player.setMiddleCounter(player.getMiddleCounter() + 1);
             } if (Gdx.input.getX() > WIDTH * 3 / 4) {
                 firstTouch = true;
                 player.increment(player.getRight(), player.getRightCounter(), texture, 2);
+                this.player.getRightColor().put(this.getCounter(), this.player.getRightCounter());
                 player.setRightCounter(player.getRightCounter() + 1);
             }
         }
@@ -117,17 +131,23 @@ public class PlayModeAi extends State {
     public void update(float dt) {
         handleInput();
 
+        //updating the countdown
         countDown.update(dt);
-        if (this.countDown.getTimeUp()){
+
+        if (this.countDown.isTimeUp()){
             gsm.set(new EndModeAI(gsm, settings, score));
         }
+
+
 
         ai.send(countDown);
 
 
+        //mooving the player's square;
         if (firstTouch) {
             for (int i = 0; i < player.getLeftCounter(); i++) {
                 player.getLeft().get(i).move();
+                //dealing with the score
                 if (player.getLeft().get(i).getPosition().y >= HEIGHT &&
                         player.getLeft().get(i).getPosition().y < HEIGHT + this.choiceSquare.getSpeed().y){
                     this.score.updateUser();
@@ -148,34 +168,42 @@ public class PlayModeAi extends State {
                 }
             }
         }
-        //Ai squares
-        for (int i = 0; i < ai.getLeftCounter(); i++) {
-            ai.getLeftMap().get(i).reverseMove();
-            if (ai.getLeftMap().get(i).getPosition().y <= 0 &&
-                    ai.getLeftMap().get(i).getPosition().y > - this.choiceSquare.getSpeed().y){
+
+
+        //mooving the Ai's squares
+        for (int i = 0; i < ai.getComputer().getLeftCounter(); i++) {
+            ai.getComputer().getLeft().get(i).reverseMove();
+            //dealing with the score
+            if (ai.getComputer().getLeft().get(i).getPosition().y <= 0 &&
+                    ai.getComputer().getLeft().get(i).getPosition().y > - this.choiceSquare.getSpeed().y){
                 this.score.updateAi();
             }
         }
-        for (int i = 0; i < ai.getCenterCounter(); i++) {
-            ai.getCenterMap().get(i).reverseMove();
-            if ( ai.getCenterMap().get(i).getPosition().y <= 0 &&
-                    ai.getCenterMap().get(i).getPosition().y > - this.choiceSquare.getSpeed().y){
+        for (int i = 0; i < ai.getComputer().getMiddleCounter(); i++) {
+            ai.getComputer().getMiddle().get(i).reverseMove();
+            //dealing with the score
+            if (ai.getComputer().getMiddle().get(i).getPosition().y <= 0 &&
+                    ai.getComputer().getMiddle().get(i).getPosition().y > - this.choiceSquare.getSpeed().y){
                 this.score.updateAi();
             }
         }
-        for (int i = 0; i < ai.getRightCounter(); i++) {
-            ai.getRightMap().get(i).reverseMove();
-            if (ai.getRightMap().get(i).getPosition().y <= 0 &&
-                    ai.getRightMap().get(i).getPosition().y > - this.choiceSquare.getSpeed().y){
+        for (int i = 0; i < ai.getComputer().getRightCounter(); i++) {
+            ai.getComputer().getRight().get(i).reverseMove();
+            if (ai.getComputer().getRight().get(i).getPosition().y <= 0 &&
+                    ai.getComputer().getRight().get(i).getPosition().y > - this.choiceSquare.getSpeed().y){
                 this.score.updateAi();
             }
         }
+
+        collision.collision(player, this.ai, this.firstTouch);
     }
 
 
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
+
+        //player's square drawing
         sb.draw(choiceSquare.getTexture(), WIDTH * 1 / 16, HEIGHT * 1 / 5);
         if (firstTouch) {
             for (int i = 0; i < player.getLeftCounter(); i++) {
@@ -189,17 +217,18 @@ public class PlayModeAi extends State {
             }
         }
 
-        //Ai drawing
-        for (int i = 0; i < ai.getLeftCounter(); i++) {
-            sb.draw(ai.getLeftMap().get(i).getTexture(), ai.getLeftMap().get(i).getPosition().x, ai.getLeftMap().get(i).getPosition().y);
+        //Ai's square drawing
+        for (int i = 0; i < ai.getComputer().getLeftCounter(); i++) {
+            sb.draw(ai.getComputer().getLeft().get(i).getTexture(), ai.getComputer().getLeft().get(i).getPosition().x, ai.getComputer().getLeft().get(i).getPosition().y);
         }
-        for (int i = 0; i < ai.getCenterCounter(); i++) {
-            sb.draw(ai.getCenterMap().get(i).getTexture(), ai.getCenterMap().get(i).getPosition().x, ai.getCenterMap().get(i).getPosition().y);
+        for (int i = 0; i < ai.getComputer().getMiddleCounter(); i++) {
+            sb.draw(ai.getComputer().getMiddle().get(i).getTexture(), ai.getComputer().getMiddle().get(i).getPosition().x, ai.getComputer().getMiddle().get(i).getPosition().y);
         }
-        for (int i = 0; i < ai.getRightCounter(); i++) {
-            sb.draw(ai.getRightMap().get(i).getTexture(), ai.getRightMap().get(i).getPosition().x, ai.getRightMap().get(i).getPosition().y);
+        for (int i = 0; i < ai.getComputer().getRightCounter(); i++) {
+            sb.draw(ai.getComputer().getRight().get(i).getTexture(), ai.getComputer().getRight().get(i).getPosition().x, ai.getComputer().getRight().get(i).getPosition().y);
         }
 
+        //drawing the score and time
         userScoreTxt.draw(sb, String.valueOf(score.getUserScore()),
                 WIDTH * 1/ 8 , HEIGHT/2 - HEIGHT*1/10);
         aiScoreTxt.draw(sb, String.valueOf(score.getAiScore()),
@@ -245,7 +274,6 @@ public class PlayModeAi extends State {
     public void setFirstTouch(boolean firstTouch) {
         this.firstTouch = firstTouch;
     }
-
 
     public Texture getTexture() {
         return texture;

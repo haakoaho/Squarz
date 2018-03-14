@@ -34,12 +34,12 @@ public class EndModeAI extends State {
 
         //a mettre en icon:
         this.replay = new Icon(new Texture(Gdx.files.internal("endMode/replay.png")), 0, 0);
-        this.replay.setPosx(WIDTH/2-replay.getTexture().getWidth()/2);
-        this.replay.setPosy(HEIGHT*2/5-replay.getTexture().getHeight()/2);
+        this.replay.setPosX(WIDTH/2-replay.getTexture().getWidth()/2);
+        this.replay.setPosY(HEIGHT*2/5-replay.getTexture().getHeight()/2);
 
         this.back = new Icon(new Texture(Gdx.files.internal("endMode/backToMenu.png")), 0, 0);
-        this.back.setPosx(WIDTH/2 - back.getTexture().getWidth()/2);
-        this.back.setPosy(HEIGHT/5 - back.getTexture().getHeight()/2);
+        this.back.setPosX(WIDTH/2 - back.getTexture().getWidth()/2);
+        this.back.setPosY(HEIGHT/5 - back.getTexture().getHeight()/2);
     }
 
     @Override
@@ -67,8 +67,8 @@ public class EndModeAI extends State {
         sb.begin();
         sb.draw(gameOver, WIDTH/2-gameOver.getWidth()/2, HEIGHT*4/5-gameOver.getHeight()/2);
         sb.draw(scoreTex, WIDTH/2-scoreTex.getWidth()/2, HEIGHT*3/5-scoreTex.getHeight()/2);
-        sb.draw(replay.getTexture(), replay.getPosx(), replay.getPosy());
-        sb.draw(back.getTexture(), back.getPosx(), back.getPosy());
+        sb.draw(replay.getTexture(), replay.getPosX(), replay.getPosY());
+        sb.draw(back.getTexture(), back.getPosX(), back.getPosY());
         sb.end();
     }
 

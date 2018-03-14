@@ -3,6 +3,9 @@ package com.mygdx.game.model;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.control.aI.PreferencesSettings;
+import com.mygdx.game.view.beginning.Pref;
+import com.mygdx.game.view.beginning.Settings;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,16 +13,17 @@ import java.util.Map;
 import static com.badlogic.gdx.math.MathUtils.random;
 
 /**
- * Created by Max on 13/03/2018.
+ * Created by Antoine Dc on 13/03/2018.
  */
 
-public class Ai {
-    private Map<Integer, Square> leftMap;
-    private Map<Integer, Square> centerMap;
-    private Map<Integer, Square> rightMap;
-    private Integer leftCounter;
-    private Integer centerCounter;
-    private Integer rightCounter;
+// Color - number association
+// red == 0; blue == 1; yellow == 2;
+// Collision convention
+//    red < blue < yellow < red
+
+public class AIPlayer {
+    private Player computer;
+    private PreferencesSettings settings;
     private Integer controlSending;
     private Texture texture;
     private Square square;
@@ -27,17 +31,13 @@ public class Ai {
     private Integer renderCounter;
 
 
-    public Ai (){
-        this.leftMap = new HashMap<Integer, Square>();
-        this.centerMap = new HashMap<Integer, Square>();
-        this.rightMap = new HashMap<Integer, Square>();
-        this.leftCounter = 0;
-        this.centerCounter = 0;
-        this.rightCounter = 0;
+    public AIPlayer (){
+        this.computer = new Player();
+        this.settings = new PreferencesSettings();
         this.controlSending = 0;
         this.texture = new Texture (Gdx.files.internal("square.png"));
         this.square = new Square();
-        this.deltaLauncher = 70;
+        this.deltaLauncher = 20;
         this.renderCounter = 0;
     }
 
@@ -47,16 +47,15 @@ public class Ai {
             if (this.renderCounter == deltaLauncher) {
                 this.renderCounter = 0;
 
-                int color = random(2);
+                //setting the random color
+                int colorKey = random(2);
+                setTheRandomTexture(colorKey);
+
+                //setting the random Texture in a random row
                 int row = random(2);
-                if (color == 0) {
-                    this.texture = new Texture(Gdx.files.internal("square_red.png"));
-                } else if (color == 1) {
-                    this.texture = new Texture(Gdx.files.internal("square_blue.png"));
-                } else {
-                    this.texture = new Texture(Gdx.files.internal("square_yellow.png"));
-                }
-                if (row == 0) {
+                setTheRandomRow(row);
+
+                /*if (row == 0) {
                     this.leftMap.put(this.leftCounter, new Square());
                     this.leftMap.get(this.leftCounter).setPosition(new Vector2(Gdx.graphics.getWidth() * 5 / 16, Gdx.graphics.getHeight()));
                     this.leftMap.get(this.leftCounter).setTexture(this.texture);
@@ -83,65 +82,54 @@ public class Ai {
                                 this.rightMap.get(rightCounter - 1).getPosition().y  + 2*this.square.getTexture().getHeight() + 5));
                     }
                     this.rightCounter += 1;
-                }
+                }*/
             }
         }
     }
 
-    public Map<Integer, Square> getLeftMap() {
-        return leftMap;
+
+    public void setTheRandomTexture(int colorKey){
+        if (colorKey == 0) {
+            this.texture = new Texture(Gdx.files.internal("square_red.png"));
+            this.computer.getLeftColor().put(this.computer.getLeftCounter(), colorKey);
+        } else if (colorKey == 1) {
+            this.texture = new Texture(Gdx.files.internal("square_blue.png"));
+            this.computer.getMiddleColor().put(this.computer.getMiddleCounter(), colorKey);
+        } else {
+            this.texture = new Texture(Gdx.files.internal("square_yellow.png"));
+            this.computer.getRightColor().put(this.computer.getRightCounter(), colorKey);
+        }
     }
 
-    public void setLeftMap(Map<Integer, Square> leftMap) {
-        this.leftMap = leftMap;
+    public void setTheRandomRow(int row) {
+        if (row == 0) {
+            computer.incrementAI(computer.getLeft(), computer.getLeftCounter(), texture, row);
+            computer.setLeftCounter(computer.getLeftCounter() + 1);
+        }if(row == 1){
+            computer.incrementAI(computer.getMiddle(), computer.getMiddleCounter(), texture, row);
+            computer.setMiddleCounter(computer.getMiddleCounter() + 1);
+
+        }if(row == 2){
+            computer.incrementAI(computer.getRight(), computer.getRightCounter(), texture, row);
+            computer.setRightCounter(computer.getRightCounter() + 1);
+
+        }
+
     }
 
-    public Map<Integer, Square> getCenterMap() {
-        return centerMap;
+
+
+
+
+
+    // ---------  general getters and setters
+
+    public Player getComputer() {
+        return computer;
     }
 
-    public void setCenterMap(Map<Integer, Square> centerMap) {
-        this.centerMap = centerMap;
-    }
-
-    public Map<Integer, Square> getRightMap() {
-        return rightMap;
-    }
-
-    public void setRightMap(Map<Integer, Square> rightMap) {
-        this.rightMap = rightMap;
-    }
-
-    public Integer getLeftCounter() {
-        return leftCounter;
-    }
-
-    public void setLeftCounter(Integer leftCounter) {
-        this.leftCounter = leftCounter;
-    }
-
-    public Integer getCenterCounter() {
-        return centerCounter;
-    }
-
-    public void setCenterCounter(Integer centerCounter) {
-        this.centerCounter = centerCounter;
-    }
-
-    public Integer getRightCounter() {
-        return rightCounter;
-    }
-
-    public void setRightCounter(Integer rightCounter) {
-        this.rightCounter = rightCounter;
-    }
-
-    public Integer getControlSending() {
-        return controlSending;
-    }
-
-    public void setControlSending(Integer controlSending) {
-        this.controlSending = controlSending;
+    public void setComputer(Player computer) {
+        this.computer = computer;
     }
 
     public Texture getTexture() {

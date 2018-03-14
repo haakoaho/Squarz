@@ -6,15 +6,22 @@ import com.badlogic.gdx.math.Vector2;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
 
 /**
  * Created by mathi on 13/03/2018.
  */
 
+// Color - number association
+// red == 0; blue == 1; yellow == 2;
+// Collision convention
+//    red < blue < yellow < red
+
 public class Player {
     private Map<Integer, Square> left, middle, right;
     private Integer leftCounter, middleCounter, rightCounter;
+    private Map<Integer, Integer> leftColor, middleColor, rightColor;
 
     public Player(){
         this.left = new HashMap<Integer, Square>();
@@ -23,6 +30,9 @@ public class Player {
         this.leftCounter = 0;
         this.middleCounter = 0;
         this.rightCounter = 0;
+        this.leftColor = new HashMap<Integer, Integer>();
+        this.middleColor = new HashMap<Integer, Integer>();
+        this.rightColor = new HashMap<Integer, Integer>();
     }
 
     //setters and getters;
@@ -63,7 +73,24 @@ public class Player {
     public void setRightCounter(Integer rightCounter) {
         this.rightCounter = rightCounter;
     }
-
+    public Map<Integer, Integer> getLeftColor() {
+        return leftColor;
+    }
+    public void setLeftColor(Map<Integer, Integer> leftColor) {
+        this.leftColor = leftColor;
+    }
+    public Map<Integer, Integer> getMiddleColor() {
+        return middleColor;
+    }
+    public void setMiddleColor(Map<Integer, Integer> middleColor) {
+        this.middleColor = middleColor;
+    }
+    public Map<Integer, Integer> getRightColor() {
+        return rightColor;
+    }
+    public void setRightColor(Map<Integer, Integer> rightColor) {
+        this.rightColor = rightColor;
+    }
 
     public void increment(Map<Integer, Square> row, Integer counter, Texture t, Integer columnKey){
         row.put(counter, new Square());
@@ -87,6 +114,34 @@ public class Player {
             row.get(counter).setPosition(new Vector2(WIDTH * 13 / 16, 0));
             row.get(counter).setTexture(t);
             if (counter != 0 && row.get(counter - 1).getPosition().y < t.getHeight() + 5) {
+                row.get(counter).setPosition(new Vector2(Gdx.graphics.getWidth() * 13 / 16,
+                        row.get(counter - 1).getPosition().y - t.getHeight() - 5));
+            }
+        }
+    }
+
+    public void incrementAI(Map<Integer, Square> row, Integer counter, Texture t, Integer columnKey){
+        row.put(counter, new Square());
+        if(columnKey == 0) {
+            row.get(counter).setPosition(new Vector2(WIDTH * 5 / 16, HEIGHT));
+            row.get(counter).setTexture(t);
+            if (counter != 0 && row.get(counter - 1).getPosition().y >= HEIGHT - (t.getHeight()) - 5) {
+                row.get(counter).setPosition(new Vector2(Gdx.graphics.getWidth() * 5 / 16,
+                        row.get(counter - 1).getPosition().y - t.getHeight() - 5));
+            }
+        }
+        else if(columnKey == 1){
+            row.get(counter).setPosition(new Vector2(WIDTH * 9 / 16, HEIGHT));
+            row.get(counter).setTexture(t);
+            if (counter != 0 && row.get(counter - 1).getPosition().y >= HEIGHT - (t.getHeight()) - 5) {
+                row.get(counter).setPosition(new Vector2(Gdx.graphics.getWidth() * 9 / 16,
+                        row.get(counter - 1).getPosition().y - t.getHeight() - 5));
+            }
+        }
+        else if( columnKey == 2){
+            row.get(counter).setPosition(new Vector2(WIDTH * 13 / 16, HEIGHT));
+            row.get(counter).setTexture(t);
+            if (counter != 0 && row.get(counter - 1).getPosition().y >= HEIGHT - (t.getHeight()) - 5) {
                 row.get(counter).setPosition(new Vector2(Gdx.graphics.getWidth() * 13 / 16,
                         row.get(counter - 1).getPosition().y - t.getHeight() - 5));
             }
