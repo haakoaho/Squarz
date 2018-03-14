@@ -14,16 +14,17 @@ public class Menu extends State {
 
     public Menu(GameStateManager gsm) {
         super(gsm);
-        play = new Icon(new Texture(Gdx.files.internal("menu/play.png")),0,0);
-        settings = new Icon(new Texture(Gdx.files.internal("menu/settings.png")),0,0);
-        history = new Icon(new Texture(Gdx.files.internal("menu/history.png")),0,0);
 
-        play.setPosx(WIDTH/2-play.getTexture().getWidth()/2);
-        play.setPosy(HEIGHT*3/4-play.getTexture().getHeight()/2);
-        settings.setPosx(WIDTH/2-settings.getTexture().getWidth()/2);
-        settings.setPosy(HEIGHT*2/4-settings.getTexture().getHeight()/2);
-        history.setPosx(WIDTH/2-history.getTexture().getWidth()/2);
-        history.setPosy(HEIGHT*1/4-history.getTexture().getHeight()/2);
+        this.play = new Icon(new Texture(Gdx.files.internal("menu/play.png")),0,0);
+        this.settings = new Icon(new Texture(Gdx.files.internal("menu/settings.png")),0,0);
+        this.history = new Icon(new Texture(Gdx.files.internal("menu/history.png")),0,0);
+
+        play.setPosX(WIDTH/2-play.getTexture().getWidth()/2);
+        play.setPosY(HEIGHT*3/4-play.getTexture().getHeight()/2);
+        settings.setPosX(WIDTH/2-settings.getTexture().getWidth()/2);
+        settings.setPosY(HEIGHT*2/4-settings.getTexture().getHeight()/2);
+        history.setPosX(WIDTH/2-history.getTexture().getWidth()/2);
+        history.setPosY(HEIGHT*1/4-history.getTexture().getHeight()/2);
     }
 
     @Override
@@ -54,9 +55,9 @@ public class Menu extends State {
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
-        sb.draw(play.getTexture(), play.getPosx(), play.getPosy());
-        sb.draw(settings.getTexture(), settings.getPosx(), settings.getPosy());
-        sb.draw(history.getTexture(), history.getPosx(), history.getPosy());
+        sb.draw(play.getTexture(), play.getPosX(), play.getPosY());
+        sb.draw(settings.getTexture(), settings.getPosX(), settings.getPosY());
+        sb.draw(history.getTexture(), history.getPosX(), history.getPosY());
         sb.end();
     }
 

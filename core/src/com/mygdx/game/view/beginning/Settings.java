@@ -45,6 +45,7 @@ public class Settings extends State {
         minV = new Icon(new Texture(Gdx.files.internal("delete.png")),0,0);
         back = new Icon(new Texture(Gdx.files.internal("back.png")),0,0);
 
+<<<<<<< HEAD
         sound.setPosx(WIDTH/6-sound.getTexture().getWidth()/2);
         sound.setPosy(7*HEIGHT/10-sound.getTexture().getHeight()/2);
         maxS.setPosx(3*WIDTH/6-sound.getTexture().getWidth()/2);
@@ -59,6 +60,14 @@ public class Settings extends State {
         minV.setPosy(3*HEIGHT/10-minV.getTexture().getHeight()/2);
         back.setPosx(back.getTexture().getWidth()/2);
         back.setPosy(back.getTexture().getHeight()/2);
+=======
+        sound.setPosX(WIDTH/6-sound.getTexture().getWidth()/2);
+        sound.setPosY(7*HEIGHT/10-sound.getTexture().getHeight()/2);
+        vibration.setPosX(WIDTH/6-vibration.getTexture().getWidth()/2);
+        vibration.setPosY(3*HEIGHT/10-vibration.getTexture().getHeight()/2);
+        back.setPosX(back.getTexture().getWidth()/2);
+        back.setPosY(back.getTexture().getHeight()/2);
+>>>>>>> mathieu
 
     }
 
@@ -88,6 +97,7 @@ public class Settings extends State {
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
+<<<<<<< HEAD
         sb.draw(sound.getTexture(),sound.getPosx() ,sound.getPosy());
         sb.draw(maxS.getTexture(),maxS.getPosx(),maxS.getPosy());
         Squarz.font.draw(sb, valueVolume+"", 62*WIDTH/100,72*HEIGHT/100);
@@ -97,6 +107,11 @@ public class Settings extends State {
         Squarz.font.draw(sb, valueVibration+"", 62*WIDTH/100,32*HEIGHT/100);
         sb.draw(minV.getTexture(),minV.getPosx(),minV.getPosy());
         sb.draw(back.getTexture(),back.getPosx(),back.getPosy());
+=======
+        sb.draw(sound.getTexture(),sound.getPosX() ,sound.getPosY());
+        sb.draw(vibration.getTexture(),vibration.getPosX(),vibration.getPosY());
+        sb.draw(back.getTexture(),back.getPosX(),back.getPosY());
+>>>>>>> mathieu
         sb.end();
     }
 
