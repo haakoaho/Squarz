@@ -1,5 +1,8 @@
 package com.mygdx.game.model;
 
+import com.badlogic.gdx.math.Vector2;
+
+
 /**
  * Created by Antoine Dc on 14/03/2018.
  */
@@ -10,178 +13,159 @@ package com.mygdx.game.model;
 //    red < blue < yellow < red
 
 public class Collision {
+    private Integer leftCnt, middleCnt, rightCnt, leftCntAi, middleCntAi, rightCntAi;
 
     public Collision() {
+        this.leftCnt = 0;
+        this.middleCnt = 0;
+        this.rightCnt = 0;
+        this.leftCntAi = 0;
+        this.middleCntAi = 0;
+        this.rightCntAi = 0;
     }
 
     public void collision( Player player, AIPlayer computer, Boolean firstTouch) {
         if (firstTouch) {
-            if (!player.getLeft().isEmpty() && !computer.getComputer().getLeft().isEmpty() &&
-                    player.getLeft().get(0).getRectangle().overlaps(computer.getComputer().getLeft().get(0).getRectangle())) {
-                switch (player.getLeftColor().get(0)) {
-                    case 0:
-                        switch (computer.getComputer().getLeftColor().get(0)) {
-                            case 0:
-                                player.getLeft().remove(player.getLeft().get(0));
-                                computer.getComputer().getLeft().remove(computer.getComputer().getLeft().get(0));
-                                break;
+            if (!player.getLeft().isEmpty() && !computer.getComputer().getLeft().isEmpty() && player.getLeft().get(this.leftCnt).getRectangle().overlaps(computer.getComputer().getLeft().get(this.leftCntAi).getRectangle())) {
 
-                            case 1:
-                                player.getLeft().remove(player.getLeft().get(0));
-                                break;
+                if (player.getLeft().get(0).getColorKey() == 0) {
 
-                            case 2:
-                                player.getLeft().remove(player.getLeft().get(0));
-                                break;
-                        }
-                        break;
+                    if (computer.getComputer().getLeft().get(0).getColorKey() == 0) {
 
-                    case 1:
-                        switch (computer.getComputer().getLeftColor().get(0)) {
-                            case 0:
-                                computer.getComputer().getLeft().remove(computer.getComputer().getLeft().get(0));
-                                break;
+                        player.getLeft().remove(player.getLeft().get(0));
+                        computer.getComputer().getLeft().remove(computer.getComputer().getLeft().get(0));
+                        this.leftCnt += 1;
+                        this.leftCntAi += 1;
+                    } else if (computer.getComputer().getLeft().get(0).getColorKey() == 1) {
+                        player.getLeft().remove(player.getLeft().get(0));
+                        this.leftCnt += 1;
+                    }else if (computer.getComputer().getLeft().get(0).getColorKey() == 2) {
+                        computer.getComputer().getLeft().remove(player.getLeft().get(0));
+                        this.leftCntAi += 1;
+                    }
+                } else
 
-                            case 1:
-                                player.getLeft().remove(player.getLeft().get(0));
-                                computer.getComputer().getLeft().remove(computer.getComputer().getLeft().get(0));
-                                break;
+                if (player.getLeft().get(this.leftCnt).getColorKey() == 1) {
+                    if (computer.getComputer().getLeft().get(this.leftCntAi).getColorKey() == 0) {
+                        computer.getComputer().getLeft().remove(computer.getComputer().getLeft().get(this.leftCntAi));
+                        this.leftCntAi += 1;
+                    }else if (computer.getComputer().getLeft().get(this.leftCntAi).getColorKey() == 1) {
+                        player.getLeft().remove(player.getLeft().get(this.leftCnt));
+                        computer.getComputer().getLeft().remove(computer.getComputer().getLeft().get(this.leftCntAi));
+                        this.leftCnt += 1;
+                        this.leftCntAi += 1;
+                    }else if (computer.getComputer().getLeft().get(this.leftCntAi).getColorKey() == 2) {
+                        player.getLeft().remove(player.getLeft().get(this.leftCnt));
+                        this.leftCnt += 1;
+                    }
+                } else
 
-                            case 2:
-                                player.getLeft().remove(player.getLeft().get(0));
-                                break;
-                        }
-                        break;
-
-                    case 2:
-                        switch (computer.getComputer().getLeftColor().get(0)) {
-                            case 0:
-                                player.getLeft().remove(player.getLeft().get(0));
-                                break;
-
-                            case 1:
-                                computer.getComputer().getLeft().remove(computer.getComputer().getLeft().get(0));
-                                break;
-
-                            case 2:
-                                player.getLeft().remove(player.getLeft().get(0));
-                                computer.getComputer().getLeft().remove(computer.getComputer().getLeft().get(0));
-                                break;
-                        }
-                        break;
+                if (player.getLeft().get(this.leftCnt).getColorKey() == 2) {
+                    if (computer.getComputer().getLeft().get(this.leftCntAi).getColorKey() == 0) {
+                        player.getLeft().remove(player.getLeft().get(this.leftCnt));
+                        this.leftCnt += 1;
+                    }else if (computer.getComputer().getLeft().get(this.leftCntAi).getColorKey() == 1) {
+                        computer.getComputer().getLeft().remove(computer.getComputer().getLeft().get(this.leftCntAi));
+                        this.leftCntAi += 1;
+                    }else if (computer.getComputer().getLeft().get(this.leftCntAi).getColorKey() == 2) {
+                        player.getLeft().remove(player.getLeft().get(this.leftCnt));
+                        computer.getComputer().getLeft().remove(computer.getComputer().getLeft().get(this.leftCntAi));
+                        this.leftCnt += 1;
+                        this.leftCntAi += 1;
+                    }
                 }
             }
 
 
             if (!player.getMiddle().isEmpty() && !computer.getComputer().getMiddle().isEmpty() &&
                     player.getMiddle().get(0).getRectangle().overlaps(computer.getComputer().getMiddle().get(0).getRectangle())) {
-                switch (player.getMiddleColor().get(0)) {
-                    case 0:
-                        switch (computer.getComputer().getMiddleColor().get(0)) {
-                            case 0:
-                                player.getMiddle().remove(player.getMiddle().get(0));
-                                computer.getComputer().getMiddle().remove(computer.getComputer().getMiddle().get(0));
-                                break;
+                if (player.getMiddleColor().get(0) == 0) {
+                    if (computer.getComputer().getMiddleColor().get(0) == 0) {
+                        player.getMiddle().remove(player.getMiddle().get(0));
+                        computer.getComputer().getMiddle().remove(computer.getComputer().getMiddle().get(0));
+                    }
+                    if (computer.getComputer().getMiddleColor().get(0) == 1) {
+                        player.getMiddle().remove(player.getMiddle().get(0));
+                    }
+                    if (computer.getComputer().getMiddleColor().get(0) == 2) {
+                        player.getMiddle().remove(player.getMiddle().get(0));
+                    }
+                }
 
-                            case 1:
-                                player.getMiddle().remove(player.getMiddle().get(0));
-                                break;
+                if (player.getMiddleColor().get(0) == 1) {
+                    if (computer.getComputer().getMiddleColor().get(0) == 0) {
+                        computer.getComputer().getMiddle().remove(computer.getComputer().getMiddle().get(0));
+                    }
 
-                            case 2:
-                                player.getMiddle().remove(player.getMiddle().get(0));
-                                break;
-                        }
-                        break;
+                    if (computer.getComputer().getMiddleColor().get(0) == 1) {
+                        player.getMiddle().remove(player.getMiddle().get(0));
+                        computer.getComputer().getMiddle().remove(computer.getComputer().getMiddle().get(0));
+                    }
 
-                    case 1:
-                        switch (computer.getComputer().getMiddleColor().get(0)) {
-                            case 0:
-                                computer.getComputer().getMiddle().remove(computer.getComputer().getMiddle().get(0));
-                                break;
+                    if (computer.getComputer().getMiddleColor().get(0) == 2) {
+                        player.getMiddle().remove(player.getMiddle().get(0));
+                    }
+                }
 
-                            case 1:
-                                player.getMiddle().remove(player.getMiddle().get(0));
-                                computer.getComputer().getMiddle().remove(computer.getComputer().getMiddle().get(0));
-                                break;
+                if (player.getMiddleColor().get(0) == 2) {
+                    if (computer.getComputer().getMiddleColor().get(0) == 0) {
+                        player.getMiddle().remove(player.getMiddle().get(0));
+                    }
 
-                            case 2:
-                                player.getMiddle().remove(player.getMiddle().get(0));
-                                break;
-                        }
-                        break;
+                    if (computer.getComputer().getMiddleColor().get(0) == 0) {
+                        computer.getComputer().getMiddle().remove(computer.getComputer().getMiddle().get(0));
+                    }
 
-                    case 2:
-                        switch (computer.getComputer().getMiddleColor().get(0)) {
-                            case 0:
-                                player.getMiddle().remove(player.getMiddle().get(0));
-                                break;
-
-                            case 1:
-                                computer.getComputer().getMiddle().remove(computer.getComputer().getMiddle().get(0));
-                                break;
-
-                            case 2:
-                                player.getMiddle().remove(player.getMiddle().get(0));
-                                computer.getComputer().getMiddle().remove(computer.getComputer().getMiddle().get(0));
-                                break;
-                        }
-                        break;
+                    if (computer.getComputer().getMiddleColor().get(0) == 0) {
+                        player.getMiddle().remove(player.getMiddle().get(0));
+                        computer.getComputer().getMiddle().remove(computer.getComputer().getMiddle().get(0));
+                    }
                 }
             }
 
             if (!player.getRight().isEmpty() && !computer.getComputer().getRight().isEmpty() &&
                     player.getRight().get(0).getRectangle().overlaps(computer.getComputer().getRight().get(0).getRectangle())) {
-                switch (player.getRightColor().get(0)) {
-                    case 0:
-                        switch (computer.getComputer().getRightColor().get(0)) {
-                            case 0:
-                                player.getRight().remove(player.getRight().get(0));
-                                computer.getComputer().getRight().remove(computer.getComputer().getRight().get(0));
-                                break;
+                if (player.getRightColor().get(0) == 0) {
+                    if (computer.getComputer().getRightColor().get(0) == 0) {
+                        player.getRight().remove(player.getRight().get(0));
+                        computer.getComputer().getRight().remove(computer.getComputer().getRight().get(0));
+                    }
+                    if (computer.getComputer().getRightColor().get(0) == 1) {
+                        player.getRight().remove(player.getRight().get(0));
+                    }
+                    if (computer.getComputer().getRightColor().get(0) == 2) {
+                        player.getRight().remove(player.getRight().get(0));
+                    }
+                }
 
-                            case 1:
-                                player.getRight().remove(player.getRight().get(0));
-                                break;
+                if (player.getRightColor().get(0) == 1) {
+                    if (computer.getComputer().getRightColor().get(0) == 0) {
+                        computer.getComputer().getRight().remove(computer.getComputer().getRight().get(0));
+                    }
 
-                            case 2:
-                                player.getRight().remove(player.getRight().get(0));
-                                break;
-                        }
-                        break;
+                    if (computer.getComputer().getRightColor().get(0) == 1) {
+                        player.getRight().remove(player.getRight().get(0));
+                        computer.getComputer().getRight().remove(computer.getComputer().getRight().get(0));
+                    }
 
-                    case 1:
-                        switch (computer.getComputer().getRightColor().get(0)) {
-                            case 0:
-                                computer.getComputer().getRight().remove(computer.getComputer().getRight().get(0));
-                                break;
+                    if (computer.getComputer().getRightColor().get(0) == 2) {
+                        player.getRight().remove(player.getRight().get(0));
+                    }
+                }
 
-                            case 1:
-                                player.getRight().remove(player.getRight().get(0));
-                                computer.getComputer().getRight().remove(computer.getComputer().getRight().get(0));
-                                break;
+                if (player.getRightColor().get(0) == 2) {
+                    if (computer.getComputer().getRightColor().get(0) == 0) {
+                        player.getRight().remove(player.getRight().get(0));
+                    }
 
-                            case 2:
-                                player.getRight().remove(player.getRight().get(0));
-                                break;
-                        }
-                        break;
+                    if (computer.getComputer().getRightColor().get(0) == 0) {
+                        computer.getComputer().getRight().remove(computer.getComputer().getRight().get(0));
+                    }
 
-                    case 2:
-                        switch (computer.getComputer().getRightColor().get(0)) {
-                            case 0:
-                                player.getRight().remove(player.getRight().get(0));
-                                break;
-
-                            case 1:
-                                computer.getComputer().getRight().remove(computer.getComputer().getRight().get(0));
-                                break;
-
-                            case 2:
-                                player.getRight().remove(player.getRight().get(0));
-                                computer.getComputer().getRight().remove(computer.getComputer().getRight().get(0));
-                                break;
-                        }
-                        break;
+                    if (computer.getComputer().getRightColor().get(0) == 0) {
+                        player.getRight().remove(player.getRight().get(0));
+                        computer.getComputer().getRight().remove(computer.getComputer().getRight().get(0));
+                    }
                 }
             }
         }

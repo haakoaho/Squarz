@@ -45,7 +45,6 @@ public class PlayModeAi extends State {
     private CountDown countDown;
 
     private AIPlayer ai;
-    //private Ai ai;
     private Player player;
 
     private Collision collision;
@@ -110,17 +109,17 @@ public class PlayModeAi extends State {
             //Implementation for the launcher of each row
             if (Gdx.input.getX() > WIDTH / 4 && Gdx.input.getX() < WIDTH / 2) {
                 firstTouch = true;
-                player.increment(player.getLeft(), player.getLeftCounter(), texture, 0);
+                player.increment(player.getLeft(), player.getLeftCounter(), texture, 0, counter);
                 this.player.getLeftColor().put(this.getCounter(), this.player.getLeftCounter());
                 player.setLeftCounter(player.getLeftCounter() + 1);
             } if (Gdx.input.getX() > WIDTH / 2 && Gdx.input.getX() < WIDTH * 3 / 4) {
                 firstTouch = true;
-                player.increment(player.getMiddle(), player.getMiddleCounter(), texture, 1);
+                player.increment(player.getMiddle(), player.getMiddleCounter(), texture, 1, counter);
                 this.player.getMiddleColor().put(this.getCounter(), this.player.getMiddleCounter());
                 player.setMiddleCounter(player.getMiddleCounter() + 1);
             } if (Gdx.input.getX() > WIDTH * 3 / 4) {
                 firstTouch = true;
-                player.increment(player.getRight(), player.getRightCounter(), texture, 2);
+                player.increment(player.getRight(), player.getRightCounter(), texture, 2, counter);
                 this.player.getRightColor().put(this.getCounter(), this.player.getRightCounter());
                 player.setRightCounter(player.getRightCounter() + 1);
             }
@@ -138,6 +137,7 @@ public class PlayModeAi extends State {
             gsm.set(new EndModeAI(gsm, settings, score));
         }
 
+        //collision.collision(this.player, this.ai, this.firstTouch);
 
 
         ai.send(countDown);
@@ -195,7 +195,6 @@ public class PlayModeAi extends State {
             }
         }
 
-        collision.collision(player, this.ai, this.firstTouch);
     }
 
 

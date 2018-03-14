@@ -21,6 +21,7 @@ public class Square {
     private Vector2 position;
     private Vector2 speed;
     private Rectangle rectangle;
+    private Integer colorKey;
 
     public Square (){
         this.texture = new Texture(Gdx.files.internal("square.png"));
@@ -79,5 +80,13 @@ public class Square {
 
     public void setRectangle(Rectangle rectangle) {
         this.rectangle = rectangle;
+    }
+
+    public Integer getColorKey() {
+        return colorKey;
+    }
+
+    public void setColorKey(Integer colorKey) {
+        this.colorKey = colorKey;
     }
 }

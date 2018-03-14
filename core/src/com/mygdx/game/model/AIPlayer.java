@@ -53,7 +53,7 @@ public class AIPlayer {
 
                 //setting the random Texture in a random row
                 int row = random(2);
-                setTheRandomRow(row);
+                setTheRandomRow(row, colorKey);
 
                 /*if (row == 0) {
                     this.leftMap.put(this.leftCounter, new Square());
@@ -101,16 +101,16 @@ public class AIPlayer {
         }
     }
 
-    public void setTheRandomRow(int row) {
+    public void setTheRandomRow(int row, int colorkey) {
         if (row == 0) {
-            computer.incrementAI(computer.getLeft(), computer.getLeftCounter(), texture, row);
+            computer.incrementAI(computer.getLeft(), computer.getLeftCounter(), texture, row, colorkey);
             computer.setLeftCounter(computer.getLeftCounter() + 1);
         }if(row == 1){
-            computer.incrementAI(computer.getMiddle(), computer.getMiddleCounter(), texture, row);
+            computer.incrementAI(computer.getMiddle(), computer.getMiddleCounter(), texture, row, colorkey);
             computer.setMiddleCounter(computer.getMiddleCounter() + 1);
 
         }if(row == 2){
-            computer.incrementAI(computer.getRight(), computer.getRightCounter(), texture, row);
+            computer.incrementAI(computer.getRight(), computer.getRightCounter(), texture, row, colorkey);
             computer.setRightCounter(computer.getRightCounter() + 1);
 
         }
