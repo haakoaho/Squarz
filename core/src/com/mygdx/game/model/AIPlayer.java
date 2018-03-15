@@ -43,13 +43,9 @@ public class AIPlayer {
 
                 //setting the random Texture in a random row
                 int row = random(2);
-<<<<<<< HEAD
-                setTheRandomRow(row);
-=======
+
                 setTheRandomRow(row, colorKey);
 
-
->>>>>>> Maxime
             }
         }
     }
@@ -67,19 +63,7 @@ public class AIPlayer {
 
     public void setTheRandomRow(int row, int colorKey) {
         if (row == 0) {
-<<<<<<< HEAD
-            computer.incrementAI(computer.getLeft(), computer.getLeftCounter(), texture, row);
-            computer.getLeft().get(computer.getLeftCounter()).setSpeed(settings.getStepX());
-            computer.setLeftCounter(computer.getLeftCounter() + 1);
-        }if(row == 1){
-            computer.incrementAI(computer.getMiddle(), computer.getMiddleCounter(), texture, row);
-            computer.getMiddle().get(computer.getMiddleCounter()).setSpeed(settings.getStepX());
-            computer.setMiddleCounter(computer.getMiddleCounter() + 1);
 
-        }if(row == 2){
-            computer.incrementAI(computer.getRight(), computer.getRightCounter(), texture, row);
-            computer.getRight().get(computer.getRightCounter()).setSpeed(settings.getStepX());
-=======
             computer.incrementAI(computer.getLeft(), computer.getLeftCounter(), texture, row, colorKey);
             computer.setLeftCounter(computer.getLeftCounter() + 1);
         }if(row == 1){
@@ -88,7 +72,6 @@ public class AIPlayer {
 
         }if(row == 2){
             computer.incrementAI(computer.getRight(), computer.getRightCounter(), texture, row, colorKey);
->>>>>>> Maxime
             computer.setRightCounter(computer.getRightCounter() + 1);
         }
 

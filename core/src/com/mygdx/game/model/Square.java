@@ -33,16 +33,6 @@ public class Square {
         this.colorKey = 0;
     }
 
-
-    public void move(){
-        this.setPosition(new Vector2(this.getPosition().x, this.getPosition().y + this.getSpeed().y));
-    }
-
-    public void reverseMove(){
-        this.setPosition(new Vector2(this.getPosition().x, this.getPosition().y - this.getSpeed().y));
-    }
-
-
     public Sprite getSprite() {
         return sprite;
     }
@@ -76,7 +66,6 @@ public class Square {
         this.speed = speed;
     }
 
-<<<<<<< HEAD
     public void move(){
         this.setPosition(new Vector2(this.getPosition().x, this.getPosition().y + this.getSpeed()));
     }
@@ -85,8 +74,6 @@ public class Square {
         this.setPosition(new Vector2(this.getPosition().x, this.getPosition().y - this.getSpeed()));
     }
 
-=======
->>>>>>> Maxime
     public Rectangle getRectangle() {
         return rectangle;
     }

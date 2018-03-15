@@ -136,15 +136,15 @@ public class Player {
     public void decrement(Map<Integer, Square> row, Integer counter, Integer columnKey){
         if(columnKey == 0) {
             row.get(counter).setPosition(new Vector2(10, 10));
-            row.get(counter).setSpeed(new Vector2(0, 0));
+            row.get(counter).setSpeed(0);
         }
         else if(columnKey == 1){
             row.get(counter).setPosition(new Vector2(0, 10));
-            row.get(counter).setSpeed(new Vector2(0, 0));
+            row.get(counter).setSpeed(0);
         }
         else if( columnKey == 2){
             row.get(counter).setPosition(new Vector2(0, 10));
-            row.get(counter).setSpeed(new Vector2(0, 0));
+            row.get(counter).setSpeed(0);
         }
     }
 }
