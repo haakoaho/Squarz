@@ -73,6 +73,12 @@ public class Settings extends State {
             if (minS.contains(x,y)) {
                 dec(0);
             }
+            if (maxV.contains(x,y)) {
+                inc(1);
+            }
+            if (minV.contains(x,y)) {
+                dec(1);
+            }
             if (back.contains(x,y)) {
                 gsm.set(new Menu(gsm));
                 dispose();
