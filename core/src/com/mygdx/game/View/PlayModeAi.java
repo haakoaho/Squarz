@@ -164,7 +164,7 @@ public class PlayModeAi extends State {
                 }
             }
 
-            //collision.collision(this.player, this.ai, this.firstTouch);
+            collision.collision(this.player, this.ai, this.firstTouch);
         }
 
 
