@@ -30,6 +30,16 @@ public class Square {
         this.speed = new Vector2(0, 4);
         this.rectangle = new Rectangle(this.getPosition().x, this.getPosition().y,
                 this.getTexture().getWidth(), this.getTexture().getHeight());
+        this.colorKey = 0;
+    }
+
+
+    public void move(){
+        this.setPosition(new Vector2(this.getPosition().x, this.getPosition().y + this.getSpeed().y));
+    }
+
+    public void reverseMove(){
+        this.setPosition(new Vector2(this.getPosition().x, this.getPosition().y - this.getSpeed().y));
     }
 
 
@@ -64,14 +74,6 @@ public class Square {
 
     public void setSpeed(Vector2 speed) {
         this.speed = speed;
-    }
-
-    public void move(){
-        this.setPosition(new Vector2(this.getPosition().x, this.getPosition().y + this.getSpeed().y));
-    }
-
-    public void reverseMove(){
-        this.setPosition(new Vector2(this.getPosition().x, this.getPosition().y - this.getSpeed().y));
     }
 
     public Rectangle getRectangle() {

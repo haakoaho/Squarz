@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 
 
 /**
- * Created by Antoine Dc on 14/03/2018.
+ * Created by Max on 14/03/2018.
  */
 
 // Color - number association
@@ -26,26 +26,61 @@ public class Collision {
 
     public void collision( Player player, AIPlayer computer, Boolean firstTouch) {
         if (firstTouch) {
-            if (!player.getLeft().isEmpty() && !computer.getComputer().getLeft().isEmpty() && player.getLeft().get(this.leftCnt).getRectangle().overlaps(computer.getComputer().getLeft().get(this.leftCntAi).getRectangle())) {
+            if (!player.getLeft().isEmpty() && !computer.getComputer().getLeft().isEmpty()
+                    && player.getLeftCounter() >= this.leftCnt
+                    && computer.getComputer().getLeftCounter() >= this.leftCntAi
+                    && player.getLeft().get(this.leftCnt).getRectangle().overlaps(
+                            computer.getComputer().getLeft().get(this.leftCntAi).getRectangle())) {
 
-                if (player.getLeft().get(0).getColorKey() == 0) {
+                if (player.getLeft().get(leftCnt).getColorKey() == 0) {
+                    //player.decrement(player.getLeft(), this.leftCnt, 0);
+                    //computer.getComputer().decrement(computer.getComputer().getLeft(),
+                    //        this.leftCntAi, 0);
 
-                    if (computer.getComputer().getLeft().get(0).getColorKey() == 0) {
+                    if (computer.getComputer().getLeft().get(leftCntAi).getColorKey() == 0) {
 
-                        player.getLeft().remove(player.getLeft().get(0));
-                        computer.getComputer().getLeft().remove(computer.getComputer().getLeft().get(0));
-                        this.leftCnt += 1;
-                        this.leftCntAi += 1;
-                    } else if (computer.getComputer().getLeft().get(0).getColorKey() == 1) {
-                        player.getLeft().remove(player.getLeft().get(0));
-                        this.leftCnt += 1;
-                    }else if (computer.getComputer().getLeft().get(0).getColorKey() == 2) {
-                        computer.getComputer().getLeft().remove(player.getLeft().get(0));
-                        this.leftCntAi += 1;
+                        player.decrement(player.getLeft(), this.leftCnt, 0);
+                        computer.getComputer().decrement(computer.getComputer().getLeft(),
+                               this.leftCntAi, 0);
+
+                        //player.getLeft().remove(player.getLeft().get(0));
+                        //computer.getComputer().getLeft().remove(computer.getComputer().getLeft().get(0));
+                        this.leftCnt = this.leftCnt + 1;
+                        this.leftCntAi = this.leftCntAi + 1;
+
+                    } else if (computer.getComputer().getLeft().get(leftCntAi).getColorKey() == 1) {
+                        //player.getLeft().remove(player.getLeft().get(0));
+                        //player.decrement(player.getLeft(), player.getLeftCounter(), 0);
+
+                        player.decrement(player.getLeft(), this.leftCnt, 0);
+                        computer.getComputer().decrement(computer.getComputer().getLeft(),
+                                this.leftCntAi, 0);
+
+                        this.leftCnt = this.leftCnt + 1;
+                        this.leftCntAi = this.leftCntAi + 1;
+
+
+                        //this.leftCnt += 1;
+
+                    }else if (computer.getComputer().getLeft().get(leftCntAi).getColorKey() == 2) {
+                        //computer.getComputer().getLeft().remove(player.getLeft().get(0));
+                        //computer.getComputer().decrement(computer.getComputer().getLeft(),
+                        //        computer.getComputer().getLeftCounter(), 0);
+
+                        player.decrement(player.getLeft(), this.leftCnt, 0);
+                        computer.getComputer().decrement(computer.getComputer().getLeft(),
+                                this.leftCntAi, 0);
+
+                        this.leftCnt = this.leftCnt + 1;
+                        this.leftCntAi = this.leftCntAi + 1;
+
+
+                        //this.leftCntAi += 1;
                     }
                 } else
 
                 if (player.getLeft().get(this.leftCnt).getColorKey() == 1) {
+
                     if (computer.getComputer().getLeft().get(this.leftCntAi).getColorKey() == 0) {
                         computer.getComputer().getLeft().remove(computer.getComputer().getLeft().get(this.leftCntAi));
                         this.leftCntAi += 1;
@@ -79,44 +114,45 @@ public class Collision {
 
             if (!player.getMiddle().isEmpty() && !computer.getComputer().getMiddle().isEmpty() &&
                     player.getMiddle().get(0).getRectangle().overlaps(computer.getComputer().getMiddle().get(0).getRectangle())) {
-                if (player.getMiddleColor().get(0) == 0) {
-                    if (computer.getComputer().getMiddleColor().get(0) == 0) {
+
+                if (player.getMiddle().get(0).getColorKey() == 0) {
+                    if (computer.getComputer().getMiddle().get(0).getColorKey() == 0) {
                         player.getMiddle().remove(player.getMiddle().get(0));
                         computer.getComputer().getMiddle().remove(computer.getComputer().getMiddle().get(0));
                     }
-                    if (computer.getComputer().getMiddleColor().get(0) == 1) {
+                    if (computer.getComputer().getMiddle().get(0).getColorKey() == 1) {
                         player.getMiddle().remove(player.getMiddle().get(0));
                     }
-                    if (computer.getComputer().getMiddleColor().get(0) == 2) {
+                    if (computer.getComputer().getMiddle().get(0).getColorKey() == 2) {
                         player.getMiddle().remove(player.getMiddle().get(0));
                     }
                 }
 
-                if (player.getMiddleColor().get(0) == 1) {
-                    if (computer.getComputer().getMiddleColor().get(0) == 0) {
+                if (player.getMiddle().get(0).getColorKey() == 1) {
+                    if (computer.getComputer().getMiddle().get(0).getColorKey() == 0) {
                         computer.getComputer().getMiddle().remove(computer.getComputer().getMiddle().get(0));
                     }
 
-                    if (computer.getComputer().getMiddleColor().get(0) == 1) {
+                    if (computer.getComputer().getMiddle().get(0).getColorKey() == 1) {
                         player.getMiddle().remove(player.getMiddle().get(0));
                         computer.getComputer().getMiddle().remove(computer.getComputer().getMiddle().get(0));
                     }
 
-                    if (computer.getComputer().getMiddleColor().get(0) == 2) {
+                    if (computer.getComputer().getMiddle().get(0).getColorKey() == 2) {
                         player.getMiddle().remove(player.getMiddle().get(0));
                     }
                 }
 
-                if (player.getMiddleColor().get(0) == 2) {
-                    if (computer.getComputer().getMiddleColor().get(0) == 0) {
+                if (player.getMiddle().get(0).getColorKey() == 2) {
+                    if (computer.getComputer().getMiddle().get(0).getColorKey() == 0) {
                         player.getMiddle().remove(player.getMiddle().get(0));
                     }
 
-                    if (computer.getComputer().getMiddleColor().get(0) == 0) {
+                    if (computer.getComputer().getMiddle().get(0).getColorKey() == 0) {
                         computer.getComputer().getMiddle().remove(computer.getComputer().getMiddle().get(0));
                     }
 
-                    if (computer.getComputer().getMiddleColor().get(0) == 0) {
+                    if (computer.getComputer().getMiddle().get(0).getColorKey() == 0) {
                         player.getMiddle().remove(player.getMiddle().get(0));
                         computer.getComputer().getMiddle().remove(computer.getComputer().getMiddle().get(0));
                     }
@@ -125,44 +161,45 @@ public class Collision {
 
             if (!player.getRight().isEmpty() && !computer.getComputer().getRight().isEmpty() &&
                     player.getRight().get(0).getRectangle().overlaps(computer.getComputer().getRight().get(0).getRectangle())) {
-                if (player.getRightColor().get(0) == 0) {
-                    if (computer.getComputer().getRightColor().get(0) == 0) {
+
+                if (player.getRight().get(0).getColorKey() == 0) {
+                    if (computer.getComputer().getRight().get(0).getColorKey() == 0) {
                         player.getRight().remove(player.getRight().get(0));
                         computer.getComputer().getRight().remove(computer.getComputer().getRight().get(0));
                     }
-                    if (computer.getComputer().getRightColor().get(0) == 1) {
+                    if (computer.getComputer().getRight().get(0).getColorKey() == 1) {
                         player.getRight().remove(player.getRight().get(0));
                     }
-                    if (computer.getComputer().getRightColor().get(0) == 2) {
+                    if (computer.getComputer().getRight().get(0).getColorKey() == 2) {
                         player.getRight().remove(player.getRight().get(0));
                     }
                 }
 
-                if (player.getRightColor().get(0) == 1) {
-                    if (computer.getComputer().getRightColor().get(0) == 0) {
+                if (player.getRight().get(0).getColorKey() == 1) {
+                    if (computer.getComputer().getRight().get(0).getColorKey() == 0) {
                         computer.getComputer().getRight().remove(computer.getComputer().getRight().get(0));
                     }
 
-                    if (computer.getComputer().getRightColor().get(0) == 1) {
+                    if (computer.getComputer().getRight().get(0).getColorKey() == 1) {
                         player.getRight().remove(player.getRight().get(0));
                         computer.getComputer().getRight().remove(computer.getComputer().getRight().get(0));
                     }
 
-                    if (computer.getComputer().getRightColor().get(0) == 2) {
+                    if (computer.getComputer().getRight().get(0).getColorKey() == 2) {
                         player.getRight().remove(player.getRight().get(0));
                     }
                 }
 
-                if (player.getRightColor().get(0) == 2) {
-                    if (computer.getComputer().getRightColor().get(0) == 0) {
+                if (player.getRight().get(0).getColorKey() == 2) {
+                    if (computer.getComputer().getRight().get(0).getColorKey() == 0) {
                         player.getRight().remove(player.getRight().get(0));
                     }
 
-                    if (computer.getComputer().getRightColor().get(0) == 0) {
+                    if (computer.getComputer().getRight().get(0).getColorKey() == 0) {
                         computer.getComputer().getRight().remove(computer.getComputer().getRight().get(0));
                     }
 
-                    if (computer.getComputer().getRightColor().get(0) == 0) {
+                    if (computer.getComputer().getRight().get(0).getColorKey() == 0) {
                         player.getRight().remove(player.getRight().get(0));
                         computer.getComputer().getRight().remove(computer.getComputer().getRight().get(0));
                     }
@@ -170,5 +207,7 @@ public class Collision {
             }
         }
     }
+
+
 }
 
