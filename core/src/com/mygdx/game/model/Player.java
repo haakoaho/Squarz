@@ -21,7 +21,6 @@ import static com.mygdx.game.Squarz.WIDTH;
 public class Player {
     private Map<Integer, Square> left, middle, right;
     private Integer leftCounter, middleCounter, rightCounter;
-    private Map<Integer, Integer> leftColor, middleColor, rightColor;
 
     public Player(){
         this.left = new HashMap<Integer, Square>();
@@ -30,9 +29,6 @@ public class Player {
         this.leftCounter = 0;
         this.middleCounter = 0;
         this.rightCounter = 0;
-        this.leftColor = new HashMap<Integer, Integer>();
-        this.middleColor = new HashMap<Integer, Integer>();
-        this.rightColor = new HashMap<Integer, Integer>();
     }
 
     //setters and getters;
@@ -73,30 +69,14 @@ public class Player {
     public void setRightCounter(Integer rightCounter) {
         this.rightCounter = rightCounter;
     }
-    public Map<Integer, Integer> getLeftColor() {
-        return leftColor;
-    }
-    public void setLeftColor(Map<Integer, Integer> leftColor) {
-        this.leftColor = leftColor;
-    }
-    public Map<Integer, Integer> getMiddleColor() {
-        return middleColor;
-    }
-    public void setMiddleColor(Map<Integer, Integer> middleColor) {
-        this.middleColor = middleColor;
-    }
-    public Map<Integer, Integer> getRightColor() {
-        return rightColor;
-    }
-    public void setRightColor(Map<Integer, Integer> rightColor) {
-        this.rightColor = rightColor;
-    }
 
-    public void increment(Map<Integer, Square> row, Integer counter, Texture t, Integer columnKey){
+
+    public void increment(Map<Integer, Square> row, Integer counter, Texture t, Integer columnKey, Integer colorkey){
         row.put(counter, new Square());
         if(columnKey == 0) {
             row.get(counter).setPosition(new Vector2(WIDTH * 5 / 16, 0));
             row.get(counter).setTexture(t);
+            row.get(counter).setColorKey(colorkey);
             if (counter != 0 && row.get(counter - 1).getPosition().y < t.getHeight() + 5) {
                 row.get(counter).setPosition(new Vector2(Gdx.graphics.getWidth() * 5 / 16,
                         row.get(counter - 1).getPosition().y - t.getHeight() - 5));
@@ -105,6 +85,7 @@ public class Player {
         else if(columnKey == 1){
             row.get(counter).setPosition(new Vector2(WIDTH * 9 / 16, 0));
             row.get(counter).setTexture(t);
+            row.get(counter).setColorKey(colorkey);
             if (counter != 0 && row.get(counter - 1).getPosition().y < t.getHeight() + 5) {
                 row.get(counter).setPosition(new Vector2(Gdx.graphics.getWidth() * 9 / 16,
                         row.get(counter - 1).getPosition().y - t.getHeight() - 5));
@@ -113,6 +94,7 @@ public class Player {
         else if( columnKey == 2){
             row.get(counter).setPosition(new Vector2(WIDTH * 13 / 16, 0));
             row.get(counter).setTexture(t);
+            row.get(counter).setColorKey(colorkey);
             if (counter != 0 && row.get(counter - 1).getPosition().y < t.getHeight() + 5) {
                 row.get(counter).setPosition(new Vector2(Gdx.graphics.getWidth() * 13 / 16,
                         row.get(counter - 1).getPosition().y - t.getHeight() - 5));
@@ -120,11 +102,12 @@ public class Player {
         }
     }
 
-    public void incrementAI(Map<Integer, Square> row, Integer counter, Texture t, Integer columnKey){
+    public void incrementAI(Map<Integer, Square> row, Integer counter, Texture t, Integer columnKey, Integer colorkey){
         row.put(counter, new Square());
         if(columnKey == 0) {
             row.get(counter).setPosition(new Vector2(WIDTH * 5 / 16, HEIGHT));
             row.get(counter).setTexture(t);
+            row.get(counter).setColorKey(colorkey);
             if (counter != 0 && row.get(counter - 1).getPosition().y >= HEIGHT - (t.getHeight()) - 5) {
                 row.get(counter).setPosition(new Vector2(Gdx.graphics.getWidth() * 5 / 16,
                         row.get(counter - 1).getPosition().y - t.getHeight() - 5));
@@ -133,6 +116,7 @@ public class Player {
         else if(columnKey == 1){
             row.get(counter).setPosition(new Vector2(WIDTH * 9 / 16, HEIGHT));
             row.get(counter).setTexture(t);
+            row.get(counter).setColorKey(colorkey);
             if (counter != 0 && row.get(counter - 1).getPosition().y >= HEIGHT - (t.getHeight()) - 5) {
                 row.get(counter).setPosition(new Vector2(Gdx.graphics.getWidth() * 9 / 16,
                         row.get(counter - 1).getPosition().y - t.getHeight() - 5));
@@ -141,10 +125,26 @@ public class Player {
         else if( columnKey == 2){
             row.get(counter).setPosition(new Vector2(WIDTH * 13 / 16, HEIGHT));
             row.get(counter).setTexture(t);
+            row.get(counter).setColorKey(colorkey);
             if (counter != 0 && row.get(counter - 1).getPosition().y >= HEIGHT - (t.getHeight()) - 5) {
                 row.get(counter).setPosition(new Vector2(Gdx.graphics.getWidth() * 13 / 16,
                         row.get(counter - 1).getPosition().y - t.getHeight() - 5));
             }
+        }
+    }
+
+    public void decrement(Map<Integer, Square> row, Integer counter, Integer columnKey){
+        if(columnKey == 0) {
+            row.get(counter).setPosition(new Vector2(10, 10));
+            row.get(counter).setSpeed(new Vector2(0, 0));
+        }
+        else if(columnKey == 1){
+            row.get(counter).setPosition(new Vector2(0, 10));
+            row.get(counter).setSpeed(new Vector2(0, 0));
+        }
+        else if( columnKey == 2){
+            row.get(counter).setPosition(new Vector2(0, 10));
+            row.get(counter).setSpeed(new Vector2(0, 0));
         }
     }
 }

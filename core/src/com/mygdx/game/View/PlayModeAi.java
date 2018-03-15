@@ -42,7 +42,7 @@ public class PlayModeAi extends State {
     private Square choiceSquare;
     private Boolean firstTouch = false;
     private Texture texture;
-    private Integer counter;
+    private Integer colorkey;
 
     private Score score;
     private CountDown countDown;
@@ -67,7 +67,7 @@ public class PlayModeAi extends State {
         this.choiceSquare.setPosition(new Vector2(WIDTH * 1 / 16, HEIGHT * 1 / 5));
 
         this.texture = new Texture(Gdx.files.internal("square.png"));
-        this.counter = 0;
+        this.colorkey = 0;
 
         this.score = new Score();
 
@@ -97,14 +97,14 @@ public class PlayModeAi extends State {
             //Colour choice button
             if ((Gdx.input.getX() < WIDTH / 4) && (HEIGHT - Gdx.input.getY() >= this.choiceSquare.getPosition().y)
                     && (HEIGHT - Gdx.input.getY() <= this.choiceSquare.getPosition().y + this.choiceSquare.getTexture().getHeight()) ) {
-                this.counter = this.counter + 1;
-                if (this.counter == 3) {
-                    this.counter = 0;
+                this.colorkey = this.colorkey + 1;
+                if (this.colorkey == 3) {
+                    this.colorkey = 0;
                 }
-                if (this.counter == 0) {
+                if (this.colorkey == 0) {
                     this.texture = new Texture(Gdx.files.internal("square_red.png"));
                 } else {
-                    if (this.counter == 1) {
+                    if (this.colorkey == 1) {
                         this.texture = new Texture(Gdx.files.internal("square_blue.png"));
                     } else {
                         this.texture = new Texture(Gdx.files.internal("square_yellow.png"));
@@ -115,18 +115,15 @@ public class PlayModeAi extends State {
             //Implementation for the launcher of each row
             if (Gdx.input.getX() > WIDTH / 4 && Gdx.input.getX() < WIDTH / 2) {
                 firstTouch = true;
-                player.increment(player.getLeft(), player.getLeftCounter(), texture, 0);
-                this.player.getLeftColor().put(this.getCounter(), this.player.getLeftCounter());
+                player.increment(player.getLeft(), player.getLeftCounter(), texture, 0, colorkey);
                 player.setLeftCounter(player.getLeftCounter() + 1);
             } if (Gdx.input.getX() > WIDTH / 2 && Gdx.input.getX() < WIDTH * 3 / 4) {
                 firstTouch = true;
-                player.increment(player.getMiddle(), player.getMiddleCounter(), texture, 1);
-                this.player.getMiddleColor().put(this.getCounter(), this.player.getMiddleCounter());
+                player.increment(player.getMiddle(), player.getMiddleCounter(), texture, 1, colorkey);
                 player.setMiddleCounter(player.getMiddleCounter() + 1);
             } if (Gdx.input.getX() > WIDTH * 3 / 4) {
                 firstTouch = true;
-                player.increment(player.getRight(), player.getRightCounter(), texture, 2);
-                this.player.getRightColor().put(this.getCounter(), this.player.getRightCounter());
+                player.increment(player.getRight(), player.getRightCounter(), texture, 2, colorkey);
                 player.setRightCounter(player.getRightCounter() + 1);
             }
         }
@@ -179,6 +176,8 @@ public class PlayModeAi extends State {
                     this.score.updateUser();
                 }
             }
+
+            collision.collision(this.player, this.ai, this.firstTouch);
         }
 
         //mooving the Ai's squares
@@ -207,7 +206,6 @@ public class PlayModeAi extends State {
             }
         }
 
-        collision.collision(player, this.ai, this.firstTouch);
     }
 
 
@@ -285,12 +283,12 @@ public class PlayModeAi extends State {
         this.texture = texture;
     }
 
-    public Integer getCounter() {
-        return counter;
+    public Integer getColorkey() {
+        return colorkey;
     }
 
-    public void setCounter(Integer counter) {
-        this.counter = counter;
+    public void setColorkey(Integer colorkey) {
+        this.colorkey = colorkey;
     }
 
     public Score getScore() {

@@ -7,7 +7,7 @@ import com.mygdx.game.control.aI.PreferencesSettings;
 import static com.badlogic.gdx.math.MathUtils.random;
 
 /**
- * Created by Antoine Dc on 13/03/2018.
+ * Created by Max on 13/03/2018.
  */
 
 // Color - number association
@@ -43,7 +43,13 @@ public class AIPlayer {
 
                 //setting the random Texture in a random row
                 int row = random(2);
+<<<<<<< HEAD
                 setTheRandomRow(row);
+=======
+                setTheRandomRow(row, colorKey);
+
+
+>>>>>>> Maxime
             }
         }
     }
@@ -52,18 +58,16 @@ public class AIPlayer {
     public void setTheRandomTexture(int colorKey){
         if (colorKey == 0) {
             this.texture = new Texture(Gdx.files.internal("square_red.png"));
-            this.computer.getLeftColor().put(this.computer.getLeftCounter(), colorKey);
         } else if (colorKey == 1) {
             this.texture = new Texture(Gdx.files.internal("square_blue.png"));
-            this.computer.getMiddleColor().put(this.computer.getMiddleCounter(), colorKey);
         } else {
             this.texture = new Texture(Gdx.files.internal("square_yellow.png"));
-            this.computer.getRightColor().put(this.computer.getRightCounter(), colorKey);
         }
     }
 
-    public void setTheRandomRow(int row) {
+    public void setTheRandomRow(int row, int colorKey) {
         if (row == 0) {
+<<<<<<< HEAD
             computer.incrementAI(computer.getLeft(), computer.getLeftCounter(), texture, row);
             computer.getLeft().get(computer.getLeftCounter()).setSpeed(settings.getStepX());
             computer.setLeftCounter(computer.getLeftCounter() + 1);
@@ -75,6 +79,16 @@ public class AIPlayer {
         }if(row == 2){
             computer.incrementAI(computer.getRight(), computer.getRightCounter(), texture, row);
             computer.getRight().get(computer.getRightCounter()).setSpeed(settings.getStepX());
+=======
+            computer.incrementAI(computer.getLeft(), computer.getLeftCounter(), texture, row, colorKey);
+            computer.setLeftCounter(computer.getLeftCounter() + 1);
+        }if(row == 1){
+            computer.incrementAI(computer.getMiddle(), computer.getMiddleCounter(), texture, row, colorKey);
+            computer.setMiddleCounter(computer.getMiddleCounter() + 1);
+
+        }if(row == 2){
+            computer.incrementAI(computer.getRight(), computer.getRightCounter(), texture, row, colorKey);
+>>>>>>> Maxime
             computer.setRightCounter(computer.getRightCounter() + 1);
         }
 

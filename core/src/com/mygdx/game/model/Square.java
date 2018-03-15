@@ -21,6 +21,7 @@ public class Square {
     private Vector2 position;
     private int speed;
     private Rectangle rectangle;
+    private Integer colorKey;
 
     public Square (){
         this.texture = new Texture(Gdx.files.internal("square.png"));
@@ -29,6 +30,16 @@ public class Square {
         this.speed = 4;
         this.rectangle = new Rectangle(this.getPosition().x, this.getPosition().y,
                 this.getTexture().getWidth(), this.getTexture().getHeight());
+        this.colorKey = 0;
+    }
+
+
+    public void move(){
+        this.setPosition(new Vector2(this.getPosition().x, this.getPosition().y + this.getSpeed().y));
+    }
+
+    public void reverseMove(){
+        this.setPosition(new Vector2(this.getPosition().x, this.getPosition().y - this.getSpeed().y));
     }
 
 
@@ -65,6 +76,7 @@ public class Square {
         this.speed = speed;
     }
 
+<<<<<<< HEAD
     public void move(){
         this.setPosition(new Vector2(this.getPosition().x, this.getPosition().y + this.getSpeed()));
     }
@@ -73,11 +85,21 @@ public class Square {
         this.setPosition(new Vector2(this.getPosition().x, this.getPosition().y - this.getSpeed()));
     }
 
+=======
+>>>>>>> Maxime
     public Rectangle getRectangle() {
         return rectangle;
     }
 
     public void setRectangle(Rectangle rectangle) {
         this.rectangle = rectangle;
+    }
+
+    public Integer getColorKey() {
+        return colorKey;
+    }
+
+    public void setColorKey(Integer colorKey) {
+        this.colorKey = colorKey;
     }
 }
