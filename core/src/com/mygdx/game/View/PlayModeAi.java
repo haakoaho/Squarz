@@ -71,7 +71,7 @@ public class PlayModeAi extends State {
 
         this.score = new Score();
 
-        this.countDown = new CountDown(30, 0);
+        this.countDown = new CountDown(60, 0);
 
         this.collision = new Collision();
 
@@ -153,8 +153,11 @@ public class PlayModeAi extends State {
                 //dealing with the score
                 if (player.getLeft().get(i).getPosition().y >= HEIGHT &&
                         player.getLeft().get(i).getPosition().y < HEIGHT + this.choiceSquare.getSpeed()){
+<<<<<<< HEAD
                     sound.play(Squarz.valueVolume*0.1f);
                     Gdx.input.vibrate(Squarz.valueVibration*100);
+=======
+>>>>>>> Maxime
                     this.score.updateUser();
                 }
             }
@@ -162,8 +165,11 @@ public class PlayModeAi extends State {
                 player.getMiddle().get(i).move();
                 if ( player.getMiddle().get(i).getPosition().y >= HEIGHT &&
                         player.getMiddle().get(i).getPosition().y < HEIGHT + this.choiceSquare.getSpeed()){
+<<<<<<< HEAD
                     sound.play(Squarz.valueVolume*0.1f);
                     Gdx.input.vibrate(Squarz.valueVibration*100);
+=======
+>>>>>>> Maxime
                     this.score.updateUser();
                 }
             }
@@ -171,8 +177,11 @@ public class PlayModeAi extends State {
                 player.getRight().get(i).move();
                 if (player.getRight().get(i).getPosition().y >= HEIGHT &&
                         player.getRight().get(i).getPosition().y < HEIGHT + this.choiceSquare.getSpeed()){
+<<<<<<< HEAD
                     sound.play(Squarz.valueVolume*0.1f);
                     Gdx.input.vibrate(Squarz.valueVibration*100);
+=======
+>>>>>>> Maxime
                     this.score.updateUser();
                 }
             }
@@ -200,7 +209,10 @@ public class PlayModeAi extends State {
         for (int i = 0; i < ai.getComputer().getRightCounter(); i++) {
             ai.getComputer().getRight().get(i).reverseMove();
             if (ai.getComputer().getRight().get(i).getPosition().y <= 0 &&
+<<<<<<< HEAD
 
+=======
+>>>>>>> Maxime
                     ai.getComputer().getRight().get(i).getPosition().y > - this.choiceSquare.getSpeed()){
                 this.score.updateAi();
             }
@@ -217,25 +229,31 @@ public class PlayModeAi extends State {
         sb.draw(choiceSquare.getTexture(), WIDTH * 1 / 16, HEIGHT * 1 / 5);
         if (firstTouch) {
             for (int i = 0; i < player.getLeftCounter(); i++) {
-                sb.draw(player.getLeft().get(i).getTexture(), player.getLeft().get(i).getPosition().x, player.getLeft().get(i).getPosition().y);
+                sb.draw(player.getLeft().get(i).getTexture(),
+                        player.getLeft().get(i).getPosition().x, player.getLeft().get(i).getPosition().y);
             }
             for (int i = 0; i < player.getMiddleCounter(); i++) {
-                sb.draw(player.getMiddle().get(i).getTexture(), player.getMiddle().get(i).getPosition().x, player.getMiddle().get(i).getPosition().y);
+                sb.draw(player.getMiddle().get(i).getTexture(),
+                        player.getMiddle().get(i).getPosition().x, player.getMiddle().get(i).getPosition().y);
             }
             for (int i = 0; i < player.getRightCounter(); i++) {
-                sb.draw(player.getRight().get(i).getTexture(), player.getRight().get(i).getPosition().x, player.getRight().get(i).getPosition().y);
+                sb.draw(player.getRight().get(i).getTexture(),
+                        player.getRight().get(i).getPosition().x, player.getRight().get(i).getPosition().y);
             }
         }
 
         //Ai's square drawing
         for (int i = 0; i < ai.getComputer().getLeftCounter(); i++) {
-            sb.draw(ai.getComputer().getLeft().get(i).getTexture(), ai.getComputer().getLeft().get(i).getPosition().x, ai.getComputer().getLeft().get(i).getPosition().y);
+            sb.draw(ai.getComputer().getLeft().get(i).getTexture(),
+                    ai.getComputer().getLeft().get(i).getPosition().x, ai.getComputer().getLeft().get(i).getPosition().y);
         }
         for (int i = 0; i < ai.getComputer().getMiddleCounter(); i++) {
-            sb.draw(ai.getComputer().getMiddle().get(i).getTexture(), ai.getComputer().getMiddle().get(i).getPosition().x, ai.getComputer().getMiddle().get(i).getPosition().y);
+            sb.draw(ai.getComputer().getMiddle().get(i).getTexture(),
+                    ai.getComputer().getMiddle().get(i).getPosition().x, ai.getComputer().getMiddle().get(i).getPosition().y);
         }
         for (int i = 0; i < ai.getComputer().getRightCounter(); i++) {
-            sb.draw(ai.getComputer().getRight().get(i).getTexture(), ai.getComputer().getRight().get(i).getPosition().x, ai.getComputer().getRight().get(i).getPosition().y);
+            sb.draw(ai.getComputer().getRight().get(i).getTexture(),
+                    ai.getComputer().getRight().get(i).getPosition().x, ai.getComputer().getRight().get(i).getPosition().y);
         }
 
         Squarz.font.draw(sb, String.valueOf(score.getUserScore()),

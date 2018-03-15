@@ -26,9 +26,9 @@ public class Player {
         this.left = new HashMap<Integer, Square>();
         this.middle = new HashMap<Integer, Square>();
         this.right = new HashMap<Integer, Square>();
-        this.leftCounter = 0;
-        this.middleCounter = 0;
-        this.rightCounter = 0;
+        this.leftCounter = -1;
+        this.middleCounter = -1;
+        this.rightCounter = -1;
     }
 
     //setters and getters;
@@ -77,7 +77,7 @@ public class Player {
             row.get(counter).setPosition(new Vector2(WIDTH * 5 / 16, 0));
             row.get(counter).setTexture(t);
             row.get(counter).setColorKey(colorkey);
-            if (counter != 0 && row.get(counter - 1).getPosition().y < t.getHeight() + 5) {
+            if (counter > 0 && row.get(counter - 1).getPosition().y < t.getHeight() + 5) {
                 row.get(counter).setPosition(new Vector2(Gdx.graphics.getWidth() * 5 / 16,
                         row.get(counter - 1).getPosition().y - t.getHeight() - 5));
             }
@@ -86,7 +86,7 @@ public class Player {
             row.get(counter).setPosition(new Vector2(WIDTH * 9 / 16, 0));
             row.get(counter).setTexture(t);
             row.get(counter).setColorKey(colorkey);
-            if (counter != 0 && row.get(counter - 1).getPosition().y < t.getHeight() + 5) {
+            if (counter > 0 && row.get(counter - 1).getPosition().y < t.getHeight() + 5) {
                 row.get(counter).setPosition(new Vector2(Gdx.graphics.getWidth() * 9 / 16,
                         row.get(counter - 1).getPosition().y - t.getHeight() - 5));
             }
@@ -95,7 +95,7 @@ public class Player {
             row.get(counter).setPosition(new Vector2(WIDTH * 13 / 16, 0));
             row.get(counter).setTexture(t);
             row.get(counter).setColorKey(colorkey);
-            if (counter != 0 && row.get(counter - 1).getPosition().y < t.getHeight() + 5) {
+            if (counter > 0 && row.get(counter - 1).getPosition().y < t.getHeight() + 5) {
                 row.get(counter).setPosition(new Vector2(Gdx.graphics.getWidth() * 13 / 16,
                         row.get(counter - 1).getPosition().y - t.getHeight() - 5));
             }
@@ -108,27 +108,27 @@ public class Player {
             row.get(counter).setPosition(new Vector2(WIDTH * 5 / 16, HEIGHT));
             row.get(counter).setTexture(t);
             row.get(counter).setColorKey(colorkey);
-            if (counter != 0 && row.get(counter - 1).getPosition().y >= HEIGHT - (t.getHeight()) - 5) {
+            if (counter > 0 && row.get(counter - 1).getPosition().y >= HEIGHT - (t.getHeight()) - 5) {
                 row.get(counter).setPosition(new Vector2(Gdx.graphics.getWidth() * 5 / 16,
-                        row.get(counter - 1).getPosition().y - t.getHeight() - 5));
+                        row.get(counter - 1).getPosition().y + t.getHeight() + 5));
             }
         }
         else if(columnKey == 1){
             row.get(counter).setPosition(new Vector2(WIDTH * 9 / 16, HEIGHT));
             row.get(counter).setTexture(t);
             row.get(counter).setColorKey(colorkey);
-            if (counter != 0 && row.get(counter - 1).getPosition().y >= HEIGHT - (t.getHeight()) - 5) {
+            if (counter > 0 && row.get(counter - 1).getPosition().y >= HEIGHT - (t.getHeight()) - 5) {
                 row.get(counter).setPosition(new Vector2(Gdx.graphics.getWidth() * 9 / 16,
-                        row.get(counter - 1).getPosition().y - t.getHeight() - 5));
+                        row.get(counter - 1).getPosition().y + t.getHeight() + 5));
             }
         }
         else if( columnKey == 2){
             row.get(counter).setPosition(new Vector2(WIDTH * 13 / 16, HEIGHT));
             row.get(counter).setTexture(t);
             row.get(counter).setColorKey(colorkey);
-            if (counter != 0 && row.get(counter - 1).getPosition().y >= HEIGHT - (t.getHeight()) - 5) {
+            if (counter > 0 && row.get(counter - 1).getPosition().y >= HEIGHT - (t.getHeight()) - 5) {
                 row.get(counter).setPosition(new Vector2(Gdx.graphics.getWidth() * 13 / 16,
-                        row.get(counter - 1).getPosition().y - t.getHeight() - 5));
+                        row.get(counter - 1).getPosition().y + t.getHeight() + 5));
             }
         }
     }
@@ -139,11 +139,19 @@ public class Player {
             row.get(counter).setSpeed(0);
         }
         else if(columnKey == 1){
+<<<<<<< HEAD
             row.get(counter).setPosition(new Vector2(0, 10));
             row.get(counter).setSpeed(0);
         }
         else if( columnKey == 2){
             row.get(counter).setPosition(new Vector2(0, 10));
+=======
+            row.get(counter).setPosition(new Vector2(10, 10));
+            row.get(counter).setSpeed(0);
+        }
+        else if( columnKey == 2){
+            row.get(counter).setPosition(new Vector2(10, 10));
+>>>>>>> Maxime
             row.get(counter).setSpeed(0);
         }
     }

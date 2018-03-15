@@ -19,7 +19,11 @@ public class Square {
     private Sprite sprite;
     private Texture texture;
     private Vector2 position;
+<<<<<<< HEAD
     private int speed;
+=======
+    private Integer speed;
+>>>>>>> Maxime
     private Rectangle rectangle;
     private Integer colorKey;
 
@@ -27,12 +31,47 @@ public class Square {
         this.texture = new Texture(Gdx.files.internal("square.png"));
         this.sprite = new Sprite(texture);
         this.position = new Vector2 (0, 0);
+<<<<<<< HEAD
         this.speed = 4;
+=======
+        this.speed = Gdx.graphics.getHeight()/400;
+>>>>>>> Maxime
         this.rectangle = new Rectangle(this.getPosition().x, this.getPosition().y,
                 this.getTexture().getWidth(), this.getTexture().getHeight());
         this.colorKey = 0;
     }
 
+<<<<<<< HEAD
+=======
+
+    public void move(){
+        this.setPosition(new Vector2(this.getPosition().x, this.getPosition().y + this.getSpeed()));
+    }
+
+    public void reverseMove(){
+        this.setPosition(new Vector2(this.getPosition().x, this.getPosition().y - this.getSpeed()));
+    }
+
+    public boolean isInUser(){
+        if (this.getPosition() == new Vector2(10, 10)
+                || this.getPosition().y > Gdx.graphics.getHeight() + this.getSpeed() ){
+            return false;
+        }
+        return true;
+    }
+
+    public boolean isInAi(){
+        if (this.getPosition() == new Vector2(10, 10)
+                || (this.getPosition().y + this.getSpeed() ) < 0){
+            return false;
+        }
+        return true;
+    }
+
+
+
+
+>>>>>>> Maxime
     public Sprite getSprite() {
         return sprite;
     }
