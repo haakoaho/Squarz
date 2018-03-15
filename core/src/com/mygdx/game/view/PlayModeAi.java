@@ -153,11 +153,8 @@ public class PlayModeAi extends State {
                 //dealing with the score
                 if (player.getLeft().get(i).getPosition().y >= HEIGHT &&
                         player.getLeft().get(i).getPosition().y < HEIGHT + this.choiceSquare.getSpeed()){
-<<<<<<< HEAD
                     sound.play(Squarz.valueVolume*0.1f);
                     Gdx.input.vibrate(Squarz.valueVibration*100);
-=======
->>>>>>> Maxime
                     this.score.updateUser();
                 }
             }
@@ -165,11 +162,8 @@ public class PlayModeAi extends State {
                 player.getMiddle().get(i).move();
                 if ( player.getMiddle().get(i).getPosition().y >= HEIGHT &&
                         player.getMiddle().get(i).getPosition().y < HEIGHT + this.choiceSquare.getSpeed()){
-<<<<<<< HEAD
                     sound.play(Squarz.valueVolume*0.1f);
                     Gdx.input.vibrate(Squarz.valueVibration*100);
-=======
->>>>>>> Maxime
                     this.score.updateUser();
                 }
             }
@@ -177,11 +171,8 @@ public class PlayModeAi extends State {
                 player.getRight().get(i).move();
                 if (player.getRight().get(i).getPosition().y >= HEIGHT &&
                         player.getRight().get(i).getPosition().y < HEIGHT + this.choiceSquare.getSpeed()){
-<<<<<<< HEAD
                     sound.play(Squarz.valueVolume*0.1f);
                     Gdx.input.vibrate(Squarz.valueVibration*100);
-=======
->>>>>>> Maxime
                     this.score.updateUser();
                 }
             }
@@ -209,10 +200,6 @@ public class PlayModeAi extends State {
         for (int i = 0; i < ai.getComputer().getRightCounter(); i++) {
             ai.getComputer().getRight().get(i).reverseMove();
             if (ai.getComputer().getRight().get(i).getPosition().y <= 0 &&
-<<<<<<< HEAD
-
-=======
->>>>>>> Maxime
                     ai.getComputer().getRight().get(i).getPosition().y > - this.choiceSquare.getSpeed()){
                 this.score.updateAi();
             }
