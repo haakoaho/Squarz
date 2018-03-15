@@ -138,7 +138,7 @@ public class PlayModeAi extends State {
 
         if (this.countDown.isTimeUp()){
             music.stop();
-            gsm.set(new Menu(gsm));
+            gsm.set(new EndModeAI(gsm, settings, score));
         }
 
 

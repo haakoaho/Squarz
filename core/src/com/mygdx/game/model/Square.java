@@ -44,7 +44,7 @@ public class Square {
 
     public boolean isInUser(){
         if (this.getPosition() == new Vector2(10, 10)
-                || this.getPosition().y > Gdx.graphics.getHeight() + this.getSpeed() ){
+                || (this.getPosition().y > Gdx.graphics.getHeight() + this.getSpeed())){
             return false;
         }
         return true;
@@ -52,7 +52,7 @@ public class Square {
 
     public boolean isInAi(){
         if (this.getPosition() == new Vector2(10, 10)
-                || (this.getPosition().y + this.getSpeed() ) < 0){
+                || (this.getPosition().y + this.getSpeed() < 0 )){
             return false;
         }
         return true;
