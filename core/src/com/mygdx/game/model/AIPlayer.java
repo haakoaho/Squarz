@@ -30,6 +30,7 @@ public class AIPlayer {
         this.settings = new PreferencesSettings();
         this.texture = new Texture (Gdx.files.internal("square.png"));
         this.square = new Square();
+        this.launcherCounter = 0;
         this.deltaLauncher = 70;
         this.renderCounter = 0;
     }

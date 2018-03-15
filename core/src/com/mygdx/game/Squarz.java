@@ -40,7 +40,7 @@ public class Squarz extends ApplicationAdapter {
 		font = generator.generateFont(parameter);
 		generator.dispose();
 
-		gsm.push(new Settings(gsm));
+		gsm.push(new Menu(gsm));
 	}
 
 	@Override
