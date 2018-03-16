@@ -7,10 +7,15 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.view.beginning.Menu;
 
-public class Squarz extends ApplicationAdapter {
+import de.golfgl.gdxgamesvcs.IGameServiceClient;
+import de.golfgl.gdxgamesvcs.IGameServiceListener;
+import de.golfgl.gdxgamesvcs.NoGameServiceClient;
+
+public class Squarz extends ApplicationAdapter implements IGameServiceListener {
 	public final String TITLE = "Squarz";
 	public static int WIDTH;
 	public static int HEIGHT;
+	public IGameServiceClient gsClient;
 
 	public static int valueVolume, valueVibration;
 
@@ -26,6 +31,16 @@ public class Squarz extends ApplicationAdapter {
 		valueVolume=50;
 		valueVibration=50;
 
+
+        if (gsClient == null)
+            gsClient = new NoGameServiceClient();
+
+        // for getting callbacks from the client
+        gsClient.setListener(this);
+
+        // establish a connection to the game service without error messages or login screens
+        gsClient.resumeSession();
+
 		gsm.push(new Menu(gsm));
 	}
 
@@ -34,6 +49,9 @@ public class Squarz extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		Gdx.gl.glClearColor(.84f,.84f,.84f, 1);
 
+		// move this to appropriate place
+		gsClient.logIn();
+
 		gsm.updtate(Gdx.graphics.getDeltaTime());
 		gsm.render(batch);
 	}
@@ -41,4 +59,19 @@ public class Squarz extends ApplicationAdapter {
 	@Override
 	public void dispose () {
 	}
+
+    @Override
+    public void gsOnSessionActive() {
+
+    }
+
+    @Override
+    public void gsOnSessionInactive() {
+
+    }
+
+    @Override
+    public void gsShowErrorToUser(GsErrorType et, String msg, Throwable t) {
+
+    }
 }
