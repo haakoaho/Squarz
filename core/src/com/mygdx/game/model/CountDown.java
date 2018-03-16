@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 
 
 /**
- * Created by Antoine Dc on 12/03/2018.
+ * Created by Max on 12/03/2018.
  */
 
 public class CountDown {
@@ -64,7 +64,7 @@ public class CountDown {
         this.countdownLabel = countdownLabel;
     }
 
-    public Boolean getTimeUp() {
+    public Boolean isTimeUp() {
         return timeUp;
     }
 

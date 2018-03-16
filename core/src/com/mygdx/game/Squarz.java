@@ -2,8 +2,11 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.view.beginning.Menu;
 
@@ -17,6 +20,8 @@ public class Squarz extends ApplicationAdapter implements IGameServiceListener {
 	public static int HEIGHT;
 	public IGameServiceClient gsClient;
 
+	public static BitmapFont font;
+
 	public static int valueVolume, valueVibration;
 
 	private GameStateManager gsm;
@@ -28,8 +33,15 @@ public class Squarz extends ApplicationAdapter implements IGameServiceListener {
 		gsm = new GameStateManager();
 		WIDTH = Gdx.graphics.getWidth();
 		HEIGHT = Gdx.graphics.getHeight();
-		valueVolume=50;
-		valueVibration=50;
+		valueVolume=5;
+		valueVibration=5;
+		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/Alcubierre.otf"));
+		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+		parameter.size = 50;
+		parameter.borderWidth = 2;
+		parameter.borderColor = Color.WHITE;
+		font = generator.generateFont(parameter);
+		generator.dispose();
 
 
         if (gsClient == null)

@@ -29,14 +29,14 @@ public class AIPreferences extends State {
         play = new Icon(new Texture(Gdx.files.internal("ai_settings/play.png")),0,0);
         setting = new PreferencesSettings();
 
-        setAILevel.setPosx(WIDTH/2-setAILevel.getTexture().getWidth()/2);
-        setAILevel.setPosy(HEIGHT*4/5-setAILevel.getTexture().getHeight()/2);
-        setTimer.setPosx(WIDTH/2-setTimer.getTexture().getWidth()/2);
-        setTimer.setPosy(HEIGHT*3/5-setTimer.getTexture().getHeight()/2);
-        setBonuses.setPosx(WIDTH/2-setBonuses.getTexture().getWidth()/2);
-        setBonuses.setPosy(HEIGHT*2/5-setBonuses.getTexture().getHeight()/2);
-        play.setPosx(WIDTH/2-play.getTexture().getWidth()/2);
-        play.setPosy(HEIGHT/5-play.getTexture().getHeight()/2);
+        setAILevel.setPosX(WIDTH/2-setAILevel.getTexture().getWidth()/2);
+        setAILevel.setPosY(HEIGHT*4/5-setAILevel.getTexture().getHeight()/2);
+        setTimer.setPosX(WIDTH/2-setTimer.getTexture().getWidth()/2);
+        setTimer.setPosY(HEIGHT*3/5-setTimer.getTexture().getHeight()/2);
+        setBonuses.setPosX(WIDTH/2-setBonuses.getTexture().getWidth()/2);
+        setBonuses.setPosY(HEIGHT*2/5-setBonuses.getTexture().getHeight()/2);
+        play.setPosX(WIDTH/2-play.getTexture().getWidth()/2);
+        play.setPosY(HEIGHT/5-play.getTexture().getHeight()/2);
     }
 
     //used once a setting is changed
@@ -48,14 +48,14 @@ public class AIPreferences extends State {
         play = new Icon(new Texture(Gdx.files.internal("ai_settings/play.png")),0,0);
         this.setting = setting;
 
-        setAILevel.setPosx(WIDTH/2-setAILevel.getTexture().getWidth()/2);
-        setAILevel.setPosy(HEIGHT*4/5-setAILevel.getTexture().getHeight()/2);
-        setTimer.setPosx(WIDTH/2-setTimer.getTexture().getWidth()/2);
-        setTimer.setPosy(HEIGHT*3/5-setTimer.getTexture().getHeight()/2);
-        setBonuses.setPosx(WIDTH/2-setBonuses.getTexture().getWidth()/2);
-        setBonuses.setPosy(HEIGHT*2/5-setBonuses.getTexture().getHeight()/2);
-        play.setPosx(WIDTH/2-play.getTexture().getWidth()/2);
-        play.setPosy(HEIGHT/5-play.getTexture().getHeight()/2);
+        setAILevel.setPosX(WIDTH/2-setAILevel.getTexture().getWidth()/2);
+        setAILevel.setPosY(HEIGHT*4/5-setAILevel.getTexture().getHeight()/2);
+        setTimer.setPosX(WIDTH/2-setTimer.getTexture().getWidth()/2);
+        setTimer.setPosY(HEIGHT*3/5-setTimer.getTexture().getHeight()/2);
+        setBonuses.setPosX(WIDTH/2-setBonuses.getTexture().getWidth()/2);
+        setBonuses.setPosY(HEIGHT*2/5-setBonuses.getTexture().getHeight()/2);
+        play.setPosX(WIDTH/2-play.getTexture().getWidth()/2);
+        play.setPosY(HEIGHT/5-play.getTexture().getHeight()/2);
     }
 
     @Override
@@ -83,10 +83,10 @@ public class AIPreferences extends State {
     @Override
     public void render(SpriteBatch sb){
         sb.begin();
-        sb.draw(setAILevel.getTexture(),setAILevel.getPosx() ,setAILevel.getPosy() );
-        sb.draw(setTimer.getTexture(),setTimer.getPosx() ,setTimer.getPosy() );
-        sb.draw(setBonuses.getTexture(),setBonuses.getPosx() ,setBonuses.getPosy() );
-        sb.draw(play.getTexture(),play.getPosx(),play.getPosy());
+        sb.draw(setAILevel.getTexture(),setAILevel.getPosX() ,setAILevel.getPosY() );
+        sb.draw(setTimer.getTexture(),setTimer.getPosX() ,setTimer.getPosY() );
+        sb.draw(setBonuses.getTexture(),setBonuses.getPosX() ,setBonuses.getPosY() );
+        sb.draw(play.getTexture(),play.getPosX(),play.getPosY());
         sb.end();
 
     }
