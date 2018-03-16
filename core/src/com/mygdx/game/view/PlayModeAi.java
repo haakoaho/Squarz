@@ -76,7 +76,7 @@ public class PlayModeAi extends State {
         this.collision = new Collision();
 
 
-        music=Gdx.audio.newMusic(Gdx.files.internal("sound/dkr.mp3"));
+        music=Gdx.audio.newMusic(Gdx.files.internal("sound/here.mp3"));
         music.setLooping(true);
         music.setVolume(Squarz.valueVolume*0.1f);
         music.play();

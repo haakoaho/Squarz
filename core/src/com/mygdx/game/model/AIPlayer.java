@@ -38,9 +38,9 @@ public class AIPlayer {
     }
 
     public void send(CountDown countDown){
-        this.launcherCounter += 1;
+        //this.launcherCounter += 1;
         if (countDown.getWorldTimer() > 0) {
-            if (this.launcherCounter == this.settings.getDtLaunching()) {
+            if (this.launcherCounter == this.settings.getDtLaunching() ) {
                 this.launcherCounter = 0;
 
                 //setting the random color
@@ -51,7 +51,7 @@ public class AIPlayer {
                 int row = random(2);
 
                 setTheRandomRow(row, colorKey);
-
+                
             }
         }
     }
