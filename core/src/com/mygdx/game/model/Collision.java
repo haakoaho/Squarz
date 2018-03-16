@@ -134,9 +134,9 @@ public class Collision {
                             if (player.getMiddle().get(middleCnt).getColorKey() == 0) {
                                 if (computer.getComputer().getMiddle().get(middleCntAi).getColorKey() == 0) {
 
-                                    player.decrement(player.getMiddle(), this.middleCnt, 0);
+                                    player.decrement(player.getMiddle(), this.middleCnt, 1);
                                     computer.getComputer().decrement(computer.getComputer().getMiddle(),
-                                            this.middleCntAi, 0);
+                                            this.middleCntAi, 1);
 
                                     this.middleCnt = this.middleCnt + 1;
                                     this.middleCntAi = this.middleCntAi + 1;
@@ -144,13 +144,13 @@ public class Collision {
 
                                 } else if (computer.getComputer().getMiddle().get(middleCntAi).getColorKey() == 1) {
 
-                                    player.decrement(player.getMiddle(), this.middleCnt, 0);
+                                    player.decrement(player.getMiddle(), this.middleCnt, 1);
 
                                     this.middleCnt = this.middleCnt + 1;
 
                                 } else if (computer.getComputer().getMiddle().get(middleCntAi).getColorKey() == 2) {
                                     computer.getComputer().decrement(computer.getComputer().getMiddle(),
-                                            this.middleCntAi, 0);
+                                            this.middleCntAi, 1);
 
 
                                     this.middleCntAi = this.middleCntAi + 1;
@@ -159,31 +159,31 @@ public class Collision {
 
                                 if (computer.getComputer().getMiddle().get(this.middleCntAi).getColorKey() == 0) {
                                     computer.getComputer().decrement(computer.getComputer().getMiddle(),
-                                            this.middleCntAi, 0);
+                                            this.middleCntAi, 1);
 
                                     this.middleCntAi += 1;
                                 } else if (computer.getComputer().getMiddle().get(this.middleCntAi).getColorKey() == 1) {
-                                    player.decrement(player.getMiddle(), this.middleCnt, 0);
+                                    player.decrement(player.getMiddle(), this.middleCnt, 1);
                                     computer.getComputer().decrement(computer.getComputer().getMiddle(),
-                                            this.middleCntAi, 0);
+                                            this.middleCntAi, 1);
                                     this.middleCnt += 1;
                                     this.middleCntAi += 1;
                                 } else if (computer.getComputer().getMiddle().get(this.middleCntAi).getColorKey() == 2) {
-                                    player.decrement(player.getMiddle(), this.middleCnt, 0);
+                                    player.decrement(player.getMiddle(), this.middleCnt, 1);
                                     this.middleCnt += 1;
                                 }
                             } else if (player.getMiddle().get(this.middleCnt).getColorKey() == 2) {
                                 if (computer.getComputer().getMiddle().get(this.middleCntAi).getColorKey() == 0) {
-                                    player.decrement(player.getMiddle(), this.middleCnt, 0);
+                                    player.decrement(player.getMiddle(), this.middleCnt, 1);
                                     this.middleCnt += 1;
                                 } else if (computer.getComputer().getMiddle().get(this.middleCntAi).getColorKey() == 1) {
                                     computer.getComputer().decrement(computer.getComputer().getMiddle(),
-                                            this.middleCntAi, 0);
+                                            this.middleCntAi, 1);
                                     this.middleCntAi += 1;
                                 } else if (computer.getComputer().getMiddle().get(this.middleCntAi).getColorKey() == 2) {
-                                    player.decrement(player.getMiddle(), this.middleCnt, 0);
+                                    player.decrement(player.getMiddle(), this.middleCnt, 1);
                                     computer.getComputer().decrement(computer.getComputer().getMiddle(),
-                                            this.middleCntAi, 0);
+                                            this.middleCntAi, 1);
                                     this.middleCnt += 1;
                                     this.middleCntAi += 1;
                                 }
@@ -218,9 +218,9 @@ public class Collision {
                             if (player.getRight().get(rightCnt).getColorKey() == 0) {
                                 if (computer.getComputer().getRight().get(rightCntAi).getColorKey() == 0) {
 
-                                    player.decrement(player.getRight(), this.rightCnt, 0);
+                                    player.decrement(player.getRight(), this.rightCnt, 2);
                                     computer.getComputer().decrement(computer.getComputer().getRight(),
-                                            this.rightCntAi, 0);
+                                            this.rightCntAi, 2);
 
                                     this.rightCnt = this.rightCnt + 1;
                                     this.rightCntAi = this.rightCntAi + 1;
@@ -228,13 +228,13 @@ public class Collision {
 
                                 } else if (computer.getComputer().getRight().get(rightCntAi).getColorKey() == 1) {
 
-                                    player.decrement(player.getRight(), this.rightCnt, 0);
+                                    player.decrement(player.getRight(), this.rightCnt, 2);
 
                                     this.rightCnt = this.rightCnt + 1;
 
                                 } else if (computer.getComputer().getRight().get(rightCntAi).getColorKey() == 2) {
                                     computer.getComputer().decrement(computer.getComputer().getRight(),
-                                            this.rightCntAi, 0);
+                                            this.rightCntAi, 2);
 
 
                                     this.rightCntAi = this.rightCntAi + 1;
@@ -243,17 +243,17 @@ public class Collision {
 
                                 if (computer.getComputer().getRight().get(this.rightCntAi).getColorKey() == 0) {
                                     computer.getComputer().decrement(computer.getComputer().getRight(),
-                                            this.rightCntAi, 0);
+                                            this.rightCntAi, 2);
 
                                     this.rightCntAi += 1;
                                 } else if (computer.getComputer().getRight().get(this.rightCntAi).getColorKey() == 1) {
-                                    player.decrement(player.getRight(), this.rightCnt, 0);
+                                    player.decrement(player.getRight(), this.rightCnt, 2);
                                     computer.getComputer().decrement(computer.getComputer().getRight(),
-                                            this.rightCntAi, 0);
+                                            this.rightCntAi, 2);
                                     this.rightCnt += 1;
                                     this.rightCntAi += 1;
                                 } else if (computer.getComputer().getRight().get(this.rightCntAi).getColorKey() == 2) {
-                                    player.decrement(player.getRight(), this.rightCnt, 0);
+                                    player.decrement(player.getRight(), this.rightCnt, 2);
                                     this.rightCnt += 1;
                                 }
                             } else if (player.getRight().get(this.rightCnt).getColorKey() == 2) {
@@ -262,12 +262,12 @@ public class Collision {
                                     this.rightCnt += 1;
                                 } else if (computer.getComputer().getRight().get(this.rightCntAi).getColorKey() == 1) {
                                     computer.getComputer().decrement(computer.getComputer().getRight(),
-                                            this.rightCntAi, 0);
+                                            this.rightCntAi, 2);
                                     this.rightCntAi += 1;
                                 } else if (computer.getComputer().getRight().get(this.rightCntAi).getColorKey() == 2) {
-                                    player.decrement(player.getMiddle(), this.rightCnt, 0);
+                                    player.decrement(player.getRight(), this.rightCnt, 2);
                                     computer.getComputer().decrement(computer.getComputer().getRight(),
-                                            this.rightCntAi, 0);
+                                            this.rightCntAi, 2);
                                     this.rightCnt += 1;
                                     this.rightCntAi += 1;
                                 }
