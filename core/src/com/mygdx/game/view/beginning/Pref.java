@@ -3,13 +3,10 @@ package com.mygdx.game.view.beginning;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.Squarz;
 import com.mygdx.game.control.GameStateManager;
+import com.mygdx.game.model.Icon;
 import com.mygdx.game.model.State;
-import com.mygdx.game.view.PlayModeAi;
-import com.mygdx.game.view.Preferences.AISetLevelState;
-
-import javax.xml.soap.Text;
+import com.mygdx.game.view.AIPreferences;
 
 import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
@@ -19,26 +16,38 @@ import static com.mygdx.game.Squarz.WIDTH;
  */
 
 public class Pref extends State {
-    private Texture background;
-    private Texture ai, quick, invite, answer, back;
+    private Icon ai, quick, invite, answer, back;
 
     public Pref(GameStateManager gsm) {
         super(gsm);
-        background = new Texture(Gdx.files.internal("background.png"));
-        ai = new Texture(Gdx.files.internal("modes/ai.png"));
-        quick = new Texture(Gdx.files.internal("modes/quick.png"));
-        invite = new Texture(Gdx.files.internal("modes/invite.png"));
-        answer = new Texture(Gdx.files.internal("modes/answer.png"));
-        back = new Texture(Gdx.files.internal("back.png"));
+        ai = new Icon(new Texture(Gdx.files.internal("modes/ai.png")),0,0);
+        quick = new Icon(new Texture(Gdx.files.internal("modes/quick.png")),0,0);
+        invite = new Icon(new Texture(Gdx.files.internal("modes/invite.png")),0,0);
+        answer = new Icon(new Texture(Gdx.files.internal("modes/answer.png")),0,0);
+        back = new Icon(new Texture(Gdx.files.internal("back.png")),0,0);
+
+        ai.setPosx(WIDTH/4-ai.getTexture().getWidth()/2);
+        ai.setPosy(7*HEIGHT/10-ai.getTexture().getHeight()/2);
+        quick.setPosx(3*WIDTH/4-quick.getTexture().getWidth()/2);
+        quick.setPosy(7*HEIGHT/10-quick.getTexture().getHeight()/2);
+        invite.setPosx(WIDTH/4-invite.getTexture().getWidth()/2);
+        invite.setPosy(3*HEIGHT/10-invite.getTexture().getHeight()/2);
+        answer.setPosx(3*WIDTH/4-answer.getTexture().getWidth()/2);
+        answer.setPosy(3*HEIGHT/10-answer.getTexture().getHeight()/2);
+        back.setPosx(back.getTexture().getWidth()/2);
+        back.setPosy(back.getTexture().getHeight()/2);
     }
 
     @Override
     public void handleInput() {
         if(Gdx.input.justTouched()) {
-            if(Gdx.input.getY()<7*HEIGHT/10 && Gdx.input.getX()<WIDTH/2){
-                gsm.set(new PlayModeAi(gsm));
+            int x = Gdx.input.getX();
+            int y = HEIGHT - Gdx.input.getY();
+            if(ai.contains(x,y)){
+                gsm.set(new AIPreferences(gsm));
                 dispose();
-            } else {
+            }
+            if (back.contains(x,y)) {
                 gsm.set(new Menu(gsm));
                 dispose();
             }
@@ -53,22 +62,20 @@ public class Pref extends State {
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
-        sb.draw(background, 0, 0, WIDTH, HEIGHT);
-        sb.draw(ai, WIDTH/4-ai.getWidth()/2, 7*HEIGHT/10-ai.getHeight()/2);
-        sb.draw(quick, 3*WIDTH/4-quick.getWidth()/2, 7*HEIGHT/10-quick.getHeight()/2);
-        sb.draw(invite, WIDTH/4-invite.getWidth()/2, 3*HEIGHT/10-invite.getHeight()/2);
-        sb.draw(answer,3*WIDTH/4-answer.getWidth()/2, 3*HEIGHT/10-answer.getHeight()/2);
-        sb.draw(back,back.getWidth()/2,back.getHeight()/2);
+        sb.draw(ai.getTexture(), ai.getPosx(),ai.getPosy() );
+        sb.draw(quick.getTexture(),quick.getPosx() ,quick.getPosy() );
+        sb.draw(invite.getTexture(), invite.getPosx(), invite.getPosy());
+        sb.draw(answer.getTexture(),answer.getPosx(),answer.getPosy());
+        sb.draw(back.getTexture(),back.getPosx(),back.getPosy());
         sb.end();
     }
 
     @Override
     public void dispose() {
-        background.dispose();
-        ai.dispose();
-        quick.dispose();
-        invite.dispose();
-        answer.dispose();
-        back.dispose();
+        ai.getTexture().dispose();
+        quick.getTexture().dispose();
+        invite.getTexture().dispose();
+        answer.getTexture().dispose();
+        back.getTexture().dispose();
     }
 }

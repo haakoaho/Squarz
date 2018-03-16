@@ -17,16 +17,19 @@ public class Squarz extends ApplicationAdapter implements IGameServiceListener {
 	public static int HEIGHT;
 	public IGameServiceClient gsClient;
 
+	public static int valueVolume, valueVibration;
+
 	private GameStateManager gsm;
 	private SpriteBatch batch;
 
-	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		gsm = new GameStateManager();
 		WIDTH = Gdx.graphics.getWidth();
 		HEIGHT = Gdx.graphics.getHeight();
+		valueVolume=50;
+		valueVibration=50;
 
 
         if (gsClient == null)
@@ -39,12 +42,12 @@ public class Squarz extends ApplicationAdapter implements IGameServiceListener {
         gsClient.resumeSession();
 
 		gsm.push(new Menu(gsm));
-
 	}
 
 	@Override
 	public void render () {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		Gdx.gl.glClearColor(.84f,.84f,.84f, 1);
 
 		// move this to appropriate place
 		gsClient.logIn();

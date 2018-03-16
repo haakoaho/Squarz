@@ -28,4 +28,12 @@ public class Score {
     public void setAiScore(Integer aiScore) {
         this.aiScore = aiScore;
     }
+
+    public void updateUser(){
+        this.setUserScore(this.getUserScore()+1);
+    }
+
+    public void updateAi() {
+        this.setAiScore(this.getAiScore() + 1);
+    }
 }

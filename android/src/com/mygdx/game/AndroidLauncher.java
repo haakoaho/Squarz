@@ -4,8 +4,8 @@ import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-
 import de.golfgl.gdxgamesvcs.GpgsClient;
+
 
 public class AndroidLauncher extends AndroidApplication {
 	@Override
