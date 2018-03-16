@@ -7,10 +7,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.view.beginning.Menu;
 
+import de.golfgl.gdxgamesvcs.IGameServiceClient;
+
 public class Squarz extends ApplicationAdapter {
 	public final String TITLE = "Squarz";
 	public static int WIDTH;
 	public static int HEIGHT;
+	public IGameServiceClient gsClient;
 
 	private GameStateManager gsm;
 	private SpriteBatch batch;

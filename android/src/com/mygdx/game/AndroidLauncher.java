@@ -4,13 +4,16 @@ import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.mygdx.game.Squarz;
+
+import de.golfgl.gdxgamesvcs.GpgsClient;
 
 public class AndroidLauncher extends AndroidApplication {
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-		initialize(new Squarz(), config);
+		Squarz game = new Squarz();
+		game.gsClient = new GpgsClient().initialize(this, false);
+		initialize(game, config);
 	}
 }
