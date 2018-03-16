@@ -76,20 +76,21 @@ public class PlayModeAi extends State {
         this.collision = new Collision();
 
 
-        music=Gdx.audio.newMusic(Gdx.files.internal("sound/dkr.mp3"));
+        music=Gdx.audio.newMusic(Gdx.files.internal("sound/here.mp3"));
         music.setLooping(true);
         music.setVolume(Squarz.valueVolume*0.1f);
         music.play();
 
-        sound = Gdx.audio.newSound(Gdx.files.internal("sound/meuh.mp3"));
+        // sound = Gdx.audio.newSound(Gdx.files.internal("sound/meuh.mp3"));
 
     }
 
     @Override
     public void handleInput() {
         if (Gdx.input.justTouched()) {
-            //go to end mode just to test it
-            if(Gdx.input.getY()<HEIGHT/4){
+            int x = Gdx.input.getX();
+            int y = HEIGHT - Gdx.input.getY();
+            if(y>3*HEIGHT/4){
                 music.stop();
                 gsm.set(new EndModeAI(gsm, settings, score));
             }
@@ -145,7 +146,6 @@ public class PlayModeAi extends State {
 
         ai.send(countDown);
 
-
         //mooving the player's square;
         if (firstTouch) {
             for (int i = 0; i < player.getLeftCounter(); i++) {
@@ -153,7 +153,7 @@ public class PlayModeAi extends State {
                 //dealing with the score
                 if (player.getLeft().get(i).getPosition().y >= HEIGHT &&
                         player.getLeft().get(i).getPosition().y < HEIGHT + this.choiceSquare.getSpeed()){
-                    sound.play(Squarz.valueVolume*0.1f);
+                    // sound.play(Squarz.valueVolume*0.1f);
                     Gdx.input.vibrate(Squarz.valueVibration*100);
                     this.score.updateUser();
                 }
@@ -162,7 +162,7 @@ public class PlayModeAi extends State {
                 player.getMiddle().get(i).move();
                 if ( player.getMiddle().get(i).getPosition().y >= HEIGHT &&
                         player.getMiddle().get(i).getPosition().y < HEIGHT + this.choiceSquare.getSpeed()){
-                    sound.play(Squarz.valueVolume*0.1f);
+                    // sound.play(Squarz.valueVolume*0.1f);
                     Gdx.input.vibrate(Squarz.valueVibration*100);
                     this.score.updateUser();
                 }
@@ -171,7 +171,7 @@ public class PlayModeAi extends State {
                 player.getRight().get(i).move();
                 if (player.getRight().get(i).getPosition().y >= HEIGHT &&
                         player.getRight().get(i).getPosition().y < HEIGHT + this.choiceSquare.getSpeed()){
-                    sound.play(Squarz.valueVolume*0.1f);
+                    // sound.play(Squarz.valueVolume*0.1f);
                     Gdx.input.vibrate(Squarz.valueVibration*100);
                     this.score.updateUser();
                 }
@@ -186,6 +186,7 @@ public class PlayModeAi extends State {
             //dealing with the score
             if (ai.getComputer().getLeft().get(i).getPosition().y <= 0 &&
                     ai.getComputer().getLeft().get(i).getPosition().y > - this.choiceSquare.getSpeed()){
+                Gdx.input.vibrate(Squarz.valueVibration*100);
                 this.score.updateAi();
             }
         }
@@ -194,6 +195,7 @@ public class PlayModeAi extends State {
             //dealing with the score
             if (ai.getComputer().getMiddle().get(i).getPosition().y <= 0 &&
                     ai.getComputer().getMiddle().get(i).getPosition().y > - this.choiceSquare.getSpeed()){
+                Gdx.input.vibrate(Squarz.valueVibration*100);
                 this.score.updateAi();
             }
         }
@@ -201,6 +203,7 @@ public class PlayModeAi extends State {
             ai.getComputer().getRight().get(i).reverseMove();
             if (ai.getComputer().getRight().get(i).getPosition().y <= 0 &&
                     ai.getComputer().getRight().get(i).getPosition().y > - this.choiceSquare.getSpeed()){
+                Gdx.input.vibrate(Squarz.valueVibration*100);
                 this.score.updateAi();
             }
         }
@@ -213,7 +216,9 @@ public class PlayModeAi extends State {
         sb.begin();
 
         //player's square drawing
-        sb.draw(choiceSquare.getTexture(), WIDTH * 1 / 16, HEIGHT * 1 / 5);
+        sb.draw(choiceSquare.getTexture(), WIDTH * 1 / 8  - choiceSquare.getTexture().getWidth()/4, 8*HEIGHT/20 - choiceSquare.getTexture().getHeight()/2);
+
+
         if (firstTouch) {
             for (int i = 0; i < player.getLeftCounter(); i++) {
                 sb.draw(player.getLeft().get(i).getTexture(),
@@ -244,11 +249,11 @@ public class PlayModeAi extends State {
         }
 
         Squarz.font.draw(sb, String.valueOf(score.getUserScore()),
-                WIDTH * 1/ 8 , HEIGHT/2 - HEIGHT/10);
+                WIDTH * 1/8 , HEIGHT/2 + HEIGHT/20);
         Squarz.font.draw(sb, String.valueOf(score.getAiScore()),
-                WIDTH * 1/ 8 , HEIGHT/2 + HEIGHT*3/10);
+                WIDTH * 1/8, HEIGHT/2 + 3*HEIGHT/20);
         Squarz.font.draw(sb, String.valueOf(this.countDown.getCountdownLabel().getText()),
-                WIDTH * 1/ 8 - 3/2*this.countDown.getCountdownLabel().getWidth() , HEIGHT*3/4);
+                WIDTH * 1/8 - 3/2*this.countDown.getCountdownLabel().getWidth() , HEIGHT*3/4 + this.countDown.getCountdownLabel().getWidth());
 
         sb.end();
     }
