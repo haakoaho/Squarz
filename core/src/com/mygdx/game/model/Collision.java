@@ -1,7 +1,5 @@
 package com.mygdx.game.model;
 
-import com.badlogic.gdx.math.Vector2;
-
 
 /**
  * Created by Max on 14/03/2018.

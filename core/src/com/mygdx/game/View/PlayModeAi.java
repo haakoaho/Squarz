@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Squarz;
@@ -17,7 +16,6 @@ import com.mygdx.game.model.Square;
 import com.mygdx.game.model.State;
 import com.mygdx.game.control.aI.PreferencesSettings;
 import com.mygdx.game.model.Player;
-import com.mygdx.game.view.beginning.Menu;
 
 import java.util.Map;
 
