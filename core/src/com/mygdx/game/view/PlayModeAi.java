@@ -95,7 +95,7 @@ public class PlayModeAi extends State {
         music.setVolume(Squarz.valueVolume*0.1f);
         music.play();
 
-        // sound = Gdx.audio.newSound(Gdx.files.internal("sound/meuh.mp3"));
+        sound = Gdx.audio.newSound(Gdx.files.internal("sound/meuh.mp3"));
 
     }
 
