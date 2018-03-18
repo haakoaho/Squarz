@@ -1,13 +1,13 @@
-package com.mygdx.game.view.Preferences;
+package com.mygdx.game.views.Preferences;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.control.aI.PreferencesSettings;
-import com.mygdx.game.model.Icon;
-import com.mygdx.game.view.AIPreferences;
-import com.mygdx.game.control.GameStateManager;
-import com.mygdx.game.model.State;
+import com.mygdx.game.controls.aI.PreferencesSettings;
+import com.mygdx.game.models.Icon;
+import com.mygdx.game.views.AIPreferences;
+import com.mygdx.game.controls.GameStateManager;
+import com.mygdx.game.models.State;
 
 import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;

@@ -1,8 +1,8 @@
-package com.mygdx.game.model;
+package com.mygdx.game.models;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.mygdx.game.control.aI.PreferencesSettings;
+import com.mygdx.game.controls.aI.PreferencesSettings;
 
 import static com.badlogic.gdx.math.MathUtils.random;
 
@@ -24,7 +24,6 @@ public class AIPlayer {
     private Integer deltaLauncher;
     private Integer renderCounter;
 
-
     public AIPlayer (){
         this.computer = new Player();
         this.settings = new PreferencesSettings();
@@ -35,6 +34,7 @@ public class AIPlayer {
         this.deltaLauncher = 70;
 
         this.renderCounter = 0;
+
     }
 
     public void send(CountDown countDown){
@@ -68,20 +68,23 @@ public class AIPlayer {
     }
 
     public void setTheRandomRow(int row, int colorKey) {
-        if (row == 0) {
+        //if(!this.getComputer().getSquareLimiterAi().isOver(colorKey)) {
 
-            computer.incrementAI(computer.getLeft(), computer.getLeftCounter(), texture, row, colorKey);
-            computer.setLeftCounter(computer.getLeftCounter() + 1);
-        }if(row == 1){
-            computer.incrementAI(computer.getMiddle(), computer.getMiddleCounter(), texture, row, colorKey);
-            computer.setMiddleCounter(computer.getMiddleCounter() + 1);
+            if (row == 0) {
+                computer.incrementAI(computer.getLeft(), computer.getLeftCounter(), texture, row, colorKey);
+                computer.setLeftCounter(computer.getLeftCounter() + 1);
+            }
+            if (row == 1) {
+                computer.incrementAI(computer.getMiddle(), computer.getMiddleCounter(), texture, row, colorKey);
+                computer.setMiddleCounter(computer.getMiddleCounter() + 1);
 
-        }if(row == 2){
-            computer.incrementAI(computer.getRight(), computer.getRightCounter(), texture, row, colorKey);
-            computer.setRightCounter(computer.getRightCounter() + 1);
+            }
+            if (row == 2) {
+                computer.incrementAI(computer.getRight(), computer.getRightCounter(), texture, row, colorKey);
+                computer.setRightCounter(computer.getRightCounter() + 1);
+            }
         }
-
-    }
+   // }
 
 
     // ---------  general getters and setters
@@ -90,24 +93,44 @@ public class AIPlayer {
     public PreferencesSettings getSettings() {
         return settings;
     }
-
     public void setSettings(PreferencesSettings settings) {
         this.settings = settings;
     }
-
     public Player getComputer() {
         return computer;
     }
-
     public void setComputer(Player computer) {
         this.computer = computer;
     }
-
     public Texture getTexture() {
         return texture;
     }
-
     public void setTexture(Texture texture) {
         this.texture = texture;
     }
+    public Square getSquare() {
+        return square;
+    }
+    public void setSquare(Square square) {
+        this.square = square;
+    }
+    public Integer getLauncherCounter() {
+        return launcherCounter;
+    }
+    public void setLauncherCounter(Integer launcherCounter) {
+        this.launcherCounter = launcherCounter;
+    }
+    public Integer getDeltaLauncher() {
+        return deltaLauncher;
+    }
+    public void setDeltaLauncher(Integer deltaLauncher) {
+        this.deltaLauncher = deltaLauncher;
+    }
+    public Integer getRenderCounter() {
+        return renderCounter;
+    }
+    public void setRenderCounter(Integer renderCounter) {
+        this.renderCounter = renderCounter;
+    }
+
 }
