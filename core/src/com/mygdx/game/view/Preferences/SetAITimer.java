@@ -7,7 +7,6 @@ import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.control.aI.PreferencesSettings;
 import com.mygdx.game.model.Icon;
 import com.mygdx.game.model.State;
-import com.mygdx.game.view.AIPreferences;
 
 import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
@@ -53,7 +52,7 @@ public class SetAITimer extends State {
                 }
             }
             if(timer.contains(x,y)){
-                gsm.set(new AIPreferences(gsm, set));
+                gsm.set(new com.mygdx.game.view.AIPreferences(gsm, set));
             }
         }
 

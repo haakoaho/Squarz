@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.control.aI.PreferencesSettings;
 import com.mygdx.game.model.Icon;
-import com.mygdx.game.view.AIPreferences;
 import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.model.State;
 
@@ -51,7 +50,7 @@ public class SetAILevel extends State{
                 setTextureToDraw();
             }
             if(levelToDraw.contains(x,y)){
-                gsm.set(new AIPreferences(gsm, set));
+                gsm.set(new com.mygdx.game.view.AIPreferences(gsm, set));
             }
         }
     }

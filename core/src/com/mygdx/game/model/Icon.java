@@ -1,7 +1,7 @@
 package com.mygdx.game.model;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 
 /**
  * Created by Lucas on 12/03/2018.
@@ -44,4 +44,7 @@ public class Icon {
     public boolean contains(int x, int y) {  // return true if (x,y) is in the icon (this = the icon)
         return (this.posX < x && x < this.posX + this.texture.getWidth() && this.posY < y && y < this.posY + this.texture.getHeight());
     }
+
+    public boolean extendedXContains(int x, int y) {  // return true if (x,y) is in the icon (this = the icon)
+        return  (x < Gdx.graphics.getWidth()/4 && this.posY < y && y < this.posY + this.texture.getHeight());    }
 }

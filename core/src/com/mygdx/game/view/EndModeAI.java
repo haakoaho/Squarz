@@ -8,7 +8,6 @@ import com.mygdx.game.control.aI.PreferencesSettings;
 import com.mygdx.game.model.Icon;
 import com.mygdx.game.model.Score;
 import com.mygdx.game.model.State;
-import com.mygdx.game.view.beginning.Menu;
 
 
 import static com.mygdx.game.Squarz.HEIGHT;
@@ -28,7 +27,7 @@ public class EndModeAI extends State {
         super(gsm);
         this.setting = setting;
         this.score  = s;
-        //vrai textures:
+        //vraies textures:
         this.gameOver = new Texture(Gdx.files.internal("temporary/gameOver.png"));
         this.scoreTex = new Texture(Gdx.files.internal("temporary/scoreTex.png"));
 
@@ -51,7 +50,7 @@ public class EndModeAI extends State {
                 gsm.set(new AIPreferences(gsm, setting));
             }
             if(back.contains(x, y)){
-                gsm.set(new Menu(gsm));
+                gsm.set(new com.mygdx.game.view.beginning.Menu(gsm));
             }
         }
 

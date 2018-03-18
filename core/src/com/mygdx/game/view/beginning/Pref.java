@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.model.Icon;
 import com.mygdx.game.model.State;
-import com.mygdx.game.view.AIPreferences;
 
 import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
@@ -44,7 +43,7 @@ public class Pref extends State {
             int x = Gdx.input.getX();
             int y = HEIGHT - Gdx.input.getY();
             if(ai.contains(x,y)){
-                gsm.set(new AIPreferences(gsm));
+                gsm.set(new com.mygdx.game.view.AIPreferences(gsm));
                 dispose();
             }
             if (back.contains(x,y)) {

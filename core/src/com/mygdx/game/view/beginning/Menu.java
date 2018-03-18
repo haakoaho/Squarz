@@ -37,7 +37,7 @@ public class Menu extends State {
                 dispose();
             }
             if(settings.contains(x,y)){
-                gsm.set(new Settings(gsm));
+                gsm.set(new com.mygdx.game.view.beginning.Settings(gsm));
                 dispose();
             }
             if(history.contains(x,y)){
