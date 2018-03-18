@@ -59,6 +59,7 @@ public class PlayModeAi extends State {
     public PlayModeAi(GameStateManager gsm, PreferencesSettings settings) {
         super(gsm);
 
+
         this.settings = settings;
 
         this.nbSquare = 5;
@@ -112,17 +113,17 @@ public class PlayModeAi extends State {
             }
 
             //Colour choice button
-            if (this.redChoiceSquare.extendedXContains(x, y)) {
+            if (this.redChoiceSquare.contains(x, y)) {
                 this.setColorKey(0);
                 this.texture = new Texture(Gdx.files.internal("square_red.png"));
             }
 
-            if (this.blueChoiceSquare.extendedXContains(x, y)) {
+            if (this.blueChoiceSquare.contains(x, y)) {
                 this.setColorKey(1);
                 this.texture = new Texture(Gdx.files.internal("square_blue.png"));
             }
 
-            if (this.yellowChoiceSquare.extendedXContains(x, y)) {
+            if (this.yellowChoiceSquare.contains(x, y)) {
                 this.setColorKey(2);
                 this.texture = new Texture(Gdx.files.internal("square_yellow.png"));
             }
@@ -130,16 +131,18 @@ public class PlayModeAi extends State {
 
             //Implementation for the launcher of each row
             //if (!this.player.getSquareLimiter().isOver(colorKey) && firstTouch) {
-
                 if (x > WIDTH / 4 && x < WIDTH / 2) {
+                    firstTouch=true;
                     player.increment(player.getLeft(), player.getLeftCounter(), texture, 0, colorKey);
                     player.setLeftCounter(player.getLeftCounter() + 1);
                 }
                 if (x > WIDTH / 2 && x < WIDTH * 3 / 4) {
+                    firstTouch=true;
                     player.increment(player.getMiddle(), player.getMiddleCounter(), texture, 1, colorKey);
                     player.setMiddleCounter(player.getMiddleCounter() + 1);
                 }
                 if (x > WIDTH * 3 / 4) {
+                    firstTouch=true;
                     player.increment(player.getRight(), player.getRightCounter(), texture, 2, colorKey);
                     player.setRightCounter(player.getRightCounter() + 1);
                 }
@@ -166,6 +169,7 @@ public class PlayModeAi extends State {
 
         //mooving the player's square;
         if (firstTouch) {
+
             for (int i = 0; i < player.getLeftCounter(); i++) {
                 player.getLeft().get(i).move();
                 //dealing with the score
@@ -236,6 +240,7 @@ public class PlayModeAi extends State {
         sb.draw(yellowChoiceSquare.getTexture(), yellowChoiceSquare.getPosX(), yellowChoiceSquare.getPosY());
 
         if (firstTouch) {
+
             for (int i = 0; i < player.getLeftCounter(); i++) {
                 sb.draw(player.getLeft().get(i).getTexture(),
                         player.getLeft().get(i).getPosition().x, player.getLeft().get(i).getPosition().y);
