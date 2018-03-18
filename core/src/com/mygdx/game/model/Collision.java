@@ -22,9 +22,7 @@ public class Collision {
         this.rightCntAi = 0;
     }
 
-    public void collision(Player player, AIPlayer computer, Boolean firstTouch) {
-        if (firstTouch) {
-
+    public void collision(Player player, AIPlayer computer){
 
             //left row
             if (!player.getLeft().isEmpty() && !computer.getComputer().getLeft().isEmpty()) {
@@ -274,7 +272,6 @@ public class Collision {
                     }
                 }
             }
-        }
     }
 }
 

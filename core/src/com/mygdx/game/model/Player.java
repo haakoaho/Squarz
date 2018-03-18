@@ -21,7 +21,7 @@ import static com.mygdx.game.Squarz.WIDTH;
 public class Player {
     private Map<Integer, Square> left, middle, right;
     private Integer leftCounter, middleCounter, rightCounter;
-    //private SquareLimiter squareLimiter, squareLimiterAi;
+    private SquareLimiter squareLimiter, squareLimiterAi;
 
 
     public Player(){
@@ -31,8 +31,8 @@ public class Player {
         this.leftCounter = -1;
         this.middleCounter = -1;
         this.rightCounter = -1;
-        //this.squareLimiter = new SquareLimiter(0);
-        //this.squareLimiterAi = new SquareLimiter(0);
+        this.squareLimiter = new SquareLimiter(0);
+        this.squareLimiterAi = new SquareLimiter(0);
 
 
     }
@@ -75,7 +75,7 @@ public class Player {
     public void setRightCounter(Integer rightCounter) {
         this.rightCounter = rightCounter;
     }
-    /*
+
     public SquareLimiter getSquareLimiter() {
         return squareLimiter;
     }
@@ -88,11 +88,11 @@ public class Player {
     public void setSquareLimiterAi(SquareLimiter squareLimiterAi) {
         this.squareLimiterAi = squareLimiterAi;
     }
-    */
+
 
     public void increment(Map<Integer, Square> row, Integer counter, Texture t, Integer columnKey, Integer colorkey){
             row.put(counter, new Square());
-            //squareLimiter.counter(colorkey);
+            squareLimiter.counter(colorkey);
             if (columnKey == 0) {
                 row.get(counter).setPosition(new Vector2(WIDTH * 5 / 16, 0));
                 row.get(counter).setTexture(t);
@@ -123,7 +123,7 @@ public class Player {
 
     public void incrementAI(Map<Integer, Square> row, Integer counter, Texture t, Integer columnKey, Integer colorkey){
             row.put(counter, new Square());
-            //squareLimiterAi.counter(colorkey);
+            squareLimiterAi.counter(colorkey);
             if (columnKey == 0) {
                 row.get(counter).setPosition(new Vector2(WIDTH * 5 / 16, HEIGHT));
                 row.get(counter).setTexture(t);

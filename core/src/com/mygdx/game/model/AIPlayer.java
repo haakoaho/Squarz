@@ -68,7 +68,7 @@ public class AIPlayer {
     }
 
     public void setTheRandomRow(int row, int colorKey) {
-        //if(!this.getComputer().getSquareLimiterAi().isOver(colorKey)) {
+        if(!this.getComputer().getSquareLimiterAi().isOver(colorKey)) {
 
             if (row == 0) {
                 computer.incrementAI(computer.getLeft(), computer.getLeftCounter(), texture, row, colorKey);
@@ -84,7 +84,7 @@ public class AIPlayer {
                 computer.setRightCounter(computer.getRightCounter() + 1);
             }
         }
-   // }
+    }
 
 
     // ---------  general getters and setters

@@ -13,6 +13,7 @@ import com.mygdx.game.model.CountDown;
 import com.mygdx.game.model.Icon;
 import com.mygdx.game.model.Score;
 import com.mygdx.game.model.Square;
+import com.mygdx.game.model.SquareLimiter;
 import com.mygdx.game.model.State;
 import com.mygdx.game.control.aI.PreferencesSettings;
 import com.mygdx.game.model.Player;
@@ -41,7 +42,6 @@ public class PlayModeAi extends State {
     private Icon redChoiceSquare;
     private Icon blueChoiceSquare;
     private Icon yellowChoiceSquare;
-    private Boolean firstTouch = false;
     private Texture texture;
     private Integer colorKey;
     private Integer nbSquare;
@@ -64,10 +64,10 @@ public class PlayModeAi extends State {
         this.nbSquare = 5;
 
         this.player = new Player();
-        //this.player.setSquareLimiter(new SquareLimiter( nbSquare));
+        this.player.setSquareLimiter(new SquareLimiter( nbSquare));
         this.ai = new AIPlayer();
         this.ai.setSettings(settings);
-        //this.ai.getComputer().setSquareLimiterAi(new SquareLimiter( nbSquare));
+        this.ai.getComputer().setSquareLimiterAi(new SquareLimiter( nbSquare));
 
 
         this.square = new Square();
@@ -129,7 +129,7 @@ public class PlayModeAi extends State {
 
 
             //Implementation for the launcher of each row
-            //if (!this.player.getSquareLimiter().isOver(colorKey) && firstTouch) {
+            if (!this.player.getSquareLimiter().isOver(colorKey)) {
 
                 if (x > WIDTH / 4 && x < WIDTH / 2) {
                     player.increment(player.getLeft(), player.getLeftCounter(), texture, 0, colorKey);
@@ -143,7 +143,7 @@ public class PlayModeAi extends State {
                     player.increment(player.getRight(), player.getRightCounter(), texture, 2, colorKey);
                     player.setRightCounter(player.getRightCounter() + 1);
                 }
-            //}
+            }
         }
     }
 
@@ -165,7 +165,6 @@ public class PlayModeAi extends State {
 
 
         //mooving the player's square;
-        if (firstTouch) {
             for (int i = 0; i < player.getLeftCounter(); i++) {
                 player.getLeft().get(i).move();
                 //dealing with the score
@@ -195,8 +194,7 @@ public class PlayModeAi extends State {
                 }
             }
 
-            collision.collision(this.player, this.ai, this.firstTouch);
-        }
+            collision.collision(this.player, this.ai);
 
         //mooving the Ai's squares
         for (int i = 0; i < ai.getComputer().getLeftCounter(); i++) {
@@ -235,7 +233,6 @@ public class PlayModeAi extends State {
         sb.draw(blueChoiceSquare.getTexture(), blueChoiceSquare.getPosX(), blueChoiceSquare.getPosY());
         sb.draw(yellowChoiceSquare.getTexture(), yellowChoiceSquare.getPosX(), yellowChoiceSquare.getPosY());
 
-        if (firstTouch) {
             for (int i = 0; i < player.getLeftCounter(); i++) {
                 sb.draw(player.getLeft().get(i).getTexture(),
                         player.getLeft().get(i).getPosition().x, player.getLeft().get(i).getPosition().y);
@@ -248,7 +245,6 @@ public class PlayModeAi extends State {
                 sb.draw(player.getRight().get(i).getTexture(),
                         player.getRight().get(i).getPosition().x, player.getRight().get(i).getPosition().y);
             }
-        }
 
         //Ai's square drawing
         for (int i = 0; i < ai.getComputer().getLeftCounter(); i++) {
@@ -270,8 +266,9 @@ public class PlayModeAi extends State {
                 WIDTH * 1/ 8 , HEIGHT/2 + HEIGHT*3/15);
         Squarz.font.draw(sb, String.valueOf(this.countDown.getCountdownLabel().getText()),
                 WIDTH * 1/ 8 - 3/2*this.countDown.getCountdownLabel().getWidth() , HEIGHT/2);
+
         //number of user squares lefting
-        /*Squarz.font.draw(sb, String.valueOf(this.player.getSquareLimiter().getRedLefting()), WIDTH * 1/4 + 10, HEIGHT/4);
+        Squarz.font.draw(sb, String.valueOf(this.player.getSquareLimiter().getRedLefting()), WIDTH * 1/4 + 10, HEIGHT/4);
         Squarz.font.draw(sb, String.valueOf(this.player.getSquareLimiter().getBlueLefting()), WIDTH * 2/4 + 10, HEIGHT/4);
         Squarz.font.draw(sb, String.valueOf(this.player.getSquareLimiter().getYellowLefting()), WIDTH * 3/4 + 10, HEIGHT/4);
 
@@ -279,7 +276,7 @@ public class PlayModeAi extends State {
         Squarz.font.draw(sb, String.valueOf(this.ai.getComputer().getSquareLimiterAi().getRedLefting()), WIDTH * 1/4 + 10, HEIGHT*3/4);
         Squarz.font.draw(sb, String.valueOf(this.ai.getComputer().getSquareLimiterAi().getBlueLefting()), WIDTH * 2/4 + 10, HEIGHT*3/4);
         Squarz.font.draw(sb, String.valueOf(this.ai.getComputer().getSquareLimiterAi().getBlueLefting()), WIDTH * 3/4 + 10, HEIGHT*3/4);
-*/
+
 
         sb.end();
     }
@@ -298,13 +295,14 @@ public class PlayModeAi extends State {
         return player.getLeft();
     }
 
-    public boolean isFirstTouch() {
+    /*public boolean isFirstTouch() {
         return firstTouch;
     }
 
     public void setFirstTouch(boolean firstTouch) {
         this.firstTouch = firstTouch;
     }
+    */
 
     public Texture getTexture() {
         return texture;
@@ -360,14 +358,6 @@ public class PlayModeAi extends State {
 
     public void setRedChoiceSquare(Icon redChoiceSquare) {
         this.redChoiceSquare = redChoiceSquare;
-    }
-
-    public Boolean getFirstTouch() {
-        return firstTouch;
-    }
-
-    public void setFirstTouch(Boolean firstTouch) {
-        this.firstTouch = firstTouch;
     }
 
     public CountDown getCountDown() {
