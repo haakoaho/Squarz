@@ -1,4 +1,4 @@
-package com.mygdx.game.models;
+package com.mygdx.game.model;
 
 /**
  * Created by Max on 11/03/2018.

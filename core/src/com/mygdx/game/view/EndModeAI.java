@@ -1,14 +1,13 @@
-package com.mygdx.game.views;
+package com.mygdx.game.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.controls.GameStateManager;
-import com.mygdx.game.controls.aI.PreferencesSettings;
-import com.mygdx.game.models.Icon;
-import com.mygdx.game.models.Score;
-import com.mygdx.game.models.State;
-import com.mygdx.game.views.beginning.Menu;
+import com.mygdx.game.control.GameStateManager;
+import com.mygdx.game.control.aI.PreferencesSettings;
+import com.mygdx.game.model.Icon;
+import com.mygdx.game.model.Score;
+import com.mygdx.game.model.State;
 
 
 import static com.mygdx.game.Squarz.HEIGHT;
@@ -51,7 +50,7 @@ public class EndModeAI extends State {
                 gsm.set(new AIPreferences(gsm, setting));
             }
             if(back.contains(x, y)){
-                gsm.set(new Menu(gsm));
+                gsm.set(new com.mygdx.game.view.beginning.Menu(gsm));
             }
         }
 

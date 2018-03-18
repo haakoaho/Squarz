@@ -1,13 +1,12 @@
-package com.mygdx.game.views.Preferences;
+package com.mygdx.game.view.Preferences;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.controls.aI.PreferencesSettings;
-import com.mygdx.game.models.Icon;
-import com.mygdx.game.views.AIPreferences;
-import com.mygdx.game.controls.GameStateManager;
-import com.mygdx.game.models.State;
+import com.mygdx.game.control.aI.PreferencesSettings;
+import com.mygdx.game.model.Icon;
+import com.mygdx.game.control.GameStateManager;
+import com.mygdx.game.model.State;
 
 import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
@@ -51,7 +50,7 @@ public class SetAILevel extends State{
                 setTextureToDraw();
             }
             if(levelToDraw.contains(x,y)){
-                gsm.set(new AIPreferences(gsm, set));
+                gsm.set(new com.mygdx.game.view.AIPreferences(gsm, set));
             }
         }
     }

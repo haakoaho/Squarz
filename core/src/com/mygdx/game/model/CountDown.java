@@ -1,4 +1,4 @@
-package com.mygdx.game.models;
+package com.mygdx.game.model;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;

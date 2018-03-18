@@ -1,8 +1,8 @@
-package com.mygdx.game.models;
+package com.mygdx.game.model;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.mygdx.game.controls.aI.PreferencesSettings;
+import com.mygdx.game.control.aI.PreferencesSettings;
 
 import static com.badlogic.gdx.math.MathUtils.random;
 
@@ -19,7 +19,7 @@ public class AIPlayer {
     private Player computer;
     private PreferencesSettings settings;
     private Texture texture;
-    private Square square;
+    private com.mygdx.game.model.Square square;
     private Integer launcherCounter;
     private Integer deltaLauncher;
     private Integer renderCounter;
@@ -28,7 +28,7 @@ public class AIPlayer {
         this.computer = new Player();
         this.settings = new PreferencesSettings();
         this.texture = new Texture (Gdx.files.internal("square.png"));
-        this.square = new Square();
+        this.square = new com.mygdx.game.model.Square();
 
         this.launcherCounter = 0;
         this.deltaLauncher = 70;
@@ -108,10 +108,10 @@ public class AIPlayer {
     public void setTexture(Texture texture) {
         this.texture = texture;
     }
-    public Square getSquare() {
+    public com.mygdx.game.model.Square getSquare() {
         return square;
     }
-    public void setSquare(Square square) {
+    public void setSquare(com.mygdx.game.model.Square square) {
         this.square = square;
     }
     public Integer getLauncherCounter() {

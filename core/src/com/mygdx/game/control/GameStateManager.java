@@ -1,8 +1,8 @@
-package com.mygdx.game.controls;
+package com.mygdx.game.control;
 
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.models.State;
+import com.mygdx.game.model.State;
 
 import java.util.Stack;
 

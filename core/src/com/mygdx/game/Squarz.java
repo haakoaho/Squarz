@@ -7,8 +7,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.mygdx.game.controls.GameStateManager;
-import com.mygdx.game.views.beginning.Menu;
+import com.mygdx.game.control.GameStateManager;
+import com.mygdx.game.view.beginning.Menu;
 
 public class Squarz extends ApplicationAdapter {
 	public final String TITLE = "Squarz";
