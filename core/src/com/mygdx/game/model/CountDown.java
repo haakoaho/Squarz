@@ -15,16 +15,22 @@ public class CountDown {
     private float timeCount;
     private Label countdownLabel;
     private Boolean timeUp;
-    private Label timeLabel;
 
-    public CountDown(Integer worldTimer, float timeCount) {
-        this.worldTimer = worldTimer;
-        this.timeCount = timeCount;
+    public CountDown() {
+        this.worldTimer = 45;
+        this.timeCount = 0f;
         this.countdownLabel = new Label(String.format("%03d", worldTimer),
                 new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        this.timeLabel = new Label("TIME", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         this.timeUp = false;
         this.fullCounter = worldTimer;
+    }
+
+    public void increaseTime(){
+        setWorldTimer(this.getWorldTimer()+15);
+    }
+
+    public void decreaseTime(){
+        setWorldTimer(this.getWorldTimer()-15);
     }
 
     public Integer getWorldTimer() {
@@ -70,14 +76,6 @@ public class CountDown {
 
     public void setTimeUp(Boolean timeUp) {
         this.timeUp = timeUp;
-    }
-
-    public Label getTimeLabel() {
-        return timeLabel;
-    }
-
-    public void setTimeLabel(Label timeLabel) {
-        this.timeLabel = timeLabel;
     }
 
     public Integer getFullCounter() {
