@@ -47,6 +47,15 @@ public class Pref extends State {
                 gsm.set(new AIPreferences(gsm));
                 dispose();
             }
+            if (quick.contains(x,y)){
+                //go to quick screen
+            }
+            if (answer.contains(x,y)){
+                //go to  answer
+            }
+            if(invite.contains(x,y)){
+                //go to invite
+            }
             if (back.contains(x,y)) {
                 gsm.set(new Menu(gsm));
                 dispose();

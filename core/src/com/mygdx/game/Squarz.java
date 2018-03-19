@@ -64,7 +64,7 @@ public class Squarz extends ApplicationAdapter implements IGameServiceListener {
 		// move this to appropriate place
 		gsClient.logIn();
 
-		gsm.updtate(Gdx.graphics.getDeltaTime());
+		gsm.update(Gdx.graphics.getDeltaTime());
 		gsm.render(batch);
 	}
 	
