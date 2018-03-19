@@ -7,6 +7,7 @@ import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.control.aI.PreferencesSettings;
 import com.mygdx.game.model.Icon;
 import com.mygdx.game.model.State;
+import com.mygdx.game.view.beginning.Menu;
 
 import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
@@ -17,16 +18,20 @@ import static com.mygdx.game.Squarz.WIDTH;
 
 public class SetAITimer extends State {
     private PreferencesSettings set;
-    private Icon add, delete, timer;
+    private Icon add, delete, timer, back;
 
 
     public SetAITimer(GameStateManager gsm, PreferencesSettings setting){
         super(gsm);
+
         add = new Icon(new Texture(Gdx.files.internal("add.png")),0,0);
         delete = new Icon(new Texture(Gdx.files.internal("delete.png")),0,0);
         timer = new Icon(new Texture(Gdx.files.internal("ai_settings/setTimer.png")),0,0);
+        back = new Icon(new Texture(Gdx.files.internal("back.png")),0,0);
         set = setting;
 
+        back.setPosX(back.getTexture().getWidth()/2);
+        back.setPosY(back.getTexture().getHeight()/2);
         add.setPosX(WIDTH/2-add.getTexture().getWidth()/2);
         add.setPosY(HEIGHT*2/3-add.getTexture().getHeight()/2);
         delete.setPosX(WIDTH/2-add.getTexture().getWidth()/2);
@@ -53,6 +58,10 @@ public class SetAITimer extends State {
             }
             if(timer.contains(x,y)){
                 gsm.set(new com.mygdx.game.view.AIPreferences(gsm, set));
+            }
+            if (back.contains(x,y)) {
+                gsm.set(new com.mygdx.game.view.AIPreferences(gsm, set));
+                dispose();
             }
         }
 
@@ -82,8 +91,7 @@ public class SetAITimer extends State {
             sb.draw(timer.getTexture(),timer.getPosX() ,timer.getPosY());
             sb.draw(timer.getTexture(),timer.getPosX()+timer.getTexture().getWidth()+10 ,timer.getPosY());
         }
-
-
+        sb.draw(back.getTexture(),back.getPosX(),back.getPosY());
         sb.end();
     }
 

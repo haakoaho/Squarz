@@ -85,7 +85,7 @@ public class PlayModeAi extends State {
 
         this.score = new Score();
 
-        this.countDown = new CountDown(60, 0);
+        this.countDown = new CountDown(10, 0);
 
         this.collision = new Collision();
 
@@ -163,7 +163,6 @@ public class PlayModeAi extends State {
         }
 
 
-
         ai.send(countDown);
 
         //mooving the player's square;
@@ -233,6 +232,10 @@ public class PlayModeAi extends State {
         sb.draw(redChoiceSquare.getTexture(), redChoiceSquare.getPosX(), redChoiceSquare.getPosY());
         sb.draw(blueChoiceSquare.getTexture(), blueChoiceSquare.getPosX(), blueChoiceSquare.getPosY());
         sb.draw(yellowChoiceSquare.getTexture(), yellowChoiceSquare.getPosX(), yellowChoiceSquare.getPosY());
+
+        if(!firstTouch) {
+            Squarz.font.draw(sb,"Are You Ready ??",100,100);
+        }
 
         if (firstTouch) {
 

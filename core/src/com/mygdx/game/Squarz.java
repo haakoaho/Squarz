@@ -16,6 +16,7 @@ public class Squarz extends ApplicationAdapter {
 	public static int HEIGHT;
 
 	public static BitmapFont font;
+	public static BitmapFont font2;
 
 	public static int valueVolume, valueVibration;
 
@@ -30,13 +31,16 @@ public class Squarz extends ApplicationAdapter {
 		HEIGHT = Gdx.graphics.getHeight();
 		valueVolume=5;
 		valueVibration=5;
+
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/Alcubierre.otf"));
 		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
 		parameter.size = 50;
 		parameter.borderWidth = 2;
 		parameter.borderColor = Color.WHITE;
 		font = generator.generateFont(parameter);
+
 		generator.dispose();
+
 
 		gsm.push(new Menu(gsm));
 	}

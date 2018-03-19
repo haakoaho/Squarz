@@ -3,6 +3,7 @@ package com.mygdx.game.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.Squarz;
 import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.control.aI.PreferencesSettings;
 import com.mygdx.game.model.Icon;
@@ -68,6 +69,8 @@ public class EndModeAI extends State {
         sb.draw(scoreTex, WIDTH/2-scoreTex.getWidth()/2, HEIGHT*3/5-scoreTex.getHeight()/2);
         sb.draw(replay.getTexture(), replay.getPosX(), replay.getPosY());
         sb.draw(back.getTexture(), back.getPosX(), back.getPosY());
+        Squarz.font.draw(sb,this.score.getUserScore().toString(), 100,100);
+        Squarz.font.draw(sb, this.score.getAiScore().toString(),150,100);
         sb.end();
     }
 
