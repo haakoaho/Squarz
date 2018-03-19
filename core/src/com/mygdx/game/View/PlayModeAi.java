@@ -134,14 +134,17 @@ public class PlayModeAi extends State {
 
                 if (x > WIDTH / 4 && x < WIDTH / 2) {
                     player.increment(player.getLeft(), player.getLeftCounter(), texture, 0, colorKey);
+                    player.getLeft().get(player.getLeftCounter()).setSpeed(settings.getStepX());
                     player.setLeftCounter(player.getLeftCounter() + 1);
                 }
                 if (x > WIDTH / 2 && x < WIDTH * 3 / 4) {
                     player.increment(player.getMiddle(), player.getMiddleCounter(), texture, 1, colorKey);
+                    player.getMiddle().get(player.getMiddleCounter()).setSpeed(settings.getStepX());
                     player.setMiddleCounter(player.getMiddleCounter() + 1);
                 }
                 if (x > WIDTH * 3 / 4) {
                     player.increment(player.getRight(), player.getRightCounter(), texture, 2, colorKey);
+                    player.getRight().get(player.getRightCounter()).setSpeed(settings.getStepX());
                     player.setRightCounter(player.getRightCounter() + 1);
                 }
             }

@@ -2,6 +2,7 @@ package com.mygdx.game.model;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.control.aI.PreferencesSettings;
 
 import java.util.HashMap;
 import java.util.Map;
