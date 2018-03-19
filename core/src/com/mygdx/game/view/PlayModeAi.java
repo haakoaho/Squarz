@@ -9,7 +9,6 @@ import com.mygdx.game.Squarz;
 import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.model.AIPlayer;
 import com.mygdx.game.model.Collision;
-import com.mygdx.game.model.CountDown;
 import com.mygdx.game.model.Icon;
 import com.mygdx.game.model.Score;
 import com.mygdx.game.model.Square;
@@ -47,7 +46,7 @@ public class PlayModeAi extends State {
     private Integer nbSquare;
 
     private Score score;
-    private CountDown countDown;
+    //private CountDown countDown;
 
     private AIPlayer ai;
     private Player player;
@@ -80,12 +79,12 @@ public class PlayModeAi extends State {
         this.yellowChoiceSquare = new Icon(new Texture(Gdx.files.internal("square_yellow.png"))
                 ,WIDTH * 1 / 16, HEIGHT * 1 / 10);
 
-        this.texture = new Texture(Gdx.files.internal("square.png"));
+        this.texture = new Texture(Gdx.files.internal("square_red.png"));
         this.colorKey = 0;
 
         this.score = new Score();
 
-        this.countDown = new CountDown(60, 0);
+        //this.countDown = new CountDown();
 
         this.collision = new Collision();
 
@@ -153,16 +152,16 @@ public class PlayModeAi extends State {
         handleInput();
 
         //updating the countdown
-        countDown.update(dt);
+        settings.getCountDown().update(dt);
 
-        if (this.countDown.isTimeUp()){
+        if (this.settings.getCountDown().isTimeUp()){
             music.stop();
             gsm.set(new EndModeAI(gsm, settings, score));
         }
 
 
 
-        ai.send(countDown);
+        ai.send(settings.getCountDown());
 
         //mooving the player's square;
 
@@ -262,8 +261,8 @@ public class PlayModeAi extends State {
                 WIDTH * 1/ 8 , HEIGHT/2 - HEIGHT/15);
         Squarz.font.draw(sb, String.valueOf(score.getAiScore()),
                 WIDTH * 1/ 8 , HEIGHT/2 + HEIGHT*3/15);
-        Squarz.font.draw(sb, String.valueOf(this.countDown.getCountdownLabel().getText()),
-                WIDTH * 1/ 8 - 3/2*this.countDown.getCountdownLabel().getWidth() , HEIGHT/2);
+        Squarz.font.draw(sb, String.valueOf(this.settings.getCountDown().getCountdownLabel().getText()),
+                WIDTH * 1/ 8 - 3/2*this.settings.getCountDown().getCountdownLabel().getWidth() , HEIGHT/2);
 
         //number of user squares lefting
         Squarz.font.draw(sb, String.valueOf(this.player.getSquareLimiter().getRedLefting()), WIDTH * 1/4 + 10, HEIGHT/4);
@@ -356,14 +355,6 @@ public class PlayModeAi extends State {
 
     public void setRedChoiceSquare(Icon redChoiceSquare) {
         this.redChoiceSquare = redChoiceSquare;
-    }
-
-    public CountDown getCountDown() {
-        return countDown;
-    }
-
-    public void setCountDown(CountDown countDown) {
-        this.countDown = countDown;
     }
 
     public AIPlayer getAi() {

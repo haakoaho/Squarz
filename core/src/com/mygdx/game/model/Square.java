@@ -27,7 +27,7 @@ public class Square {
         this.texture = new Texture(Gdx.files.internal("square.png"));
         this.sprite = new Sprite(texture);
         this.position = new Vector2 (0, 0);
-        this.speed = Gdx.graphics.getHeight()/400;
+        this.speed = 0;
         this.rectangle = new Rectangle(this.getPosition().x, this.getPosition().y,
                 this.getTexture().getWidth(), this.getTexture().getHeight());
         this.colorKey = 0;
