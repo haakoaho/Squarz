@@ -17,22 +17,22 @@ import static com.mygdx.game.Squarz.WIDTH;
 
 public class SetAITimer extends State {
     private PreferencesSettings set;
-    private Icon add, delete, countDown;
+    private Icon add, delete, timer;
 
 
     public SetAITimer(GameStateManager gsm, PreferencesSettings setting){
         super(gsm);
         add = new Icon(new Texture(Gdx.files.internal("add.png")),0,0);
         delete = new Icon(new Texture(Gdx.files.internal("delete.png")),0,0);
-        countDown = new Icon(new Texture(Gdx.files.internal("ai_settings/setTimer.png")),0,0);
+        timer = new Icon(new Texture(Gdx.files.internal("ai_settings/setTimer.png")),0,0);
         set = setting;
 
         add.setPosX(WIDTH/2-add.getTexture().getWidth()/2);
         add.setPosY(HEIGHT*2/3-add.getTexture().getHeight()/2);
         delete.setPosX(WIDTH/2-add.getTexture().getWidth()/2);
         delete.setPosY(HEIGHT/3-add.getTexture().getHeight()/2);
-        countDown.setPosX(WIDTH/2- countDown.getTexture().getWidth()/2);
-        countDown.setPosY(HEIGHT/2 - countDown.getTexture().getHeight()/2);
+        timer.setPosX(WIDTH/2-timer.getTexture().getWidth()/2);
+        timer.setPosY(HEIGHT/2 - timer.getTexture().getHeight()/2);
     }
 
 
@@ -42,16 +42,16 @@ public class SetAITimer extends State {
             int x = Gdx.input.getX();
             int y = HEIGHT - Gdx.input.getY();
             if(add.contains(x,y)) { //add
-                if (this.set.getCountDown().getWorldTimer() != 60) {
-                    this.set.getCountDown().increaseTime();
+                if (this.set.getTimer().getDuration() != 60) {
+                    this.set.getTimer().increment();
                 }
             }
             if(delete.contains(x,y)) { //delete
-                if (this.set.getCountDown().getWorldTimer() != 30) {
-                    this.set.getCountDown().decreaseTime();
+                if (this.set.getTimer().getDuration() != 30) {
+                    this.set.getTimer().decrement();
                 }
             }
-            if(countDown.contains(x,y)){
+            if(timer.contains(x,y)){
                 gsm.set(new com.mygdx.game.view.AIPreferences(gsm, set));
             }
         }
@@ -70,17 +70,17 @@ public class SetAITimer extends State {
         sb.draw(add.getTexture(), add.getPosX(), add.getPosY());
         sb.draw(delete.getTexture(),delete.getPosX(), delete.getPosY());
 
-        if(this.set.getCountDown().getWorldTimer() == 30){
-            sb.draw(countDown.getTexture(), countDown.getPosX() , countDown.getPosY());
+        if(this.set.getTimer().getDuration() == 30){
+            sb.draw(timer.getTexture(),timer.getPosX() ,timer.getPosY());
         }
-        if(this.set.getCountDown().getWorldTimer() == 45){
-            sb.draw(countDown.getTexture(), countDown.getPosX()- countDown.getTexture().getWidth()/2 -5 , countDown.getPosY());
-            sb.draw(countDown.getTexture(), countDown.getPosX()+ countDown.getTexture().getWidth()/2 +5, countDown.getPosY());
+        if(this.set.getTimer().getDuration() == 45){
+            sb.draw(timer.getTexture(),timer.getPosX()-timer.getTexture().getWidth()/2 -5 ,timer.getPosY());
+            sb.draw(timer.getTexture(),timer.getPosX()+timer.getTexture().getWidth()/2 +5,timer.getPosY());
         }
-        if(this.set.getCountDown().getWorldTimer() == 60){
-            sb.draw(countDown.getTexture(), countDown.getPosX()- countDown.getTexture().getWidth()-10 , countDown.getPosY());
-            sb.draw(countDown.getTexture(), countDown.getPosX() , countDown.getPosY());
-            sb.draw(countDown.getTexture(), countDown.getPosX()+ countDown.getTexture().getWidth()+10 , countDown.getPosY());
+        if(this.set.getTimer().getDuration() == 60){
+            sb.draw(timer.getTexture(),timer.getPosX()-timer.getTexture().getWidth()-10 ,timer.getPosY());
+            sb.draw(timer.getTexture(),timer.getPosX() ,timer.getPosY());
+            sb.draw(timer.getTexture(),timer.getPosX()+timer.getTexture().getWidth()+10 ,timer.getPosY());
         }
 
 

@@ -1,7 +1,7 @@
 package com.mygdx.game.control.aI;
 
 import com.mygdx.game.model.Bonus;
-import com.mygdx.game.model.CountDown;
+import com.mygdx.game.model.Timer;
 
 /**
  * Created by mathi on 06/03/2018.
@@ -17,7 +17,7 @@ public class PreferencesSettings {
     //setBonus
     private Bonus bonuses;
     //setTimer
-    private CountDown countDown;
+    private Timer timer;
 
     public PreferencesSettings(){
         //default AI level settings
@@ -29,7 +29,7 @@ public class PreferencesSettings {
 
         this.bonuses = new Bonus();
 
-        this.countDown = new CountDown();
+        this.timer = new Timer();
     }
 
     public int getLevelKey() { return levelKey; }
@@ -56,12 +56,10 @@ public class PreferencesSettings {
     public void setSquaresize(int squaresize) { this.squaresize = squaresize; }
     public Bonus getBonuses() { return bonuses; }
     public void setBonuses(Bonus bonuses) { this.bonuses = bonuses; }
-    public CountDown getCountDown() {
-        return countDown;
-    }
-    public void setCountDown(CountDown countDown) {
-        this.countDown = countDown;
-    }
+    public Timer getTimer() { return timer; }
+    public void setTimer(Timer timer) { this.timer = timer; }
+
+
 
     public void AILevelUp() {
         int currentLevel = this.getLevelKey();
