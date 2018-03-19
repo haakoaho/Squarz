@@ -72,6 +72,7 @@ public class PlayModeAi extends State {
 
 
         this.square = new Square();
+        this.square.setSpeed(this.settings.getStepX());
 
         this.redChoiceSquare = new Icon(new Texture(Gdx.files.internal("square_red.png"))
                 ,WIDTH * 1 / 16, HEIGHT * 3 / 10);
