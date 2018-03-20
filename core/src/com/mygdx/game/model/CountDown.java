@@ -17,9 +17,9 @@ public class CountDown {
     private Boolean timeUp;
 
     public CountDown() {
-        this.worldTimer = 45;
+        this.worldTimer = 60;
         this.timeCount = 0f;
-        this.countdownLabel = new Label(String.format("%03d", worldTimer),
+        this.countdownLabel = new Label(String.format("%02d", worldTimer),
                 new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         this.timeUp = false;
     }
@@ -73,7 +73,7 @@ public class CountDown {
             } else {
                 this.timeUp = true;
             }
-            this.countdownLabel.setText(String.format("%03d", worldTimer));
+            this.countdownLabel.setText(String.format("%02d", worldTimer));
             this.timeCount = 0;
         }
     }

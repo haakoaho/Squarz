@@ -37,7 +37,7 @@ public class Player {
         this.middleCounter = 0;
         this.rightCounter = 0;
 
-        this.squareLimiter = new SquareLimiter(5);
+        this.squareLimiter = new SquareLimiter(15);
     }
 
 

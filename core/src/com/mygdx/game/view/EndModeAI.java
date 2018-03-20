@@ -26,7 +26,6 @@ public class EndModeAI extends State {
     private Score score;
     private Texture gameOver; //, scoreTex;
     private Icon replay, back;
-    private CountDown countDown;
     private GlyphLayout scoreUser, scoreAi;
 
     public EndModeAI(GameStateManager gsm, PreferencesSettings setting, Score s){
@@ -56,7 +55,7 @@ public class EndModeAI extends State {
             int x = Gdx.input.getX();
             int y = HEIGHT - Gdx.input.getY();
             if(replay.contains(x, y)){
-                gsm.set(new AIPreferences(gsm)); // TO MODIFY
+                gsm.set(new AIPreferences(gsm));
             }
             if(back.contains(x, y)){
                 gsm.set(new com.mygdx.game.view.beginning.Menu(gsm));
