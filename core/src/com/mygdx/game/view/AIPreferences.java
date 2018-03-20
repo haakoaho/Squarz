@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.control.aI.PreferencesSettings;
+import com.mygdx.game.model.CountDown;
 import com.mygdx.game.model.Icon;
 import com.mygdx.game.model.State;
 import com.mygdx.game.view.Preferences.SetAILevel;
@@ -20,6 +21,7 @@ import static com.mygdx.game.Squarz.WIDTH;
 public class AIPreferences extends State {
     private Icon setAILevel, setTimer, setBonuses, play;
     private PreferencesSettings setting;
+    private CountDown countDown;
 
     public AIPreferences(GameStateManager gsm){
         super(gsm);
@@ -28,6 +30,7 @@ public class AIPreferences extends State {
         setBonuses = new Icon(new Texture(Gdx.files.internal("ai_settings/setBonus.png")),0,0);
         play = new Icon(new Texture(Gdx.files.internal("ai_settings/play.png")),0,0);
         setting = new PreferencesSettings();
+        countDown = new CountDown();
 
         setAILevel.setPosX(WIDTH/2-setAILevel.getTexture().getWidth()/2);
         setAILevel.setPosY(HEIGHT*4/5-setAILevel.getTexture().getHeight()/2);
@@ -40,13 +43,14 @@ public class AIPreferences extends State {
     }
 
     //used once a setting is changed
-    public AIPreferences(GameStateManager gsm, PreferencesSettings setting){
+    public AIPreferences(GameStateManager gsm, PreferencesSettings setting, CountDown countDown){
         super(gsm);
         setAILevel = new Icon(new Texture(Gdx.files.internal("ai_settings/setAILevel.png")),0,0);
         setTimer = new Icon(new Texture(Gdx.files.internal("ai_settings/setTimer.png")),0,0);
         setBonuses = new Icon(new Texture(Gdx.files.internal("ai_settings/setBonus.png")),0,0);
         play = new Icon(new Texture(Gdx.files.internal("ai_settings/play.png")),0,0);
         this.setting = setting;
+        this.countDown = countDown;
 
         setAILevel.setPosX(WIDTH/2-setAILevel.getTexture().getWidth()/2);
         setAILevel.setPosY(HEIGHT*4/5-setAILevel.getTexture().getHeight()/2);
@@ -64,13 +68,13 @@ public class AIPreferences extends State {
             int x = Gdx.input.getX();
             int y = HEIGHT - Gdx.input.getY();
             if (setAILevel.contains(x,y)) {
-                gsm.set(new SetAILevel(gsm, setting));
+                gsm.set(new SetAILevel(gsm, setting, countDown));
             }
             if (setTimer.contains(x,y)) {
-                gsm.set(new SetAITimer(gsm, setting));
+                gsm.set(new SetAITimer(gsm, setting, countDown));
             }
             if (play.contains(x,y)) {
-                gsm.set(new PlayModeAi(gsm, setting));
+                gsm.set(new PlayModeAi(gsm, setting, countDown));
             }
         }
     }

@@ -43,7 +43,7 @@ public class EndModeAI extends State {
 
     @Override
     public void handleInput() {
-        if(Gdx.input.justTouched()){
+        /*if(Gdx.input.justTouched()){
             int x = Gdx.input.getX();
             int y = HEIGHT - Gdx.input.getY();
             if(replay.contains(x, y)){
@@ -52,8 +52,7 @@ public class EndModeAI extends State {
             if(back.contains(x, y)){
                 gsm.set(new com.mygdx.game.view.beginning.Menu(gsm));
             }
-        }
-
+        }*/
     }
 
     @Override

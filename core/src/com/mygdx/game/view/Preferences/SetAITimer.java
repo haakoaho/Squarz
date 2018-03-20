@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.control.aI.PreferencesSettings;
+import com.mygdx.game.model.CountDown;
 import com.mygdx.game.model.Icon;
 import com.mygdx.game.model.State;
 
@@ -17,22 +18,25 @@ import static com.mygdx.game.Squarz.WIDTH;
 
 public class SetAITimer extends State {
     private PreferencesSettings set;
-    private Icon add, delete, countDown;
+    private CountDown countDown;
+    private Icon add, delete, countDownIcon;
 
 
-    public SetAITimer(GameStateManager gsm, PreferencesSettings setting){
+    public SetAITimer(GameStateManager gsm, PreferencesSettings setting, CountDown countDown){
         super(gsm);
         add = new Icon(new Texture(Gdx.files.internal("add.png")),0,0);
         delete = new Icon(new Texture(Gdx.files.internal("delete.png")),0,0);
-        countDown = new Icon(new Texture(Gdx.files.internal("ai_settings/setTimer.png")),0,0);
+        countDownIcon = new Icon(new Texture(Gdx.files.internal("ai_settings/setTimer.png")),0,0);
         set = setting;
+        this.countDown = countDown;
+
 
         add.setPosX(WIDTH/2-add.getTexture().getWidth()/2);
         add.setPosY(HEIGHT*2/3-add.getTexture().getHeight()/2);
         delete.setPosX(WIDTH/2-add.getTexture().getWidth()/2);
         delete.setPosY(HEIGHT/3-add.getTexture().getHeight()/2);
-        countDown.setPosX(WIDTH/2- countDown.getTexture().getWidth()/2);
-        countDown.setPosY(HEIGHT/2 - countDown.getTexture().getHeight()/2);
+        countDownIcon.setPosX(WIDTH/2- countDownIcon.getTexture().getWidth()/2);
+        countDownIcon.setPosY(HEIGHT/2 - countDownIcon.getTexture().getHeight()/2);
     }
 
 
@@ -42,17 +46,17 @@ public class SetAITimer extends State {
             int x = Gdx.input.getX();
             int y = HEIGHT - Gdx.input.getY();
             if(add.contains(x,y)) { //add
-                if (this.set.getCountDown().getWorldTimer() != 60) {
-                    this.set.getCountDown().increaseTime();
+                if (this.countDown.getWorldTimer() != 60) {
+                    this.countDown.increaseTime();
                 }
             }
             if(delete.contains(x,y)) { //delete
-                if (this.set.getCountDown().getWorldTimer() != 30) {
-                    this.set.getCountDown().decreaseTime();
+                if (this.countDown.getWorldTimer() != 30) {
+                    this.countDown.decreaseTime();
                 }
             }
-            if(countDown.contains(x,y)){
-                gsm.set(new com.mygdx.game.view.AIPreferences(gsm, set));
+            if(countDownIcon.contains(x,y)){ //go back
+                gsm.set(new com.mygdx.game.view.AIPreferences(gsm, set, countDown));
             }
         }
 
@@ -69,19 +73,7 @@ public class SetAITimer extends State {
 
         sb.draw(add.getTexture(), add.getPosX(), add.getPosY());
         sb.draw(delete.getTexture(),delete.getPosX(), delete.getPosY());
-
-        if(this.set.getCountDown().getWorldTimer() == 30){
-            sb.draw(countDown.getTexture(), countDown.getPosX() , countDown.getPosY());
-        }
-        if(this.set.getCountDown().getWorldTimer() == 45){
-            sb.draw(countDown.getTexture(), countDown.getPosX()- countDown.getTexture().getWidth()/2 -5 , countDown.getPosY());
-            sb.draw(countDown.getTexture(), countDown.getPosX()+ countDown.getTexture().getWidth()/2 +5, countDown.getPosY());
-        }
-        if(this.set.getCountDown().getWorldTimer() == 60){
-            sb.draw(countDown.getTexture(), countDown.getPosX()- countDown.getTexture().getWidth()-10 , countDown.getPosY());
-            sb.draw(countDown.getTexture(), countDown.getPosX() , countDown.getPosY());
-            sb.draw(countDown.getTexture(), countDown.getPosX()+ countDown.getTexture().getWidth()+10 , countDown.getPosY());
-        }
+        drawAccurateTexture(sb);
 
 
         sb.end();
@@ -89,6 +81,20 @@ public class SetAITimer extends State {
 
     @Override
     public void dispose() {
+    }
 
+    public void drawAccurateTexture(SpriteBatch sb){
+        if(countDown.getWorldTimer() == 30){
+            sb.draw(countDownIcon.getTexture(), countDownIcon.getPosX() , countDownIcon.getPosY());
+        }
+        if(countDown.getWorldTimer() == 45){
+            sb.draw(countDownIcon.getTexture(), countDownIcon.getPosX()- countDownIcon.getTexture().getWidth()/2 -5 , countDownIcon.getPosY());
+            sb.draw(countDownIcon.getTexture(), countDownIcon.getPosX()+ countDownIcon.getTexture().getWidth()/2 +5, countDownIcon.getPosY());
+        }
+        if(countDown.getWorldTimer() == 60){
+            sb.draw(countDownIcon.getTexture(), countDownIcon.getPosX()- countDownIcon.getTexture().getWidth()-10 , countDownIcon.getPosY());
+            sb.draw(countDownIcon.getTexture(), countDownIcon.getPosX() , countDownIcon.getPosY());
+            sb.draw(countDownIcon.getTexture(), countDownIcon.getPosX()+ countDownIcon.getTexture().getWidth()+10 , countDownIcon.getPosY());
+        }
     }
 }

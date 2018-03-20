@@ -67,7 +67,4 @@ public class Menu extends State {
         settings.getTexture().dispose();
         history.getTexture().dispose();
     }
-
-
 }
-

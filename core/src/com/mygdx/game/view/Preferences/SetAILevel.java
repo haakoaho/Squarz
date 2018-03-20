@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.control.aI.PreferencesSettings;
+import com.mygdx.game.model.CountDown;
 import com.mygdx.game.model.Icon;
 import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.model.State;
@@ -18,14 +19,16 @@ import static com.mygdx.game.Squarz.WIDTH;
 public class SetAILevel extends State{
     private Icon add, delete, levelToDraw;
     private PreferencesSettings set;
+    private CountDown countDown;
 
 
-    public SetAILevel(GameStateManager gsm, PreferencesSettings setting){
+    public SetAILevel(GameStateManager gsm, PreferencesSettings setting, CountDown countDown){
         super(gsm);
         add = new Icon(new Texture(Gdx.files.internal("ai_settings/add.png")),0,0);
         delete = new Icon(new Texture(Gdx.files.internal("ai_settings/delete.png")),0,0);
         levelToDraw = new Icon(new Texture(Gdx.files.internal("ai_settings/ai_levels/beginer.png")),0,0);
         set = setting;
+        this.countDown = countDown;
 
         add.setPosX(WIDTH/2-add.getTexture().getWidth()/2);
         add.setPosY(HEIGHT*2/3-add.getTexture().getHeight()/2);
@@ -49,8 +52,8 @@ public class SetAILevel extends State{
                 this.set.AILevelDown();
                 setTextureToDraw();
             }
-            if(levelToDraw.contains(x,y)){
-                gsm.set(new com.mygdx.game.view.AIPreferences(gsm, set));
+            if(levelToDraw.contains(x,y)){//go back
+                gsm.set(new com.mygdx.game.view.AIPreferences(gsm, set, countDown));
             }
         }
     }
@@ -66,7 +69,6 @@ public class SetAILevel extends State{
         sb.draw(add.getTexture(), add.getPosX(),add.getPosY() );
         sb.draw(delete.getTexture(),delete.getPosX() ,delete.getPosY() );
         sb.draw(levelToDraw.getTexture(),levelToDraw.getPosX() , levelToDraw.getPosY());
-
         sb.end();
     }
 
@@ -88,7 +90,4 @@ public class SetAILevel extends State{
             levelToDraw.setTexture(new Texture(Gdx.files.internal("ai_settings/ai_levels/expert.png")));
         }
     }
-
-
-
 }
