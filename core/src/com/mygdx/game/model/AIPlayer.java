@@ -2,9 +2,14 @@ package com.mygdx.game.model;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.control.aI.PreferencesSettings;
 
+import java.util.Map;
+
 import static com.badlogic.gdx.math.MathUtils.random;
+import static com.mygdx.game.Squarz.HEIGHT;
+import static com.mygdx.game.Squarz.WIDTH;
 
 /**
  * Created by Max on 13/03/2018.
@@ -23,12 +28,14 @@ public class AIPlayer {
     private Integer launcherCounter;
     private Integer deltaLauncher;
     private Integer renderCounter;
+    private SquareLimiter squareLimiterAi;
 
-    public AIPlayer (){
-        this.computer = new Player();
-        this.settings = new PreferencesSettings();
+    public AIPlayer (PreferencesSettings set){
+        this.settings = set;
+        this.computer = new Player(set);
         this.texture = new Texture (Gdx.files.internal("square.png"));
-        this.square = new com.mygdx.game.model.Square();
+        this.square = new com.mygdx.game.model.Square(set);
+        this.squareLimiterAi = new SquareLimiter(5);
 
         this.launcherCounter = 0;
         this.deltaLauncher = 70;
@@ -68,20 +75,50 @@ public class AIPlayer {
     }
 
     public void setTheRandomRow(int row, int colorKey) {
-        if(!this.getComputer().getSquareLimiterAi().isOver(colorKey)) {
+        if(!this.getComputer().getSquareLimiter().isOver(colorKey)) {
 
             if (row == 0) {
-                computer.incrementAI(computer.getLeft(), computer.getLeftCounter(), texture, row, colorKey);
+                incrementAI(computer.getLeft(), computer.getLeftCounter(), texture, row, colorKey);
                 computer.setLeftCounter(computer.getLeftCounter() + 1);
             }
             if (row == 1) {
-                computer.incrementAI(computer.getMiddle(), computer.getMiddleCounter(), texture, row, colorKey);
+                incrementAI(computer.getMiddle(), computer.getMiddleCounter(), texture, row, colorKey);
                 computer.setMiddleCounter(computer.getMiddleCounter() + 1);
 
             }
             if (row == 2) {
-                computer.incrementAI(computer.getRight(), computer.getRightCounter(), texture, row, colorKey);
+                incrementAI(computer.getRight(), computer.getRightCounter(), texture, row, colorKey);
                 computer.setRightCounter(computer.getRightCounter() + 1);
+            }
+        }
+    }
+
+    public void incrementAI(Map<Integer, Square> row, Integer counter, Texture t, Integer columnKey, Integer colorkey) {
+        row.put(counter, new Square(settings));
+        squareLimiterAi.counter(colorkey);
+        if (columnKey == 0) {
+            row.get(counter).setPosition(new Vector2(WIDTH * 5 / 16, HEIGHT));
+            row.get(counter).setTexture(t);
+            row.get(counter).setColorKey(colorkey);
+            if (counter > 0 && row.get(counter - 1).getPosition().y >= HEIGHT - (t.getHeight()) - 5) {
+                row.get(counter).setPosition(new Vector2(Gdx.graphics.getWidth() * 5 / 16,
+                        row.get(counter - 1).getPosition().y + t.getHeight() + 5));
+            }
+        } else if (columnKey == 1) {
+            row.get(counter).setPosition(new Vector2(WIDTH * 9 / 16, HEIGHT));
+            row.get(counter).setTexture(t);
+            row.get(counter).setColorKey(colorkey);
+            if (counter > 0 && row.get(counter - 1).getPosition().y >= HEIGHT - (t.getHeight()) - 5) {
+                row.get(counter).setPosition(new Vector2(Gdx.graphics.getWidth() * 9 / 16,
+                        row.get(counter - 1).getPosition().y + t.getHeight() + 5));
+            }
+        } else if (columnKey == 2) {
+            row.get(counter).setPosition(new Vector2(WIDTH * 13 / 16, HEIGHT));
+            row.get(counter).setTexture(t);
+            row.get(counter).setColorKey(colorkey);
+            if (counter > 0 && row.get(counter - 1).getPosition().y >= HEIGHT - (t.getHeight()) - 5) {
+                row.get(counter).setPosition(new Vector2(Gdx.graphics.getWidth() * 13 / 16,
+                        row.get(counter - 1).getPosition().y + t.getHeight() + 5));
             }
         }
     }

@@ -16,8 +16,6 @@ public class PreferencesSettings {
     private int squaresize;
     //setBonus
     private Bonus bonuses;
-    //setTimer
-    private CountDown countDown;
 
     public PreferencesSettings(){
         //default AI level settings
@@ -28,8 +26,6 @@ public class PreferencesSettings {
         this.squaresize = 3;
 
         this.bonuses = new Bonus();
-
-        this.countDown = new CountDown();
     }
 
     public int getLevelKey() { return levelKey; }
@@ -56,12 +52,6 @@ public class PreferencesSettings {
     public void setSquaresize(int squaresize) { this.squaresize = squaresize; }
     public Bonus getBonuses() { return bonuses; }
     public void setBonuses(Bonus bonuses) { this.bonuses = bonuses; }
-    public CountDown getCountDown() {
-        return countDown;
-    }
-    public void setCountDown(CountDown countDown) {
-        this.countDown = countDown;
-    }
 
     public void AILevelUp() {
         int currentLevel = this.getLevelKey();
