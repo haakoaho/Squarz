@@ -15,13 +15,18 @@ public class CountDown {
     private float timeCount;
     private Label countdownLabel;
     private Boolean timeUp;
+<<<<<<< HEAD
     private Integer timerKey;
-
     public CountDown(Integer time) {
         this.worldTimer = 45;
         this.timeCount = 0f;
         this.timerKey = time;
+=======
 
+    public CountDown() {
+        this.worldTimer = 60;
+        this.timeCount = 0f;
+>>>>>>> f627de5b7ed4b552e1b1e93f9bc92c58b1c77fa0
         this.countdownLabel = new Label(String.format("%02d", worldTimer),
                 new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         this.timeUp = false;
