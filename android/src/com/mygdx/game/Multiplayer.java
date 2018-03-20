@@ -1,14 +1,15 @@
 package com.mygdx.game;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
-import android.view.Window;
-import android.view.WindowManager;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.games.Games;
 import com.google.android.gms.games.GamesCallbackStatusCodes;
 import com.google.android.gms.games.multiplayer.Participant;
@@ -26,9 +27,16 @@ import java.util.List;
 
 public class Multiplayer extends Activity implements MultiplayerInterface {
     RoomConfig mJoinedRoomConfig;
-    Window window;
     private final String TAG = "Squarz";
 
+    GoogleSignInClient signInClient;
+
+    public void startSignInIntent() {
+        GoogleSignInClient signInClient = GoogleSignIn.getClient(this,
+                GoogleSignInOptions.DEFAULT_GAMES_SIGN_IN);
+        Intent intent = signInClient.getSignInIntent();
+        startActivityForResult(intent, 9001);
+    }
 
     public void startQuickGame() {
 
@@ -42,8 +50,7 @@ public class Multiplayer extends Activity implements MultiplayerInterface {
                         .setAutoMatchCriteria(autoMatchCriteria)
                         .build();
 
-        // prevent screen from sleeping during handshake
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
 
         // Save the roomConfig so we can use it if we call leave().
         mJoinedRoomConfig = roomConfig;
@@ -60,8 +67,7 @@ public class Multiplayer extends Activity implements MultiplayerInterface {
                 Log.d(TAG, "Room " + room.getRoomId() + " created.");
             } else {
                 Log.w(TAG, "Error creating room: " + code);
-                // let screen go to sleep
-                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
 
             }
         }
@@ -73,8 +79,6 @@ public class Multiplayer extends Activity implements MultiplayerInterface {
                 Log.d(TAG, "Room " + room.getRoomId() + " joined.");
             } else {
                 Log.w(TAG, "Error joining room: " + code);
-                // let screen go to sleep
-                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
             }
         }
@@ -90,8 +94,7 @@ public class Multiplayer extends Activity implements MultiplayerInterface {
                 Log.d(TAG, "Room " + room.getRoomId() + " connected.");
             } else {
                 Log.w(TAG, "Error connecting to room: " + code);
-                // let screen go to sleep
-                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
 
             }
         }
@@ -149,7 +152,6 @@ public class Multiplayer extends Activity implements MultiplayerInterface {
                 Games.getRealTimeMultiplayerClient(thisActivity,
                         GoogleSignIn.getLastSignedInAccount(thisActivity))
                         .leave(mJoinedRoomConfig, room.getRoomId());
-                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
             }
         }
 
@@ -165,7 +167,6 @@ public class Multiplayer extends Activity implements MultiplayerInterface {
                 Games.getRealTimeMultiplayerClient(thisActivity,
                         GoogleSignIn.getLastSignedInAccount(thisActivity))
                         .leave(mJoinedRoomConfig, room.getRoomId());
-                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
             }
         }
 
@@ -187,7 +188,6 @@ public class Multiplayer extends Activity implements MultiplayerInterface {
             // This usually happens due to a network error, leave the game.
             Games.getRealTimeMultiplayerClient(thisActivity, GoogleSignIn.getLastSignedInAccount(thisActivity))
                     .leave(mJoinedRoomConfig, room.getRoomId());
-            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
             // show error message and return to main screen
             mRoom = null;
             mJoinedRoomConfig = null;
@@ -213,7 +213,6 @@ public class Multiplayer extends Activity implements MultiplayerInterface {
                 Games.getRealTimeMultiplayerClient(thisActivity,
                         GoogleSignIn.getLastSignedInAccount(thisActivity))
                         .leave(mJoinedRoomConfig, room.getRoomId());
-                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
             }
         }
 
@@ -238,7 +237,5 @@ public class Multiplayer extends Activity implements MultiplayerInterface {
                 }
             };
 
-    public Window getWindow() {
-        return window;
-    }
+
 }

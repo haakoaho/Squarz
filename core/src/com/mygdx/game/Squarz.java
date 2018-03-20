@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.model.MultiplayerInterface;
+import com.mygdx.game.view.beginning.Menu;
 
 public class Squarz extends ApplicationAdapter  {
 	public final String TITLE = "Squarz";
@@ -49,11 +50,12 @@ public class Squarz extends ApplicationAdapter  {
 	public void render () {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		Gdx.gl.glClearColor(.84f,.84f,.84f, 1);
-		multiplayerInterface.startQuickGame();
+
 
 
 		gsm.update(Gdx.graphics.getDeltaTime());
 		gsm.render(batch);
+        gsm.push(new Menu(gsm));
 	}
 	
 	@Override
