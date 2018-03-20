@@ -35,6 +35,7 @@ import static com.mygdx.game.Squarz.WIDTH;
 public class PlayModeAi extends State {
     private Music music;
     private Sound sound;
+    private GlyphLayout readyGlyph;
 
     private PreferencesSettings settings;
     private CountDown countDown;
@@ -78,6 +79,7 @@ public class PlayModeAi extends State {
 
         this.collision = new Collision();
 
+        readyGlyph = new GlyphLayout(Squarz.font, "READY ?");
 
         music=Gdx.audio.newMusic(Gdx.files.internal("sound/here.mp3"));
         music.setLooping(true);
@@ -147,11 +149,9 @@ public class PlayModeAi extends State {
     public void render(SpriteBatch sb) {
         sb.begin();
         if(!ready){
-            GlyphLayout ready = new GlyphLayout();
-            ready.setText(Squarz.font, "READY ?");
-            Squarz.font.draw(sb, ready,
-                    (float) (WIDTH/2 - ready.width/2.), HEIGHT/2 - ready.height/2);
-        }else {
+            Squarz.font.draw(sb, readyGlyph,
+                    (float) (WIDTH/2 - readyGlyph.width/2.), HEIGHT/2 - readyGlyph.height/2);
+        } else {
 
             sb.draw(redChoiceSquare.getTexture(), redChoiceSquare.getPosX(), redChoiceSquare.getPosY());
             sb.draw(blueChoiceSquare.getTexture(), blueChoiceSquare.getPosX(), blueChoiceSquare.getPosY());
