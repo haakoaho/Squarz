@@ -25,9 +25,10 @@ public class EndModeAI extends State {
     private Icon replay, back;
     private CountDown countDown;
 
-    public EndModeAI(GameStateManager gsm, PreferencesSettings setting, Score s){
+    public EndModeAI(GameStateManager gsm, PreferencesSettings setting, Score s, CountDown countDown){
         super(gsm);
         this.setting = setting;
+        this.countDown = countDown;
         this.score  = s;
         //vraies textures:
         this.gameOver = new Texture(Gdx.files.internal("temporary/gameOver.png"));
@@ -41,20 +42,21 @@ public class EndModeAI extends State {
         this.back = new Icon(new Texture(Gdx.files.internal("endMode/backToMenu.png")), 0, 0);
         this.back.setPosX(WIDTH/2 - back.getTexture().getWidth()/2);
         this.back.setPosY(HEIGHT/5 - back.getTexture().getHeight()/2);
+
     }
 
     @Override
     public void handleInput() {
-       /* if(Gdx.input.justTouched()){
+        if(Gdx.input.justTouched()){
             int x = Gdx.input.getX();
             int y = HEIGHT - Gdx.input.getY();
             if(replay.contains(x, y)){
-                gsm.set(new AIPreferences(gsm, setting));
+                gsm.set(new AIPreferences(gsm, setting, new CountDown(countDown.getTimeKey())));
             }
             if(back.contains(x, y)){
                 gsm.set(new com.mygdx.game.view.beginning.Menu(gsm));
             }
-        }*/
+        }
     }
 
     @Override
