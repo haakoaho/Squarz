@@ -127,6 +127,7 @@ public class AIPlayer {
     // ---------  general getters and setters
 
 
+
     public PreferencesSettings getSettings() {
         return settings;
     }

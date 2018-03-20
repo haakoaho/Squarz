@@ -241,15 +241,15 @@ public class PlayModeAi extends State {
     }
 
     public void drawingPlayerSquares(SpriteBatch sb){
-        for (int i = 0; i < player.getLeftCounter(); i++) {
+        for (int i = player.getFirstLeftSquaresKey(); i < player.getLeftCounter(); i++) {
             sb.draw(player.getLeft().get(i).getTexture(),
                     player.getLeft().get(i).getPosition().x, player.getLeft().get(i).getPosition().y);
         }
-        for (int i = 0; i < player.getMiddleCounter(); i++) {
+        for (int i = player.getFirstMiddleSquaresKey(); i < player.getMiddleCounter(); i++) {
             sb.draw(player.getMiddle().get(i).getTexture(),
                     player.getMiddle().get(i).getPosition().x, player.getMiddle().get(i).getPosition().y);
         }
-        for (int i = 0; i < player.getRightCounter(); i++) {
+        for (int i = player.getFirstRightSquaresKey(); i < player.getRightCounter(); i++) {
             sb.draw(player.getRight().get(i).getTexture(),
                     player.getRight().get(i).getPosition().x, player.getRight().get(i).getPosition().y);
         }

@@ -47,19 +47,21 @@ public class Square {
     }
 
     public boolean isInUser(){
+        boolean in = true;
         if (this.getPosition() == new Vector2(10, 10)
                 || (this.getPosition().y > Gdx.graphics.getHeight() + this.set.getStepX())){
-            return false;
+          in = false;
         }
-        return true;
+        return in;
     }
 
     public boolean isInAi(){
+        boolean in = true;
         if (this.getPosition() == new Vector2(10, 10)
                 || (this.getPosition().y + this.set.getStepX() < 0 )){
-            return false;
+            in = false;
         }
-        return true;
+        return in;
     }
 
     /*public void freeze(){
