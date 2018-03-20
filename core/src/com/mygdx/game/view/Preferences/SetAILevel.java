@@ -8,7 +8,6 @@ import com.mygdx.game.model.CountDown;
 import com.mygdx.game.model.Icon;
 import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.model.State;
-import com.mygdx.game.view.beginning.Menu;
 
 import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
@@ -18,7 +17,7 @@ import static com.mygdx.game.Squarz.WIDTH;
  */
 
 public class SetAILevel extends State{
-    private Icon add, delete, levelToDraw, back;
+    private Icon add, delete, levelToDraw;
     private PreferencesSettings set;
     private CountDown countDown;
 
@@ -28,7 +27,6 @@ public class SetAILevel extends State{
         add = new Icon(new Texture(Gdx.files.internal("ai_settings/add.png")),0,0);
         delete = new Icon(new Texture(Gdx.files.internal("ai_settings/delete.png")),0,0);
         levelToDraw = new Icon(new Texture(Gdx.files.internal("ai_settings/ai_levels/beginer.png")),0,0);
-        back = new Icon(new Texture(Gdx.files.internal("back.png")),0,0);
         set = setting;
         this.countDown = countDown;
 
@@ -38,8 +36,6 @@ public class SetAILevel extends State{
         delete.setPosY(HEIGHT/3-delete.getTexture().getHeight()/2);
         levelToDraw.setPosX(WIDTH/2-levelToDraw.getTexture().getWidth()/2);
         levelToDraw.setPosY(HEIGHT/2-levelToDraw.getTexture().getHeight()/2);
-        back.setPosX(back.getTexture().getWidth()/2);
-        back.setPosY(back.getTexture().getHeight()/2);
 
         setTextureToDraw();
     }
@@ -59,10 +55,6 @@ public class SetAILevel extends State{
             if(levelToDraw.contains(x,y)){//go back
                 gsm.set(new com.mygdx.game.view.AIPreferences(gsm, set, countDown));
             }
-            if (back.contains(x,y)) {
-                gsm.set(new com.mygdx.game.view.AIPreferences(gsm, set));
-                dispose();
-            }
         }
     }
 
@@ -77,7 +69,6 @@ public class SetAILevel extends State{
         sb.draw(add.getTexture(), add.getPosX(),add.getPosY() );
         sb.draw(delete.getTexture(),delete.getPosX() ,delete.getPosY() );
         sb.draw(levelToDraw.getTexture(),levelToDraw.getPosX() , levelToDraw.getPosY());
-        sb.draw(back.getTexture(),back.getPosX(),back.getPosY());
         sb.end();
     }
 

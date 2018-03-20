@@ -19,12 +19,8 @@ import static com.mygdx.game.Squarz.WIDTH;
 
 public class SetAITimer extends State {
     private PreferencesSettings set;
-<<<<<<< HEAD
-    private Icon add, delete, timer, back;
-=======
     private CountDown countDown;
-    private Icon add, delete, countDownIcon;
->>>>>>> Maxime
+    private Icon add, delete, countDownIcon,back;
 
 
     public SetAITimer(GameStateManager gsm, PreferencesSettings setting, CountDown countDown){
@@ -32,12 +28,8 @@ public class SetAITimer extends State {
 
         add = new Icon(new Texture(Gdx.files.internal("add.png")),0,0);
         delete = new Icon(new Texture(Gdx.files.internal("delete.png")),0,0);
-<<<<<<< HEAD
-        timer = new Icon(new Texture(Gdx.files.internal("ai_settings/setTimer.png")),0,0);
         back = new Icon(new Texture(Gdx.files.internal("back.png")),0,0);
-=======
         countDownIcon = new Icon(new Texture(Gdx.files.internal("ai_settings/setTimer.png")),0,0);
->>>>>>> Maxime
         set = setting;
         this.countDown = countDown;
 
@@ -70,9 +62,10 @@ public class SetAITimer extends State {
             }
             if(countDownIcon.contains(x,y)){ //go back
                 gsm.set(new com.mygdx.game.view.AIPreferences(gsm, set, countDown));
+                dispose();
             }
             if (back.contains(x,y)) {
-                gsm.set(new com.mygdx.game.view.AIPreferences(gsm, set));
+                gsm.set(new com.mygdx.game.view.AIPreferences(gsm, set, countDown));
                 dispose();
             }
         }
@@ -90,26 +83,9 @@ public class SetAITimer extends State {
 
         sb.draw(add.getTexture(), add.getPosX(), add.getPosY());
         sb.draw(delete.getTexture(),delete.getPosX(), delete.getPosY());
-<<<<<<< HEAD
 
-        if(this.set.getTimer().getDuration() == 30){
-            sb.draw(timer.getTexture(),timer.getPosX() ,timer.getPosY());
-        }
-        if(this.set.getTimer().getDuration() == 45){
-            sb.draw(timer.getTexture(),timer.getPosX()-timer.getTexture().getWidth()/2 -5 ,timer.getPosY());
-            sb.draw(timer.getTexture(),timer.getPosX()+timer.getTexture().getWidth()/2 +5,timer.getPosY());
-        }
-        if(this.set.getTimer().getDuration() == 60){
-            sb.draw(timer.getTexture(),timer.getPosX()-timer.getTexture().getWidth()-10 ,timer.getPosY());
-            sb.draw(timer.getTexture(),timer.getPosX() ,timer.getPosY());
-            sb.draw(timer.getTexture(),timer.getPosX()+timer.getTexture().getWidth()+10 ,timer.getPosY());
-        }
-        sb.draw(back.getTexture(),back.getPosX(),back.getPosY());
-=======
         drawAccurateTexture(sb);
 
-
->>>>>>> Maxime
         sb.end();
     }
 
