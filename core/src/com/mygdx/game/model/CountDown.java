@@ -11,10 +11,11 @@ import com.badlogic.gdx.graphics.Color;
 
 public class CountDown {
     private Integer worldTimer;
-    private Integer fullCounter;
+    private Integer fullCounter; //
     private float timeCount;
     private Label countdownLabel;
     private Boolean timeUp;
+    private Label timeLabel;//
 
     public CountDown() {
         this.worldTimer = 45;
