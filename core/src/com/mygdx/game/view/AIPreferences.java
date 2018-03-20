@@ -30,7 +30,7 @@ public class AIPreferences extends State {
         setBonuses = new Icon(new Texture(Gdx.files.internal("ai_settings/setBonus.png")),0,0);
         play = new Icon(new Texture(Gdx.files.internal("ai_settings/play.png")),0,0);
         setting = new PreferencesSettings();
-        countDown = new CountDown();
+        countDown = new CountDown(45);
 
         setAILevel.setPosX(WIDTH/2-setAILevel.getTexture().getWidth()/2);
         setAILevel.setPosY(HEIGHT*4/5-setAILevel.getTexture().getHeight()/2);

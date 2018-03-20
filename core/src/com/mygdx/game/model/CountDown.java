@@ -15,21 +15,31 @@ public class CountDown {
     private float timeCount;
     private Label countdownLabel;
     private Boolean timeUp;
-
-    public CountDown() {
+<<<<<<< HEAD
+    private Integer timerKey;
+    public CountDown(Integer time) {
         this.worldTimer = 45;
         this.timeCount = 0f;
-        this.countdownLabel = new Label(String.format("%03d", worldTimer),
+        this.timerKey = time;
+=======
+
+    public CountDown() {
+        this.worldTimer = 60;
+        this.timeCount = 0f;
+>>>>>>> f627de5b7ed4b552e1b1e93f9bc92c58b1c77fa0
+        this.countdownLabel = new Label(String.format("%02d", worldTimer),
                 new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         this.timeUp = false;
     }
 
     public void increaseTime(){
         setWorldTimer(this.getWorldTimer()+15);
+        setTimerKey(this.getTimerKey()+15);
     }
 
     public void decreaseTime(){
         setWorldTimer(this.getWorldTimer()-15);
+        setTimerKey(this.getTimerKey()-15);
     }
 
     public Integer getWorldTimer() {
@@ -64,6 +74,13 @@ public class CountDown {
         this.timeUp = timeUp;
     }
 
+    public Integer getTimerKey() {
+        return timerKey;
+    }
+
+    public void setTimerKey(Integer timerKey) {
+        this.timerKey = timerKey;
+    }
 
     public void update(float dt) {
         this.timeCount += dt;
@@ -73,7 +90,7 @@ public class CountDown {
             } else {
                 this.timeUp = true;
             }
-            this.countdownLabel.setText(String.format("%03d", worldTimer));
+            this.countdownLabel.setText(String.format("%02d", worldTimer));
             this.timeCount = 0;
         }
     }

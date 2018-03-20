@@ -19,22 +19,22 @@ public class Pref extends State {
 
     public Pref(GameStateManager gsm) {
         super(gsm);
-        ai = new Icon(new Texture(Gdx.files.internal("modes/ai.png")),0,0);
-        quick = new Icon(new Texture(Gdx.files.internal("modes/quick.png")),0,0);
-        invite = new Icon(new Texture(Gdx.files.internal("modes/invite.png")),0,0);
-        answer = new Icon(new Texture(Gdx.files.internal("modes/answer.png")),0,0);
-        back = new Icon(new Texture(Gdx.files.internal("back.png")),0,0);
+        this.ai = new Icon(new Texture(Gdx.files.internal("modes/ai.png")),0,0);
+        this.quick = new Icon(new Texture(Gdx.files.internal("modes/quick.png")),0,0);
+        this.invite = new Icon(new Texture(Gdx.files.internal("modes/invite.png")),0,0);
+        this.answer = new Icon(new Texture(Gdx.files.internal("modes/answer.png")),0,0);
+        this.back = new Icon(new Texture(Gdx.files.internal("back.png")),0,0);
 
-        ai.setPosX(WIDTH/4-ai.getTexture().getWidth()/2);
-        ai.setPosY(7*HEIGHT/10-ai.getTexture().getHeight()/2);
-        quick.setPosX(3*WIDTH/4-quick.getTexture().getWidth()/2);
-        quick.setPosY(7*HEIGHT/10-quick.getTexture().getHeight()/2);
-        invite.setPosX(WIDTH/4-invite.getTexture().getWidth()/2);
-        invite.setPosY(3*HEIGHT/10-invite.getTexture().getHeight()/2);
-        answer.setPosX(3*WIDTH/4-answer.getTexture().getWidth()/2);
-        answer.setPosY(3*HEIGHT/10-answer.getTexture().getHeight()/2);
-        back.setPosX(back.getTexture().getWidth()/2);
-        back.setPosY(back.getTexture().getHeight()/2);
+        this.ai.setPosX(WIDTH/4-ai.getTexture().getWidth()/2);
+        this.ai.setPosY(7*HEIGHT/10-ai.getTexture().getHeight()/2);
+        this.quick.setPosX(3*WIDTH/4-quick.getTexture().getWidth()/2);
+        this.quick.setPosY(7*HEIGHT/10-quick.getTexture().getHeight()/2);
+        this.invite.setPosX(WIDTH/4-invite.getTexture().getWidth()/2);
+        this.invite.setPosY(3*HEIGHT/10-invite.getTexture().getHeight()/2);
+        this.answer.setPosX(3*WIDTH/4-answer.getTexture().getWidth()/2);
+        this.answer.setPosY(3*HEIGHT/10-answer.getTexture().getHeight()/2);
+        this.back.setPosX(back.getTexture().getWidth()/2);
+        this.back.setPosY(back.getTexture().getHeight()/2);
     }
 
     @Override

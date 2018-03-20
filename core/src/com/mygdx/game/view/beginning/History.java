@@ -18,10 +18,10 @@ public class History extends State {
 
     public History(GameStateManager gsm) {
         super(gsm);
-        back = new Icon(new Texture(Gdx.files.internal("back.png")),0,0);
+        this.back = new Icon(new Texture(Gdx.files.internal("back.png")),0,0);
 
-        back.setPosX(back.getTexture().getWidth()/2);
-        back.setPosY(back.getTexture().getHeight()/2);
+        this.back.setPosX(back.getTexture().getWidth()/2);
+        this.back.setPosY(back.getTexture().getHeight()/2);
     }
 
     @Override
