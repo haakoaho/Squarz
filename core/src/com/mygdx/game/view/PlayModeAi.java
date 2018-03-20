@@ -131,7 +131,8 @@ public class PlayModeAi extends State {
             }
 
             //random sending by the AI
-            ai.send(this.countDown);
+            //ai.send(this.countDown);
+            ai.prgrmdSending(this.countDown);
 
             movingPlayerSquare();
 

@@ -61,6 +61,30 @@ public class AIPlayer {
         }
     }
 
+    public void prgrmdSending(CountDown countDown){
+        this.launcherCounter += 1;
+        if (countDown.getWorldTimer() > 0) {
+            if (this.launcherCounter == this.settings.getDtLaunching()) {
+                this.launcherCounter = 0;
+
+                if (!this.getComputer().getSquareLimiter().isOver(0)){
+                    setTheRandomTexture(0);
+                    setTheRandomRow(0, 0);
+                }else if (!this.getComputer().getSquareLimiter().isOver(1)){
+                    setTheRandomTexture(1);
+                    setTheRandomRow(1, 1);
+                }else{
+                    setTheRandomTexture(2);
+                    setTheRandomRow(2, 2);
+                }
+
+
+
+            }
+        }
+
+    }
+
 
     public void setTheRandomTexture(int colorKey){
         if (colorKey == 0) {
