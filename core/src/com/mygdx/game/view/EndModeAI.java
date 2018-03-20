@@ -52,16 +52,16 @@ public class EndModeAI extends State {
 
     @Override
     public void handleInput() {
-       /* if(Gdx.input.justTouched()){
+        if(Gdx.input.justTouched()){
             int x = Gdx.input.getX();
             int y = HEIGHT - Gdx.input.getY();
             if(replay.contains(x, y)){
-                gsm.set(new AIPreferences(gsm, setting));
+                gsm.set(new AIPreferences(gsm)); // TO MODIFY
             }
             if(back.contains(x, y)){
                 gsm.set(new com.mygdx.game.view.beginning.Menu(gsm));
             }
-        }*/
+        }
     }
 
     @Override
@@ -77,8 +77,6 @@ public class EndModeAI extends State {
         Squarz.font.draw(sb, scoreAi, WIDTH * 3/5 - scoreUser.width/2, HEIGHT * 3/5);
         sb.draw(replay.getTexture(), replay.getPosX(), replay.getPosY());
         sb.draw(back.getTexture(), back.getPosX(), back.getPosY());
-        Squarz.font.draw(sb,this.score.getUserScore().toString(), 100,100);
-        Squarz.font.draw(sb, this.score.getAiScore().toString(),150,100);
         sb.end();
     }
 
