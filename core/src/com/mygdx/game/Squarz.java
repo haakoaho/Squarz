@@ -44,6 +44,7 @@ public class Squarz extends ApplicationAdapter  {
 		parameter.borderColor = Color.WHITE;
 		font = generator.generateFont(parameter);
 		generator.dispose();
+        gsm.push(new Menu(gsm));
 	}
 
 	@Override
@@ -52,10 +53,10 @@ public class Squarz extends ApplicationAdapter  {
 		Gdx.gl.glClearColor(.84f,.84f,.84f, 1);
 
 
-
 		gsm.update(Gdx.graphics.getDeltaTime());
 		gsm.render(batch);
-        gsm.push(new Menu(gsm));
+
+
 	}
 	
 	@Override
