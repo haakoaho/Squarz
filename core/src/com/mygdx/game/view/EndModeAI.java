@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Squarz;
 import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.control.aI.PreferencesSettings;
+import com.mygdx.game.model.CountDown;
 import com.mygdx.game.model.Icon;
 import com.mygdx.game.model.Score;
 import com.mygdx.game.model.State;
@@ -23,6 +24,7 @@ public class EndModeAI extends State {
     private Score score;
     private Texture gameOver, scoreTex;
     private Icon replay, back;
+    private CountDown countDown;
 
     public EndModeAI(GameStateManager gsm, PreferencesSettings setting, Score s){
         super(gsm);
@@ -44,7 +46,7 @@ public class EndModeAI extends State {
 
     @Override
     public void handleInput() {
-        if(Gdx.input.justTouched()){
+       /* if(Gdx.input.justTouched()){
             int x = Gdx.input.getX();
             int y = HEIGHT - Gdx.input.getY();
             if(replay.contains(x, y)){
@@ -53,8 +55,7 @@ public class EndModeAI extends State {
             if(back.contains(x, y)){
                 gsm.set(new com.mygdx.game.view.beginning.Menu(gsm));
             }
-        }
-
+        }*/
     }
 
     @Override

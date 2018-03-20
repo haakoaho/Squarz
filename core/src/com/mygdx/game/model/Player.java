@@ -2,6 +2,8 @@ package com.mygdx.game.model;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.control.aI.PreferencesSettings;
+
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,20 +23,22 @@ import static com.mygdx.game.Squarz.WIDTH;
 public class Player {
     private Map<Integer, Square> left, middle, right;
     private Integer leftCounter, middleCounter, rightCounter;
-    //private SquareLimiter squareLimiter, squareLimiterAi;
+    private SquareLimiter squareLimiter;//, squareLimiterAi;// reprendre
+    private PreferencesSettings set;
 
 
-    public Player(){
+    public Player(PreferencesSettings set){
+        this.set = set;
+
         this.left = new HashMap<Integer, Square>();
         this.middle = new HashMap<Integer, Square>();
         this.right = new HashMap<Integer, Square>();
-        this.leftCounter = -1;
-        this.middleCounter = -1;
-        this.rightCounter = -1;
-        //this.squareLimiter = new SquareLimiter(0);
-        //this.squareLimiterAi = new SquareLimiter(0);
+        this.leftCounter = 0;
+        this.middleCounter = 0;
+        this.rightCounter = 0;
 
-
+        this.squareLimiter = new SquareLimiter(5);
+        //this.squareLimiterAi = new SquareLimiter(5);
     }
 
     //setters and getters;
@@ -75,28 +79,28 @@ public class Player {
     public void setRightCounter(Integer rightCounter) {
         this.rightCounter = rightCounter;
     }
-    /*
     public SquareLimiter getSquareLimiter() {
         return squareLimiter;
     }
     public void setSquareLimiter(SquareLimiter squareLimiter) {
         this.squareLimiter = squareLimiter;
     }
-    public SquareLimiter getSquareLimiterAi() {
+    /*public SquareLimiter getSquareLimiterAi() {
         return squareLimiterAi;
-    }
-    public void setSquareLimiterAi(SquareLimiter squareLimiterAi) {
+    }*/
+    /*public void setSquareLimiterAi(SquareLimiter squareLimiterAi) {
         this.squareLimiterAi = squareLimiterAi;
-    }
-    */
+    }*/
+
 
     public void increment(Map<Integer, Square> row, Integer counter, Texture t, Integer columnKey, Integer colorkey){
-            row.put(counter, new Square());
-            //squareLimiter.counter(colorkey);
+            row.put(counter, new Square(set));
+            squareLimiter.counter(colorkey);
             if (columnKey == 0) {
                 row.get(counter).setPosition(new Vector2(WIDTH * 5 / 16, 0));
                 row.get(counter).setTexture(t);
                 row.get(counter).setColorKey(colorkey);
+                //overlapping
                 if (counter > 0 && row.get(counter - 1).getPosition().y < t.getHeight() + 5) {
                     row.get(counter).setPosition(new Vector2(Gdx.graphics.getWidth() * 5 / 16,
                             row.get(counter - 1).getPosition().y - t.getHeight() - 5));
@@ -121,49 +125,19 @@ public class Player {
 
     }
 
-    public void incrementAI(Map<Integer, Square> row, Integer counter, Texture t, Integer columnKey, Integer colorkey){
-            row.put(counter, new Square());
-            //squareLimiterAi.counter(colorkey);
-            if (columnKey == 0) {
-                row.get(counter).setPosition(new Vector2(WIDTH * 5 / 16, HEIGHT));
-                row.get(counter).setTexture(t);
-                row.get(counter).setColorKey(colorkey);
-                if (counter > 0 && row.get(counter - 1).getPosition().y >= HEIGHT - (t.getHeight()) - 5) {
-                    row.get(counter).setPosition(new Vector2(Gdx.graphics.getWidth() * 5 / 16,
-                            row.get(counter - 1).getPosition().y + t.getHeight() + 5));
-                }
-            } else if (columnKey == 1) {
-                row.get(counter).setPosition(new Vector2(WIDTH * 9 / 16, HEIGHT));
-                row.get(counter).setTexture(t);
-                row.get(counter).setColorKey(colorkey);
-                if (counter > 0 && row.get(counter - 1).getPosition().y >= HEIGHT - (t.getHeight()) - 5) {
-                    row.get(counter).setPosition(new Vector2(Gdx.graphics.getWidth() * 9 / 16,
-                            row.get(counter - 1).getPosition().y + t.getHeight() + 5));
-                }
-            } else if (columnKey == 2) {
-                row.get(counter).setPosition(new Vector2(WIDTH * 13 / 16, HEIGHT));
-                row.get(counter).setTexture(t);
-                row.get(counter).setColorKey(colorkey);
-                if (counter > 0 && row.get(counter - 1).getPosition().y >= HEIGHT - (t.getHeight()) - 5) {
-                    row.get(counter).setPosition(new Vector2(Gdx.graphics.getWidth() * 13 / 16,
-                            row.get(counter - 1).getPosition().y + t.getHeight() + 5));
-                }
-            }
-
-    }
 
     public void decrement(Map<Integer, Square> row, Integer counter, Integer columnKey){
         if(columnKey == 0) {
-            row.get(counter).setPosition(new Vector2(10, 10));
-            row.get(counter).setSpeed(0);
+            row.get(counter).setPosition(new Vector2(10, 10)); //set left-bottom
+            //row.get(counter).freeze(); //freeze it
         }
         else if(columnKey == 1){
             row.get(counter).setPosition(new Vector2(10, 10));
-            row.get(counter).setSpeed(0);
+            //row.get(counter).freeze();
         }
         else if( columnKey == 2){
             row.get(counter).setPosition(new Vector2(10, 10));
-            row.get(counter).setSpeed(0);
+            //row.get(counter).freeze();
         }
     }
 }
