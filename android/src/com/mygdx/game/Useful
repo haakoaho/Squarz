@@ -1,0 +1,65 @@
+ // Handle the result of the invitation inbox UI, where the player can pick an invitation
+    // to accept. We react by accepting the selected invitation, if any.
+    private void handleInvitationInboxResult(int response, Intent data) {
+        if (response != Activity.RESULT_OK) {
+            Log.w(TAG, "*** invitation inbox UI cancelled, " + response);
+            switchToMainScreen();
+            return;
+        }
+
+        Log.d(TAG, "Invitation inbox UI succeeded.");
+        Invitation invitation = data.getExtras().getParcelable(Multiplayer.EXTRA_INVITATION)
+
+        // accept invitation
+        if (invitation != null) {
+            acceptInviteToRoom(invitation.getInvitationId());
+        }
+    }
+
+    // Accept the given invitation.
+    void acceptInviteToRoom(String invitationId) {
+        // accept the invitation
+        Log.d(TAG, "Accepting invitation: " + invitationId);
+
+        mRoomConfig = RoomConfig.builder(mRoomUpdateCallback)
+                .setInvitationIdToAccept(invitationId)
+                .setOnMessageReceivedListener(mOnRealTimeMessageReceivedListener)
+                .setRoomStatusUpdateCallback(mRoomStatusUpdateCallback)
+                .build();
+
+        switchToScreen(R.id.screen_wait);
+        keepScreenOn();
+        resetGameVars();
+
+        mRealTimeMultiplayerClient.join(mRoomConfig)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "Room Joined Successfully!");
+                    }
+                });
+    }
+
+    private InvitationCallback mInvitationCallback = new InvitationCallback() {
+            // Called when we get an invitation to play a game. We react by showing that to the user.
+            @Override
+            public void onInvitationReceived(@NonNull Invitation invitation) {
+                // We got an invitation to play a game! So, store it in
+                // mIncomingInvitationId
+                // and show the popup on the screen.
+                mIncomingInvitationId = invitation.getInvitationId();
+                ((TextView) findViewById(R.id.incoming_invitation_text)).setText(
+                        invitation.getInviter().getDisplayName() + " " +
+                                getString(R.string.is_inviting_you));
+                switchToScreen(mCurScreen); // This will show the invitation popup
+            }
+
+            @Override
+            public void onInvitationRemoved(@NonNull String invitationId) {
+
+                if (mIncomingInvitationId.equals(invitationId) && mIncomingInvitationId != null) {
+                    mIncomingInvitationId = null;
+                    switchToScreen(mCurScreen); // This will hide the invitation popup
+                }
+            }
+        };

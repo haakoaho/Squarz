@@ -55,8 +55,7 @@ public class Squarz extends ApplicationAdapter  {
 
 		gsm.update(Gdx.graphics.getDeltaTime());
 		gsm.render(batch);
-
-
+		multiplayerInterface.startQuickGame();
 	}
 	
 	@Override
