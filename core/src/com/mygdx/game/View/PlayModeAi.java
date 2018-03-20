@@ -75,12 +75,6 @@ public class PlayModeAi extends State {
         this.colorKey = 0;
 
         this.score = new Score();
-
-<<<<<<< HEAD
-        this.countDown = new CountDown(10, 0);
-
-=======
->>>>>>> Maxime
         this.collision = new Collision();
 
 
