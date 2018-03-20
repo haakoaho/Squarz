@@ -15,7 +15,6 @@ public class CountDown {
     private float timeCount;
     private Label countdownLabel;
     private Boolean timeUp;
-    private Label timeLabel;//
 
     public CountDown() {
         this.worldTimer = 45;

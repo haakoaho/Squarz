@@ -86,6 +86,7 @@ public class AIPlayer {
     }
 
 
+
     public void setTheRandomTexture(int colorKey){
         if (colorKey == 0) {
             this.texture = new Texture(Gdx.files.internal("square_red.png"));
