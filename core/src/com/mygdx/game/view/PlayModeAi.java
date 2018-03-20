@@ -75,6 +75,7 @@ public class PlayModeAi extends State {
         this.colorKey = 0;
 
         this.score = new Score();
+
         this.collision = new Collision();
 
 
@@ -109,7 +110,7 @@ public class PlayModeAi extends State {
                 //Implementation for the launcher of each row
 
                 if (!this.player.getSquareLimiter().isOver(colorKey)) {
-                creatingANewSquare(x);
+                    creatingANewSquare(x);
                 }
             }
         }
@@ -130,8 +131,8 @@ public class PlayModeAi extends State {
             }
 
             //random sending by the AI
-            //ai.send(this.countDown);
-            ai.prgrmdSending(this.countDown);
+            ai.send(this.countDown);
+            //ai.prgrmdSending(this.countDown);
 
             movingPlayerSquare();
 
@@ -179,9 +180,6 @@ public class PlayModeAi extends State {
             this.texture = new Texture(Gdx.files.internal("square_red.png"));
         }
 
-<<<<<<< HEAD
-        ai.send(countDown);
-=======
         if (this.blueChoiceSquare.contains(x, y)) {
             this.setColorKey(1);
             this.texture = new Texture(Gdx.files.internal("square_blue.png"));
@@ -192,7 +190,6 @@ public class PlayModeAi extends State {
             this.texture = new Texture(Gdx.files.internal("square_yellow.png"));
         }
     }
->>>>>>> Maxime
 
     public void creatingANewSquare(int x){
         if (x > WIDTH / 4 && x < WIDTH / 2) {
@@ -263,35 +260,6 @@ public class PlayModeAi extends State {
         }
     }
 
-<<<<<<< HEAD
-
-    @Override
-    public void render(SpriteBatch sb) {
-        sb.begin();
-
-        sb.draw(redChoiceSquare.getTexture(), redChoiceSquare.getPosX(), redChoiceSquare.getPosY());
-        sb.draw(blueChoiceSquare.getTexture(), blueChoiceSquare.getPosX(), blueChoiceSquare.getPosY());
-        sb.draw(yellowChoiceSquare.getTexture(), yellowChoiceSquare.getPosX(), yellowChoiceSquare.getPosY());
-
-        if(!firstTouch) {
-            Squarz.font.draw(sb,"Are You Ready ??",100,100);
-        }
-
-        if (firstTouch) {
-
-            for (int i = 0; i < player.getLeftCounter(); i++) {
-                sb.draw(player.getLeft().get(i).getTexture(),
-                        player.getLeft().get(i).getPosition().x, player.getLeft().get(i).getPosition().y);
-            }
-            for (int i = 0; i < player.getMiddleCounter(); i++) {
-                sb.draw(player.getMiddle().get(i).getTexture(),
-                        player.getMiddle().get(i).getPosition().x, player.getMiddle().get(i).getPosition().y);
-            }
-            for (int i = 0; i < player.getRightCounter(); i++) {
-                sb.draw(player.getRight().get(i).getTexture(),
-                        player.getRight().get(i).getPosition().x, player.getRight().get(i).getPosition().y);
-            }
-=======
     public void drawingPlayerSquares(SpriteBatch sb){
         for (int i = 0; i < player.getLeftCounter(); i++) {
             sb.draw(player.getLeft().get(i).getTexture(),
@@ -300,7 +268,6 @@ public class PlayModeAi extends State {
         for (int i = 0; i < player.getMiddleCounter(); i++) {
             sb.draw(player.getMiddle().get(i).getTexture(),
                     player.getMiddle().get(i).getPosition().x, player.getMiddle().get(i).getPosition().y);
->>>>>>> Maxime
         }
         for (int i = 0; i < player.getRightCounter(); i++) {
             sb.draw(player.getRight().get(i).getTexture(),
@@ -339,7 +306,7 @@ public class PlayModeAi extends State {
         //number of Ai squares lefting
         Squarz.font.draw(sb, String.valueOf(this.ai.getComputer().getSquareLimiter().getRedLefting()), WIDTH * 1/4 + 10, HEIGHT*3/4);
         Squarz.font.draw(sb, String.valueOf(this.ai.getComputer().getSquareLimiter().getBlueLefting()), WIDTH * 2/4 + 10, HEIGHT*3/4);
-        Squarz.font.draw(sb, String.valueOf(this.ai.getComputer().getSquareLimiter().getBlueLefting()), WIDTH * 3/4 + 10, HEIGHT*3/4);
+        Squarz.font.draw(sb, String.valueOf(this.ai.getComputer().getSquareLimiter().getYellowLefting()), WIDTH * 3/4 + 10, HEIGHT*3/4);
     }
 
     public void drawTimeLeft(SpriteBatch sb){

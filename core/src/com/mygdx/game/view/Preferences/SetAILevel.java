@@ -77,10 +77,7 @@ public class SetAILevel extends State{
         sb.draw(add.getTexture(), add.getPosX(),add.getPosY() );
         sb.draw(delete.getTexture(),delete.getPosX() ,delete.getPosY() );
         sb.draw(levelToDraw.getTexture(),levelToDraw.getPosX() , levelToDraw.getPosY());
-<<<<<<< HEAD
         sb.draw(back.getTexture(),back.getPosX(),back.getPosY());
-=======
->>>>>>> Maxime
         sb.end();
     }
 
