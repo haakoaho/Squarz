@@ -17,41 +17,38 @@ public class SquareLimiter {
     }
 
     public void counter(Integer colorKey){
-        switch(colorKey){
-            case 0:
-                this.setRedLefting(this.getRedLefting() - 1);
-                break;
-            case 1:
-                this.setBlueLefting(this.getBlueLefting() - 1);
-                break;
-            case 2:
-                this.setYellowLefting(this.getYellowLefting() - 1);
-                break;
-            default:
-                break;
+        if (colorKey == 0){
+            this.setRedLefting(this.getRedLefting() - 1);
+        }
+        if (colorKey == 1){
+            this.setBlueLefting(this.getBlueLefting() - 1);
+        }
+        if (colorKey == 2){
+            this.setYellowLefting(this.getYellowLefting() - 1);
         }
     }
 
-    public boolean isOver(int colorkey){
-        switch (colorkey){
-            case 0:
-                if (this.getRedLefting() == 0){
-                    return true;
-                }
-            case 1:
-                if (this.getBlueLefting() == 0){
-                    return true;
-                }
-            case 2:
-                if (this.getYellowLefting() == 0){
-                    return true;
-                }
-            default:
-                    return false;
+    public boolean isOver(int colorkey) {
+        if(colorkey == 0){
+            if(this.getRedLefting() == 0){
+                return true;
+            }
         }
+        if(colorkey == 1){
+            if(this.getBlueLefting() == 0){
+                return true;
+            }
+        }
+        if(colorkey == 2){
+            if(this.getYellowLefting() == 0){
+                return true;
+            }
+        }
+        return false;
     }
 
 
+    //Getters & Setters
 
     public Integer getRedLefting() {
         return redLefting;

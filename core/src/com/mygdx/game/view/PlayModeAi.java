@@ -110,7 +110,7 @@ public class PlayModeAi extends State {
                 //Implementation for the launcher of each row
 
                 if (!this.player.getSquareLimiter().isOver(colorKey)) {
-                creatingANewSquare(x);
+                    creatingANewSquare(x);
                 }
             }
         }
@@ -131,8 +131,8 @@ public class PlayModeAi extends State {
             }
 
             //random sending by the AI
-            //ai.send(this.countDown);
-            ai.prgrmdSending(this.countDown);
+            ai.send(this.countDown);
+            //ai.prgrmdSending(this.countDown);
 
             movingPlayerSquare();
 
@@ -306,7 +306,7 @@ public class PlayModeAi extends State {
         //number of Ai squares lefting
         Squarz.font.draw(sb, String.valueOf(this.ai.getComputer().getSquareLimiter().getRedLefting()), WIDTH * 1/4 + 10, HEIGHT*3/4);
         Squarz.font.draw(sb, String.valueOf(this.ai.getComputer().getSquareLimiter().getBlueLefting()), WIDTH * 2/4 + 10, HEIGHT*3/4);
-        Squarz.font.draw(sb, String.valueOf(this.ai.getComputer().getSquareLimiter().getBlueLefting()), WIDTH * 3/4 + 10, HEIGHT*3/4);
+        Squarz.font.draw(sb, String.valueOf(this.ai.getComputer().getSquareLimiter().getYellowLefting()), WIDTH * 3/4 + 10, HEIGHT*3/4);
     }
 
     public void drawTimeLeft(SpriteBatch sb){
