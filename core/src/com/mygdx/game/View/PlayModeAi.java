@@ -201,6 +201,8 @@ public class PlayModeAi extends State {
             sb.draw(blueChoiceSquare.getTexture(), blueChoiceSquare.getPosX(), blueChoiceSquare.getPosY());
             sb.draw(yellowChoiceSquare.getTexture(), yellowChoiceSquare.getPosX(), yellowChoiceSquare.getPosY());
 
+            sb.draw(pause.getTexture(), pause.getPosX(), pause.getPosY());
+
             drawingSquares(sb, player);
             drawingSquares(sb, ai.getComputer());
 
@@ -387,7 +389,6 @@ public void movingAiSquare() {
         Squarz.font.draw(sb, scoreAi, WIDTH/2 + pauseScreen.getTexture().getWidth()*1/8 - scoreAi.width/2, HEIGHT/2 + 2*scoreAi.height);
         Squarz.font.draw(sb, scoreUser, WIDTH/2 - pauseScreen.getTexture().getWidth()*1/8 - scoreUser.width/2, HEIGHT/2 + 2*scoreUser.height);
      }
-
     public void drawCounter(SpriteBatch sb) {
         //number of user squares lefting
         redLeft.setText(Squarz.font, String.valueOf(this.player.getSquareLimiter().getRedLefting()));
@@ -397,12 +398,14 @@ public void movingAiSquare() {
         Squarz.font.draw(sb, blueLeft, blueChoiceSquare.getPosX() + blueChoiceSquare.getTexture().getWidth() / 2 - blueLeft.width / 2, blueChoiceSquare.getPosY() + blueChoiceSquare.getTexture().getHeight() / 2 + blueLeft.height / 2);
         Squarz.font.draw(sb, yellowLeft, yellowChoiceSquare.getPosX() + yellowChoiceSquare.getTexture().getWidth() / 2 - yellowLeft.width / 2, yellowChoiceSquare.getPosY() + yellowChoiceSquare.getTexture().getHeight() / 2 + yellowLeft.height / 2);
     }
-
     public void drawTimeLeft(SpriteBatch sb) {
         time.setText(Squarz.font, String.valueOf(this.countDown.getCountdownLabel().getText()));
         Squarz.font.draw(sb, String.valueOf(this.countDown.getCountdownLabel().getText()), redChoiceSquare.getPosX() + redChoiceSquare.getTexture().getWidth() / 2 - time.width / 2, HEIGHT * 28 / 32 - time.height / 2);
     }
 
+
+
+    
     public Texture getTexture() {
         return texture;
     }
