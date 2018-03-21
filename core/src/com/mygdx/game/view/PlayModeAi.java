@@ -167,6 +167,7 @@ public class PlayModeAi extends State {
             }else {
                 //updating the countdown
                 this.countDown.update(dt);
+                ai.send(this.countDown);
             }
 
             if (this.countDown.isTimeUp()) {
@@ -174,17 +175,7 @@ public class PlayModeAi extends State {
                 gsm.set(new EndModeAI(gsm, settings, score, countDown));
             }
 
-            if (pauseFlag){
-
-            } else {
-                //random sending by the AI
-                ai.send(this.countDown);
-                //ai.prgrmdSending(this.countDown);
-            }
-
-
             movingPlayerSquare();
-
             movingAiSquare();
 
             collision.collision(this.player, this.ai);
