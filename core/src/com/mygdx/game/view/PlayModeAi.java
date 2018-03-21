@@ -302,15 +302,15 @@ public class PlayModeAi extends State {
     public void drawingAiSquares(SpriteBatch sb){
         for (int i = 0; i < ai.getComputer().getLeftCounter(); i++) {
             sb.draw(ai.getComputer().getLeft().get(i).getTexture(),
-                    ai.getComputer().getLeft().get(i).getPosition().x, ai.getComputer().getLeft().get(i).getPosition().y);
+                    ai.getComputer().getLeft().get(i).getPosition().x - ai.getComputer().getLeft().get(i).getTexture().getWidth()/2, ai.getComputer().getLeft().get(i).getPosition().y - ai.getComputer().getLeft().get(i).getTexture().getHeight()/2);
         }
         for (int i = 0; i < ai.getComputer().getMiddleCounter(); i++) {
             sb.draw(ai.getComputer().getMiddle().get(i).getTexture(),
-                    ai.getComputer().getMiddle().get(i).getPosition().x, ai.getComputer().getMiddle().get(i).getPosition().y);
+                    ai.getComputer().getMiddle().get(i).getPosition().x  - ai.getComputer().getMiddle().get(i).getTexture().getWidth()/2, ai.getComputer().getMiddle().get(i).getPosition().y - ai.getComputer().getMiddle().get(i).getTexture().getHeight()/2);
         }
         for (int i = 0; i < ai.getComputer().getRightCounter(); i++) {
             sb.draw(ai.getComputer().getRight().get(i).getTexture(),
-                    ai.getComputer().getRight().get(i).getPosition().x, ai.getComputer().getRight().get(i).getPosition().y);
+                    ai.getComputer().getRight().get(i).getPosition().x - ai.getComputer().getRight().get(i).getTexture().getWidth()/2, ai.getComputer().getRight().get(i).getPosition().y - ai.getComputer().getRight().get(i).getTexture().getHeight()/2);
         }
     }
 
