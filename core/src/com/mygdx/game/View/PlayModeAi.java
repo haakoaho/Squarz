@@ -296,11 +296,16 @@ public class PlayModeAi extends State {
                     p.getMap(rowKey).get(i).reverseMove();
                 }
                 //dealing with the score
-                if (p.getMap(rowKey).get(i).getPosition().y >= HEIGHT && p.getMap(rowKey).get(i).getPosition().y < HEIGHT + this.settings.getStepX()) {
+                /*if (p.getMap(rowKey).get(i).getPosition().y >= HEIGHT && p.getMap(rowKey).get(i).getPosition().y < HEIGHT + this.settings.getStepX()) {
                     sound.play(Squarz.valueVolume * 0.1f);
                     Gdx.input.vibrate(Squarz.valueVibration * 100);
-                    this.score.updateUser();
-                }
+                    if(goingUp){
+                        this.score.updateUser();
+                    }
+                    if(!goingUp){
+                        this.score.updateAi();
+                    }
+                }*/
             }
         }
     }

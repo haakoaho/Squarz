@@ -25,7 +25,6 @@ public class Player {
     private Integer leftCounter, middleCounter, rightCounter;
     private SquareLimiter squareLimiter;
     private PreferencesSettings set;
-    private Score score;
 
     //key of the first square still in the game for each of the left - middle or right map
     private Integer firstLeftSquaresKey, firstMiddleSquaresKey, firstRightSquaresKey;
@@ -244,14 +243,6 @@ public class Player {
 
     public SquareLimiter getSquareLimiter() {
         return squareLimiter;
-    }
-
-    public Score getScore() {
-        return score;
-    }
-
-    public void setScore(Score score) {
-        this.score = score;
     }
 
     public void setSquareLimiter(SquareLimiter squareLimiter) {

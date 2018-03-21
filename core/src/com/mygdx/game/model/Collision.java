@@ -1,6 +1,8 @@
 package com.mygdx.game.model;
 
 
+import static com.mygdx.game.Squarz.HEIGHT;
+
 /**
  * Created by Max on 14/03/2018.
  */
@@ -16,18 +18,23 @@ public class Collision {
         this.score = score;
     }
 
-    public void deleteOncePlayerOut(Player p, Integer column, Score s){
+    public void deleteOncePlayerOut(Player p, Integer column, Score s) {
         //if square goes outside (scores)
-        if (p.getCounter(column) > p.getFirstSquareKey(column) && !p.getMap(column).get(p.getFirstSquareKey(column)).isInUser()) {
-            s.updateUser();
-            p.decrement(p.getMap(column), p.getFirstSquareKey(column), column);
+        if (p.getMap(column).get(p.getFirstSquareKey(column)).getPosition().y >= HEIGHT / 2) {
+            if (p.getCounter(column) > p.getFirstSquareKey(column) && !p.getMap(column).get(p.getFirstSquareKey(column)).isInUser()) {
+                s.updateUser();
+                p.decrement(p.getMap(column), p.getFirstSquareKey(column), column);
+            }
         }
     }
+
     public void deleteOnceAiOut(Player p, Integer column, Score s){
         //if square goes outside
-        if (p.getCounter(column) > p.getFirstSquareKey(column) && !p.getMap(column).get(p.getFirstSquareKey(column)).isInAi()) {
-            s.updateAi();
-            p.decrement(p.getMap(column), p.getFirstSquareKey(column), column);
+        if (p.getMap(column).get(p.getFirstSquareKey(column)).getPosition().y >= HEIGHT / 2) {
+            if (p.getCounter(column) > p.getFirstSquareKey(column) && !p.getMap(column).get(p.getFirstSquareKey(column)).isInAi()) {
+                s.updateAi();
+                p.decrement(p.getMap(column), p.getFirstSquareKey(column), column);
+            }
         }
     }
 
