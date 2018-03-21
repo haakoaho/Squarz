@@ -201,6 +201,7 @@ public class PlayModeAi extends State {
             sb.draw(redChoiceSquare.getTexture(), redChoiceSquare.getPosX(), redChoiceSquare.getPosY());
             sb.draw(blueChoiceSquare.getTexture(), blueChoiceSquare.getPosX(), blueChoiceSquare.getPosY());
             sb.draw(yellowChoiceSquare.getTexture(), yellowChoiceSquare.getPosX(), yellowChoiceSquare.getPosY());
+            sb.draw(pause.getTexture(), pause.getPosX(), pause.getPosY());
 
             drawingSquares(sb, player);
             drawingSquares(sb, ai.getComputer());
