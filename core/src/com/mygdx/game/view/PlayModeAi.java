@@ -87,7 +87,7 @@ public class PlayModeAi extends State {
                 ,WIDTH * 1/16, HEIGHT/2 - this.texture.getHeight() * 11/4);
         this.yellowChoiceSquare = new Icon(new Texture(Gdx.files.internal("square_yellow.png"))
                 ,WIDTH * 1/16, HEIGHT/2 - this.texture.getHeight() * 4);
-        this.yellowChoiceSquare = new Icon(new Texture(Gdx.files.internal("pause.png"))
+        this.pause = new Icon(new Texture(Gdx.files.internal("pause.png"))
                 ,WIDTH * 1/16, HEIGHT * 15/16 - this.texture.getHeight()/2);
         this.colorKey = 0;
 
@@ -120,14 +120,15 @@ public class PlayModeAi extends State {
                     sound.stop();
                     gsm.set(new EndModeAI(gsm, settings, score, countDown));
                 }
-
+                /*
                 if (pause.contains(x, y)){
                     pauseFlag = true;
                 }
-                //Colour choice button
-                chosingTheColour(x, y);
+                */
 
-                //Implementation for the launcher of each row
+                if(redChoiceSquare.contains(x,y)) {
+                    
+                }
 
                 if (!this.player.getSquareLimiter().isOver(colorKey)) {
                     creatingANewSquare(x);
