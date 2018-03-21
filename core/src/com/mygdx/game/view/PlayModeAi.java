@@ -64,8 +64,8 @@ public class PlayModeAi extends State {
         this.settings = settings;
         this.countDown = countDown;
 
-        this.player = new Player(settings);
-        this.ai = new AIPlayer(settings);
+        this.player = new Player(settings,countDown);
+        this.ai = new AIPlayer(settings, countDown);
         this.ai.setSettings(settings);
 
         this.score = new Score();
@@ -76,7 +76,7 @@ public class PlayModeAi extends State {
         this.blueLeft = new GlyphLayout(Squarz.font, String.valueOf(this.player.getSquareLimiter().getBlueLefting()));
         this.scoreAi = new GlyphLayout(Squarz.font, String.valueOf(score.getAiScore()));
         this.scoreUser = new GlyphLayout(Squarz.font, String.valueOf(score.getUserScore()));
-        this.time = new GlyphLayout(Squarz.font, String.valueOf(this.countDown.getCountdownLabel().getText()));
+        this.time = new GlyphLayout(Squarz.font, String.valueOf(this.countDown.getWorldTimer()));
 
         this.texture = new Texture(Gdx.files.internal(format + "/square/square_red.png"));
 
@@ -280,8 +280,8 @@ public class PlayModeAi extends State {
     }
 
     public void drawTimeLeft(SpriteBatch sb) {
-        time.setText(Squarz.font, String.valueOf(this.countDown.getCountdownLabel().getText()));
-        Squarz.font.draw(sb, String.valueOf(this.countDown.getCountdownLabel().getText()), redChoiceSquare.getPosX() + redChoiceSquare.getTexture().getWidth() / 2 - time.width / 2, HEIGHT * 28 / 32 - time.height / 2);
+        time.setText(Squarz.font, String.valueOf(this.countDown.getWorldTimer()));
+        Squarz.font.draw(sb, String.valueOf(this.countDown.getWorldTimer()), redChoiceSquare.getPosX() + redChoiceSquare.getTexture().getWidth() / 2 - time.width / 2, HEIGHT * 28 / 32 - time.height / 2);
     }
 
 

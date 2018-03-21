@@ -30,7 +30,7 @@ public class Player {
     private Integer firstLeftSquaresKey, firstMiddleSquaresKey, firstRightSquaresKey;
 
 
-    public Player(PreferencesSettings set) {
+    public Player(PreferencesSettings set, CountDown countDown) {
         this.set = set;
 
         this.left = new HashMap<Integer, Square>();
@@ -40,7 +40,9 @@ public class Player {
         this.middleCounter = 0;
         this.rightCounter = 0;
 
-        this.squareLimiter = new SquareLimiter(12);
+        if (countDown.getWorldTimer()==30) {this.squareLimiter = new SquareLimiter(10);}
+        if (countDown.getWorldTimer()==45) {this.squareLimiter = new SquareLimiter(15);}
+        if (countDown.getWorldTimer()==60) {this.squareLimiter = new SquareLimiter(20);}
 
         this.firstLeftSquaresKey = 0;
         this.firstMiddleSquaresKey = 0;

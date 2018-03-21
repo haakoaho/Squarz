@@ -34,7 +34,7 @@ public class AIPreferences extends State {
         back = new Icon(new Texture(Gdx.files.internal(format+"/back.png")),0,0);
 
         setting = new PreferencesSettings();
-        countDown = new CountDown(45);
+        countDown = new CountDown(60);
 
         setAILevel.setPosX(WIDTH/2-setAILevel.getTexture().getWidth()/2);
         setAILevel.setPosY(HEIGHT*4/5-setAILevel.getTexture().getHeight()/2);

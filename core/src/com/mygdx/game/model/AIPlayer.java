@@ -30,9 +30,9 @@ public class AIPlayer {
     private Integer deltaLauncher;
     private Integer renderCounter;
 
-    public AIPlayer (PreferencesSettings set){
+    public AIPlayer (PreferencesSettings set, CountDown countDown){
         this.settings = set;
-        this.computer = new Player(set);
+        this.computer = new Player(set, countDown);
         this.texture = new Texture (Gdx.files.internal(format+"/square/square.png"));
         this.square = new com.mygdx.game.model.Square(set);
 
