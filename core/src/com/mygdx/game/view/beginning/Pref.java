@@ -7,6 +7,7 @@ import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.model.Icon;
 import com.mygdx.game.model.State;
 import com.mygdx.game.view.AIPreferences;
+import com.mygdx.game.view.PlayModeMulti;
 
 import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
@@ -50,6 +51,7 @@ public class Pref extends State {
             if (quick.contains(x,y)){
                 gsm.getMultiplayerInterface().startSignInIntent();
                 gsm.getMultiplayerInterface().startQuickGame();
+                gsm.push(new PlayModeMulti());
             }
             if (answer.contains(x,y)){
                 //go to  answer
