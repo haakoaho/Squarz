@@ -126,9 +126,7 @@ public class PlayModeAi extends State {
                 }
                 */
 
-                if(redChoiceSquare.contains(x,y)) {
-                    
-                }
+                chosingTheColour(x, y);
 
                 if (!this.player.getSquareLimiter().isOver(colorKey)) {
                     creatingANewSquare(x);
