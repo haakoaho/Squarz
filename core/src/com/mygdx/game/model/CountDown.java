@@ -17,7 +17,7 @@ public class CountDown {
     private Boolean timeUp;
     private Integer timerKey;
     public CountDown(Integer time) {
-        this.worldTimer = 45;
+        this.worldTimer = time;
         this.timeCount = 0f;
         this.timerKey = time;
 
