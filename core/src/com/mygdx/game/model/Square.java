@@ -7,6 +7,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.control.aI.PreferencesSettings;
 
+import static com.mygdx.game.Squarz.format;
+
 /**
  * Created by Max on 06/03/2018.
  */
@@ -27,7 +29,7 @@ public class Square {
     private Integer freezeSpeed;
 
     public Square (PreferencesSettings set){
-        this.texture = new Texture(Gdx.files.internal("square.png"));
+        this.texture = new Texture(Gdx.files.internal(format+"/square/square.png"));
         this.sprite = new Sprite(texture);
         this.position = new Vector2 (0, 0);
         this.rectangle = new Rectangle(this.getPosition().x, this.getPosition().y,
@@ -61,13 +63,6 @@ public class Square {
         }
         return true;
     }
-
-
-
-
-
-
-
 
     public Sprite getSprite() {
         return sprite;

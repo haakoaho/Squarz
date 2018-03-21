@@ -14,6 +14,7 @@ public class Squarz extends ApplicationAdapter {
 	public final String TITLE = "Squarz";
 	public static int WIDTH;
 	public static int HEIGHT;
+	public static String format;
 
 	public static BitmapFont font;
 	public static BitmapFont font2;
@@ -29,8 +30,16 @@ public class Squarz extends ApplicationAdapter {
 		gsm = new GameStateManager();
 		WIDTH = Gdx.graphics.getWidth();
 		HEIGHT = Gdx.graphics.getHeight();
-		valueVolume=5;
+		valueVolume=0;
 		valueVibration=5;
+
+		if (WIDTH < 600) {
+			format="low";
+		} else if (WIDTH < 1000) {
+			format="medium";
+		} else {
+			format="high";
+		}
 
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/Alcubierre.otf"));
 		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
@@ -38,9 +47,7 @@ public class Squarz extends ApplicationAdapter {
 		parameter.borderWidth = 2;
 		parameter.borderColor = Color.WHITE;
 		font = generator.generateFont(parameter);
-
 		generator.dispose();
-
 
 		gsm.push(new Menu(gsm));
 	}

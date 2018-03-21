@@ -11,6 +11,7 @@ import com.mygdx.game.model.Score;
 
 import static com.mygdx.game.Squarz.WIDTH;
 import static com.mygdx.game.Squarz.HEIGHT;
+import static com.mygdx.game.Squarz.format;
 
 /**
  * Created by Antoine Dc on 21/03/2018.
@@ -24,8 +25,8 @@ public class PauseScreen {
 
     public PauseScreen() {
         this.texture = new Texture(Gdx.files.internal("rectangle.png"));
-        this.resume = new Icon(new Texture(Gdx.files.internal("ai_settings/play.png")), Gdx.graphics.getWidth()/2 , Gdx.graphics.getHeight()/2 );
-        this.setResume(new Icon(new Texture(Gdx.files.internal("ai_settings/play.png"))
+        this.resume = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/play.png")), Gdx.graphics.getWidth()/2 , Gdx.graphics.getHeight()/2 );
+        this.setResume(new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/play.png"))
                 , Gdx.graphics.getWidth()/2 - getResume().getTexture().getWidth()/2
                 , Gdx.graphics.getHeight()/2 - getResume().getTexture().getHeight()/2));
         this.pauseGlyph = new GlyphLayout(Squarz.font, "PAUSE");

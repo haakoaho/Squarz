@@ -14,6 +14,7 @@ import com.mygdx.game.view.beginning.Pref;
 
 import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
+import static com.mygdx.game.Squarz.format;
 
 /**
  * Created by mathi on 06/03/2018.
@@ -26,11 +27,11 @@ public class AIPreferences extends State {
 
     public AIPreferences(GameStateManager gsm){
         super(gsm);
-        setAILevel = new Icon(new Texture(Gdx.files.internal("ai_settings/setAILevel.png")),0,0);
-        setTimer = new Icon(new Texture(Gdx.files.internal("ai_settings/setTimer.png")),0,0);
-        setBonuses = new Icon(new Texture(Gdx.files.internal("ai_settings/setBonus.png")),0,0);
-        play = new Icon(new Texture(Gdx.files.internal("ai_settings/play.png")),0,0);
-        back = new Icon(new Texture(Gdx.files.internal("back.png")),0,0);
+        setAILevel = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/setAILevel.png")),0,0);
+        setTimer = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/setTimer.png")),0,0);
+        setBonuses = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/setBonus.png")),0,0);
+        play = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/play.png")),0,0);
+        back = new Icon(new Texture(Gdx.files.internal(format+"/back.png")),0,0);
 
         setting = new PreferencesSettings();
         countDown = new CountDown(45);
@@ -50,11 +51,11 @@ public class AIPreferences extends State {
     //used once a setting is changed
     public AIPreferences(GameStateManager gsm, PreferencesSettings setting, CountDown countDown){
         super(gsm);
-        setAILevel = new Icon(new Texture(Gdx.files.internal("ai_settings/setAILevel.png")),0,0);
-        setTimer = new Icon(new Texture(Gdx.files.internal("ai_settings/setTimer.png")),0,0);
-        setBonuses = new Icon(new Texture(Gdx.files.internal("ai_settings/setBonus.png")),0,0);
-        play = new Icon(new Texture(Gdx.files.internal("ai_settings/play.png")),0,0);
-        back = new Icon(new Texture(Gdx.files.internal("back.png")),0,0);
+        setAILevel = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/setAILevel.png")),0,0);
+        setTimer = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/setTimer.png")),0,0);
+        setBonuses = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/setBonus.png")),0,0);
+        play = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/play.png")),0,0);
+        back = new Icon(new Texture(Gdx.files.internal(format+"/back.png")),0,0);
         this.setting = setting;
         this.countDown = countDown;
 

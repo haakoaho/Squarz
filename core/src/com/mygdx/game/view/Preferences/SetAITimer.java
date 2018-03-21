@@ -12,6 +12,7 @@ import com.mygdx.game.model.State;
 
 import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
+import static com.mygdx.game.Squarz.format;
 
 /**
  * Created by mathi on 12/03/2018.
@@ -25,12 +26,12 @@ public class SetAITimer extends State {
 
     public SetAITimer(GameStateManager gsm, PreferencesSettings setting, CountDown countDown){
         super(gsm);
-        this.add = new Icon(new Texture(Gdx.files.internal("add.png")),0,0);
-        this.delete = new Icon(new Texture(Gdx.files.internal("delete.png")),0,0);
-        this.countDownIcon = new Icon(new Texture(Gdx.files.internal("ai_settings/setTimer.png")),0,0);
+        this.add = new Icon(new Texture(Gdx.files.internal(format+"/add.png")),0,0);
+        this.delete = new Icon(new Texture(Gdx.files.internal(format+"/delete.png")),0,0);
+        this.countDownIcon = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/setTimer.png")),0,0);
         this.set = setting;
         this.countDown = countDown;
-        this.back = new Icon(new Texture(Gdx.files.internal("back.png")),0,0);
+        this.back = new Icon(new Texture(Gdx.files.internal(format+"/back.png")),0,0);
 
         add.setPosX(WIDTH/2-add.getTexture().getWidth()/2);
         add.setPosY(HEIGHT*2/3-add.getTexture().getHeight()/2);

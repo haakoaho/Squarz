@@ -1,13 +1,16 @@
 package com.mygdx.game.view.beginning;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.Squarz;
 import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.model.Icon;
 import com.mygdx.game.model.State;
 
 import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
+import static com.mygdx.game.Squarz.format;
 
 public class Menu extends State {
     private Icon play, settings, history;
@@ -15,9 +18,9 @@ public class Menu extends State {
     public Menu(GameStateManager gsm) {
         super(gsm);
 
-        this.play = new Icon(new Texture(Gdx.files.internal("menu/play.png")),0,0);
-        this.settings = new Icon(new Texture(Gdx.files.internal("menu/settings.png")),0,0);
-        this.history = new Icon(new Texture(Gdx.files.internal("menu/history.png")),0,0);
+        this.play = new Icon(new Texture(Gdx.files.internal(format+"/menu/play.png")),0,0);
+        this.settings = new Icon(new Texture(Gdx.files.internal(format+"/menu/settings.png")),0,0);
+        this.history = new Icon(new Texture(Gdx.files.internal(format+"/menu/history.png")),0,0);
 
         this.play.setPosX(WIDTH/2-play.getTexture().getWidth()/2);
         this.play.setPosY(HEIGHT*3/4-play.getTexture().getHeight()/2);

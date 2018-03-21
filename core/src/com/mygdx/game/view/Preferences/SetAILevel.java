@@ -12,6 +12,7 @@ import com.mygdx.game.view.beginning.Menu;
 
 import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
+import static com.mygdx.game.Squarz.format;
 
 /**
  * Created by mathi on 06/03/2018.
@@ -25,12 +26,12 @@ public class SetAILevel extends State{
 
     public SetAILevel(GameStateManager gsm, PreferencesSettings setting, CountDown countDown){
         super(gsm);
-        this.add = new Icon(new Texture(Gdx.files.internal("ai_settings/add.png")),0,0);
-        this.delete = new Icon(new Texture(Gdx.files.internal("ai_settings/delete.png")),0,0);
-        this.levelToDraw = new Icon(new Texture(Gdx.files.internal("ai_settings/ai_levels/beginer.png")),0,0);
+        this.add = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/add.png")),0,0);
+        this.delete = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/delete.png")),0,0);
+        this.levelToDraw = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/ai_levels/beginer.png")),0,0);
         this.set = setting;
         this.countDown = countDown;
-        this.back = new Icon(new Texture(Gdx.files.internal("back.png")),0,0);
+        this.back = new Icon(new Texture(Gdx.files.internal(format+"/back.png")),0,0);
 
 
         add.setPosX(WIDTH/2-add.getTexture().getWidth()/2);
@@ -89,16 +90,16 @@ public class SetAILevel extends State{
 
     public void setTextureToDraw(){
         if(set.getLevelKey()==0){
-            levelToDraw.setTexture(new Texture(Gdx.files.internal("ai_settings/ai_levels/beginer.png")));
+            levelToDraw.setTexture(new Texture(Gdx.files.internal(format+"/ai_settings/ai_levels/beginer.png")));
         }
         if(set.getLevelKey()==1){
-            levelToDraw.setTexture(new Texture(Gdx.files.internal("ai_settings/ai_levels/medium.png")));
+            levelToDraw.setTexture(new Texture(Gdx.files.internal(format+"/ai_settings/ai_levels/medium.png")));
         }
         if(set.getLevelKey()==2){
-            levelToDraw.setTexture(new Texture(Gdx.files.internal("ai_settings/ai_levels/advanced.png")));
+            levelToDraw.setTexture(new Texture(Gdx.files.internal(format+"/ai_settings/ai_levels/advanced.png")));
         }
         if(set.getLevelKey()==3){
-            levelToDraw.setTexture(new Texture(Gdx.files.internal("ai_settings/ai_levels/expert.png")));
+            levelToDraw.setTexture(new Texture(Gdx.files.internal(format+"/ai_settings/ai_levels/expert.png")));
         }
     }
 }

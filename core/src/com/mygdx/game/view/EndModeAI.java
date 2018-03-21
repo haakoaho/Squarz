@@ -15,6 +15,7 @@ import com.mygdx.game.model.State;
 
 import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
+import static com.mygdx.game.Squarz.format;
 
 /**
  * Created by mathi on 13/03/2018.
@@ -32,15 +33,15 @@ public class EndModeAI extends State {
         this.setting = setting;
         this.score  = s;
         //vraies textures:
-        this.gameOver = new Texture(Gdx.files.internal("temporary/gameOver.png"));
+        this.gameOver = new Texture(Gdx.files.internal(format+"/temporary/gameOver.png"));
         //this.scoreTex = new Texture(Gdx.files.internal("temporary/scoreTex.png"));
 
         //a mettre en icon:
-        this.replay = new Icon(new Texture(Gdx.files.internal("endMode/replay.png")), 0, 0);
+        this.replay = new Icon(new Texture(Gdx.files.internal(format+"/endMode/replay.png")), 0, 0);
         this.replay.setPosX(WIDTH/2-replay.getTexture().getWidth()/2);
         this.replay.setPosY(HEIGHT*2/5-replay.getTexture().getHeight()/2);
 
-        this.back = new Icon(new Texture(Gdx.files.internal("endMode/backToMenu.png")), 0, 0);
+        this.back = new Icon(new Texture(Gdx.files.internal(format+"/endMode/backToMenu.png")), 0, 0);
         this.back.setPosX(WIDTH/2 - back.getTexture().getWidth()/2);
         this.back.setPosY(HEIGHT/5 - back.getTexture().getHeight()/2);
 
