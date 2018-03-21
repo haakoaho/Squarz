@@ -3,6 +3,8 @@ package com.mygdx.game.control.aI;
 import com.mygdx.game.model.Bonus;
 import com.mygdx.game.model.CountDown;
 
+import static com.mygdx.game.Squarz.HEIGHT;
+
 /**
  * Created by mathi on 06/03/2018.
  */
@@ -19,11 +21,7 @@ public class PreferencesSettings {
 
     public PreferencesSettings(){
         //default AI level settings
-        this.levelKey = 1;
-        this.stepX = 3;
-        this.dtLaunching = 70;
-        this.dtWaves = 300;
-        this.squaresize = 3;
+        setMedium();
 
         this.bonuses = new Bonus();
     }
@@ -85,7 +83,7 @@ public class PreferencesSettings {
 
     public void setBeginner(){
         setLevelKey(0);
-        setStepX(3);
+        setStepX(HEIGHT/400);
         setDtLaunching(80);
         setDtWaves(400);
         setSquaresize(2);
@@ -93,7 +91,7 @@ public class PreferencesSettings {
 
     public void setMedium(){
         setLevelKey(1);
-        setStepX(3);
+        setStepX(HEIGHT/400);
         setDtLaunching(60);
         setDtWaves(300);
         setSquaresize(3);
@@ -101,7 +99,7 @@ public class PreferencesSettings {
 
     public void setAdvanced(){
         setLevelKey(2);
-        setStepX(4);
+        setStepX(HEIGHT/300);
         setDtLaunching(50);
         setDtWaves(200);
         setSquaresize(5);
@@ -109,7 +107,7 @@ public class PreferencesSettings {
 
     public void setExpert(){
         setLevelKey(3);
-        setStepX(5);
+        setStepX(HEIGHT/200);
         setDtLaunching(40);
         setDtWaves(150);
         setSquaresize(7);

@@ -10,25 +10,29 @@ import com.mygdx.game.model.Icon;
 import com.mygdx.game.model.State;
 import com.mygdx.game.view.Preferences.SetAILevel;
 import com.mygdx.game.view.Preferences.SetAITimer;
+import com.mygdx.game.view.beginning.Pref;
 
 import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
+import static com.mygdx.game.Squarz.format;
 
 /**
  * Created by mathi on 06/03/2018.
  */
 
 public class AIPreferences extends State {
-    private Icon setAILevel, setTimer, setBonuses, play;
+    private Icon setAILevel, setTimer, setBonuses, play, back;
     private PreferencesSettings setting;
     private CountDown countDown;
 
     public AIPreferences(GameStateManager gsm){
         super(gsm);
-        setAILevel = new Icon(new Texture(Gdx.files.internal("ai_settings/setAILevel.png")),0,0);
-        setTimer = new Icon(new Texture(Gdx.files.internal("ai_settings/setTimer.png")),0,0);
-        setBonuses = new Icon(new Texture(Gdx.files.internal("ai_settings/setBonus.png")),0,0);
-        play = new Icon(new Texture(Gdx.files.internal("ai_settings/play.png")),0,0);
+        setAILevel = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/setAILevel.png")),0,0);
+        setTimer = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/setTimer.png")),0,0);
+        setBonuses = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/setBonus.png")),0,0);
+        play = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/play.png")),0,0);
+        back = new Icon(new Texture(Gdx.files.internal(format+"/back.png")),0,0);
+
         setting = new PreferencesSettings();
         countDown = new CountDown(45);
 
@@ -40,15 +44,18 @@ public class AIPreferences extends State {
         setBonuses.setPosY(HEIGHT*2/5-setBonuses.getTexture().getHeight()/2);
         play.setPosX(WIDTH/2-play.getTexture().getWidth()/2);
         play.setPosY(HEIGHT/5-play.getTexture().getHeight()/2);
+        back.setPosX(back.getTexture().getWidth()/2);
+        back.setPosY(back.getTexture().getHeight()/2);
     }
 
     //used once a setting is changed
     public AIPreferences(GameStateManager gsm, PreferencesSettings setting, CountDown countDown){
         super(gsm);
-        setAILevel = new Icon(new Texture(Gdx.files.internal("ai_settings/setAILevel.png")),0,0);
-        setTimer = new Icon(new Texture(Gdx.files.internal("ai_settings/setTimer.png")),0,0);
-        setBonuses = new Icon(new Texture(Gdx.files.internal("ai_settings/setBonus.png")),0,0);
-        play = new Icon(new Texture(Gdx.files.internal("ai_settings/play.png")),0,0);
+        setAILevel = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/setAILevel.png")),0,0);
+        setTimer = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/setTimer.png")),0,0);
+        setBonuses = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/setBonus.png")),0,0);
+        play = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/play.png")),0,0);
+        back = new Icon(new Texture(Gdx.files.internal(format+"/back.png")),0,0);
         this.setting = setting;
         this.countDown = countDown;
 
@@ -60,6 +67,8 @@ public class AIPreferences extends State {
         setBonuses.setPosY(HEIGHT*2/5-setBonuses.getTexture().getHeight()/2);
         play.setPosX(WIDTH/2-play.getTexture().getWidth()/2);
         play.setPosY(HEIGHT/5-play.getTexture().getHeight()/2);
+        back.setPosX(back.getTexture().getWidth()/2);
+        back.setPosY(back.getTexture().getHeight()/2);
     }
 
     @Override
@@ -76,6 +85,9 @@ public class AIPreferences extends State {
             if (play.contains(x,y)) {
                 gsm.set(new PlayModeAi(gsm, setting, countDown));
             }
+            if (back.contains(x, y)){
+                gsm.set(new Pref(gsm));
+            }
         }
     }
 
@@ -91,6 +103,7 @@ public class AIPreferences extends State {
         sb.draw(setTimer.getTexture(),setTimer.getPosX() ,setTimer.getPosY() );
         sb.draw(setBonuses.getTexture(),setBonuses.getPosX() ,setBonuses.getPosY() );
         sb.draw(play.getTexture(),play.getPosX(),play.getPosY());
+        sb.draw(back.getTexture(), back.getPosX(), back.getPosX());
         sb.end();
 
     }

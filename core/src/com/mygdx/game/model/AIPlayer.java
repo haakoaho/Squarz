@@ -10,6 +10,7 @@ import java.util.Map;
 import static com.badlogic.gdx.math.MathUtils.random;
 import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
+import static com.mygdx.game.Squarz.format;
 
 /**
  * Created by Max on 13/03/2018.
@@ -28,20 +29,17 @@ public class AIPlayer {
     private Integer launcherCounter;
     private Integer deltaLauncher;
     private Integer renderCounter;
-    //private SquareLimiter squareLimiterAi;
 
     public AIPlayer (PreferencesSettings set){
         this.settings = set;
         this.computer = new Player(set);
-        this.texture = new Texture (Gdx.files.internal("square.png"));
+        this.texture = new Texture (Gdx.files.internal(format+"/square/square.png"));
         this.square = new com.mygdx.game.model.Square(set);
-        //this.squareLimiterAi = new SquareLimiter(5);
 
         this.launcherCounter = 0;
         this.deltaLauncher = 70;
 
         this.renderCounter = 0;
-
     }
 
     public void send(CountDown countDown){
@@ -63,14 +61,39 @@ public class AIPlayer {
         }
     }
 
+    public void prgrmdSending(CountDown countDown){
+        this.launcherCounter += 1;
+        if (countDown.getWorldTimer() > 0) {
+            if (this.launcherCounter == this.settings.getDtLaunching()) {
+                this.launcherCounter = 0;
+
+                if (!this.getComputer().getSquareLimiter().isOver(0)){
+                    setTheRandomTexture(0);
+                    setTheRandomRow(0, 0);
+                }else if (!this.getComputer().getSquareLimiter().isOver(1)){
+                    setTheRandomTexture(1);
+                    setTheRandomRow(1, 1);
+                }else{
+                    setTheRandomTexture(2);
+                    setTheRandomRow(2, 2);
+                }
+
+
+
+            }
+        }
+
+    }
+
+
 
     public void setTheRandomTexture(int colorKey){
         if (colorKey == 0) {
-            this.texture = new Texture(Gdx.files.internal("square_red.png"));
+            this.texture = new Texture(Gdx.files.internal(format+"/square/square_red.png"));
         } else if (colorKey == 1) {
-            this.texture = new Texture(Gdx.files.internal("square_blue.png"));
+            this.texture = new Texture(Gdx.files.internal(format+"/square/square_blue.png"));
         } else {
-            this.texture = new Texture(Gdx.files.internal("square_yellow.png"));
+            this.texture = new Texture(Gdx.files.internal(format+"/square/square_yellow.png"));
         }
     }
 
@@ -97,27 +120,27 @@ public class AIPlayer {
         row.put(counter, new Square(settings));
         this.computer.getSquareLimiter().counter(colorkey);
         if (columnKey == 0) {
-            row.get(counter).setPosition(new Vector2(WIDTH * 5 / 16, HEIGHT));
+            row.get(counter).setPosition(new Vector2(WIDTH * 3/8, HEIGHT));
             row.get(counter).setTexture(t);
             row.get(counter).setColorKey(colorkey);
             if (counter != this.getComputer().getFirstLeftSquaresKey() && counter > 0 && row.get(counter - 1).getPosition().y >= HEIGHT - (t.getHeight()) - 5) {
-                row.get(counter).setPosition(new Vector2(Gdx.graphics.getWidth() * 5 / 16,
+                row.get(counter).setPosition(new Vector2(WIDTH * 3 / 8,
                         row.get(counter - 1).getPosition().y + t.getHeight() + 5));
             }
         } else if (columnKey == 1) {
-            row.get(counter).setPosition(new Vector2(WIDTH * 9 / 16, HEIGHT));
+            row.get(counter).setPosition(new Vector2(WIDTH * 5/8, HEIGHT));
             row.get(counter).setTexture(t);
             row.get(counter).setColorKey(colorkey);
             if (counter != this.getComputer().getFirstMiddleSquaresKey() && counter > 0 && row.get(counter - 1).getPosition().y >= HEIGHT - (t.getHeight()) - 5) {
-                row.get(counter).setPosition(new Vector2(Gdx.graphics.getWidth() * 9 / 16,
+                row.get(counter).setPosition(new Vector2(WIDTH * 5/8,
                         row.get(counter - 1).getPosition().y + t.getHeight() + 5));
             }
         } else if (columnKey == 2) {
-            row.get(counter).setPosition(new Vector2(WIDTH * 13 / 16, HEIGHT));
+            row.get(counter).setPosition(new Vector2(WIDTH * 7/8, HEIGHT));
             row.get(counter).setTexture(t);
             row.get(counter).setColorKey(colorkey);
             if (counter != this.getComputer().getFirstRightSquaresKey() && counter > 0 && row.get(counter - 1).getPosition().y >= HEIGHT - (t.getHeight()) - 5) {
-                row.get(counter).setPosition(new Vector2(Gdx.graphics.getWidth() * 13 / 16,
+                row.get(counter).setPosition(new Vector2(WIDTH * 7/8,
                         row.get(counter - 1).getPosition().y + t.getHeight() + 5));
             }
         }
@@ -125,7 +148,6 @@ public class AIPlayer {
 
 
     // ---------  general getters and setters
-
 
 
     public PreferencesSettings getSettings() {

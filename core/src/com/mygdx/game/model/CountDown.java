@@ -11,37 +11,32 @@ import com.badlogic.gdx.graphics.Color;
 
 public class CountDown {
     private Integer worldTimer;
+
     private float timeCount;
     private Label countdownLabel;
     private Boolean timeUp;
-    private Integer timeKey;
+    private Integer timerKey;
 
     public CountDown(Integer time) {
         this.worldTimer = time;
-        this.timeKey = 45;
         this.timeCount = 0f;
-        this.countdownLabel = new Label(String.format("%03d", worldTimer),
+        this.timerKey = time;
+
+        this.countdownLabel = new Label(String.format("%02d", worldTimer),
                 new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         this.timeUp = false;
     }
 
     public void increaseTime(){
         setWorldTimer(this.getWorldTimer()+15);
-        setTimeKey(this.getTimeKey()+15);
+        setTimerKey(this.getTimerKey()+15);
     }
 
     public void decreaseTime(){
         setWorldTimer(this.getWorldTimer()-15);
-        setTimeKey(this.getTimeKey()-15);
+        setTimerKey(this.getTimerKey()-15);
     }
 
-    public Integer getTimeKey() {
-        return timeKey;
-    }
-
-    public void setTimeKey(Integer timeKey) {
-        this.timeKey = timeKey;
-    }
     public Integer getWorldTimer() {
         return worldTimer;
     }
@@ -74,6 +69,13 @@ public class CountDown {
         this.timeUp = timeUp;
     }
 
+    public Integer getTimerKey() {
+        return timerKey;
+    }
+
+    public void setTimerKey(Integer timerKey) {
+        this.timerKey = timerKey;
+    }
 
     public void update(float dt) {
         this.timeCount += dt;
@@ -83,7 +85,7 @@ public class CountDown {
             } else {
                 this.timeUp = true;
             }
-            this.countdownLabel.setText(String.format("%03d", worldTimer));
+            this.countdownLabel.setText(String.format("%02d", worldTimer));
             this.timeCount = 0;
         }
     }

@@ -9,10 +9,13 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class Icon {
     private Texture texture;
+    private Texture selected, off;
     private int posX, posY;
 
     public Icon (Texture texture, int posx, int posy) {
         this.texture = texture;
+        this.selected = texture;
+        this.off = texture;
         this.posX = posx;
         this.posY = posy;
     }
@@ -23,6 +26,22 @@ public class Icon {
 
     public void setTexture(Texture texture) {
         this.texture = texture;
+    }
+
+    public Texture getSelected() {
+        return this.selected;
+    }
+
+    public void setSelected(Texture selected) {
+        this.selected = selected;
+    }
+
+    public Texture getOff() {
+        return this.off;
+    }
+
+    public void setOff(Texture off) {
+        this.off = off;
     }
 
     public int getPosX() {
@@ -42,9 +61,6 @@ public class Icon {
     }
 
     public boolean contains(int x, int y) {  // return true if (x,y) is in the icon (this = the icon)
-        return (this.posX < x && x < this.posX + this.texture.getWidth() && this.posY < y && y < this.posY + this.texture.getHeight());
+        return (this.posX < x+15 && x-15 < this.posX + this.texture.getWidth() && this.posY < y+15 && y-15 < this.posY + this.texture.getHeight());
     }
-
-    public boolean extendedXContains(int x, int y) {  // return true if (x,y) is in the icon (this = the icon)
-        return  (x < Gdx.graphics.getWidth()/4 && this.posY < y && y < this.posY + this.texture.getHeight());    }
 }
