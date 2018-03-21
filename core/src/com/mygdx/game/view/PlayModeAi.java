@@ -159,12 +159,14 @@ public class PlayModeAi extends State {
 
     @Override
     public void render(SpriteBatch sb) {
-        sb.begin();
+
         if(!ready){
+            sb.begin();
             Squarz.font.draw(sb, readyGlyph,
                     (float) (WIDTH/2 - readyGlyph.width/2.), HEIGHT/2 - readyGlyph.height/2);
+            sb.end();
         } else {
-
+            sb.begin();
             sb.draw(redChoiceSquare.getTexture(), redChoiceSquare.getPosX(), redChoiceSquare.getPosY());
             sb.draw(blueChoiceSquare.getTexture(), blueChoiceSquare.getPosX(), blueChoiceSquare.getPosY());
             sb.draw(yellowChoiceSquare.getTexture(), yellowChoiceSquare.getPosX(), yellowChoiceSquare.getPosY());
@@ -175,17 +177,19 @@ public class PlayModeAi extends State {
             drawTimeLeft(sb);
             drawScore(sb);
             drawCounter(sb);
+            sb.end();
 
             shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
             shapeRenderer.setColor(1, 1, 1, 1);
             shapeRenderer.line(WIDTH/4,0,WIDTH/4,HEIGHT);
+            shapeRenderer.line(WIDTH/4-10,0,WIDTH/4-10,HEIGHT);
             shapeRenderer.line(WIDTH/2,0,WIDTH/2,HEIGHT);
             shapeRenderer.line(3*WIDTH/4,0,3*WIDTH/4,HEIGHT);
+            shapeRenderer.line(0,HEIGHT/2,WIDTH/4-10,HEIGHT/2);
+            shapeRenderer.line(0,3*HEIGHT/4,WIDTH/4-10,3*HEIGHT/4);
             shapeRenderer.end();
+
         }
-
-        sb.end();
-
 
     }
 
