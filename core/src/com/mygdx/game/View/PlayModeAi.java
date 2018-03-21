@@ -24,6 +24,7 @@ import java.util.Map;
 
 import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
+import static com.mygdx.game.Squarz.format;
 
 /**
  * Created by Max on 06/03/2018.
@@ -79,15 +80,15 @@ public class PlayModeAi extends State {
         this.scoreUser = new GlyphLayout(Squarz.font, String.valueOf(score.getUserScore()));
         this.time = new GlyphLayout(Squarz.font, String.valueOf(this.countDown.getCountdownLabel().getText()));
 
-        this.texture = new Texture(Gdx.files.internal("square_red.png"));
+        this.texture = new Texture(Gdx.files.internal(format+"/square/square_red.png"));
 
-        this.redChoiceSquare = new Icon(new Texture(Gdx.files.internal("square_red.png"))
+        this.redChoiceSquare = new Icon(new Texture(Gdx.files.internal(format+"/square/square_red.png"))
                 ,WIDTH * 1/16, HEIGHT/2 - this.texture.getHeight() * 3/2);
-        this.blueChoiceSquare = new Icon(new Texture(Gdx.files.internal("square_blue.png"))
+        this.blueChoiceSquare = new Icon(new Texture(Gdx.files.internal(format+"/square/square_blue.png"))
                 ,WIDTH * 1/16, HEIGHT/2 - this.texture.getHeight() * 11/4);
-        this.yellowChoiceSquare = new Icon(new Texture(Gdx.files.internal("square_yellow.png"))
+        this.yellowChoiceSquare = new Icon(new Texture(Gdx.files.internal(format+"/square/square_yellow.png"))
                 ,WIDTH * 1/16, HEIGHT/2 - this.texture.getHeight() * 4);
-        this.pause = new Icon(new Texture(Gdx.files.internal("pause.png"))
+        this.pause = new Icon(new Texture(Gdx.files.internal(format+"/pause.png"))
                 ,WIDTH * 1/16, HEIGHT * 15/16 - this.texture.getHeight()/2);
         this.colorKey = 0;
 
@@ -213,17 +214,17 @@ public class PlayModeAi extends State {
     public void chosingTheColour(int x, int y){
         if (this.redChoiceSquare.contains(x, y)) {
             this.setColorKey(0);
-            this.texture = new Texture(Gdx.files.internal("square_red.png"));
+            this.texture = new Texture(Gdx.files.internal(format+"/square/square_red.png"));
         }
 
         if (this.blueChoiceSquare.contains(x, y)) {
             this.setColorKey(1);
-            this.texture = new Texture(Gdx.files.internal("square_blue.png"));
+            this.texture = new Texture(Gdx.files.internal(format+"/square/square_blue.png"));
         }
 
         if (this.yellowChoiceSquare.contains(x, y)) {
             this.setColorKey(2);
-            this.texture = new Texture(Gdx.files.internal("square_yellow.png"));
+            this.texture = new Texture(Gdx.files.internal(format+"/square/square_yellow.png"));
         }
     }
 

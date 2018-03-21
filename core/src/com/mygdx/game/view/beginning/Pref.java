@@ -9,6 +9,7 @@ import com.mygdx.game.model.State;
 
 import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
+import static com.mygdx.game.Squarz.format;
 
 /**
  * Created by Lucas on 06/03/2018.
@@ -19,11 +20,11 @@ public class Pref extends State {
 
     public Pref(GameStateManager gsm) {
         super(gsm);
-        this.ai = new Icon(new Texture(Gdx.files.internal("modes/ai.png")),0,0);
-        this.quick = new Icon(new Texture(Gdx.files.internal("modes/quick.png")),0,0);
-        this.invite = new Icon(new Texture(Gdx.files.internal("modes/invite.png")),0,0);
-        this.answer = new Icon(new Texture(Gdx.files.internal("modes/answer.png")),0,0);
-        this.back = new Icon(new Texture(Gdx.files.internal("back.png")),0,0);
+        this.ai = new Icon(new Texture(Gdx.files.internal(format+"/modes/ai.png")),0,0);
+        this.quick = new Icon(new Texture(Gdx.files.internal(format+"/modes/quick.png")),0,0);
+        this.invite = new Icon(new Texture(Gdx.files.internal(format+"/modes/invite.png")),0,0);
+        this.answer = new Icon(new Texture(Gdx.files.internal(format+"/modes/answer.png")),0,0);
+        this.back = new Icon(new Texture(Gdx.files.internal(format+"/back.png")),0,0);
 
         this.ai.setPosX(WIDTH/4-ai.getTexture().getWidth()/2);
         this.ai.setPosY(7*HEIGHT/10-ai.getTexture().getHeight()/2);

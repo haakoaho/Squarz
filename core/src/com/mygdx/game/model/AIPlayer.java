@@ -10,6 +10,7 @@ import java.util.Map;
 import static com.badlogic.gdx.math.MathUtils.random;
 import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
+import static com.mygdx.game.Squarz.format;
 
 /**
  * Created by Max on 13/03/2018.
@@ -32,7 +33,7 @@ public class AIPlayer {
     public AIPlayer (PreferencesSettings set){
         this.settings = set;
         this.computer = new Player(set);
-        this.texture = new Texture (Gdx.files.internal("square.png"));
+        this.texture = new Texture (Gdx.files.internal(format+"/square/square.png"));
         this.square = new com.mygdx.game.model.Square(set);
 
         this.launcherCounter = 0;
@@ -89,11 +90,11 @@ public class AIPlayer {
 
     public void setTheRandomTexture(int colorKey){
         if (colorKey == 0) {
-            this.texture = new Texture(Gdx.files.internal("square_red.png"));
+            this.texture = new Texture(Gdx.files.internal(format+"/square/square_red.png"));
         } else if (colorKey == 1) {
-            this.texture = new Texture(Gdx.files.internal("square_blue.png"));
+            this.texture = new Texture(Gdx.files.internal(format+"/square/square_blue.png"));
         } else {
-            this.texture = new Texture(Gdx.files.internal("square_yellow.png"));
+            this.texture = new Texture(Gdx.files.internal(format+"/square/square_yellow.png"));
         }
     }
 
