@@ -249,7 +249,7 @@ public class PlayModeAi extends State {
             //dealing with the score
             if (player.getLeft().get(i).getPosition().y >= HEIGHT && player.getLeft().get(i).getPosition().y < HEIGHT + this.settings.getStepX()){
                 sound.play(Squarz.valueVolume*0.15f);
-                Gdx.input.vibrate(Squarz.valueVibration*100);
+                Gdx.input.vibrate(Squarz.valueVibration*10);
                 this.score.updateUser();
             }
         }
@@ -257,7 +257,7 @@ public class PlayModeAi extends State {
             player.getMiddle().get(i).move();
             if ( player.getMiddle().get(i).getPosition().y >= HEIGHT && player.getMiddle().get(i).getPosition().y < HEIGHT + this.settings.getStepX()){
                 sound.play(Squarz.valueVolume*0.15f);
-                Gdx.input.vibrate(Squarz.valueVibration*100);
+                Gdx.input.vibrate(Squarz.valueVibration*10);
                 this.score.updateUser();
             }
         }
@@ -265,7 +265,7 @@ public class PlayModeAi extends State {
             player.getRight().get(i).move();
             if (player.getRight().get(i).getPosition().y >= HEIGHT && player.getRight().get(i).getPosition().y < HEIGHT + this.settings.getStepX()){
                 sound.play(Squarz.valueVolume*0.15f);
-                Gdx.input.vibrate(Squarz.valueVibration*100);
+                Gdx.input.vibrate(Squarz.valueVibration*10);
                 this.score.updateUser();
             }
         }
@@ -277,7 +277,7 @@ public class PlayModeAi extends State {
             //dealing with the score
             if (ai.getComputer().getLeft().get(i).getPosition().y <= 0 && ai.getComputer().getLeft().get(i).getPosition().y > - this.settings.getStepX()){
                 sound.play(Squarz.valueVolume*0.15f);
-                Gdx.input.vibrate(Squarz.valueVibration*100);
+                Gdx.input.vibrate(Squarz.valueVibration*10);
                 this.score.updateAi();
             }
         }
@@ -286,7 +286,7 @@ public class PlayModeAi extends State {
             //dealing with the score
             if (ai.getComputer().getMiddle().get(i).getPosition().y <= 0 && ai.getComputer().getMiddle().get(i).getPosition().y > - this.settings.getStepX()){
                 sound.play(Squarz.valueVolume*0.15f);
-                Gdx.input.vibrate(Squarz.valueVibration*100);
+                Gdx.input.vibrate(Squarz.valueVibration*10);
                 this.score.updateAi();
             }
         }
@@ -294,7 +294,7 @@ public class PlayModeAi extends State {
             ai.getComputer().getRight().get(i).reverseMove();
             if (ai.getComputer().getRight().get(i).getPosition().y <= 0 && ai.getComputer().getRight().get(i).getPosition().y > - this.settings.getStepX()){
                 sound.play(Squarz.valueVolume*0.15f);
-                Gdx.input.vibrate(Squarz.valueVibration*100);
+                Gdx.input.vibrate(Squarz.valueVibration*10);
                 this.score.updateAi();
             }
         }
