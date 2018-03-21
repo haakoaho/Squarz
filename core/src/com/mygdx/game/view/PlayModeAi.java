@@ -100,7 +100,7 @@ public class PlayModeAi extends State {
                 , WIDTH * 1 / 16, HEIGHT * 15 / 16 - this.texture.getHeight() / 2);
         this.pauseScreen = new PauseScreen();
 
-        this.collision = new Collision(this.score);
+        this.collision = new Collision();
 
         this.temporarySpeed = this.settings.getStepX();
 
@@ -161,31 +161,34 @@ public class PlayModeAi extends State {
     public void update(float dt) {
         handleInput();
 
-        if (pauseFlag) {
-            dt = 0;
-            pauseFlag = false;
-        }
-
         if (ready) {
+            if(pauseFlag){
 
-            //updating the countdown
-            this.countDown.update(dt);
+            }else {
+                //updating the countdown
+                this.countDown.update(dt);
+            }
 
             if (this.countDown.isTimeUp()) {
                 music.stop();
                 gsm.set(new EndModeAI(gsm, settings, score, countDown));
             }
 
-            if (pauseFlag) {
+            if (pauseFlag){
 
             } else {
+                //random sending by the AI
                 ai.send(this.countDown);
-
-                movingPlayerSquare();
-                movingAiSquare();
-
-                collision.collision(this.player, this.ai, this.score);
+                //ai.prgrmdSending(this.countDown);
             }
+
+
+            movingPlayerSquare();
+
+            movingAiSquare();
+
+            collision.collision(this.player, this.ai);
+
         }
     }
 
@@ -197,6 +200,16 @@ public class PlayModeAi extends State {
                     (float) (WIDTH / 2 - readyGlyph.width / 2.), HEIGHT / 2 - readyGlyph.height / 2);
             sb.end();
         } else {
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+            shapeRenderer.setColor(1, 1, 1, 1);
+            shapeRenderer.line(WIDTH / 4, 0, WIDTH / 4, HEIGHT);
+            shapeRenderer.line(WIDTH / 4 - 10, 0, WIDTH / 4 - 10, HEIGHT);
+            shapeRenderer.line(WIDTH / 2, 0, WIDTH / 2, HEIGHT);
+            shapeRenderer.line(3 * WIDTH / 4, 0, 3 * WIDTH / 4, HEIGHT);
+            shapeRenderer.line(0, HEIGHT / 2, WIDTH / 4 - 10, HEIGHT / 2);
+            shapeRenderer.line(0, 3 * HEIGHT / 4, WIDTH / 4 - 10, 3 * HEIGHT / 4);
+            shapeRenderer.end();
+
             sb.begin();
             sb.draw(redChoiceSquare.getTexture(), redChoiceSquare.getPosX(), redChoiceSquare.getPosY());
             sb.draw(blueChoiceSquare.getTexture(), blueChoiceSquare.getPosX(), blueChoiceSquare.getPosY());
@@ -217,15 +230,7 @@ public class PlayModeAi extends State {
 
             sb.end();
 
-            shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-            shapeRenderer.setColor(1, 1, 1, 1);
-            shapeRenderer.line(WIDTH / 4, 0, WIDTH / 4, HEIGHT);
-            shapeRenderer.line(WIDTH / 4 - 10, 0, WIDTH / 4 - 10, HEIGHT);
-            shapeRenderer.line(WIDTH / 2, 0, WIDTH / 2, HEIGHT);
-            shapeRenderer.line(3 * WIDTH / 4, 0, 3 * WIDTH / 4, HEIGHT);
-            shapeRenderer.line(0, HEIGHT / 2, WIDTH / 4 - 10, HEIGHT / 2);
-            shapeRenderer.line(0, 3 * HEIGHT / 4, WIDTH / 4 - 10, 3 * HEIGHT / 4);
-            shapeRenderer.end();
+
         }
     }
 
