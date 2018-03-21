@@ -11,268 +11,103 @@ package com.mygdx.game.model;
 //    red < blue < yellow < red
 
 public class Collision {
-    private Integer leftCnt, middleCnt, rightCnt, leftCntAi, middleCntAi, rightCntAi;
 
     public Collision() {
-        this.leftCnt = 0;
-        this.middleCnt = 0;
-        this.rightCnt = 0;
-        this.leftCntAi = 0;
-        this.middleCntAi = 0;
-        this.rightCntAi = 0;
     }
 
-    public void collision(Player player, AIPlayer computer){
+    public void deleteOncePlayerOut(Player p, Integer column){
+        //if square goes outside
+        if (p.getCounter(column) > p.getFirstSquareKey(column) && !p.getMap(column).get(p.getFirstSquareKey(column)).isInUser()) {
+            p.decrement(p.getMap(column), p.getFirstSquareKey(column), column);
+        }
+    }
+    public void deleteOnceAiOut(Player p, Integer column){
+        //if square goes outside
+        if (p.getCounter(column) > p.getFirstSquareKey(column) && !p.getMap(column).get(p.getFirstSquareKey(column)).isInAi()) {
+            p.decrement(p.getMap(column), p.getFirstSquareKey(column), column);
+        }
+    }
 
-            //left row
-            if (!player.getLeft().isEmpty() && !computer.getComputer().getLeft().isEmpty()) {
+    public boolean isCollisionPossible(Player p, Player c, Integer rowKey){
+        return p.getCounter(rowKey) > p.getFirstSquareKey(rowKey)
+                && c.getCounter(rowKey) > c.getFirstSquareKey(rowKey);
+    }
+    public boolean isOverlapping(Player p, Player c, Integer rowKey){
+        return (p.getMap(rowKey).get(p.getFirstSquareKey(rowKey)).getRectangle().overlaps(
+                c.getMap(rowKey).get(c.getFirstSquareKey(rowKey)).getRectangle()));
+    }
 
-                if (player.getLeftCounter() > this.leftCnt
-                        && computer.getComputer().getLeftCounter() > this.leftCntAi) {
+    public void handleWhenPlayerRed(Player p, Player c, Integer rowKey){
+        // if computer red
+        if (c.getMap(rowKey).get(c.getFirstSquareKey(rowKey)).getColorKey() == 0) {
+            p.decrement(p.getMap(rowKey), p.getFirstSquareKey(rowKey), rowKey);
+            c.decrement(c.getMap(rowKey), c.getFirstSquareKey(rowKey), rowKey);
 
+            //if computer blue
+        } else if (c.getMap(rowKey).get(c.getFirstSquareKey(rowKey)).getColorKey() == 1) {
+            p.decrement(p.getMap(rowKey), p.getFirstSquareKey(rowKey), rowKey);
 
-                    while (player.getLeftCounter() > this.leftCnt && !player.getLeft().get(this.leftCnt).isInUser()) {
-                        this.leftCnt = this.leftCnt + 1;
-                    }
+            //if computer yellow
+        } else if (c.getMap(rowKey).get(c.getFirstSquareKey(rowKey)).getColorKey() == 2) {
+            c.decrement(c.getMap(rowKey), c.getFirstSquareKey(rowKey), rowKey);
+        }
+    }
+    public  void handleWhenPlayerBlue(Player p, Player c, Integer rowKey){
+        // if computer red
+        if (c.getMap(rowKey).get(c.getFirstSquareKey(rowKey)).getColorKey() == 0) {
+            c.decrement(c.getMap(rowKey), c.getFirstSquareKey(rowKey), rowKey);
 
-                    while (computer.getComputer().getLeftCounter() > this.leftCntAi && !computer.getComputer().getLeft().get(this.leftCntAi).isInAi()) {
-                        this.leftCntAi = this.leftCntAi + 1;
-                    }
+            //if computer blue
+        } else if (c.getMap(rowKey).get(c.getFirstSquareKey(rowKey)).getColorKey() == 1) {
+            p.decrement(p.getMap(rowKey), p.getFirstSquareKey(rowKey), rowKey);
+            c.decrement(c.getMap(rowKey), c.getFirstSquareKey(rowKey), rowKey);
 
-                    if (player.getLeftCounter() > this.leftCnt
-                            && computer.getComputer().getLeftCounter() > this.leftCntAi) {
+            //if computer yellow
+        } else if (c.getMap(rowKey).get(c.getFirstSquareKey(rowKey)).getColorKey() == 2) {
+            p.decrement(p.getMap(rowKey), p.getFirstSquareKey(rowKey), rowKey);
+        }
+    }
+    public  void handleWhenPlayerYellow(Player p, Player c, Integer rowKey){
+        // if computer red
+        if (c.getMap(rowKey).get(c.getFirstSquareKey(rowKey)).getColorKey() == 0) {
+            p.decrement(p.getMap(rowKey), p.getFirstSquareKey(rowKey), rowKey);
 
-                        if (player.getLeft().get(this.leftCnt).getRectangle().overlaps(
-                                computer.getComputer().getLeft().get(this.leftCntAi).getRectangle())) {
+            //if computer blue
+        } else if (c.getMap(rowKey).get(c.getFirstSquareKey(rowKey)).getColorKey() == 1) {
+            c.decrement(c.getMap(rowKey), c.getFirstSquareKey(rowKey), rowKey);
 
-                            if (player.getLeft().get(leftCnt).getColorKey() == 0) {
-                                if (computer.getComputer().getLeft().get(leftCntAi).getColorKey() == 0) {
-
-                                    player.decrement(player.getLeft(), this.leftCnt, 0);
-                                    computer.getComputer().decrement(computer.getComputer().getLeft(),
-                                            this.leftCntAi, 0);
-
-                                    this.leftCnt = this.leftCnt + 1;
-                                    this.leftCntAi = this.leftCntAi + 1;
-
-
-                                } else if (computer.getComputer().getLeft().get(leftCntAi).getColorKey() == 1) {
-
-                                    player.decrement(player.getLeft(), this.leftCnt, 0);
-
-                                    this.leftCnt = this.leftCnt + 1;
-
-                                } else if (computer.getComputer().getLeft().get(leftCntAi).getColorKey() == 2) {
-
-                                    computer.getComputer().decrement(computer.getComputer().getLeft(),
-                                            this.leftCntAi, 0);
-
-                                    this.leftCntAi = this.leftCntAi + 1;
-                                }
-                            } else if (player.getLeft().get(this.leftCnt).getColorKey() == 1) {
-
-                                if (computer.getComputer().getLeft().get(this.leftCntAi).getColorKey() == 0) {
-                                    computer.getComputer().decrement(computer.getComputer().getLeft(),
-                                            this.leftCntAi, 0);
-                                    this.leftCntAi += 1;
-                                } else if (computer.getComputer().getLeft().get(this.leftCntAi).getColorKey() == 1) {
-                                    player.decrement(player.getLeft(), this.leftCnt, 0);
-                                    computer.getComputer().decrement(computer.getComputer().getLeft(),
-                                            this.leftCntAi, 0);
-                                    this.leftCnt += 1;
-                                    this.leftCntAi += 1;
-                                } else if (computer.getComputer().getLeft().get(this.leftCntAi).getColorKey() == 2) {
-                                    player.decrement(player.getLeft(), this.leftCnt, 0);
-                                    this.leftCnt += 1;
-                                }
-                            } else if (player.getLeft().get(this.leftCnt).getColorKey() == 2) {
-                                if (computer.getComputer().getLeft().get(this.leftCntAi).getColorKey() == 0) {
-                                    player.decrement(player.getLeft(), this.leftCnt, 0);
-                                    this.leftCnt += 1;
-                                } else if (computer.getComputer().getLeft().get(this.leftCntAi).getColorKey() == 1) {
-                                    computer.getComputer().decrement(computer.getComputer().getLeft(),
-                                            this.leftCntAi, 0);
-                                    this.leftCntAi += 1;
-                                } else if (computer.getComputer().getLeft().get(this.leftCntAi).getColorKey() == 2) {
-                                    player.decrement(player.getLeft(), this.leftCnt, 0);
-                                    computer.getComputer().decrement(computer.getComputer().getLeft(),
-                                            this.leftCntAi, 0);
-                                    this.leftCnt += 1;
-                                    this.leftCntAi += 1;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            //middle row
-            if (!player.getMiddle().isEmpty() && !computer.getComputer().getMiddle().isEmpty()) {
-
-                if (player.getMiddleCounter() > this.middleCnt
-                        && computer.getComputer().getMiddleCounter() > this.middleCntAi) {
+            //if computer yellow
+        } else if (c.getMap(rowKey).get(c.getFirstSquareKey(rowKey)).getColorKey() == 2) {
+            p.decrement(p.getMap(rowKey), p.getFirstSquareKey(rowKey), rowKey);
+            c.decrement(c.getMap(rowKey), c.getFirstSquareKey(rowKey), rowKey);
+        }
+    }
 
 
-                    while (player.getMiddleCounter() > this.middleCnt && !player.getMiddle().get(this.middleCnt).isInUser()) {
-                        this.middleCnt = this.middleCnt + 1;
-                    }
+    public void collision(Player player, AIPlayer computer) {
 
-                    while (computer.getComputer().getMiddleCounter() > this.middleCntAi && !computer.getComputer().getMiddle().get(this.middleCntAi).isInAi()) {
-                        this.middleCntAi = this.middleCntAi + 1;
-                    }
-
-                    if (player.getMiddleCounter() > this.middleCnt
-                            && computer.getComputer().getMiddleCounter() > this.middleCntAi) {
-
-                        if (player.getMiddle().get(this.middleCnt).getRectangle().overlaps(
-                                computer.getComputer().getMiddle().get(this.middleCntAi).getRectangle())) {
-
-                            if (player.getMiddle().get(middleCnt).getColorKey() == 0) {
-                                if (computer.getComputer().getMiddle().get(middleCntAi).getColorKey() == 0) {
-
-                                    player.decrement(player.getMiddle(), this.middleCnt, 1);
-                                    computer.getComputer().decrement(computer.getComputer().getMiddle(),
-                                            this.middleCntAi, 1);
-
-                                    this.middleCnt = this.middleCnt + 1;
-                                    this.middleCntAi = this.middleCntAi + 1;
+        for (int rowKey = 0; rowKey < 3; rowKey++) {
+            if (!player.getMap(rowKey).isEmpty() && !computer.getComputer().getMap(rowKey).isEmpty()) {
+                //if square goes outside
+                deleteOncePlayerOut(player, rowKey);
+                deleteOnceAiOut(computer.getComputer(), rowKey);
 
 
-                                } else if (computer.getComputer().getMiddle().get(middleCntAi).getColorKey() == 1) {
-
-                                    player.decrement(player.getMiddle(), this.middleCnt, 1);
-
-                                    this.middleCnt = this.middleCnt + 1;
-
-                                } else if (computer.getComputer().getMiddle().get(middleCntAi).getColorKey() == 2) {
-                                    computer.getComputer().decrement(computer.getComputer().getMiddle(),
-                                            this.middleCntAi, 1);
-
-
-                                    this.middleCntAi = this.middleCntAi + 1;
-                                }
-                            } else if (player.getMiddle().get(this.middleCnt).getColorKey() == 1) {
-
-                                if (computer.getComputer().getMiddle().get(this.middleCntAi).getColorKey() == 0) {
-                                    computer.getComputer().decrement(computer.getComputer().getMiddle(),
-                                            this.middleCntAi, 1);
-
-                                    this.middleCntAi += 1;
-                                } else if (computer.getComputer().getMiddle().get(this.middleCntAi).getColorKey() == 1) {
-                                    player.decrement(player.getMiddle(), this.middleCnt, 1);
-                                    computer.getComputer().decrement(computer.getComputer().getMiddle(),
-                                            this.middleCntAi, 1);
-                                    this.middleCnt += 1;
-                                    this.middleCntAi += 1;
-                                } else if (computer.getComputer().getMiddle().get(this.middleCntAi).getColorKey() == 2) {
-                                    player.decrement(player.getMiddle(), this.middleCnt, 1);
-                                    this.middleCnt += 1;
-                                }
-                            } else if (player.getMiddle().get(this.middleCnt).getColorKey() == 2) {
-                                if (computer.getComputer().getMiddle().get(this.middleCntAi).getColorKey() == 0) {
-                                    player.decrement(player.getMiddle(), this.middleCnt, 1);
-                                    this.middleCnt += 1;
-                                } else if (computer.getComputer().getMiddle().get(this.middleCntAi).getColorKey() == 1) {
-                                    computer.getComputer().decrement(computer.getComputer().getMiddle(),
-                                            this.middleCntAi, 1);
-                                    this.middleCntAi += 1;
-                                } else if (computer.getComputer().getMiddle().get(this.middleCntAi).getColorKey() == 2) {
-                                    player.decrement(player.getMiddle(), this.middleCnt, 1);
-                                    computer.getComputer().decrement(computer.getComputer().getMiddle(),
-                                            this.middleCntAi, 1);
-                                    this.middleCnt += 1;
-                                    this.middleCntAi += 1;
-                                }
-                            }
-                        }
+                // if a square is in game (avoid null pointer exception) and overlaps
+                if (isCollisionPossible(player, computer.getComputer(), rowKey) && isOverlapping(player, computer.getComputer(), rowKey)) {
+                    //if player red
+                    if (player.getMap(rowKey).get(player.getFirstSquareKey(rowKey)).getColorKey() == 0) {
+                        handleWhenPlayerRed(player, computer.getComputer(), rowKey);
+                        //si player est bleu
+                    } else if (player.getMap(rowKey).get(player.getFirstSquareKey(rowKey)).getColorKey() == 1) {
+                        handleWhenPlayerBlue(player, computer.getComputer(), rowKey);
+                        //si player est jaune
+                    } else if (player.getMap(rowKey).get(player.getFirstSquareKey(rowKey)).getColorKey() == 2) {
+                        handleWhenPlayerYellow(player, computer.getComputer(), rowKey);
                     }
                 }
+
             }
-
-            //right row
-
-            if (!player.getRight().isEmpty() && !computer.getComputer().getRight().isEmpty()) {
-
-                if (player.getRightCounter() > this.rightCnt
-                        && computer.getComputer().getRightCounter() > this.rightCntAi) {
-
-
-                    while (player.getRightCounter() > this.rightCnt && !player.getRight().get(this.rightCnt).isInUser()) {
-                        this.rightCnt = this.rightCnt + 1;
-                    }
-
-                    while (computer.getComputer().getRightCounter() > this.rightCntAi && !computer.getComputer().getRight().get(this.rightCntAi).isInAi()) {
-                        this.rightCntAi = this.rightCntAi + 1;
-                    }
-
-                    if (player.getRightCounter() > this.rightCnt
-                            && computer.getComputer().getRightCounter() > this.rightCntAi) {
-
-                        if (player.getRight().get(this.rightCnt).getRectangle().overlaps(
-                                computer.getComputer().getRight().get(this.rightCntAi).getRectangle())) {
-
-                            if (player.getRight().get(rightCnt).getColorKey() == 0) {
-                                if (computer.getComputer().getRight().get(rightCntAi).getColorKey() == 0) {
-
-                                    player.decrement(player.getRight(), this.rightCnt, 2);
-                                    computer.getComputer().decrement(computer.getComputer().getRight(),
-                                            this.rightCntAi, 2);
-
-                                    this.rightCnt = this.rightCnt + 1;
-                                    this.rightCntAi = this.rightCntAi + 1;
-
-
-                                } else if (computer.getComputer().getRight().get(rightCntAi).getColorKey() == 1) {
-
-                                    player.decrement(player.getRight(), this.rightCnt, 2);
-
-                                    this.rightCnt = this.rightCnt + 1;
-
-                                } else if (computer.getComputer().getRight().get(rightCntAi).getColorKey() == 2) {
-                                    computer.getComputer().decrement(computer.getComputer().getRight(),
-                                            this.rightCntAi, 2);
-
-
-                                    this.rightCntAi = this.rightCntAi + 1;
-                                }
-                            } else if (player.getRight().get(this.rightCnt).getColorKey() == 1) {
-
-                                if (computer.getComputer().getRight().get(this.rightCntAi).getColorKey() == 0) {
-                                    computer.getComputer().decrement(computer.getComputer().getRight(),
-                                            this.rightCntAi, 2);
-
-                                    this.rightCntAi += 1;
-                                } else if (computer.getComputer().getRight().get(this.rightCntAi).getColorKey() == 1) {
-                                    player.decrement(player.getRight(), this.rightCnt, 2);
-                                    computer.getComputer().decrement(computer.getComputer().getRight(),
-                                            this.rightCntAi, 2);
-                                    this.rightCnt += 1;
-                                    this.rightCntAi += 1;
-                                } else if (computer.getComputer().getRight().get(this.rightCntAi).getColorKey() == 2) {
-                                    player.decrement(player.getRight(), this.rightCnt, 2);
-                                    this.rightCnt += 1;
-                                }
-                            } else if (player.getRight().get(this.rightCnt).getColorKey() == 2) {
-                                if (computer.getComputer().getRight().get(this.rightCntAi).getColorKey() == 0) {
-                                    player.decrement(player.getRight(), this.rightCnt, 0);
-                                    this.rightCnt += 1;
-                                } else if (computer.getComputer().getRight().get(this.rightCntAi).getColorKey() == 1) {
-                                    computer.getComputer().decrement(computer.getComputer().getRight(),
-                                            this.rightCntAi, 2);
-                                    this.rightCntAi += 1;
-                                } else if (computer.getComputer().getRight().get(this.rightCntAi).getColorKey() == 2) {
-                                    player.decrement(player.getRight(), this.rightCnt, 2);
-                                    computer.getComputer().decrement(computer.getComputer().getRight(),
-                                            this.rightCntAi, 2);
-                                    this.rightCnt += 1;
-                                    this.rightCntAi += 1;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+        }
     }
 }
-
-
