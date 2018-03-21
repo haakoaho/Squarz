@@ -83,7 +83,7 @@ public class PreferencesSettings {
 
     public void setBeginner(){
         setLevelKey(0);
-        setStepX(HEIGHT/400);
+        setStepX(HEIGHT/300);
         setDtLaunching(80);
         setDtWaves(400);
         setSquaresize(2);
@@ -91,7 +91,7 @@ public class PreferencesSettings {
 
     public void setMedium(){
         setLevelKey(1);
-        setStepX(HEIGHT/400);
+        setStepX(HEIGHT/300);
         setDtLaunching(60);
         setDtWaves(300);
         setSquaresize(3);
@@ -99,7 +99,7 @@ public class PreferencesSettings {
 
     public void setAdvanced(){
         setLevelKey(2);
-        setStepX(HEIGHT/300);
+        setStepX(HEIGHT/200);
         setDtLaunching(50);
         setDtWaves(200);
         setSquaresize(5);
@@ -107,7 +107,7 @@ public class PreferencesSettings {
 
     public void setExpert(){
         setLevelKey(3);
-        setStepX(HEIGHT/200);
+        setStepX(HEIGHT/150);
         setDtLaunching(40);
         setDtWaves(150);
         setSquaresize(7);
