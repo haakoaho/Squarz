@@ -106,6 +106,8 @@ public class PlayModeAi extends State {
 
     @Override
     public void handleInput() {
+
+
         if (Gdx.input.justTouched()) {
             if (!ready) {
                 ready = true;
@@ -330,8 +332,8 @@ public class PlayModeAi extends State {
     public void drawScore(SpriteBatch sb){
         scoreAi.setText(Squarz.font, String.valueOf(score.getAiScore()));
         scoreUser.setText(Squarz.font, String.valueOf(score.getUserScore()));
-        Squarz.font.draw(sb, scoreAi,redChoiceSquare.getPosX()+redChoiceSquare.getTexture().getWidth()/2-scoreAi.width/2 , HEIGHT * 11/16 - scoreAi.height/2);
-        Squarz.font.draw(sb, scoreUser,redChoiceSquare.getPosX()+redChoiceSquare.getTexture().getWidth()/2-scoreUser.width/2 , HEIGHT * 10/16 - scoreUser.height/2);
+        Squarz.font.draw(sb, scoreAi,redChoiceSquare.getPosX()+redChoiceSquare.getTexture().getWidth()/2-scoreAi.width/2 , HEIGHT * 45/64 - scoreAi.height/2);
+        Squarz.font.draw(sb, scoreUser,redChoiceSquare.getPosX()+redChoiceSquare.getTexture().getWidth()/2-scoreUser.width/2 , HEIGHT * 39/64 - scoreUser.height/2);
     }
 
     public void drawCounter(SpriteBatch sb){
@@ -351,7 +353,7 @@ public class PlayModeAi extends State {
 
     public void drawTimeLeft(SpriteBatch sb){
         time.setText(Squarz.font, String.valueOf(this.countDown.getCountdownLabel().getText()));
-        Squarz.font.draw(sb, String.valueOf(this.countDown.getCountdownLabel().getText()),redChoiceSquare.getPosX()+redChoiceSquare.getTexture().getWidth()/2-time.width/2 , HEIGHT*13/16 - time.height/2);
+        Squarz.font.draw(sb, String.valueOf(this.countDown.getCountdownLabel().getText()),redChoiceSquare.getPosX()+redChoiceSquare.getTexture().getWidth()/2-time.width/2 , HEIGHT*28/32 - time.height/2);
     }
 
 
