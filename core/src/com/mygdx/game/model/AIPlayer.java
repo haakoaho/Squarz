@@ -29,6 +29,7 @@ public class AIPlayer {
     private Integer launcherCounter;
     private Integer deltaLauncher;
     private Integer renderCounter;
+    private SquareLimiter squareLimiterAi;
 
     public AIPlayer (PreferencesSettings set){
         this.settings = set;
@@ -40,7 +41,7 @@ public class AIPlayer {
         this.deltaLauncher = 70;
 
         this.renderCounter = 0;
-
+        this.squareLimiterAi = new SquareLimiter(5);
     }
 
     public void send(CountDown countDown){
@@ -119,29 +120,29 @@ public class AIPlayer {
 
     public void incrementAI(Map<Integer, Square> row, Integer counter, Texture t, Integer columnKey, Integer colorkey) {
         row.put(counter, new Square(settings));
-        this.getComputer().getSquareLimiter().counter(colorkey);
+        this.squareLimiterAi.counter(colorkey);
         if (columnKey == 0) {
-            row.get(counter).setPosition(new Vector2(WIDTH * 3/8, HEIGHT));
+            row.get(counter).setPosition(new Vector2(WIDTH * 5 / 16, HEIGHT));
             row.get(counter).setTexture(t);
             row.get(counter).setColorKey(colorkey);
-            if (counter > 0 && row.get(counter - 1).getPosition().y >= HEIGHT - (t.getHeight()) - 5) {
-                row.get(counter).setPosition(new Vector2(WIDTH * 3/8,
+            if (counter != this.getComputer().getFirstLeftSquaresKey() && counter > 0 && row.get(counter - 1).getPosition().y >= HEIGHT - (t.getHeight()) - 5) {
+                row.get(counter).setPosition(new Vector2(Gdx.graphics.getWidth() * 5 / 16,
                         row.get(counter - 1).getPosition().y + t.getHeight() + 5));
             }
         } else if (columnKey == 1) {
-            row.get(counter).setPosition(new Vector2(WIDTH * 5/8, HEIGHT));
+            row.get(counter).setPosition(new Vector2(WIDTH * 9 / 16, HEIGHT));
             row.get(counter).setTexture(t);
             row.get(counter).setColorKey(colorkey);
-            if (counter > 0 && row.get(counter - 1).getPosition().y >= HEIGHT - (t.getHeight()) - 5) {
-                row.get(counter).setPosition(new Vector2(WIDTH * 5/8,
+            if (counter != this.getComputer().getFirstMiddleSquaresKey() && counter > 0 && row.get(counter - 1).getPosition().y >= HEIGHT - (t.getHeight()) - 5) {
+                row.get(counter).setPosition(new Vector2(Gdx.graphics.getWidth() * 9 / 16,
                         row.get(counter - 1).getPosition().y + t.getHeight() + 5));
             }
         } else if (columnKey == 2) {
-            row.get(counter).setPosition(new Vector2(WIDTH * 7/8, HEIGHT));
+            row.get(counter).setPosition(new Vector2(WIDTH * 13 / 16, HEIGHT));
             row.get(counter).setTexture(t);
             row.get(counter).setColorKey(colorkey);
-            if (counter > 0 && row.get(counter - 1).getPosition().y >= HEIGHT - (t.getHeight()) - 5) {
-                row.get(counter).setPosition(new Vector2(WIDTH * 7/8,
+            if (counter != this.getComputer().getFirstRightSquaresKey() && counter > 0 && row.get(counter - 1).getPosition().y >= HEIGHT - (t.getHeight()) - 5) {
+                row.get(counter).setPosition(new Vector2(Gdx.graphics.getWidth() * 13 / 16,
                         row.get(counter - 1).getPosition().y + t.getHeight() + 5));
             }
         }
