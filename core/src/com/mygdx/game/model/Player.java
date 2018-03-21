@@ -46,28 +46,28 @@ public class Player {
             row.put(counter, new Square(set));
             squareLimiter.counter(colorkey);
             if (columnKey == 0) {
-                row.get(counter).setPosition(new Vector2(WIDTH * 5 / 16, 0));
+                row.get(counter).setPosition(new Vector2(WIDTH * 3/8, 0));
                 row.get(counter).setTexture(t);
                 row.get(counter).setColorKey(colorkey);
                 //overlapping
                 if (counter > 0 && row.get(counter - 1).getPosition().y < t.getHeight() + 5) {
-                    row.get(counter).setPosition(new Vector2(Gdx.graphics.getWidth() * 5 / 16,
+                    row.get(counter).setPosition(new Vector2(WIDTH * 3/8,
                             row.get(counter - 1).getPosition().y - t.getHeight() - 5));
                 }
             } else if (columnKey == 1) {
-                row.get(counter).setPosition(new Vector2(WIDTH * 9 / 16, 0));
+                row.get(counter).setPosition(new Vector2(WIDTH * 5/8, 0));
                 row.get(counter).setTexture(t);
                 row.get(counter).setColorKey(colorkey);
                 if (counter > 0 && row.get(counter - 1).getPosition().y < t.getHeight() + 5) {
-                    row.get(counter).setPosition(new Vector2(Gdx.graphics.getWidth() * 9 / 16,
+                    row.get(counter).setPosition(new Vector2(WIDTH * 5/8,
                             row.get(counter - 1).getPosition().y - t.getHeight() - 5));
                 }
             } else if (columnKey == 2) {
-                row.get(counter).setPosition(new Vector2(WIDTH * 13 / 16, 0));
+                row.get(counter).setPosition(new Vector2(WIDTH * 7/8, 0));
                 row.get(counter).setTexture(t);
                 row.get(counter).setColorKey(colorkey);
                 if (counter > 0 && row.get(counter - 1).getPosition().y < t.getHeight() + 5) {
-                    row.get(counter).setPosition(new Vector2(Gdx.graphics.getWidth() * 13 / 16,
+                    row.get(counter).setPosition(new Vector2(WIDTH * 7/8,
                             row.get(counter - 1).getPosition().y - t.getHeight() - 5));
                 }
             }
