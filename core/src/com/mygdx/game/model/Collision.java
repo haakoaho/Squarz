@@ -19,14 +19,14 @@ public class Collision {
     public void deleteOncePlayerOut(Player p, Integer column, Score s){
         //if square goes outside (scores)
         if (p.getCounter(column) > p.getFirstSquareKey(column) && !p.getMap(column).get(p.getFirstSquareKey(column)).isInUser()) {
-            s.setUserScore(s.getUserScore() + 1);
+            s.updateUser();
             p.decrement(p.getMap(column), p.getFirstSquareKey(column), column);
         }
     }
     public void deleteOnceAiOut(Player p, Integer column, Score s){
         //if square goes outside
         if (p.getCounter(column) > p.getFirstSquareKey(column) && !p.getMap(column).get(p.getFirstSquareKey(column)).isInAi()) {
-            s.setAiScore(s.getAiScore() + 1);
+            s.updateAi();
             p.decrement(p.getMap(column), p.getFirstSquareKey(column), column);
         }
     }
