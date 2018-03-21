@@ -186,13 +186,8 @@ public class PlayModeAi extends State {
             } else {
                 ai.send(this.countDown);
 
-<<<<<<< HEAD
-                movingAiSquare();
-                movingPlayerSquare();
-=======
                 movingPlayerSquare();
                 movingAiSquare();
->>>>>>> mathieu
 
                 collision.collision(this.player, this.ai, this.score);
             }
