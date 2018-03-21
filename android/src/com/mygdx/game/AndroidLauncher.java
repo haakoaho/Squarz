@@ -605,11 +605,6 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 	Set<String> mFinishedParticipants = new HashSet<>();
 
 	// Called when we receive a real-time message from the network.
-	// Messages in our game are made up of 2 bytes: the first one is 'F' or 'U'
-	// indicating
-	// whether it's a final or interim score. The second byte is the score.
-	// There is also the
-	// 'S' message, which indicates that the game should start.
 	OnRealTimeMessageReceivedListener mOnRealTimeMessageReceivedListener = new OnRealTimeMessageReceivedListener() {
 		@Override
 		public void onRealTimeMessageReceived(@NonNull RealTimeMessage realTimeMessage) {
@@ -643,48 +638,12 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 		}
 	};
 
-	// Broadcast my score to everybody else.
-	void broadcastScore(boolean finalScore) {
-		if (!mMultiplayer) {
-			// playing single-player mode
-			return;
-		}
-
-		//TODO use the byte
-		//mMsgBuf[0] = (byte) (finalScore ? 'F' : 'U');
-
-
-		// Send to every other participant.
+	// Send squares to opponent
+	public void sendIncrement(Byte msg ){
 		for (Participant p : mParticipants) {
-			if (p.getParticipantId().equals(mMyId)) {
-				continue;
-			}
-			if (p.getStatus() != Participant.STATUS_JOINED) {
-				continue;
-			}
-			if (finalScore) {
-				// final score notification must be sent via reliable message
-				mRealTimeMultiplayerClient.sendReliableMessage(mMsgBuf,
-						mRoomId, p.getParticipantId(), new RealTimeMultiplayerClient.ReliableMessageSentCallback() {
-							@Override
-							public void onRealTimeMessageSent(int statusCode, int tokenId, String recipientParticipantId) {
-								Log.d(TAG, "RealTime message sent");
-								Log.d(TAG, "  statusCode: " + statusCode);
-								Log.d(TAG, "  tokenId: " + tokenId);
-								Log.d(TAG, "  recipientParticipantId: " + recipientParticipantId);
-							}
-						})
-						.addOnSuccessListener(new OnSuccessListener<Integer>() {
-							@Override
-							public void onSuccess(Integer tokenId) {
-								Log.d(TAG, "Created a reliable message with tokenId: " + tokenId);
-							}
-						});
-			} else {
-				// it's an interim score notification, so we can use unreliable
+
 				mRealTimeMultiplayerClient.sendUnreliableMessage(mMsgBuf, mRoomId,
 						p.getParticipantId());
-			}
 		}
 	}
 

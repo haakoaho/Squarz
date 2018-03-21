@@ -133,6 +133,10 @@ public class Player {
         }
     }
 
+    public void incrementOpponent(Byte msg){
+
+    }
+
     public void decrement(Map<Integer, Square> row, Integer counter, Integer columnKey){
         if(columnKey == 0) {
             row.get(counter).setPosition(new Vector2(10, 10));
