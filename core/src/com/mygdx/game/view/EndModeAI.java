@@ -2,7 +2,6 @@ package com.mygdx.game.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Squarz;
@@ -26,9 +25,9 @@ public class EndModeAI extends State {
     private Score score;
     private Texture gameOver; //, scoreTex;
     private Icon replay, back;
+    private CountDown countDown1;
     private GlyphLayout scoreUser, scoreAi;
-
-    public EndModeAI(GameStateManager gsm, PreferencesSettings setting, Score s){
+    public EndModeAI(GameStateManager gsm, PreferencesSettings setting, Score s, CountDown countDown){
         super(gsm);
         this.setting = setting;
         this.score  = s;
@@ -47,6 +46,8 @@ public class EndModeAI extends State {
 
         this.scoreAi = new GlyphLayout(Squarz.font, s.getAiScore().toString());
         this.scoreUser = new GlyphLayout(Squarz.font, s.getUserScore().toString());
+
+        this.countDown1 = new CountDown(countDown.getTimerKey());
     }
 
     @Override
@@ -55,7 +56,7 @@ public class EndModeAI extends State {
             int x = Gdx.input.getX();
             int y = HEIGHT - Gdx.input.getY();
             if(replay.contains(x, y)){
-                gsm.set(new AIPreferences(gsm));
+                gsm.set(new AIPreferences(gsm, setting, countDown1));
             }
             if(back.contains(x, y)){
                 gsm.set(new com.mygdx.game.view.beginning.Menu(gsm));
