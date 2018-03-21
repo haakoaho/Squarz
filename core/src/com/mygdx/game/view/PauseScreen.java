@@ -39,7 +39,7 @@ public class PauseScreen {
         sb.draw(this.getResume().getTexture(), WIDTH/2 - this.getResume().getTexture().getWidth()/2
                 , HEIGHT/2 - this.getResume().getTexture().getHeight() );
         Squarz.font.draw(sb, pauseGlyph,
-                 (WIDTH/2 - pauseGlyph.width/2), HEIGHT/2 + this.getTexture().getHeight()*1/4);
+                (WIDTH/2 - pauseGlyph.width/2), HEIGHT/2 + this.getTexture().getHeight()*1/4);
 
 
 
