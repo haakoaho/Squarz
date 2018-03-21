@@ -20,22 +20,17 @@ public class Collision {
 
     public void deleteOncePlayerOut(Player p, Integer column, Score s) {
         //if square goes outside (scores)
-        if (p.getMap(column).get(p.getFirstSquareKey(column)).getPosition().y >= HEIGHT / 2) {
+        //pourquoi marche alors que pas de rapport a Height
             if (p.getCounter(column) > p.getFirstSquareKey(column) && !p.getMap(column).get(p.getFirstSquareKey(column)).isInUser()) {
-                s.updateUser();
                 p.decrement(p.getMap(column), p.getFirstSquareKey(column), column);
             }
-        }
     }
 
     public void deleteOnceAiOut(Player p, Integer column, Score s){
         //if square goes outside
-        if (p.getMap(column).get(p.getFirstSquareKey(column)).getPosition().y >= HEIGHT / 2) {
             if (p.getCounter(column) > p.getFirstSquareKey(column) && !p.getMap(column).get(p.getFirstSquareKey(column)).isInAi()) {
-                s.updateAi();
                 p.decrement(p.getMap(column), p.getFirstSquareKey(column), column);
             }
-        }
     }
 
     public boolean isCollisionPossible(Player p, Player c, Integer rowKey){
