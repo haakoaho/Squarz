@@ -12,12 +12,10 @@ import com.mygdx.game.model.Collision;
 import com.mygdx.game.model.CountDown;
 import com.mygdx.game.model.Icon;
 import com.mygdx.game.model.Score;
-import com.mygdx.game.model.Square;
 import com.mygdx.game.model.State;
 import com.mygdx.game.control.aI.PreferencesSettings;
 import com.mygdx.game.model.Player;
 
-import java.util.Map;
 
 import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
@@ -101,9 +99,9 @@ public class PlayModeAi extends State {
             chosingTheColour(x, y);
 
             //Implementation for the launcher of each row
-            //if (!this.player.getSquareLimiter().isOver(colorKey)) {
+            if (!this.player.getSquareLimiter().isOver(colorKey)) {
                 creatingANewSquare(x);
-            //}
+            }
         }
     }
 
@@ -187,7 +185,7 @@ public class PlayModeAi extends State {
     }
 
     public void movingPlayerSquare(){
-        for (int i = 0; i < player.getLeftCounter(); i++) {
+        for (int i = player.getFirstLeftSquaresKey(); i < player.getLeftCounter(); i++) {
             player.getLeft().get(i).move();
             //dealing with the score
             if (player.getLeft().get(i).getPosition().y >= HEIGHT && player.getLeft().get(i).getPosition().y < HEIGHT + this.settings.getStepX()){
@@ -196,7 +194,7 @@ public class PlayModeAi extends State {
                 this.score.updateUser();
             }
         }
-        for (int i = 0; i < player.getMiddleCounter(); i++) {
+        for (int i = player.getFirstMiddleSquaresKey(); i < player.getMiddleCounter(); i++) {
             player.getMiddle().get(i).move();
             if ( player.getMiddle().get(i).getPosition().y >= HEIGHT && player.getMiddle().get(i).getPosition().y < HEIGHT + this.settings.getStepX()){
                 sound.play(Squarz.valueVolume*0.1f);
@@ -204,7 +202,7 @@ public class PlayModeAi extends State {
                 this.score.updateUser();
             }
         }
-        for (int i = 0; i < player.getRightCounter(); i++) {
+        for (int i = player.getFirstRightSquaresKey(); i < player.getRightCounter(); i++) {
             player.getRight().get(i).move();
             if (player.getRight().get(i).getPosition().y >= HEIGHT && player.getRight().get(i).getPosition().y < HEIGHT + this.settings.getStepX()){
                 sound.play(Squarz.valueVolume*0.1f);
@@ -215,7 +213,7 @@ public class PlayModeAi extends State {
     }
 
     public void movingAiSquare(){
-        for (int i = 0; i < ai.getComputer().getLeftCounter(); i++) {
+        for (int i = ai.getComputer().getFirstLeftSquaresKey(); i < ai.getComputer().getLeftCounter(); i++) {
             ai.getComputer().getLeft().get(i).reverseMove();
             //dealing with the score
             if (ai.getComputer().getLeft().get(i).getPosition().y <= 0 && ai.getComputer().getLeft().get(i).getPosition().y > - this.settings.getStepX()){
@@ -223,7 +221,7 @@ public class PlayModeAi extends State {
                 this.score.updateAi();
             }
         }
-        for (int i = 0; i < ai.getComputer().getMiddleCounter(); i++) {
+        for (int i = ai.getComputer().getFirstMiddleSquaresKey(); i < ai.getComputer().getMiddleCounter(); i++) {
             ai.getComputer().getMiddle().get(i).reverseMove();
             //dealing with the score
             if (ai.getComputer().getMiddle().get(i).getPosition().y <= 0 && ai.getComputer().getMiddle().get(i).getPosition().y > - this.settings.getStepX()){
@@ -231,7 +229,7 @@ public class PlayModeAi extends State {
                 this.score.updateAi();
             }
         }
-        for (int i = 0; i < ai.getComputer().getRightCounter(); i++) {
+        for (int i = ai.getComputer().getFirstRightSquaresKey(); i < ai.getComputer().getRightCounter(); i++) {
             ai.getComputer().getRight().get(i).reverseMove();
             if (ai.getComputer().getRight().get(i).getPosition().y <= 0 && ai.getComputer().getRight().get(i).getPosition().y > - this.settings.getStepX()){
                 Gdx.input.vibrate(Squarz.valueVibration*100);
@@ -256,15 +254,15 @@ public class PlayModeAi extends State {
     }
 
     public void drawingAiSquares(SpriteBatch sb){
-        for (int i = 0; i < ai.getComputer().getLeftCounter(); i++) {
+        for (int i = ai.getComputer().getFirstLeftSquaresKey(); i < ai.getComputer().getLeftCounter(); i++) {
             sb.draw(ai.getComputer().getLeft().get(i).getTexture(),
                     ai.getComputer().getLeft().get(i).getPosition().x, ai.getComputer().getLeft().get(i).getPosition().y);
         }
-        for (int i = 0; i < ai.getComputer().getMiddleCounter(); i++) {
+        for (int i = ai.getComputer().getFirstMiddleSquaresKey(); i < ai.getComputer().getMiddleCounter(); i++) {
             sb.draw(ai.getComputer().getMiddle().get(i).getTexture(),
                     ai.getComputer().getMiddle().get(i).getPosition().x, ai.getComputer().getMiddle().get(i).getPosition().y);
         }
-        for (int i = 0; i < ai.getComputer().getRightCounter(); i++) {
+        for (int i = ai.getComputer().getFirstRightSquaresKey(); i < ai.getComputer().getRightCounter(); i++) {
             sb.draw(ai.getComputer().getRight().get(i).getTexture(),
                     ai.getComputer().getRight().get(i).getPosition().x, ai.getComputer().getRight().get(i).getPosition().y);
         }
@@ -293,20 +291,6 @@ public class PlayModeAi extends State {
         Squarz.font.draw(sb, String.valueOf(this.countDown.getCountdownLabel().getText()),
                 WIDTH * 1/ 8 - 3/2*this.countDown.getCountdownLabel().getWidth() , HEIGHT/2);
     }
-
-
-
-
-
-
-    /*public boolean isFirstTouch() {
-        return firstTouch;
-    }
-
-    public void setFirstTouch(boolean firstTouch) {
-        this.firstTouch = firstTouch;
-    }
-    */
 
     public Texture getTexture() {
         return texture;
@@ -378,13 +362,5 @@ public class PlayModeAi extends State {
 
     public void setPlayer(Player player) {
         this.player = player;
-    }
-
-    public Collision getCollision() {
-        return collision;
-    }
-
-    public void setCollision(Collision collision) {
-        this.collision = collision;
     }
 }

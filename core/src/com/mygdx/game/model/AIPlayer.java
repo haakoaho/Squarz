@@ -63,6 +63,17 @@ public class AIPlayer {
         }
     }
 
+    public void sendTest(CountDown countDown){
+        this.launcherCounter += 1;
+        if (countDown.getWorldTimer() > 0) {
+            if (this.launcherCounter == this.settings.getDtLaunching()) {
+                this.launcherCounter = 0;
+
+                setTheRandomRow(0, 0);
+            }
+        }
+    }
+
 
     public void setTheRandomTexture(int colorKey){
         if (colorKey == 0) {
@@ -100,7 +111,7 @@ public class AIPlayer {
             row.get(counter).setPosition(new Vector2(WIDTH * 5 / 16, HEIGHT));
             row.get(counter).setTexture(t);
             row.get(counter).setColorKey(colorkey);
-            if (counter > 0 && row.get(counter - 1).getPosition().y >= HEIGHT - (t.getHeight()) - 5) {
+            if (counter != this.getComputer().getFirstLeftSquaresKey() && counter > 0 && row.get(counter - 1).getPosition().y >= HEIGHT - (t.getHeight()) - 5) {
                 row.get(counter).setPosition(new Vector2(Gdx.graphics.getWidth() * 5 / 16,
                         row.get(counter - 1).getPosition().y + t.getHeight() + 5));
             }
@@ -108,7 +119,7 @@ public class AIPlayer {
             row.get(counter).setPosition(new Vector2(WIDTH * 9 / 16, HEIGHT));
             row.get(counter).setTexture(t);
             row.get(counter).setColorKey(colorkey);
-            if (counter > 0 && row.get(counter - 1).getPosition().y >= HEIGHT - (t.getHeight()) - 5) {
+            if (counter != this.getComputer().getFirstMiddleSquaresKey() && counter > 0 && row.get(counter - 1).getPosition().y >= HEIGHT - (t.getHeight()) - 5) {
                 row.get(counter).setPosition(new Vector2(Gdx.graphics.getWidth() * 9 / 16,
                         row.get(counter - 1).getPosition().y + t.getHeight() + 5));
             }
@@ -116,7 +127,7 @@ public class AIPlayer {
             row.get(counter).setPosition(new Vector2(WIDTH * 13 / 16, HEIGHT));
             row.get(counter).setTexture(t);
             row.get(counter).setColorKey(colorkey);
-            if (counter > 0 && row.get(counter - 1).getPosition().y >= HEIGHT - (t.getHeight()) - 5) {
+            if (counter != this.getComputer().getFirstRightSquaresKey() && counter > 0 && row.get(counter - 1).getPosition().y >= HEIGHT - (t.getHeight()) - 5) {
                 row.get(counter).setPosition(new Vector2(Gdx.graphics.getWidth() * 13 / 16,
                         row.get(counter - 1).getPosition().y + t.getHeight() + 5));
             }

@@ -56,7 +56,7 @@ public class Player {
             row.get(counter).setTexture(t);
             row.get(counter).setColorKey(colorkey);
             //overlapping
-            if (counter > 0 && row.get(counter - 1).getPosition().y < t.getHeight() + 5) {
+            if (counter != this.getFirstLeftSquaresKey() && counter > 0 && row.get(counter - 1).getPosition().y < t.getHeight() + 5) {
                 row.get(counter).setPosition(new Vector2(Gdx.graphics.getWidth() * 5 / 16,
                         row.get(counter - 1).getPosition().y - t.getHeight() - 5));
             }
@@ -64,7 +64,7 @@ public class Player {
             row.get(counter).setPosition(new Vector2(WIDTH * 9 / 16, 0));
             row.get(counter).setTexture(t);
             row.get(counter).setColorKey(colorkey);
-            if (counter > 0 && row.get(counter - 1).getPosition().y < t.getHeight() + 5) {
+            if (counter != this.getFirstMiddleSquaresKey() && counter > 0 && row.get(counter - 1).getPosition().y < t.getHeight() + 5) {
                 row.get(counter).setPosition(new Vector2(Gdx.graphics.getWidth() * 9 / 16,
                         row.get(counter - 1).getPosition().y - t.getHeight() - 5));
             }
@@ -72,7 +72,7 @@ public class Player {
             row.get(counter).setPosition(new Vector2(WIDTH * 13 / 16, 0));
             row.get(counter).setTexture(t);
             row.get(counter).setColorKey(colorkey);
-            if (counter > 0 && row.get(counter - 1).getPosition().y < t.getHeight() + 5) {
+            if (counter != this.getFirstRightSquaresKey() && counter > 0 && row.get(counter - 1).getPosition().y < t.getHeight() + 5) {
                 row.get(counter).setPosition(new Vector2(Gdx.graphics.getWidth() * 13 / 16,
                         row.get(counter - 1).getPosition().y - t.getHeight() - 5));
             }
@@ -81,34 +81,94 @@ public class Player {
     }
 
 
-    public void decrement(Map<Integer, Square> row, Integer columnKey, Integer toRemoveKey) {
+    public void decrement(Map<Integer, Square> row, Integer toRemoveKey, Integer columnKey) {
         if (columnKey == 0) {
 
             row.remove(toRemoveKey);
 
-            if(toRemoveKey == firstLeftSquaresKey) {
-                firstLeftSquaresKey ++;
-            }
-            else {
+            if (toRemoveKey == getFirstLeftSquaresKey()) {
+                firstLeftSquaresKey++;
+            } else {
                 for (int i = toRemoveKey; toRemoveKey > firstLeftSquaresKey; i--) {
                     row.put(i, row.get(i - 1));
                 }
                 row.remove(firstLeftSquaresKey);
                 firstLeftSquaresKey++;
             }
+        }if (columnKey == 1) {
 
-        } /*else if (columnKey == 1) {
-            row.get(toRemoveKey).setPosition(new Vector2(10, 10));
+            row.remove(toRemoveKey);
 
-        } else if (columnKey == 2) {
-            row.get(toRemoveKey).setPosition(new Vector2(10, 10));
+            if (toRemoveKey == getFirstMiddleSquaresKey()) {
+                firstMiddleSquaresKey++;
+            } else {
+                for (int i = toRemoveKey; toRemoveKey > firstMiddleSquaresKey; i--) {
+                    row.put(i, row.get(i - 1));
+                }
+                row.remove(firstMiddleSquaresKey);
+                firstMiddleSquaresKey++;
+            }
+        }if (columnKey == 2) {
 
-        }*/
+            row.remove(toRemoveKey);
+
+            if (toRemoveKey == getFirstRightSquaresKey()) {
+                firstRightSquaresKey++;
+            } else {
+                for (int i = toRemoveKey; toRemoveKey > firstRightSquaresKey; i--) {
+                    row.put(i, row.get(i - 1));
+                }
+                row.remove(firstRightSquaresKey);
+                firstRightSquaresKey++;
+            }
+        }
+    }
+
+    //used in collision to make code less cumbersome
+    public Integer getFirstSquareKey(Integer rowKey){
+        int toReturn;
+        if(rowKey == 0){
+            toReturn = getFirstLeftSquaresKey();
+        }
+        else if(rowKey == 1){
+            toReturn = getFirstMiddleSquaresKey();
+        }
+        else{
+            toReturn = getFirstRightSquaresKey();
+        }
+        return  toReturn;
+    }
+    public Integer getCounter(Integer rowKey){
+        int toReturn;
+        if(rowKey == 0){
+            toReturn = getLeftCounter();
+        }
+        else if(rowKey == 1){
+            toReturn = getMiddleCounter();
+        }
+        else{
+            toReturn = getRightCounter();
+        }
+        return  toReturn;
+    }
+    public Map<Integer, Square> getMap(Integer rowKey){
+        Map<Integer, Square> toReturn;
+        if(rowKey == 0){
+            toReturn = getLeft();
+        }
+        else if(rowKey == 1){
+            toReturn = getMiddle();
+        }
+        else{
+            toReturn = getRight();
+        }
+        return  toReturn;
     }
 
 
-    //setters and getters;
 
+
+    //setters and getters
 
     public Integer getFirstLeftSquaresKey() {
         return firstLeftSquaresKey;

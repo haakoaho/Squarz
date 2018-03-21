@@ -28,7 +28,7 @@ public class Squarz extends ApplicationAdapter {
 		gsm = new GameStateManager();
 		WIDTH = Gdx.graphics.getWidth();
 		HEIGHT = Gdx.graphics.getHeight();
-		valueVolume=5;
+		valueVolume=0;
 		valueVibration=5;
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/Alcubierre.otf"));
 		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
