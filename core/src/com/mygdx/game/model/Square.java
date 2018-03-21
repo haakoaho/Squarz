@@ -62,9 +62,7 @@ public class Square {
         return true;
     }
 
-    /*public void freeze(){
-        this.set.setStepX(freezeSpeed);
-    }*/
+
 
 
 
