@@ -1,6 +1,8 @@
 package com.mygdx.game.model;
 
 
+import static com.mygdx.game.Squarz.HEIGHT;
+
 /**
  * Created by Max on 14/03/2018.
  */
@@ -11,21 +13,22 @@ package com.mygdx.game.model;
 //    red < blue < yellow < red
 
 public class Collision {
-
     public Collision() {
     }
 
-    public void deleteOncePlayerOut(Player p, Integer column){
-        //if square goes outside
-        if (p.getCounter(column) > p.getFirstSquareKey(column) && !p.getMap(column).get(p.getFirstSquareKey(column)).isInUser()) {
-            p.decrement(p.getMap(column), p.getFirstSquareKey(column), column);
-        }
+    public void deleteOncePlayerOut(Player p, Integer column) {
+        //if square goes outside (scores)
+        //revoir !
+            if (p.getCounter(column) > p.getFirstSquareKey(column) && !p.getMap(column).get(p.getFirstSquareKey(column)).isInUser()) {
+                p.decrement(p.getMap(column), p.getFirstSquareKey(column), column);
+            }
     }
+
     public void deleteOnceAiOut(Player p, Integer column){
         //if square goes outside
-        if (p.getCounter(column) > p.getFirstSquareKey(column) && !p.getMap(column).get(p.getFirstSquareKey(column)).isInAi()) {
-            p.decrement(p.getMap(column), p.getFirstSquareKey(column), column);
-        }
+            if (p.getCounter(column) > p.getFirstSquareKey(column) && !p.getMap(column).get(p.getFirstSquareKey(column)).isInAi()) {
+                p.decrement(p.getMap(column), p.getFirstSquareKey(column), column);
+            }
     }
 
     public boolean isCollisionPossible(Player p, Player c, Integer rowKey){

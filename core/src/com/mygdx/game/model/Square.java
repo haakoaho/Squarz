@@ -49,16 +49,14 @@ public class Square {
     }
 
     public boolean isInUser(){
-        if (this.getPosition() == new Vector2(10, 10)
-                || (this.getPosition().y > Gdx.graphics.getHeight() + this.set.getStepX())){
+        if (this.getPosition().y + this.getTexture().getHeight() > Gdx.graphics.getHeight() + this.set.getStepX()){
             return false;
         }
         return true;
     }
 
     public boolean isInAi(){
-        if (this.getPosition() == new Vector2(10, 10)
-                || (this.getPosition().y + this.set.getStepX() < 0 )){
+        if (this.getPosition().y + this.set.getStepX() < 0 ){
             return false;
         }
         return true;
