@@ -109,7 +109,6 @@ public class Player {
                 firstMiddleSquaresKey++;
             }
         }if (columnKey == 2) {
-
             row.remove(toRemoveKey);
 
             if (toRemoveKey == getFirstRightSquaresKey()) {

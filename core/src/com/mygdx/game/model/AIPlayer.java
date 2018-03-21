@@ -124,7 +124,7 @@ public class AIPlayer {
             row.get(counter).setTexture(t);
             row.get(counter).setColorKey(colorkey);
             if (counter != this.getComputer().getFirstLeftSquaresKey() && counter > 0 && row.get(counter - 1).getPosition().y >= HEIGHT - (t.getHeight()) - 5) {
-                row.get(counter).setPosition(new Vector2(WIDTH * 3/8,
+                row.get(counter).setPosition(new Vector2(WIDTH * 3 / 8,
                         row.get(counter - 1).getPosition().y + t.getHeight() + 5));
             }
         } else if (columnKey == 1) {
