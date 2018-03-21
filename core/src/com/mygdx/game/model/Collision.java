@@ -11,19 +11,22 @@ package com.mygdx.game.model;
 //    red < blue < yellow < red
 
 public class Collision {
-
-    public Collision() {
+    private Score score;
+    public Collision(Score score) {
+        this.score = score;
     }
 
-    public void deleteOncePlayerOut(Player p, Integer column){
-        //if square goes outside
+    public void deleteOncePlayerOut(Player p, Integer column, Score s){
+        //if square goes outside (scores)
         if (p.getCounter(column) > p.getFirstSquareKey(column) && !p.getMap(column).get(p.getFirstSquareKey(column)).isInUser()) {
+            s.setUserScore(s.getUserScore() + 1);
             p.decrement(p.getMap(column), p.getFirstSquareKey(column), column);
         }
     }
-    public void deleteOnceAiOut(Player p, Integer column){
+    public void deleteOnceAiOut(Player p, Integer column, Score s){
         //if square goes outside
         if (p.getCounter(column) > p.getFirstSquareKey(column) && !p.getMap(column).get(p.getFirstSquareKey(column)).isInAi()) {
+            s.setAiScore(s.getAiScore() + 1);
             p.decrement(p.getMap(column), p.getFirstSquareKey(column), column);
         }
     }
@@ -84,13 +87,13 @@ public class Collision {
     }
 
 
-    public void collision(Player player, AIPlayer computer) {
+    public void collision(Player player, AIPlayer computer, Score score) {
 
         for (int rowKey = 0; rowKey < 3; rowKey++) {
             if (!player.getMap(rowKey).isEmpty() && !computer.getComputer().getMap(rowKey).isEmpty()) {
                 //if square goes outside
-                deleteOncePlayerOut(player, rowKey);
-                deleteOnceAiOut(computer.getComputer(), rowKey);
+                deleteOncePlayerOut(player, rowKey, score);
+                deleteOnceAiOut(computer.getComputer(), rowKey, score);
 
 
                 // if a square is in game (avoid null pointer exception) and overlaps

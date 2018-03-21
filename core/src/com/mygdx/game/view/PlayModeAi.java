@@ -3,7 +3,6 @@ package com.mygdx.game.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -55,7 +54,10 @@ public class PlayModeAi extends State {
     private Score score;
 
     private Boolean ready = false;
+
     private Boolean pauseFlag = false;
+    private PauseScreen pauseScreen;
+    private Integer temporarySpeed;
 
 
     public PlayModeAi(GameStateManager gsm, PreferencesSettings settings, CountDown countDown) {
@@ -74,11 +76,12 @@ public class PlayModeAi extends State {
         this.redLeft = new GlyphLayout(Squarz.font, String.valueOf(this.player.getSquareLimiter().getRedLefting()));
         this.yellowLeft = new GlyphLayout(Squarz.font, String.valueOf(this.player.getSquareLimiter().getYellowLefting()));
         this.blueLeft = new GlyphLayout(Squarz.font, String.valueOf(this.player.getSquareLimiter().getBlueLefting()));
-        this.scoreAi = new GlyphLayout(Squarz.font, String.valueOf(score.getAiScore()));
-        this.scoreUser = new GlyphLayout(Squarz.font, String.valueOf(score.getUserScore()));
+        this.scoreAi = new GlyphLayout(Squarz.font, String.valueOf(score.getUserScore()));
+        this.scoreUser = new GlyphLayout(Squarz.font, String.valueOf(score.getAiScore()));
         this.time = new GlyphLayout(Squarz.font, String.valueOf(this.countDown.getCountdownLabel().getText()));
 
         this.texture = new Texture(Gdx.files.internal(format + "/square/square_red.png"));
+
 
         this.redChoiceSquare = new Icon(new Texture(Gdx.files.internal(format + "/square/square_red_selected.png"))
                 , WIDTH * 1 / 16, HEIGHT / 2 - this.texture.getHeight() * 3 / 2);
@@ -88,10 +91,17 @@ public class PlayModeAi extends State {
                 , WIDTH * 1 / 16, HEIGHT / 2 - this.texture.getHeight() * 4);
         this.pause = new Icon(new Texture(Gdx.files.internal(format + "/pause.png"))
                 , WIDTH * 1 / 16, HEIGHT * 15 / 16 - this.texture.getHeight() / 2);
+
         this.colorKey = 0;
 
+        //Pause mode
+        this.pause = new Icon(new Texture(Gdx.files.internal(format + "/pause.png"))
+                ,WIDTH * 1/16, HEIGHT * 15/16 - this.texture.getHeight()/2);
+        this.pauseScreen = new PauseScreen();
 
-        this.collision = new Collision();
+        this.collision = new Collision(this.score);
+
+        this.temporarySpeed = this.settings.getStepX();
 
         readyGlyph = new GlyphLayout(Squarz.font, "READY ?");
 
@@ -106,25 +116,48 @@ public class PlayModeAi extends State {
     @Override
     public void handleInput() {
         if (Gdx.input.justTouched()) {
+            int x = Gdx.input.getX();
+            int y = HEIGHT - Gdx.input.getY();
+
             if (!ready) {
                 ready = true;
 
             } else {
-                int x = Gdx.input.getX();
-                int y = HEIGHT - Gdx.input.getY();
 
-                chosingTheColour(x, y);
+                if (pause.contains(x, y)) {
+                    pauseFlag = true;
+                }
+                
+                if(pauseFlag){
+                    freeze();
+                    if(pauseScreen.getResume().contains(x, y)){
+                        defreeze();
+                    }
+                
+                }else {
 
-                //Implementation for the launcher of each row
-                if (!this.player.getSquareLimiter().isOver(colorKey)) {
-                    creatingANewSquare(x);
+                    //go to end mode, test only
+                    if (y > HEIGHT * 3 / 4 && x > HEIGHT / 2) {
+                        music.stop();
+                        sound.stop();
+                        gsm.set(new EndModeAI(gsm, settings, score, countDown));
+                    }
+
+                    //Colour choice button
+                    chosingTheColour(x, y);
+
+                    //Implementation for the launcher of each row
+                    if (!this.player.getSquareLimiter().isOver(colorKey)) {
+                        creatingANewSquare(x);
+                    }
+
                 }
             }
         }
     }
 
-        @Override
-        public void update ( float dt){
+    @Override
+    public void update ( float dt) {
             handleInput();
 
             if (pauseFlag) {
@@ -142,58 +175,77 @@ public class PlayModeAi extends State {
                     gsm.set(new EndModeAI(gsm, settings, score, countDown));
                 }
 
-                //random sending by the AI
-                ai.send(this.countDown);
+                if (pauseFlag) {
 
-                movingSquare(player, true);
-                movingSquare(ai.getComputer(), false);
+                } else {
+                    ai.send(this.countDown);
 
-                collision.collision(this.player, this.ai);
+                    movingSquare(player, true);
+                    movingSquare(ai.getComputer(), false);
+
+                    collision.collision(this.player, this.ai, this.score);
+                }
             }
         }
 
-        @Override
-        public void render (SpriteBatch sb){
-            if (!ready) {
-                sb.begin();
-                Squarz.font.draw(sb, readyGlyph,
-                        (float) (WIDTH / 2 - readyGlyph.width / 2.), HEIGHT / 2 - readyGlyph.height / 2);
-                sb.end();
-            } else {
-                sb.begin();
-                sb.draw(redChoiceSquare.getTexture(), redChoiceSquare.getPosX(), redChoiceSquare.getPosY());
-                sb.draw(blueChoiceSquare.getTexture(), blueChoiceSquare.getPosX(), blueChoiceSquare.getPosY());
-                sb.draw(yellowChoiceSquare.getTexture(), yellowChoiceSquare.getPosX(), yellowChoiceSquare.getPosY());
+    @Override
+    public void render (SpriteBatch sb) {
+        if (!ready) {
+            sb.begin();
+            Squarz.font.draw(sb, readyGlyph,
+                    (float) (WIDTH / 2 - readyGlyph.width / 2.), HEIGHT / 2 - readyGlyph.height / 2);
+            sb.end();
+        } else {
+            sb.begin();
+            sb.draw(redChoiceSquare.getTexture(), redChoiceSquare.getPosX(), redChoiceSquare.getPosY());
+            sb.draw(blueChoiceSquare.getTexture(), blueChoiceSquare.getPosX(), blueChoiceSquare.getPosY());
+            sb.draw(yellowChoiceSquare.getTexture(), yellowChoiceSquare.getPosX(), yellowChoiceSquare.getPosY());
 
-                drawingSquares(sb, player);
-                drawingSquares(sb, ai.getComputer());
+            drawingSquares(sb, player);
+            drawingSquares(sb, ai.getComputer());
 
-                drawTimeLeft(sb);
-                drawScore(sb);
-                drawCounter(sb);
-                sb.end();
+            drawTimeLeft(sb);
+            drawScore(sb);
+            drawCounter(sb);
 
-                shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-                shapeRenderer.setColor(1, 1, 1, 1);
-                shapeRenderer.line(WIDTH / 4, 0, WIDTH / 4, HEIGHT);
-                shapeRenderer.line(WIDTH / 4 - 10, 0, WIDTH / 4 - 10, HEIGHT);
-                shapeRenderer.line(WIDTH / 2, 0, WIDTH / 2, HEIGHT);
-                shapeRenderer.line(3 * WIDTH / 4, 0, 3 * WIDTH / 4, HEIGHT);
-                shapeRenderer.line(0, HEIGHT / 2, WIDTH / 4 - 10, HEIGHT / 2);
-                shapeRenderer.line(0, 3 * HEIGHT / 4, WIDTH / 4 - 10, 3 * HEIGHT / 4);
-                shapeRenderer.end();
-
+            if (pauseFlag) {
+                pauseScreen.DrawPause(sb);
+                drawScorePause(sb);
             }
+
+            sb.end();
+
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+            shapeRenderer.setColor(1, 1, 1, 1);
+            shapeRenderer.line(WIDTH / 4, 0, WIDTH / 4, HEIGHT);
+            shapeRenderer.line(WIDTH / 4 - 10, 0, WIDTH / 4 - 10, HEIGHT);
+            shapeRenderer.line(WIDTH / 2, 0, WIDTH / 2, HEIGHT);
+            shapeRenderer.line(3 * WIDTH / 4, 0, 3 * WIDTH / 4, HEIGHT);
+            shapeRenderer.line(0, HEIGHT / 2, WIDTH / 4 - 10, HEIGHT / 2);
+            shapeRenderer.line(0, 3 * HEIGHT / 4, WIDTH / 4 - 10, 3 * HEIGHT / 4);
+            shapeRenderer.end();
         }
+    }
 
-        @Override
-        public void dispose () {
-            sound.dispose();
-            music.dispose();
-        }
+    @Override
+    public void dispose () {
+        sound.dispose();
+        music.dispose();
+    }
 
 
-    public void chosingTheColour(int x, int y) {
+
+    public void freeze(){
+         this.settings.setStepX(0);
+    }
+
+    public void defreeze(){
+        this.settings.setStepX(this.temporarySpeed);
+        this.pauseFlag = false;
+    }
+
+
+    public void chosingTheColour(int x, int y){
         if (this.redChoiceSquare.contains(x, y)) {
             this.setColorKey(0);
             this.texture = new Texture(Gdx.files.internal(format + "/square/square_red.png"));
@@ -268,6 +320,12 @@ public class PlayModeAi extends State {
         Squarz.font.draw(sb, scoreAi, redChoiceSquare.getPosX() + redChoiceSquare.getTexture().getWidth() / 2 - scoreAi.width / 2, HEIGHT * 45 / 64 - scoreAi.height / 2);
         Squarz.font.draw(sb, scoreUser, redChoiceSquare.getPosX() + redChoiceSquare.getTexture().getWidth() / 2 - scoreUser.width / 2, HEIGHT * 39 / 64 - scoreUser.height / 2);
     }
+    public void drawScorePause(SpriteBatch sb){
+        scoreAi.setText(Squarz.font, String.valueOf(score.getAiScore()));
+        scoreUser.setText(Squarz.font, String.valueOf(score.getUserScore()));
+        Squarz.font.draw(sb, scoreAi, WIDTH/2 + pauseScreen.getTexture().getWidth()*1/8 - scoreAi.width/2, HEIGHT/2 + 2*scoreAi.height);
+        Squarz.font.draw(sb, scoreUser, WIDTH/2 - pauseScreen.getTexture().getWidth()*1/8 - scoreUser.width/2, HEIGHT/2 + 2*scoreUser.height);
+     }
 
     public void drawCounter(SpriteBatch sb) {
         //number of user squares lefting
