@@ -82,7 +82,7 @@ public class PlayModeAi extends State {
 
         this.texture = new Texture(Gdx.files.internal(format+"/square/square_red.png"));
 
-        this.redChoiceSquare = new Icon(new Texture(Gdx.files.internal(format+"/square/square_red.png"))
+        this.redChoiceSquare = new Icon(new Texture(Gdx.files.internal(format+"/square/square_red_selected.png"))
                 ,WIDTH * 1/16, HEIGHT/2 - this.texture.getHeight() * 3/2);
         this.blueChoiceSquare = new Icon(new Texture(Gdx.files.internal(format+"/square/square_blue.png"))
                 ,WIDTH * 1/16, HEIGHT/2 - this.texture.getHeight() * 11/4);
@@ -116,18 +116,6 @@ public class PlayModeAi extends State {
             } else {
                 int x = Gdx.input.getX();
                 int y = HEIGHT - Gdx.input.getY();
-
-                //go to end mode, test only
-                if (y > HEIGHT * 3 / 4) {
-                    music.stop();
-                    sound.stop();
-                    gsm.set(new EndModeAI(gsm, settings, score, countDown));
-                }
-                /*
-                if (pause.contains(x, y)){
-                    pauseFlag = true;
-                }
-                */
 
                 chosingTheColour(x, y);
 
@@ -215,17 +203,25 @@ public class PlayModeAi extends State {
         if (this.redChoiceSquare.contains(x, y)) {
             this.setColorKey(0);
             this.texture = new Texture(Gdx.files.internal(format+"/square/square_red.png"));
-            // this.redChoiceSquare.setTexture(new Texture(Gdx.files.internal(format+"/square/square_red.png")));
+            this.redChoiceSquare.setTexture(new Texture(Gdx.files.internal(format+"/square/square_red_selected.png")));
+            this.yellowChoiceSquare.setTexture(new Texture(Gdx.files.internal(format+"/square/square_yellow.png")));
+            this.blueChoiceSquare.setTexture(new Texture(Gdx.files.internal(format+"/square/square_blue.png")));
         }
 
         if (this.blueChoiceSquare.contains(x, y)) {
             this.setColorKey(1);
             this.texture = new Texture(Gdx.files.internal(format+"/square/square_blue.png"));
+            this.redChoiceSquare.setTexture(new Texture(Gdx.files.internal(format+"/square/square_red.png")));
+            this.yellowChoiceSquare.setTexture(new Texture(Gdx.files.internal(format+"/square/square_yellow.png")));
+            this.blueChoiceSquare.setTexture(new Texture(Gdx.files.internal(format+"/square/square_blue_selected.png")));
         }
 
         if (this.yellowChoiceSquare.contains(x, y)) {
             this.setColorKey(2);
             this.texture = new Texture(Gdx.files.internal(format+"/square/square_yellow.png"));
+            this.redChoiceSquare.setTexture(new Texture(Gdx.files.internal(format+"/square/square_red.png")));
+            this.yellowChoiceSquare.setTexture(new Texture(Gdx.files.internal(format+"/square/square_yellow_selected.png")));
+            this.blueChoiceSquare.setTexture(new Texture(Gdx.files.internal(format+"/square/square_blue.png")));
         }
     }
 
@@ -301,30 +297,30 @@ public class PlayModeAi extends State {
     public void drawingPlayerSquares(SpriteBatch sb){
         for (int i = player.getFirstLeftSquaresKey(); i < player.getLeftCounter(); i++) {
             sb.draw(player.getLeft().get(i).getTexture(),
-                    player.getLeft().get(i).getPosition().x, player.getLeft().get(i).getPosition().y);
+                    player.getLeft().get(i).getPosition().x - player.getLeft().get(i).getTexture().getWidth()/2, player.getLeft().get(i).getPosition().y - player.getLeft().get(i).getTexture().getHeight()/2);
         }
         for (int i = player.getFirstMiddleSquaresKey(); i < player.getMiddleCounter(); i++) {
             sb.draw(player.getMiddle().get(i).getTexture(),
-                    player.getMiddle().get(i).getPosition().x, player.getMiddle().get(i).getPosition().y);
+                    player.getMiddle().get(i).getPosition().x - player.getMiddle().get(i).getTexture().getWidth()/2, player.getMiddle().get(i).getPosition().y - player.getMiddle().get(i).getTexture().getHeight()/2);
         }
         for (int i = player.getFirstRightSquaresKey(); i < player.getRightCounter(); i++) {
             sb.draw(player.getRight().get(i).getTexture(),
-                    player.getRight().get(i).getPosition().x, player.getRight().get(i).getPosition().y);
+                    player.getRight().get(i).getPosition().x - player.getRight().get(i).getTexture().getWidth()/2, player.getRight().get(i).getPosition().y - player.getRight().get(i).getTexture().getHeight()/2);
         }
     }
 
     public void drawingAiSquares(SpriteBatch sb){
         for (int i = ai.getComputer().getFirstLeftSquaresKey(); i < ai.getComputer().getLeftCounter(); i++) {
             sb.draw(ai.getComputer().getLeft().get(i).getTexture(),
-                    ai.getComputer().getLeft().get(i).getPosition().x, ai.getComputer().getLeft().get(i).getPosition().y);
+                    ai.getComputer().getLeft().get(i).getPosition().x - ai.getComputer().getLeft().get(i).getTexture().getWidth()/2, ai.getComputer().getLeft().get(i).getPosition().y - ai.getComputer().getLeft().get(i).getTexture().getHeight()/2);
         }
         for (int i = ai.getComputer().getFirstMiddleSquaresKey(); i < ai.getComputer().getMiddleCounter(); i++) {
             sb.draw(ai.getComputer().getMiddle().get(i).getTexture(),
-                    ai.getComputer().getMiddle().get(i).getPosition().x, ai.getComputer().getMiddle().get(i).getPosition().y);
+                    ai.getComputer().getMiddle().get(i).getPosition().x - ai.getComputer().getMiddle().get(i).getTexture().getWidth()/2, ai.getComputer().getMiddle().get(i).getPosition().y - ai.getComputer().getMiddle().get(i).getTexture().getHeight()/2);
         }
         for (int i = ai.getComputer().getFirstRightSquaresKey(); i < ai.getComputer().getRightCounter(); i++) {
             sb.draw(ai.getComputer().getRight().get(i).getTexture(),
-                    ai.getComputer().getRight().get(i).getPosition().x, ai.getComputer().getRight().get(i).getPosition().y);
+                    ai.getComputer().getRight().get(i).getPosition().x - ai.getComputer().getRight().get(i).getTexture().getWidth()/2, ai.getComputer().getRight().get(i).getPosition().y - ai.getComputer().getRight().get(i).getTexture().getHeight()/2);
         }
     }
 
