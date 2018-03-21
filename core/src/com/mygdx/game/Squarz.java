@@ -33,6 +33,7 @@ public class Squarz extends ApplicationAdapter  {
 	public void create () {
 		batch = new SpriteBatch();
 		gsm = new GameStateManager();
+		gsm.setMultiplayerInterface(multiplayerInterface);
 		WIDTH = Gdx.graphics.getWidth();
 		HEIGHT = Gdx.graphics.getHeight();
 		valueVolume=5;
@@ -55,7 +56,6 @@ public class Squarz extends ApplicationAdapter  {
 
 		gsm.update(Gdx.graphics.getDeltaTime());
 		gsm.render(batch);
-		multiplayerInterface.startQuickGame();
 	}
 	
 	@Override

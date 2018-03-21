@@ -5,4 +5,5 @@ package com.mygdx.game.model;
 public interface MultiplayerInterface {
     public void startQuickGame();
     public void sendIncrement(Byte msg);
+    public void startSignInIntent();
 }

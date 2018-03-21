@@ -48,7 +48,8 @@ public class Pref extends State {
                 dispose();
             }
             if (quick.contains(x,y)){
-                //go to quick screen
+                gsm.getMultiplayerInterface().startSignInIntent();
+                gsm.getMultiplayerInterface().startQuickGame();
             }
             if (answer.contains(x,y)){
                 //go to  answer
