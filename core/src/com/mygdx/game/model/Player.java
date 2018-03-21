@@ -79,8 +79,6 @@ public class Player {
         }
 
     }
-
-
     public void decrement(Map<Integer, Square> row, Integer toRemoveKey, Integer columnKey) {
         if (columnKey == 0) {
 

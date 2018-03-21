@@ -239,6 +239,7 @@ public class PlayModeAi extends State {
     }
 
     public void drawingPlayerSquares(SpriteBatch sb){
+
         for (int i = player.getFirstLeftSquaresKey(); i < player.getLeftCounter(); i++) {
             sb.draw(player.getLeft().get(i).getTexture(),
                     player.getLeft().get(i).getPosition().x, player.getLeft().get(i).getPosition().y);
@@ -252,6 +253,7 @@ public class PlayModeAi extends State {
                     player.getRight().get(i).getPosition().x, player.getRight().get(i).getPosition().y);
         }
     }
+
 
     public void drawingAiSquares(SpriteBatch sb){
         for (int i = ai.getComputer().getFirstLeftSquaresKey(); i < ai.getComputer().getLeftCounter(); i++) {
@@ -364,3 +366,43 @@ public class PlayModeAi extends State {
         this.player = player;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+_____________________to replace all drawing
+
+    public void drawingSquares(SpriteBatch sb, Player p){
+        for(int rowKey = 0; rowKey < 3; rowKey ++){
+            for(int i = p.getFirstSquareKey(rowKey); i < p.getCounter(rowKey); i++){
+                sb.draw(p.getMap(rowKey).get(i).getTexture(),
+                        p.getMap(rowKey).get(i).getPosition().x, p.getMap(rowKey).get(i).getPosition().y);
+            }
+        }
+    }
+
+______________________to replace all mooving
+        public void movingSquare(Player p){
+        for(int rowKey = 0; rowKey < 3; rowKey ++){
+            for(int i = p.getFirstSquareKey(rowKey); i < p.getCounter(rowKey); i++){
+            p.getMap(rowKey).get(i).move();
+            //dealing with the score
+            if(p.gtMa(rowKey).get(i).getPosition().y >= HEIGHT && p.getMap(rowKey).get(i).getPosition().y < HEIGHT + this.settings.getStepX()){
+                sound.play(Squarz.valueVolume*0.1f);
+                Gdx.input.vibrate(Squarz.valueVibration*100);
+                this.score.updateUser();
+            }
+        }
+    }
+ */

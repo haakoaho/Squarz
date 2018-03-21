@@ -28,14 +28,14 @@ public class AIPlayer {
     private Integer launcherCounter;
     private Integer deltaLauncher;
     private Integer renderCounter;
-    private SquareLimiter squareLimiterAi;
+    //private SquareLimiter squareLimiterAi;
 
     public AIPlayer (PreferencesSettings set){
         this.settings = set;
         this.computer = new Player(set);
         this.texture = new Texture (Gdx.files.internal("square.png"));
         this.square = new com.mygdx.game.model.Square(set);
-        this.squareLimiterAi = new SquareLimiter(5);
+        //this.squareLimiterAi = new SquareLimiter(5);
 
         this.launcherCounter = 0;
         this.deltaLauncher = 70;
@@ -59,17 +59,6 @@ public class AIPlayer {
 
                 setTheRandomRow(row, colorKey);
 
-            }
-        }
-    }
-
-    public void sendTest(CountDown countDown){
-        this.launcherCounter += 1;
-        if (countDown.getWorldTimer() > 0) {
-            if (this.launcherCounter == this.settings.getDtLaunching()) {
-                this.launcherCounter = 0;
-
-                setTheRandomRow(0, 0);
             }
         }
     }
@@ -106,7 +95,7 @@ public class AIPlayer {
 
     public void incrementAI(Map<Integer, Square> row, Integer counter, Texture t, Integer columnKey, Integer colorkey) {
         row.put(counter, new Square(settings));
-        squareLimiterAi.counter(colorkey);
+        this.computer.getSquareLimiter().counter(colorkey);
         if (columnKey == 0) {
             row.get(counter).setPosition(new Vector2(WIDTH * 5 / 16, HEIGHT));
             row.get(counter).setTexture(t);
