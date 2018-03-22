@@ -71,13 +71,14 @@ public class Player {
     }
 
 
-    public void increment(Map<Integer, Square> row,  Texture t, Integer columnKey, Integer colorkey){
+    public void increment(  Texture t, Integer columnKey, Integer colorKey){
         Integer counter = getCounter(columnKey);
+        Map<Integer, Square> row = getRow(columnKey);
         row.put(counter, new Square());
         if(columnKey == 0) {
             row.get(counter).setPosition(new Vector2(WIDTH * 5 / 16, 0));
             row.get(counter).setTexture(t);
-            row.get(counter).setColorKey(colorkey);
+            row.get(counter).setColorKey(colorKey);
             if (counter > 0 && row.get(counter - 1).getPosition().y < t.getHeight() + 5) {
                 row.get(counter).setPosition(new Vector2(Gdx.graphics.getWidth() * 5 / 16,
                         row.get(counter - 1).getPosition().y - t.getHeight() - 5));
@@ -86,7 +87,7 @@ public class Player {
         else if(columnKey == 1){
             row.get(counter).setPosition(new Vector2(WIDTH * 9 / 16, 0));
             row.get(counter).setTexture(t);
-            row.get(counter).setColorKey(colorkey);
+            row.get(counter).setColorKey(colorKey);
             if (counter > 0 && row.get(counter - 1).getPosition().y < t.getHeight() + 5) {
                 row.get(counter).setPosition(new Vector2(Gdx.graphics.getWidth() * 9 / 16,
                         row.get(counter - 1).getPosition().y - t.getHeight() - 5));
@@ -95,7 +96,7 @@ public class Player {
         else if( columnKey == 2){
             row.get(counter).setPosition(new Vector2(WIDTH * 13 / 16, 0));
             row.get(counter).setTexture(t);
-            row.get(counter).setColorKey(colorkey);
+            row.get(counter).setColorKey(colorKey);
             if (counter > 0 && row.get(counter - 1).getPosition().y < t.getHeight() + 5) {
                 row.get(counter).setPosition(new Vector2(Gdx.graphics.getWidth() * 13 / 16,
                         row.get(counter - 1).getPosition().y - t.getHeight() - 5));
@@ -143,6 +144,16 @@ public class Player {
         }
         return getRightCounter();
 
+    }
+
+    private Map<Integer, Square> getRow(Integer columnKey){
+        if (columnKey == 0){
+            return getLeft();
+        }
+        else if (columnKey == 1){
+            return getMiddle();
+        }
+        return getRight();
     }
 
     public void decrement(Map<Integer, Square> row, Integer counter, Integer columnKey){
