@@ -106,22 +106,27 @@ public class PlayModeAi extends State {
                 this.choiceSquare.setTexture(texture);
             }
 
-            //Implementation for the launcher of each row
-            if (Gdx.input.getX() > WIDTH / 4 && Gdx.input.getX() < WIDTH / 2) {
+            Integer columnKey = getColumnKey();
+            if(columnKey < 3) {
                 firstTouch = true;
-                player.increment( texture, 0, colorkey);
+                player.increment(texture, columnKey, colorkey);
             }
-            if (Gdx.input.getX() > WIDTH / 2 && Gdx.input.getX() < WIDTH * 3 / 4) {
-                firstTouch = true;
-                player.increment( texture, 1, colorkey);
-            }
-            if (Gdx.input.getX() > WIDTH * 3 / 4) {
-                firstTouch = true;
-                player.increment( texture, 2, colorkey);
-            }
+        }
+        }
+
+    private Integer getColumnKey(){
+        if (Gdx.input.getX() > WIDTH / 4 && Gdx.input.getX() < WIDTH / 2) {
+           return 0;
+        }
+        if (Gdx.input.getX() > WIDTH / 2 && Gdx.input.getX() < WIDTH * 3 / 4) {
+           return 1;
+        }
+        if (Gdx.input.getX() > WIDTH * 3 / 4) {
+          return 2;
 
         }
-        }
+        return 3; // User didn't click on a row
+    }
 
     @Override
     public void update(float dt) {
