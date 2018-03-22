@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.view.View;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
@@ -42,6 +43,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Set;
 
 
@@ -52,7 +54,10 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 
 		mGoogleSignInClient = GoogleSignIn.getClient(this, GoogleSignInOptions.DEFAULT_GAMES_SIGN_IN);
 
+
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
+		config.useWakelock = true;
+
 		Squarz game = new Squarz(this);
 		initialize(game, config);
 	}
@@ -64,6 +69,7 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 
 	final static String TAG = "Squarz";
 	private Activity MainActivity = this;
+	View gameView;
 
 	// Request codes for the UIs that we show with startActivityForResult:
 	final static int RC_SELECT_PLAYERS = 10000;
@@ -102,8 +108,10 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 	// invitation listener
 	String mIncomingInvitationId = null;
 
-	// Message buffer for sending messages
-	byte[] mMsgBuf = new byte[2];
+	//opponent's moves
+	Queue<Byte> moves;
+
+
 
 
 	// Check the sample to ensure all placeholder ids are are updated with real-world values.
@@ -148,6 +156,12 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 	}
 
 
+	public Queue<Byte> popMoves(){
+		Queue<Byte> tempQueue = moves;
+		moves.clear();
+		return tempQueue;
+	}
+
 
 	@Override
 
@@ -165,6 +179,8 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 				.build();
 		mRealTimeMultiplayerClient.create(mRoomConfig);
 	}
+
+
 
 	/**
 	 * Start a sign in activity.  To properly handle the result, call tryHandleSignInResult from
@@ -609,40 +625,21 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 		@Override
 		public void onRealTimeMessageReceived(@NonNull RealTimeMessage realTimeMessage) {
 			byte[] buf = realTimeMessage.getMessageData();
-			String sender = realTimeMessage.getSenderParticipantId();
-			Log.d(TAG, "Message received: " + (char) buf[0] + "/" + (int) buf[1]);
+			moves.add(buf[0]);
 
-			if (buf[0] == 'F' || buf[0] == 'U') {
-				// score update.
-				int existingScore = mParticipantScore.containsKey(sender) ?
-						mParticipantScore.get(sender) : 0;
-				int thisScore = (int) buf[1];
-				if (thisScore > existingScore) {
-					// this check is necessary because packets may arrive out of
-					// order, so we
-					// should only ever consider the highest score we received, as
-					// we know in our
-					// game there is no way to lose points. If there was a way to
-					// lose points,
-					// we'd have to add a "serial number" to the packet.
-					mParticipantScore.put(sender, thisScore);
-				}
+			Log.d(TAG, "Message received ");
 
-
-				// if it's a final score, mark this participant as having finished
-				// the game
-				if ((char) buf[0] == 'F') {
-					mFinishedParticipants.add(realTimeMessage.getSenderParticipantId());
-				}
-			}
 		}
 	};
 
 	// Send squares to opponent
-	public void sendIncrement(Byte msg ){
+	public void sendIncrement(Byte b){
+		byte[] msg = new byte[1];
+		msg[0] = b;
+		
 		for (Participant p : mParticipants) {
-
-				mRealTimeMultiplayerClient.sendUnreliableMessage(mMsgBuf, mRoomId,
+                //sends unreliable messages to increase performance
+				mRealTimeMultiplayerClient.sendUnreliableMessage(msg, mRoomId,
 						p.getParticipantId());
 		}
 	}

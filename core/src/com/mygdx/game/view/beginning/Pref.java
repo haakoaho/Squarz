@@ -51,7 +51,7 @@ public class Pref extends State {
             if (quick.contains(x,y)){
                 gsm.getMultiplayerInterface().startSignInIntent();
                 gsm.getMultiplayerInterface().startQuickGame();
-                gsm.push(new PlayModeMulti());
+                gsm.push(new PlayModeMulti(gsm));
             }
             if (answer.contains(x,y)){
                 //go to  answer
