@@ -2,6 +2,7 @@ package com.mygdx.game.control;
 
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.model.MultiplayerInterface;
 import com.mygdx.game.model.State;
 
 import java.util.Stack;
@@ -9,6 +10,8 @@ import java.util.Stack;
 
 public class GameStateManager {
     private Stack<State> states;
+
+    private MultiplayerInterface multiplayerInterface;
 
     public GameStateManager(){
         states = new Stack<State>();
@@ -27,11 +30,19 @@ public class GameStateManager {
         states.push(state);
     }
 
-    public void updtate(float dt){
+    public void update(float dt){
         states.peek().update(dt);
     }
 
     public void render(SpriteBatch sb){
         states.peek().render(sb);
+    }
+
+    public void setMultiplayerInterface(MultiplayerInterface multiplayerInterface) {
+        this.multiplayerInterface = multiplayerInterface;
+    }
+
+    public MultiplayerInterface getMultiplayerInterface() {
+        return multiplayerInterface;
     }
 }

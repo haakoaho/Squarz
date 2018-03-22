@@ -4,20 +4,18 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Squarz;
 import com.mygdx.game.control.GameStateManager;
+import com.mygdx.game.control.aI.PreferencesSettings;
 import com.mygdx.game.model.AIPlayer;
 import com.mygdx.game.model.Collision;
 import com.mygdx.game.model.CountDown;
+import com.mygdx.game.model.Player;
 import com.mygdx.game.model.Score;
 import com.mygdx.game.model.Square;
 import com.mygdx.game.model.State;
-import com.mygdx.game.control.aI.PreferencesSettings;
-import com.mygdx.game.model.Player;
-import com.mygdx.game.view.beginning.Menu;
 
 import java.util.Map;
 
@@ -87,16 +85,11 @@ public class PlayModeAi extends State {
 
     @Override
     public void handleInput() {
-        if (Gdx.input.justTouched()) {
-            //go to end mode just to test it
-            if(Gdx.input.getY()<HEIGHT/4){
-                music.stop();
-                gsm.set(new EndModeAI(gsm, settings, score));
-            }
 
+        if (Gdx.input.justTouched()) {
             //Colour choice button
             if ((Gdx.input.getX() < WIDTH / 4) && (HEIGHT - Gdx.input.getY() >= this.choiceSquare.getPosition().y)
-                    && (HEIGHT - Gdx.input.getY() <= this.choiceSquare.getPosition().y + this.choiceSquare.getTexture().getHeight()) ) {
+                    && (HEIGHT - Gdx.input.getY() <= this.choiceSquare.getPosition().y + this.choiceSquare.getTexture().getHeight())) {
                 this.colorkey = this.colorkey + 1;
                 if (this.colorkey == 3) {
                     this.colorkey = 0;
@@ -112,21 +105,27 @@ public class PlayModeAi extends State {
                 }
                 this.choiceSquare.setTexture(texture);
             }
-            //Implementation for the launcher of each row
-            if (Gdx.input.getX() > WIDTH / 4 && Gdx.input.getX() < WIDTH / 2) {
+
+            Integer columnKey = getColumnKey();
+            if(columnKey < 3) {
                 firstTouch = true;
-                player.increment(player.getLeft(), player.getLeftCounter(), texture, 0, colorkey);
-                player.setLeftCounter(player.getLeftCounter() + 1);
-            } if (Gdx.input.getX() > WIDTH / 2 && Gdx.input.getX() < WIDTH * 3 / 4) {
-                firstTouch = true;
-                player.increment(player.getMiddle(), player.getMiddleCounter(), texture, 1, colorkey);
-                player.setMiddleCounter(player.getMiddleCounter() + 1);
-            } if (Gdx.input.getX() > WIDTH * 3 / 4) {
-                firstTouch = true;
-                player.increment(player.getRight(), player.getRightCounter(), texture, 2, colorkey);
-                player.setRightCounter(player.getRightCounter() + 1);
+                player.increment(texture, columnKey, colorkey);
             }
         }
+        }
+
+    private Integer getColumnKey(){
+        if (Gdx.input.getX() > WIDTH / 4 && Gdx.input.getX() < WIDTH / 2) {
+           return 0;
+        }
+        if (Gdx.input.getX() > WIDTH / 2 && Gdx.input.getX() < WIDTH * 3 / 4) {
+           return 1;
+        }
+        if (Gdx.input.getX() > WIDTH * 3 / 4) {
+          return 2;
+
+        }
+        return 3; // User didn't click on a row
     }
 
     @Override

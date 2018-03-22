@@ -39,7 +39,7 @@ public class AIPreferences extends State {
         play.setPosY(HEIGHT/5-play.getTexture().getHeight()/2);
     }
 
-    //used once a setting is changed
+    //used once a setting is changedf
     public AIPreferences(GameStateManager gsm, PreferencesSettings setting){
         super(gsm);
         setAILevel = new Icon(new Texture(Gdx.files.internal("ai_settings/setAILevel.png")),0,0);

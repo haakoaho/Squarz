@@ -14,6 +14,7 @@
 
         android:theme="@style/GdxTheme" >
         <meta-data android:name="com.google.android.gms.games.APP_ID" android:value="@string/app_id" />
+
         <activity
             android:name="com.mygdx.game.AndroidLauncher"
             android:label="Squarz"
