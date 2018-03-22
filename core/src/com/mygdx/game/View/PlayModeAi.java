@@ -85,9 +85,11 @@ public class PlayModeAi extends State {
 
     @Override
     public void handleInput() {
+
+        if (Gdx.input.justTouched()) {
             //Colour choice button
             if ((Gdx.input.getX() < WIDTH / 4) && (HEIGHT - Gdx.input.getY() >= this.choiceSquare.getPosition().y)
-                    && (HEIGHT - Gdx.input.getY() <= this.choiceSquare.getPosition().y + this.choiceSquare.getTexture().getHeight()) ) {
+                    && (HEIGHT - Gdx.input.getY() <= this.choiceSquare.getPosition().y + this.choiceSquare.getTexture().getHeight())) {
                 this.colorkey = this.colorkey + 1;
                 if (this.colorkey == 3) {
                     this.colorkey = 0;
@@ -106,17 +108,20 @@ public class PlayModeAi extends State {
             //Implementation for the launcher of each row
             if (Gdx.input.getX() > WIDTH / 4 && Gdx.input.getX() < WIDTH / 2) {
                 firstTouch = true;
-                player.increment(player.getLeft(), player.getLeftCounter(), texture, 0, colorkey);
+                player.increment(player.getLeft(), texture, 0, colorkey);
                 player.setLeftCounter(player.getLeftCounter() + 1);
-            } if (Gdx.input.getX() > WIDTH / 2 && Gdx.input.getX() < WIDTH * 3 / 4) {
+            }
+            if (Gdx.input.getX() > WIDTH / 2 && Gdx.input.getX() < WIDTH * 3 / 4) {
                 firstTouch = true;
-                player.increment(player.getMiddle(), player.getMiddleCounter(), texture, 1, colorkey);
+                player.increment(player.getMiddle(), texture, 1, colorkey);
                 player.setMiddleCounter(player.getMiddleCounter() + 1);
-            } if (Gdx.input.getX() > WIDTH * 3 / 4) {
+            }
+            if (Gdx.input.getX() > WIDTH * 3 / 4) {
                 firstTouch = true;
-                player.increment(player.getRight(), player.getRightCounter(), texture, 2, colorkey);
+                player.increment(player.getRight(), texture, 2, colorkey);
                 player.setRightCounter(player.getRightCounter() + 1);
             }
+        }
         }
 
     @Override

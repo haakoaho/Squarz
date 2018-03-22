@@ -71,7 +71,8 @@ public class Player {
     }
 
 
-    public void increment(Map<Integer, Square> row, Integer counter, Texture t, Integer columnKey, Integer colorkey){
+    public void increment(Map<Integer, Square> row,  Texture t, Integer columnKey, Integer colorkey){
+        Integer counter = getCounter(columnKey);
         row.put(counter, new Square());
         if(columnKey == 0) {
             row.get(counter).setPosition(new Vector2(WIDTH * 5 / 16, 0));
@@ -133,7 +134,14 @@ public class Player {
         }
     }
 
-    public void incrementOpponent(Byte msg){
+    private Integer getCounter(Integer columnKey){
+        if (columnKey == 0){
+            return getLeftCounter();
+        }
+        else if (columnKey == 1){
+            return getMiddleCounter();
+        }
+        return getRightCounter();
 
     }
 
