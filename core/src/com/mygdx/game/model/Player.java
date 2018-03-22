@@ -54,21 +54,14 @@ public class Player {
     public Integer getLeftCounter() {
         return leftCounter;
     }
-    public void setLeftCounter(Integer leftCounter) {
-        this.leftCounter = leftCounter;
-    }
     public Integer getMiddleCounter() {
         return middleCounter;
     }
-    public void setMiddleCounter(Integer middleCounter) {
-        this.middleCounter = middleCounter;
-    }
+
     public Integer getRightCounter() {
         return rightCounter;
     }
-    public void setRightCounter(Integer rightCounter) {
-        this.rightCounter = rightCounter;
-    }
+
 
 
     public void increment(  Texture t, Integer columnKey, Integer colorKey){
@@ -135,14 +128,24 @@ public class Player {
         }
     }
 
+
+    //returns the column's counter and increments it
     private Integer getCounter(Integer columnKey){
+        Integer counter;
         if (columnKey == 0){
-            return getLeftCounter();
+            counter = leftCounter;
+            leftCounter += 1;
+
         }
         else if (columnKey == 1){
-            return getMiddleCounter();
+            counter = middleCounter;
+            middleCounter += 1;
         }
-        return getRightCounter();
+        else{
+            counter = rightCounter;
+            rightCounter += 1;
+        }
+        return counter;
 
     }
 

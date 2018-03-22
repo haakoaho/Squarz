@@ -105,22 +105,21 @@ public class PlayModeAi extends State {
                 }
                 this.choiceSquare.setTexture(texture);
             }
+
             //Implementation for the launcher of each row
             if (Gdx.input.getX() > WIDTH / 4 && Gdx.input.getX() < WIDTH / 2) {
                 firstTouch = true;
                 player.increment( texture, 0, colorkey);
-                player.setLeftCounter(player.getLeftCounter() + 1);
             }
             if (Gdx.input.getX() > WIDTH / 2 && Gdx.input.getX() < WIDTH * 3 / 4) {
                 firstTouch = true;
                 player.increment( texture, 1, colorkey);
-                player.setMiddleCounter(player.getMiddleCounter() + 1);
             }
             if (Gdx.input.getX() > WIDTH * 3 / 4) {
                 firstTouch = true;
                 player.increment( texture, 2, colorkey);
-                player.setRightCounter(player.getRightCounter() + 1);
             }
+
         }
         }
 

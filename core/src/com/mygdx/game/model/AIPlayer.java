@@ -69,16 +69,15 @@ public class AIPlayer {
 
     public void setTheRandomRow(int row, int colorKey) {
         if (row == 0) {
-
             computer.incrementAI(computer.getLeft(), computer.getLeftCounter(), texture, row, colorKey);
-            computer.setLeftCounter(computer.getLeftCounter() + 1);
+            //TODO increment counter
         }if(row == 1){
             computer.incrementAI(computer.getMiddle(), computer.getMiddleCounter(), texture, row, colorKey);
-            computer.setMiddleCounter(computer.getMiddleCounter() + 1);
+            //TODO increment counter
 
         }if(row == 2){
             computer.incrementAI(computer.getRight(), computer.getRightCounter(), texture, row, colorKey);
-            computer.setRightCounter(computer.getRightCounter() + 1);
+            //TODO Increment counter
         }
 
     }
