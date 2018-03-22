@@ -4,20 +4,18 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Squarz;
 import com.mygdx.game.control.GameStateManager;
+import com.mygdx.game.control.aI.PreferencesSettings;
 import com.mygdx.game.model.AIPlayer;
 import com.mygdx.game.model.Collision;
 import com.mygdx.game.model.CountDown;
+import com.mygdx.game.model.Player;
 import com.mygdx.game.model.Score;
 import com.mygdx.game.model.Square;
 import com.mygdx.game.model.State;
-import com.mygdx.game.control.aI.PreferencesSettings;
-import com.mygdx.game.model.Player;
-import com.mygdx.game.view.beginning.Menu;
 
 import java.util.Map;
 
@@ -87,13 +85,6 @@ public class PlayModeAi extends State {
 
     @Override
     public void handleInput() {
-        if (Gdx.input.justTouched()) {
-            //go to end mode just to test it
-            if(Gdx.input.getY()<HEIGHT/4){
-                music.stop();
-                gsm.set(new EndModeAI(gsm, settings, score));
-            }
-
             //Colour choice button
             if ((Gdx.input.getX() < WIDTH / 4) && (HEIGHT - Gdx.input.getY() >= this.choiceSquare.getPosition().y)
                     && (HEIGHT - Gdx.input.getY() <= this.choiceSquare.getPosition().y + this.choiceSquare.getTexture().getHeight()) ) {
@@ -127,7 +118,6 @@ public class PlayModeAi extends State {
                 player.setRightCounter(player.getRightCounter() + 1);
             }
         }
-    }
 
     @Override
     public void update(float dt) {

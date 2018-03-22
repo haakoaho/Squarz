@@ -41,6 +41,7 @@ import com.mygdx.game.model.MultiplayerInterface;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
@@ -109,7 +110,10 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 	String mIncomingInvitationId = null;
 
 	//opponent's moves
-	Queue<Byte> moves;
+	private Queue<Byte> moves = new LinkedList<Byte>() ;
+
+
+
 
 
 
@@ -626,8 +630,6 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 		public void onRealTimeMessageReceived(@NonNull RealTimeMessage realTimeMessage) {
 			byte[] buf = realTimeMessage.getMessageData();
 			moves.add(buf[0]);
-
-			Log.d(TAG, "Message received ");
 
 		}
 	};

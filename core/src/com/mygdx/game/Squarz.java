@@ -34,7 +34,7 @@ public class Squarz extends ApplicationAdapter  {
 		batch = new SpriteBatch();
 		gsm = new GameStateManager();
 		gsm.setMultiplayerInterface(multiplayerInterface);
-		
+
 
 		WIDTH = Gdx.graphics.getWidth();
 		HEIGHT = Gdx.graphics.getHeight();
