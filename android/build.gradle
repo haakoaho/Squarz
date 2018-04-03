@@ -18,8 +18,8 @@ android {
         exclude 'META-INF/robovm/ios/robovm.xml'
     }
     defaultConfig {
-        applicationId "com.mygdx.game"
-        minSdkVersion 9
+        applicationId "com.mygdx.game.Squarz"
+        minSdkVersion 15
         targetSdkVersion 27
         versionCode 1
         versionName "1"

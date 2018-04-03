@@ -50,6 +50,7 @@ public class AIPreferences extends State {
 
     //used once a setting is changed
     public AIPreferences(GameStateManager gsm, PreferencesSettings setting, CountDown countDown){
+
         super(gsm);
         setAILevel = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/setAILevel.png")),0,0);
         setTimer = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/setTimer.png")),0,0);

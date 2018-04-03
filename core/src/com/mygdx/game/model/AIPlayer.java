@@ -45,7 +45,7 @@ public class AIPlayer {
     public void send(CountDown countDown){
         this.launcherCounter += 1;
         if (countDown.getWorldTimer() > 0) {
-            if (this.launcherCounter == this.settings.getDtLaunching()) {
+            if (this.launcherCounter == this.settings.getDtLaunching() ) {
                 this.launcherCounter = 0;
 
                 //setting the random color
@@ -54,9 +54,7 @@ public class AIPlayer {
 
                 //setting the random Texture in a random row
                 int row = random(2);
-
                 setTheRandomRow(row, colorKey);
-
             }
         }
     }
@@ -101,22 +99,25 @@ public class AIPlayer {
         if(!this.getComputer().getSquareLimiter().isOver(colorKey)) {
 
             if (row == 0) {
-                incrementAI(computer.getLeft(), computer.getLeftCounter(), texture, row, colorKey);
-                computer.setLeftCounter(computer.getLeftCounter() + 1);
+                incrementAI(texture, row, colorKey);
+                //computer.setLeftCounter(computer.getLeftCounter() + 1);
             }
             if (row == 1) {
-                incrementAI(computer.getMiddle(), computer.getMiddleCounter(), texture, row, colorKey);
-                computer.setMiddleCounter(computer.getMiddleCounter() + 1);
+                incrementAI(texture, row, colorKey);
+                //computer.setMiddleCounter(computer.getMiddleCounter() + 1);
 
             }
             if (row == 2) {
-                incrementAI(computer.getRight(), computer.getRightCounter(), texture, row, colorKey);
-                computer.setRightCounter(computer.getRightCounter() + 1);
+                incrementAI(texture, row, colorKey);
+                //computer.setRightCounter(computer.getRightCounter() + 1);
             }
         }
     }
 
-    public void incrementAI(Map<Integer, Square> row, Integer counter, Texture t, Integer columnKey, Integer colorkey) {
+    public void incrementAI(Texture t, Integer columnKey, Integer colorkey) {
+        Integer counter = computer.getCounter(columnKey);
+        computer.incrementCounter(columnKey);
+        Map<Integer, Square> row = computer.getRow(columnKey);
         row.put(counter, new Square(settings));
         this.computer.getSquareLimiter().counter(colorkey);
         if (columnKey == 0) {
