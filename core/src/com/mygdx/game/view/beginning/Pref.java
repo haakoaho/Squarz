@@ -8,6 +8,7 @@ import com.mygdx.game.model.Icon;
 import com.mygdx.game.model.State;
 import com.mygdx.game.view.AIPreferences;
 import com.mygdx.game.view.PlayModeMulti;
+import com.mygdx.game.view.Room;
 
 import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
@@ -49,15 +50,15 @@ public class Pref extends State {
                 dispose();
             }
             if (quick.contains(x,y)){
-                gsm.getMultiplayerInterface().startSignInIntent();
+                gsm.getMultiplayerInterface().signInSilently();
                 gsm.getMultiplayerInterface().startQuickGame();
                 gsm.push(new PlayModeMulti(gsm));
             }
             if (answer.contains(x,y)){
-                //go to  answer
+                gsm.getMultiplayerInterface().Receive();
             }
             if(invite.contains(x,y)){
-                //go to invite
+                gsm.push(new Room(gsm));
             }
             if (back.contains(x,y)) {
                 gsm.set(new Menu(gsm));
