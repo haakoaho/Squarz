@@ -29,20 +29,22 @@ public class AIPlayer {
     private Integer launcherCounter;
     private Integer deltaLauncher;
     private Integer renderCounter;
+    private Integer waveCounter;
 
-    public AIPlayer (PreferencesSettings set, CountDown countDown){
+    public AIPlayer(PreferencesSettings set, CountDown countDown) {
         this.settings = set;
         this.computer = new Player(set, countDown);
-        this.texture = new Texture (Gdx.files.internal(format+"/square/square.png"));
+        this.texture = new Texture(Gdx.files.internal(format + "/square/square.png"));
         this.square = new com.mygdx.game.model.Square(set);
 
         this.launcherCounter = 0;
         this.deltaLauncher = 70;
 
         this.renderCounter = 0;
+        this.waveCounter = 0;
     }
 
-    public void send(CountDown countDown){
+    public void send(CountDown countDown) {
         this.launcherCounter += 1;
         if (countDown.getWorldTimer() > 0) {
             if (this.launcherCounter == this.settings.getDtLaunching()) {
@@ -61,29 +63,77 @@ public class AIPlayer {
         }
     }
 
-    public void prgrmdSending(CountDown countDown){
+    public void prgrmdSending(CountDown countDown) {
+        this.waveCounter += 1;
         this.launcherCounter += 1;
         if (countDown.getWorldTimer() > 0) {
+            //random flow
             if (this.launcherCounter == this.settings.getDtLaunching()) {
                 this.launcherCounter = 0;
 
-                if (!this.getComputer().getSquareLimiter().isOver(0)){
-                    setTheRandomTexture(0);
-                    setTheRandomRow(0, 0);
-                }else if (!this.getComputer().getSquareLimiter().isOver(1)){
-                    setTheRandomTexture(1);
-                    setTheRandomRow(1, 1);
-                }else{
-                    setTheRandomTexture(2);
-                    setTheRandomRow(2, 2);
-                }
+                //setting the random color
+                int colorKey = random(2);
+                setTheRandomTexture(colorKey);
+
+                //setting the random Texture in a random row
+                int row = random(2);
+
+                setTheRandomRow(row, colorKey);
+
+            }
+            /*
+            // basic model of a wave with one square every 1000 units
+
+            if (this.waveCounter == 1000){
+
+                this.waveCounter = 0;
+                int colorkey = random(2);
+                setTheRandomTexture(colorkey);
+                setTheRandomRow(random(2),colorkey);
+
+            }*/
+            if (this.waveCounter == 500) {
+                this.waveCounter = 0;
+
+                int colorkey = 0;
+                setTheRandomTexture(colorkey);
+                setTheRandomRow(0, colorkey);
+                colorkey = 3;
+                setTheRandomTexture(colorkey);
+                setTheRandomRow(0, colorkey);
+
+                colorkey = 2;
+                setTheRandomTexture(colorkey);
+                setTheRandomRow(1, colorkey);
+                colorkey = 0;
+                setTheRandomTexture(colorkey);
+                setTheRandomRow(1, colorkey);
 
 
+                colorkey = 0;
+                setTheRandomTexture(colorkey);
+                setTheRandomRow(2, colorkey);
+                colorkey = 3;
+                setTheRandomTexture(colorkey);
+                setTheRandomRow(2, colorkey);
+
+                colorkey = 0;
+                setTheRandomTexture(colorkey);
+                setTheRandomRow(0, colorkey);
+                colorkey = 0;
+                setTheRandomTexture(colorkey);
+                setTheRandomRow(1, colorkey);
+                colorkey = 0;
+                setTheRandomTexture(colorkey);
+                setTheRandomRow(2, colorkey);
 
             }
         }
 
     }
+
+
+
 
 
 

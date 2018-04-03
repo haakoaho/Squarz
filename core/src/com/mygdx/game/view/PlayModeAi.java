@@ -155,8 +155,6 @@ public class PlayModeAi extends State {
         }
     }
 
-
-
     @Override
     public void update(float dt) {
         handleInput();
@@ -167,7 +165,8 @@ public class PlayModeAi extends State {
             }else {
                 //updating the countdown
                 this.countDown.update(dt);
-                ai.send(this.countDown);
+                //ai.send(this.countDown);
+                ai.prgrmdSending(this.countDown);
             }
 
                 if (this.countDown.isTimeUp()) {
@@ -191,15 +190,8 @@ public class PlayModeAi extends State {
                     (float) (WIDTH / 2 - readyGlyph.width / 2.), HEIGHT / 2 - readyGlyph.height / 2);
             sb.end();
         } else {
-            shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-            shapeRenderer.setColor(1, 1, 1, 1);
-            shapeRenderer.line(WIDTH / 4, 0, WIDTH / 4, HEIGHT);
-            shapeRenderer.line(WIDTH / 4 - 10, 0, WIDTH / 4 - 10, HEIGHT);
-            shapeRenderer.line(WIDTH / 2, 0, WIDTH / 2, HEIGHT);
-            shapeRenderer.line(3 * WIDTH / 4, 0, 3 * WIDTH / 4, HEIGHT);
-            shapeRenderer.line(0, HEIGHT / 2, WIDTH / 4 - 10, HEIGHT / 2);
-            shapeRenderer.line(0, 3 * HEIGHT / 4, WIDTH / 4 - 10, 3 * HEIGHT / 4);
-            shapeRenderer.end();
+
+            drawLines();
 
             sb.begin();
             sb.draw(redChoiceSquare.getTexture(), redChoiceSquare.getPosX(), redChoiceSquare.getPosY());
@@ -287,58 +279,31 @@ public class PlayModeAi extends State {
     }
 
 
-    /*public void movingSquare(Player p, boolean goingUp) {
-        for (int rowKey = 0; rowKey < 3; rowKey++) {
-            for (int i = p.getFirstSquareKey(rowKey); i < p.getCounter(rowKey); i++) {
-                if(goingUp) {
-                    p.getMap(rowKey).get(i).move();
-                }
-                else{
-                    p.getMap(rowKey).get(i).reverseMove();
-                }
-                //dealing with the score
-                /*if (p.getMap(rowKey).get(i).getPosition().y >= HEIGHT && p.getMap(rowKey).get(i).getPosition().y < HEIGHT + this.settings.getStepX()) {
-                    sound.play(Squarz.valueVolume * 0.1f);
-                    Gdx.input.vibrate(Squarz.valueVibration * 100);
-                    if(goingUp){
-                        this.score.updateUser();
-                    }
-                    if(!goingUp){
-                        this.score.updateAi();
-                    }
-                }
->>>>>>> mathieu
-            }
-        }
-    }
-*/
-
-
 public void movingPlayerSquare(){
         for (int i = player.getFirstLeftSquaresKey(); i < player.getLeftCounter(); i++) {
-        player.getLeft().get(i).move();
-        //dealing with the score
-        if (player.getLeft().get(i).getPosition().y >= HEIGHT && player.getLeft().get(i).getPosition().y < HEIGHT + this.settings.getStepX()){
-        sound.play(Squarz.valueVolume*0.15f);
-        Gdx.input.vibrate(Squarz.valueVibration*100);
-        this.score.updateUser();
-        }
+            player.getLeft().get(i).move();
+            //dealing with the score
+            if (player.getLeft().get(i).getPosition().y >= HEIGHT && player.getLeft().get(i).getPosition().y < HEIGHT + this.settings.getStepX()){
+                sound.play(Squarz.valueVolume*0.15f);
+                Gdx.input.vibrate(Squarz.valueVibration*100);
+                this.score.updateUser();
+            }
         }
         for (int i = player.getFirstMiddleSquaresKey(); i < player.getMiddleCounter(); i++) {
-        player.getMiddle().get(i).move();
-        if ( player.getMiddle().get(i).getPosition().y >= HEIGHT && player.getMiddle().get(i).getPosition().y < HEIGHT + this.settings.getStepX()){
-        sound.play(Squarz.valueVolume*0.15f);
-        Gdx.input.vibrate(Squarz.valueVibration*100);
-        this.score.updateUser();
-        }
+            player.getMiddle().get(i).move();
+            if ( player.getMiddle().get(i).getPosition().y >= HEIGHT && player.getMiddle().get(i).getPosition().y < HEIGHT + this.settings.getStepX()){
+                sound.play(Squarz.valueVolume*0.15f);
+                Gdx.input.vibrate(Squarz.valueVibration*100);
+                this.score.updateUser();
+            }
         }
         for (int i = player.getFirstRightSquaresKey(); i < player.getRightCounter(); i++) {
-        player.getRight().get(i).move();
-        if (player.getRight().get(i).getPosition().y >= HEIGHT && player.getRight().get(i).getPosition().y < HEIGHT + this.settings.getStepX()){
-        sound.play(Squarz.valueVolume*0.15f);
-        Gdx.input.vibrate(Squarz.valueVibration*100);
-        this.score.updateUser();
-        }
+            player.getRight().get(i).move();
+            if (player.getRight().get(i).getPosition().y >= HEIGHT && player.getRight().get(i).getPosition().y < HEIGHT + this.settings.getStepX()){
+                sound.play(Squarz.valueVolume*0.15f);
+                Gdx.input.vibrate(Squarz.valueVibration*100);
+                this.score.updateUser();
+            }
         }
         }
 
@@ -409,6 +374,17 @@ public void movingAiSquare() {
 
 
 
+    public void drawLines(){
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        shapeRenderer.setColor(1, 1, 1, 1);
+        shapeRenderer.line(WIDTH / 4, 0, WIDTH / 4, HEIGHT);
+        shapeRenderer.line(WIDTH / 4 - 10, 0, WIDTH / 4 - 10, HEIGHT);
+        shapeRenderer.line(WIDTH / 2, 0, WIDTH / 2, HEIGHT);
+        shapeRenderer.line(3 * WIDTH / 4, 0, 3 * WIDTH / 4, HEIGHT);
+        shapeRenderer.line(0, HEIGHT / 2, WIDTH / 4 - 10, HEIGHT / 2);
+        shapeRenderer.line(0, 3 * HEIGHT / 4, WIDTH / 4 - 10, 3 * HEIGHT / 4);
+        shapeRenderer.end();
+    }
     
     public Texture getTexture() {
         return texture;
