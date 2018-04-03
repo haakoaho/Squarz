@@ -50,7 +50,10 @@ public class Player {
     }
 
 
-    public void increment(Map<Integer, Square> row, Integer counter, Texture t, Integer columnKey, Integer colorkey) {
+    public void increment(Texture t, Integer columnKey, Integer colorkey) {
+        Integer counter = getCounter(columnKey);
+        incrementCounter(columnKey);
+        Map<Integer, Square> row = getRow(columnKey);
         row.put(counter, new Square(set));
         squareLimiter.counter(colorkey);
         if (columnKey == 0) {
@@ -79,7 +82,6 @@ public class Player {
                         row.get(counter - 1).getPosition().y - t.getHeight() - 5));
             }
         }
-
     }
 
 
@@ -139,19 +141,7 @@ public class Player {
         }
         return  toReturn;
     }
-    public Integer getCounter(Integer rowKey){
-        int toReturn;
-        if(rowKey == 0){
-            toReturn = getLeftCounter();
-        }
-        else if(rowKey == 1){
-            toReturn = getMiddleCounter();
-        }
-        else{
-            toReturn = getRightCounter();
-        }
-        return  toReturn;
-    }
+
     public Map<Integer, Square> getMap(Integer rowKey){
         Map<Integer, Square> toReturn;
         if(rowKey == 0){
@@ -249,5 +239,42 @@ public class Player {
 
     public void setSquareLimiter(SquareLimiter squareLimiter) {
         this.squareLimiter = squareLimiter;
+    }
+
+    //returns the column's counter and increments it
+    public Integer getCounter(Integer columnKey){
+        Integer counter;
+        if (columnKey == 0){
+            counter = leftCounter;
+        }
+        else if (columnKey == 1){
+            counter = middleCounter;
+        }
+        else{
+            counter = rightCounter;
+        }
+        return counter;
+    }
+
+    public void incrementCounter(Integer columnKey){
+        if (columnKey == 0){
+            leftCounter += 1;
+        }
+        else if (columnKey == 1){
+            middleCounter += 1;
+        }
+        else{
+            rightCounter += 1;
+        }
+    }
+
+    public Map<Integer, Square> getRow(Integer columnKey){
+        if (columnKey == 0){
+            return getLeft();
+        }
+        else if (columnKey == 1){
+            return getMiddle();
+        }
+        return getRight();
     }
 }
