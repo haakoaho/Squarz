@@ -66,8 +66,8 @@ public class PlayModeAi extends State {
         this.settings = settings;
         this.countDown = countDown;
 
-        this.player = new Player(settings);
-        this.ai = new AIPlayer(settings);
+        this.player = new Player(settings,countDown);
+        this.ai = new AIPlayer(settings, countDown);
         this.ai.setSettings(settings);
 
         this.score = new Score();
@@ -76,9 +76,10 @@ public class PlayModeAi extends State {
         this.redLeft = new GlyphLayout(Squarz.font, String.valueOf(this.player.getSquareLimiter().getRedLefting()));
         this.yellowLeft = new GlyphLayout(Squarz.font, String.valueOf(this.player.getSquareLimiter().getYellowLefting()));
         this.blueLeft = new GlyphLayout(Squarz.font, String.valueOf(this.player.getSquareLimiter().getBlueLefting()));
-        this.scoreAi = new GlyphLayout(Squarz.font, String.valueOf(score.getUserScore()));
-        this.scoreUser = new GlyphLayout(Squarz.font, String.valueOf(score.getAiScore()));
-        this.time = new GlyphLayout(Squarz.font, String.valueOf(this.countDown.getCountdownLabel().getText()));
+        this.scoreAi = new GlyphLayout(Squarz.font, String.valueOf(score.getAiScore()));
+        this.scoreUser = new GlyphLayout(Squarz.font, String.valueOf(score.getUserScore()));
+        this.time = new GlyphLayout(Squarz.font, String.valueOf(this.countDown.getWorldTimer()));
+
 
         this.texture = new Texture(Gdx.files.internal(format + "/square/square_red.png"));
 
@@ -160,31 +161,30 @@ public class PlayModeAi extends State {
     public void update(float dt) {
         handleInput();
 
-        if (pauseFlag) {
-            dt = 0;
-            pauseFlag = false;
-        }
-
         if (ready) {
+            if(pauseFlag){
 
-            //updating the countdown
-            this.countDown.update(dt);
+            }else {
+                //updating the countdown
+                this.countDown.update(dt);
+            }
 
             if (this.countDown.isTimeUp()) {
                 music.stop();
                 gsm.set(new EndModeAI(gsm, settings, score, countDown));
             }
 
-            if (pauseFlag) {
+            if (pauseFlag){
 
             } else {
+                //random sending by the AI
                 ai.send(this.countDown);
-
-                movingPlayerSquare();
-                movingAiSquare();
-
-                collision.collision(this.player, this.ai);
             }
+
+            movingPlayerSquare();
+            movingAiSquare();
+
+            collision.collision(this.player, this.ai);
         }
     }
 
@@ -196,10 +196,21 @@ public class PlayModeAi extends State {
                     (float) (WIDTH / 2 - readyGlyph.width / 2.), HEIGHT / 2 - readyGlyph.height / 2);
             sb.end();
         } else {
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+            shapeRenderer.setColor(1, 1, 1, 1);
+            shapeRenderer.line(WIDTH / 4, 0, WIDTH / 4, HEIGHT);
+            shapeRenderer.line(WIDTH / 4 - 10, 0, WIDTH / 4 - 10, HEIGHT);
+            shapeRenderer.line(WIDTH / 2, 0, WIDTH / 2, HEIGHT);
+            shapeRenderer.line(3 * WIDTH / 4, 0, 3 * WIDTH / 4, HEIGHT);
+            shapeRenderer.line(0, HEIGHT / 2, WIDTH / 4 - 10, HEIGHT / 2);
+            shapeRenderer.line(0, 3 * HEIGHT / 4, WIDTH / 4 - 10, 3 * HEIGHT / 4);
+            shapeRenderer.end();
+
             sb.begin();
             sb.draw(redChoiceSquare.getTexture(), redChoiceSquare.getPosX(), redChoiceSquare.getPosY());
             sb.draw(blueChoiceSquare.getTexture(), blueChoiceSquare.getPosX(), blueChoiceSquare.getPosY());
             sb.draw(yellowChoiceSquare.getTexture(), yellowChoiceSquare.getPosX(), yellowChoiceSquare.getPosY());
+            sb.draw(pause.getTexture(), pause.getPosX(), pause.getPosY());
 
             sb.draw(pause.getTexture(), pause.getPosX(), pause.getPosY());
 
@@ -217,15 +228,7 @@ public class PlayModeAi extends State {
 
             sb.end();
 
-            shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-            shapeRenderer.setColor(1, 1, 1, 1);
-            shapeRenderer.line(WIDTH / 4, 0, WIDTH / 4, HEIGHT);
-            shapeRenderer.line(WIDTH / 4 - 10, 0, WIDTH / 4 - 10, HEIGHT);
-            shapeRenderer.line(WIDTH / 2, 0, WIDTH / 2, HEIGHT);
-            shapeRenderer.line(3 * WIDTH / 4, 0, 3 * WIDTH / 4, HEIGHT);
-            shapeRenderer.line(0, HEIGHT / 2, WIDTH / 4 - 10, HEIGHT / 2);
-            shapeRenderer.line(0, 3 * HEIGHT / 4, WIDTH / 4 - 10, 3 * HEIGHT / 4);
-            shapeRenderer.end();
+
         }
     }
 
@@ -287,6 +290,7 @@ public class PlayModeAi extends State {
         }
     }
 
+
     /*public void movingSquare(Player p, boolean goingUp) {
         for (int rowKey = 0; rowKey < 3; rowKey++) {
             for (int i = p.getFirstSquareKey(rowKey); i < p.getCounter(rowKey); i++) {
@@ -309,7 +313,10 @@ public class PlayModeAi extends State {
                 }
             }
         }
-    }*/
+    }
+*/
+
+
 public void movingPlayerSquare(){
         for (int i = player.getFirstLeftSquaresKey(); i < player.getLeftCounter(); i++) {
         player.getLeft().get(i).move();
@@ -399,8 +406,8 @@ public void movingAiSquare() {
         Squarz.font.draw(sb, yellowLeft, yellowChoiceSquare.getPosX() + yellowChoiceSquare.getTexture().getWidth() / 2 - yellowLeft.width / 2, yellowChoiceSquare.getPosY() + yellowChoiceSquare.getTexture().getHeight() / 2 + yellowLeft.height / 2);
     }
     public void drawTimeLeft(SpriteBatch sb) {
-        time.setText(Squarz.font, String.valueOf(this.countDown.getCountdownLabel().getText()));
-        Squarz.font.draw(sb, String.valueOf(this.countDown.getCountdownLabel().getText()), redChoiceSquare.getPosX() + redChoiceSquare.getTexture().getWidth() / 2 - time.width / 2, HEIGHT * 28 / 32 - time.height / 2);
+        time.setText(Squarz.font, String.valueOf(this.countDown.getWorldTimer()));
+        Squarz.font.draw(sb, String.valueOf(this.countDown.getWorldTimer()), redChoiceSquare.getPosX() + redChoiceSquare.getTexture().getWidth() / 2 - time.width / 2, HEIGHT * 28 / 32 - time.height / 2);
     }
 
 

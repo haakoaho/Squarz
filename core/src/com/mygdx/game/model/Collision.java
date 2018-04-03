@@ -26,9 +26,9 @@ public class Collision {
 
     public void deleteOnceAiOut(Player p, Integer column){
         //if square goes outside
-            if (p.getCounter(column) > p.getFirstSquareKey(column) && !p.getMap(column).get(p.getFirstSquareKey(column)).isInAi()) {
-                p.decrement(p.getMap(column), p.getFirstSquareKey(column), column);
-            }
+        if (p.getCounter(column) > p.getFirstSquareKey(column) && !p.getMap(column).get(p.getFirstSquareKey(column)).isInAi()) {
+            p.decrement(p.getMap(column), p.getFirstSquareKey(column), column);
+        }
     }
 
     public boolean isCollisionPossible(Player p, Player c, Integer rowKey){
