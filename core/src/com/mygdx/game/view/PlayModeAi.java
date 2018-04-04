@@ -19,13 +19,13 @@ import com.mygdx.game.model.Player;
 import com.mygdx.game.model.Score;
 import com.mygdx.game.model.Square;
 import com.mygdx.game.model.State;
-import com.mygdx.game.control.aI.PreferencesSettings;
-import com.mygdx.game.model.Player;
 
 
 import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
 import static com.mygdx.game.Squarz.format;
+import static com.mygdx.game.Squarz.valueVibration;
+import static com.mygdx.game.Squarz.valueVolume;
 
 /**
  * Created by Max on 06/03/2018.
@@ -62,6 +62,7 @@ public class PlayModeAi extends State {
     private Boolean ready = false;
 
     private Boolean pauseFlag = false;
+    private Boolean pauseSettings = false;
     private PauseScreen pauseScreen;
     private Integer temporarySpeed;
 
@@ -138,26 +139,54 @@ public class PlayModeAi extends State {
                 if (pause.contains(x, y)) {
                     pauseFlag = true;
                 }
-                if (pauseFlag) {
+                if (pauseFlag && !pauseSettings) {
                     freeze();
                     if (pauseScreen.getResume().contains(x, y)) {
                         defreeze();
                     }
+                    if (pauseScreen.getBack().contains(x, y)){
+                        defreeze();
+                        gsm.set(new EndModeAI(gsm, settings, score, countDown));
+                    }
+                    if (pauseScreen.getQuickSetting().contains(x, y)){
+                        //let freeze while changing settings then return to pause mode with new settings
+                        pauseSettings = true;
+                    }
                 }
-
-                //Colour choice button
-                chosingTheColour(x, y);
-
-                //go to end mode, test only
-                if (y > HEIGHT * 3 / 4 && x > HEIGHT / 2) {
-                    music.stop();
-                    sound.stop();
-                    gsm.set(new EndModeAI(gsm, settings, score, countDown));
+                if (pauseSettings){
+                    if(pauseScreen.getDeleteS().contains(x, y)){
+                        valueVolume --;
+                        music.setVolume(Squarz.valueVolume * 0.15f);
+                    }
+                    if(pauseScreen.getAddS().contains(x, y)){
+                        valueVolume ++;
+                        music.setVolume(Squarz.valueVolume * 0.15f);
+                    }
+                    if (pauseScreen.getDeleteV().contains(x, y)) {
+                        valueVibration --;
+                    }
+                    if (pauseScreen.getAddV().contains(x, y)) {
+                        valueVibration ++;
+                    }
+                    if (pauseScreen.getBackToPause().contains(x, y)){
+                        pauseSettings = false;
+                    }
                 }
+                else {
+                    //Colour choice button
+                    chosingTheColour(x, y);
 
-                //Implementation for the launcher of each row
-                if (!this.player.getSquareLimiter().isOver(colorKey)) {
-                    creatingANewSquare(x);
+                    //go to end mode, test only
+                    if (y > HEIGHT * 3 / 4 && x > HEIGHT / 2) {
+                        music.stop();
+                        sound.stop();
+                        gsm.set(new EndModeAI(gsm, settings, score, countDown));
+                    }
+
+                    //Implementation for the launcher of each row
+                    if (!this.player.getSquareLimiter().isOver(colorKey)) {
+                        creatingANewSquare(x);
+                    }
                 }
             }
         }
@@ -182,9 +211,7 @@ public class PlayModeAi extends State {
         handleInput();
 
         if (ready) {
-            if(pauseFlag){
-
-            }else {
+            if(!pauseFlag){
                 //updating the countdown
                 this.countDown.update(dt);
                 //random sending by the AI
@@ -227,8 +254,6 @@ public class PlayModeAi extends State {
             sb.draw(yellowChoiceSquare.getTexture(), yellowChoiceSquare.getPosX(), yellowChoiceSquare.getPosY());
             sb.draw(pause.getTexture(), pause.getPosX(), pause.getPosY());
 
-            sb.draw(pause.getTexture(), pause.getPosX(), pause.getPosY());
-
             drawingSquares(sb, player);
             drawingSquares(sb, ai);
 
@@ -237,8 +262,11 @@ public class PlayModeAi extends State {
             drawCounter(sb);
 
             if (pauseFlag) {
-                pauseScreen.DrawPause(sb);
+                pauseScreen.drawPause(sb);
                 drawScorePause(sb);
+            }
+            if (pauseSettings) {
+                pauseScreen.drawPauseSetting(sb);
             }
 
             sb.end();
@@ -261,6 +289,7 @@ public class PlayModeAi extends State {
     public void defreeze() {
         this.settings.setStepX(this.temporarySpeed);
         this.pauseFlag = false;
+        pauseSettings = false;
     }
 
 

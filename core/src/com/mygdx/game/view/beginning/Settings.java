@@ -47,7 +47,6 @@ public class Settings extends State {
         this.minV.setPosY(3*HEIGHT/10-minV.getTexture().getHeight()/2);
         this.back.setPosX(back.getTexture().getWidth()/2);
         this.back.setPosY(back.getTexture().getHeight()/2);
-
     }
 
     @Override
