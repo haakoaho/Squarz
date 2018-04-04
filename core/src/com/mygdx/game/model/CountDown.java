@@ -27,6 +27,19 @@ public class CountDown {
         this.timeUp = false;
     }
 
+    public void update(float dt) {
+        this.timeCount += dt;
+        if (this.timeCount >= 1) {
+            if (this.worldTimer > 0) {
+                this.worldTimer--;
+            } else {
+                this.timeUp = true;
+            }
+            this.countdownLabel.setText(String.format("%02d", worldTimer));
+            this.timeCount = 0;
+        }
+    }
+
     public void increaseTime(){
         setWorldTimer(this.getWorldTimer()+15);
         setTimerKey(this.getTimerKey()+15);
@@ -77,16 +90,5 @@ public class CountDown {
         this.timerKey = timerKey;
     }
 
-    public void update(float dt) {
-        this.timeCount += dt;
-        if (this.timeCount >= 1) {
-            if (this.worldTimer > 0) {
-                this.worldTimer--;
-            } else {
-                this.timeUp = true;
-            }
-            this.countdownLabel.setText(String.format("%02d", worldTimer));
-            this.timeCount = 0;
-        }
-    }
+
 }

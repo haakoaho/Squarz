@@ -29,7 +29,12 @@ public class AIPlayer {
     private Integer launcherCounter;
     private Integer deltaLauncher;
     private Integer renderCounter;
-    private Integer waveCounter;
+    private boolean wave1 = true;
+    private boolean wave2 = true;
+    private boolean wave3  = true;
+    private boolean wave4 = true;
+    private boolean wave5 = true;
+
 
     public AIPlayer(PreferencesSettings set, CountDown countDown) {
         this.settings = set;
@@ -41,7 +46,6 @@ public class AIPlayer {
         this.deltaLauncher = 70;
 
         this.renderCounter = 0;
-        this.waveCounter = 0;
     }
 
     public void send(CountDown countDown) {
@@ -64,7 +68,6 @@ public class AIPlayer {
     }
 
     public void prgrmdSending(CountDown countDown) {
-        this.waveCounter += 1;
         this.launcherCounter += 1;
         if (countDown.getWorldTimer() > 0) {
             //random flow
@@ -79,61 +82,53 @@ public class AIPlayer {
                 int row = random(2);
 
                 setTheRandomRow(row, colorKey);
-
             }
-            /*
-            // basic model of a wave with one square every 1000 units
 
-            if (this.waveCounter == 1000){
-
-                this.waveCounter = 0;
-                int colorkey = random(2);
-                setTheRandomTexture(colorkey);
-                setTheRandomRow(random(2),colorkey);
-
-            }*/
-            if (this.waveCounter == 500) {
-                this.waveCounter = 0;
-
-                int colorkey = 0;
-                setTheRandomTexture(colorkey);
-                setTheRandomRow(0, colorkey);
-                colorkey = 3;
-                setTheRandomTexture(colorkey);
-                setTheRandomRow(0, colorkey);
-
-                colorkey = 2;
-                setTheRandomTexture(colorkey);
-                setTheRandomRow(1, colorkey);
-                colorkey = 0;
-                setTheRandomTexture(colorkey);
-                setTheRandomRow(1, colorkey);
+            myWave(countDown);
 
 
-                colorkey = 0;
-                setTheRandomTexture(colorkey);
-                setTheRandomRow(2, colorkey);
-                colorkey = 3;
-                setTheRandomTexture(colorkey);
-                setTheRandomRow(2, colorkey);
 
-                colorkey = 0;
-                setTheRandomTexture(colorkey);
-                setTheRandomRow(0, colorkey);
-                colorkey = 0;
-                setTheRandomTexture(colorkey);
-                setTheRandomRow(1, colorkey);
-                colorkey = 0;
-                setTheRandomTexture(colorkey);
-                setTheRandomRow(2, colorkey);
+        }
 
-            }
+    }
+
+    public void myWave(CountDown countDown){
+        if (wave1) {
+            wave1 =  createAWave(55, countDown);
+        }
+        if (wave2) {
+            wave2 =  createAWave(40, countDown);
+            //createAWave(40, countDown);
+        }
+        if (wave3) {
+            wave3 =  createAWave(30, countDown);
+        }
+        if (wave4) {
+            wave4 =  createAWave(25, countDown);
+        }
+        if (wave5) {
+            wave5 =  createAWave(10, countDown);
+            //createAWave(40, countDown);
         }
 
     }
 
 
+    public void setOneSquare(int row, int colorkey){
+        setTheRandomTexture(colorkey);
+        setTheRandomRow(row,colorkey);
+    }
 
+    public boolean createAWave(int time, CountDown countDown){
+
+        if (time == countDown.getWorldTimer()){
+            setOneSquare(random(2),random(2));
+            setOneSquare(random(2),random(2));
+            setOneSquare(random(2),random(2));
+            return false;
+        }
+        return true;
+    }
 
 
 
@@ -242,5 +237,6 @@ public class AIPlayer {
     public void setRenderCounter(Integer renderCounter) {
         this.renderCounter = renderCounter;
     }
+
 
 }

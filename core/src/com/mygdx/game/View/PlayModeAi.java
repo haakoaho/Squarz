@@ -59,6 +59,8 @@ public class PlayModeAi extends State {
     private PauseScreen pauseScreen;
     private Integer temporarySpeed;
 
+    private float max_frames = 4f;
+
 
     public PlayModeAi(GameStateManager gsm, PreferencesSettings settings, CountDown countDown) {
         super(gsm);
@@ -157,6 +159,17 @@ public class PlayModeAi extends State {
 
     @Override
     public void update(float dt) {
+
+        if (dt < (1f / max_frames)) {
+            float sleepTime = (1f / max_frames) - dt;
+            try {
+                Thread.sleep((long) sleepTime);
+            } catch (InterruptedException ex) {
+                System.out.println("H");
+                ex.printStackTrace();
+            }
+        }
+
         handleInput();
 
         if (ready) {
