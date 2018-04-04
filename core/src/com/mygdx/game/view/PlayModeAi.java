@@ -153,7 +153,7 @@ public class PlayModeAi extends State {
                         pauseSettings = true;
                     }
                 }
-                if (pauseSettings){
+                else if (pauseSettings){
                     if(pauseScreen.getDeleteS().contains(x, y)){
                         valueVolume --;
                         music.setVolume(Squarz.valueVolume * 0.15f);
