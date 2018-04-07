@@ -120,17 +120,13 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 
 
 		// Get Automatch criteria.
-		int minAutoPlayers = 1;
-		int maxAutoPlayers = 1;
 
 		// Create the room configuration.
 		RoomConfig.Builder roomBuilder = RoomConfig.builder(mRoomUpdateCallback)
 				.setOnMessageReceivedListener(mOnRealTimeMessageReceivedListener)
 				.setRoomStatusUpdateCallback(mRoomStatusUpdateCallback);
-		if (minAutoPlayers > 0) {
 			roomBuilder.setAutoMatchCriteria(
-					RoomConfig.createAutoMatchCriteria(minAutoPlayers, maxAutoPlayers, 0));
-		}
+					RoomConfig.createAutoMatchCriteria(1, 1, 0));
 
 		// Save the roomConfig so we can use it if we call leave().
 		mRoomConfig = roomBuilder.build();
@@ -139,9 +135,7 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 	}
 
 	private void waitingRoom(int resultCode, Intent data){
-		//if (mWaitingRoomFinishedFromCode) {
-			//return;
-		//}
+
 
 		if (resultCode == Activity.RESULT_OK) {
 			// Start the game!
@@ -151,7 +145,6 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 			// match, or do something else like minimize the waiting room and
 			// continue to connect in the background.
 
-			// in this example, we take the simple approach and just leave the room:
 			Games.getRealTimeMultiplayerClient(this,
 					GoogleSignIn.getLastSignedInAccount(this))
 					.leave(mRoomConfig, mRoomId);
@@ -249,36 +242,6 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 		}
 
 }
-
-
-
-
-	// Accept the given invitation.
-	public void Accept() {
-		String invitationId = "get"; //TODO
-		Log.d(TAG, "Accepting invitation: " + invitationId);
-
-		mRoomConfig = RoomConfig.builder(mRoomUpdateCallback)
-				.setInvitationIdToAccept(invitationId)
-				.setOnMessageReceivedListener(mOnRealTimeMessageReceivedListener)
-				.setRoomStatusUpdateCallback(mRoomStatusUpdateCallback)
-				.build();
-
-
-		mRealTimeMultiplayerClient.join(mRoomConfig)
-				.addOnSuccessListener(new OnSuccessListener<Void>() {
-					@Override
-					public void onSuccess(Void aVoid) {
-						Log.d(TAG, "Room Joined Successfully!");
-					}
-				});
-	}
-
-	public void decline(){
-		Log.d(TAG, "requst declined");
-		mIncomingInvitationId = null;
-	}
-
 
 
 
@@ -557,12 +520,13 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 			// Update UI and internal state based on room updates.
 			if (code == GamesCallbackStatusCodes.OK && room != null) {
 				Log.d(TAG, "Room " + room.getRoomId() + " created.");
+				showWaitingRoom(room);
 			} else {
 				Log.w(TAG, "Error creating room: " + code);
-				// let screen go to sleep
+				return;
 
 			}
-			showWaitingRoom(room);
+
 		}
 
 		@Override

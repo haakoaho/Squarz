@@ -35,15 +35,6 @@ public class DesktopMultiPlayer implements MultiplayerInterface {
 
     }
 
-    @Override
-    public void Accept() {
-
-    }
-
-    @Override
-    public void decline() {
-
-    }
 
     @Override
     public void sendIncrement(Byte msg) {

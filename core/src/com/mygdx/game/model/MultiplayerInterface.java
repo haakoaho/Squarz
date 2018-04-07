@@ -14,6 +14,4 @@ public interface MultiplayerInterface {
     public void invite(); //Create a room and invite players to join
     public boolean isMRoomId(); //checks if a room is created
     public void Receive(); //receive an invitation
-    public void Accept(); //Accept the given invitation
-    public void decline(); //declines the given invitation
 }
