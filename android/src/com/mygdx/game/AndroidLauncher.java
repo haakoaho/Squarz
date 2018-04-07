@@ -140,19 +140,16 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 		if (resultCode == Activity.RESULT_OK) {
 			// Start the game!
 		} else if (resultCode == Activity.RESULT_CANCELED) {
-			// Waiting room was dismissed with the back button. The meaning of this
-			// action is up to the game. You may choose to leave the room and cancel the
-			// match, or do something else like minimize the waiting room and
-			// continue to connect in the background.
-
 			Games.getRealTimeMultiplayerClient(this,
 					GoogleSignIn.getLastSignedInAccount(this))
 					.leave(mRoomConfig, mRoomId);
+			invite();
 		} else if (resultCode == GamesActivityResultCodes.RESULT_LEFT_ROOM) {
 			// player wants to leave the room.
 			Games.getRealTimeMultiplayerClient(this,
 					GoogleSignIn.getLastSignedInAccount(this))
 					.leave(mRoomConfig,mRoomId);
+			invite();
 
 		}
 	}
@@ -520,6 +517,7 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 			// Update UI and internal state based on room updates.
 			if (code == GamesCallbackStatusCodes.OK && room != null) {
 				Log.d(TAG, "Room " + room.getRoomId() + " created.");
+				mRoomId = room.getRoomId();
 				showWaitingRoom(room);
 			} else {
 				Log.w(TAG, "Error creating room: " + code);
