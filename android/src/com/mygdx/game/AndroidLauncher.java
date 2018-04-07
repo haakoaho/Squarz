@@ -15,7 +15,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.games.Games;
+import com.google.android.gms.games.GamesActivityResultCodes;
 import com.google.android.gms.games.GamesCallbackStatusCodes;
 import com.google.android.gms.games.InvitationsClient;
 import com.google.android.gms.games.Player;
@@ -110,34 +112,90 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 	//opponent's moves
 	private Queue<Byte> moves = new LinkedList<Byte>();
 
+	private void selectPlayers(int resultCode, Intent data){
+		if (resultCode != Activity.RESULT_OK) {
+			// Canceled or some other error.
+			return;
+		}
+
+
+		// Get Automatch criteria.
+		int minAutoPlayers = 1;
+		int maxAutoPlayers = 1;
+
+		// Create the room configuration.
+		RoomConfig.Builder roomBuilder = RoomConfig.builder(mRoomUpdateCallback)
+				.setOnMessageReceivedListener(mOnRealTimeMessageReceivedListener)
+				.setRoomStatusUpdateCallback(mRoomStatusUpdateCallback);
+		if (minAutoPlayers > 0) {
+			roomBuilder.setAutoMatchCriteria(
+					RoomConfig.createAutoMatchCriteria(minAutoPlayers, maxAutoPlayers, 0));
+		}
+
+		// Save the roomConfig so we can use it if we call leave().
+		mRoomConfig = roomBuilder.build();
+		Games.getRealTimeMultiplayerClient(this, GoogleSignIn.getLastSignedInAccount(this))
+				.create(mRoomConfig);
+	}
+
+	private void waitingRoom(int resultCode, Intent data){
+		//if (mWaitingRoomFinishedFromCode) {
+			//return;
+		//}
+
+		if (resultCode == Activity.RESULT_OK) {
+			// Start the game!
+		} else if (resultCode == Activity.RESULT_CANCELED) {
+			// Waiting room was dismissed with the back button. The meaning of this
+			// action is up to the game. You may choose to leave the room and cancel the
+			// match, or do something else like minimize the waiting room and
+			// continue to connect in the background.
+
+			// in this example, we take the simple approach and just leave the room:
+			Games.getRealTimeMultiplayerClient(this,
+					GoogleSignIn.getLastSignedInAccount(this))
+					.leave(mRoomConfig, mRoomId);
+		} else if (resultCode == GamesActivityResultCodes.RESULT_LEFT_ROOM) {
+			// player wants to leave the room.
+			Games.getRealTimeMultiplayerClient(this,
+					GoogleSignIn.getLastSignedInAccount(this))
+					.leave(mRoomConfig,mRoomId);
+
+		}
+	}
+
+
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		if (requestCode == RC_SELECT_PLAYERS) {
-			if (resultCode != Activity.RESULT_OK) {
-				// Canceled or some other error.
-				return;
+        if (requestCode == RC_SIGN_IN) {
+			Task<GoogleSignInAccount> task =
+					GoogleSignIn.getSignedInAccountFromIntent(data);
+
+			try {
+				GoogleSignInAccount account = task.getResult(ApiException.class);
+				onConnected(account);
+			} catch (ApiException apiException) {
+				String message = apiException.getMessage();
+				if (message == null || message.isEmpty()) {
+					//error
+				}
+
+				onDisconnected();
+
+				new AlertDialog.Builder(this)
+						.setMessage(message)
+						.setNeutralButton(android.R.string.ok, null)
+						.show();
 			}
+		}
 
-
-			// Get Automatch criteria.
-			int minAutoPlayers = 1;
-			int maxAutoPlayers = 1;
-
-			// Create the room configuration.
-			RoomConfig.Builder roomBuilder = RoomConfig.builder(mRoomUpdateCallback)
-					.setOnMessageReceivedListener(mOnRealTimeMessageReceivedListener)
-					.setRoomStatusUpdateCallback(mRoomStatusUpdateCallback);
-			if (minAutoPlayers > 0) {
-				roomBuilder.setAutoMatchCriteria(
-						RoomConfig.createAutoMatchCriteria(minAutoPlayers, maxAutoPlayers, 0));
-			}
-
-			// Save the roomConfig so we can use it if we call leave().
-			mRoomConfig = roomBuilder.build();
-			Games.getRealTimeMultiplayerClient(this, GoogleSignIn.getLastSignedInAccount(this))
-					.create(mRoomConfig);
+		else if (requestCode == RC_SELECT_PLAYERS) {
+			selectPlayers(resultCode, data);
+		}
+		else if (requestCode == RC_WAITING_ROOM) {
+			waitingRoom(resultCode, data);
 		}
 	}
 	@Override
@@ -296,9 +354,26 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 	// Handle the result of the "Select players UI" we launched when the user clicked the
 	// "Invite friends" button. We react by creating a room with those players.
 
-	public void invite() {
+
+	private void showWaitingRoom(Room room) {
+        Games.getRealTimeMultiplayerClient(this, GoogleSignIn.getLastSignedInAccount(this))
+                .getWaitingRoomIntent(room, 1)
+                .addOnSuccessListener(new OnSuccessListener<Intent>() {
+                    @Override
+                    public void onSuccess(Intent intent) {
+                        // show waiting room UI
+                        startActivityForResult(intent, RC_WAITING_ROOM);
+                    }
+                })
+                .addOnFailureListener(createFailureListener("There was a problem getting the waiting room!"));
+    }
+
+
+
+    public void invite() {
 
 		Games.getRealTimeMultiplayerClient(this, GoogleSignIn.getLastSignedInAccount(this))
+
 				.getSelectOpponentsIntent(1, 1, true)
 				.addOnSuccessListener(new OnSuccessListener<Intent>() {
 					@Override
@@ -487,6 +562,7 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 				// let screen go to sleep
 
 			}
+			showWaitingRoom(room);
 		}
 
 		@Override
