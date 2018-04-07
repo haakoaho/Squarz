@@ -4,9 +4,7 @@ import com.mygdx.game.model.MultiplayerInterface;
 
 import java.util.Queue;
 
-/**
- * Created by mathi on 03/04/2018.
- */
+
 
 public class DesktopMultiPlayer implements MultiplayerInterface {
 
@@ -31,7 +29,12 @@ public class DesktopMultiPlayer implements MultiplayerInterface {
     }
 
     @Override
-    public void Receive() {
+    public void checkForInvitation() {
+
+    }
+
+    @Override
+    public void leaveRoom() {
 
     }
 

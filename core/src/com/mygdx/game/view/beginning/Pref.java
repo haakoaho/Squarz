@@ -50,14 +50,20 @@ public class Pref extends State {
             }
             if (quick.contains(x,y)){
                 gsm.getMultiplayerInterface().startQuickGame();
-                gsm.push(new PlayModeMulti(gsm));
+                // pushes to the multiplayer screen if room was succsesfully created
+                if (gsm.getMultiplayerInterface().isMRoomId()) {
+                    gsm.push(new PlayModeMulti(gsm));
+                }
             }
             if (answer.contains(x,y)){
-                gsm.getMultiplayerInterface().Receive();
+                gsm.getMultiplayerInterface().checkForInvitation();
             }
             if(invite.contains(x,y)){
                 gsm.getMultiplayerInterface().invite();
-                gsm.push(new PlayModeMulti(gsm));
+                // pushes to the multiplayer screen if room was succsesfully created
+                if (gsm.getMultiplayerInterface().isMRoomId()) {
+                    gsm.push(new PlayModeMulti(gsm));
+                }
             }
             if (back.contains(x,y)) {
                 gsm.set(new Menu(gsm));

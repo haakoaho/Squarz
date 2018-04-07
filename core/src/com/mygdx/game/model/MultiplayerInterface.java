@@ -12,6 +12,7 @@ public interface MultiplayerInterface {
 
     public void startQuickGame();  //request a quick game lobby
     public void invite(); //Create a room and invite players to join
-    public boolean isMRoomId(); //checks if a room is created
-    public void Receive(); //receive an invitation
+    public boolean isMRoomId(); //Use to check if a room is created (ready to play)
+    public void checkForInvitation(); //receive an invitation
+    public void leaveRoom(); //game is over we destroy the room
 }
