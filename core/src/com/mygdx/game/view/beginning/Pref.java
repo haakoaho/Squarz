@@ -51,7 +51,7 @@ public class Pref extends State {
             if (quick.contains(x,y)){
                 gsm.getMultiplayerInterface().startQuickGame();
                 // pushes to the multiplayer screen if room was succsesfully created
-                if (gsm.getMultiplayerInterface().isMRoomId()) {
+                if (gsm.getMultiplayerInterface().isGameReady()) {
                     gsm.push(new PlayModeMulti(gsm));
                 }
             }
@@ -61,7 +61,7 @@ public class Pref extends State {
             if(invite.contains(x,y)){
                 gsm.getMultiplayerInterface().invite();
                 // pushes to the multiplayer screen if room was succsesfully created
-                if (gsm.getMultiplayerInterface().isMRoomId()) {
+                if (gsm.getMultiplayerInterface().isGameReady()) {
                     gsm.push(new PlayModeMulti(gsm));
                 }
             }

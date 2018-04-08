@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
-import android.view.View;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
@@ -70,8 +69,6 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
      */
 
 	final static String TAG = "Squarz";
-	private Activity MainActivity = this;
-	View gameView;
 
 	// Request codes for the UIs that we show with startActivityForResult:
 	final static int RC_SELECT_PLAYERS = 10000;
@@ -113,17 +110,25 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 	//opponent's moves
 	private Queue<Byte> moves = new LinkedList<Byte>();
 
+	//game ready to start
+	private boolean gameReady;
+
 	private void selectPlayers(int resultCode, Intent data){
 		if (resultCode != Activity.RESULT_OK) {
 			// Canceled or some other error.
 			return;
 		}
 
+		// get the invitee list
+		final ArrayList<String> invitees = data.getStringArrayListExtra(Games.EXTRA_PLAYER_IDS);
+		Log.d(TAG, "Invitee count: " + invitees.size());
+
 
 		// Get Automatch criteria.
 
 		// Create the room configuration.
 		RoomConfig.Builder roomBuilder = RoomConfig.builder(mRoomUpdateCallback)
+				.addPlayersToInvite(invitees)
 				.setOnMessageReceivedListener(mOnRealTimeMessageReceivedListener)
 				.setRoomStatusUpdateCallback(mRoomStatusUpdateCallback);
 			roomBuilder.setAutoMatchCriteria(
@@ -140,6 +145,7 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 
 		if (resultCode == Activity.RESULT_OK) {
 			// Start the game!
+			gameReady = true;
 		} else if (resultCode == Activity.RESULT_CANCELED) {
 			leaveRoom();
 		} else if (resultCode == GamesActivityResultCodes.RESULT_LEFT_ROOM) {
@@ -392,7 +398,6 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
     public void invite() {
 
 		Games.getRealTimeMultiplayerClient(this, GoogleSignIn.getLastSignedInAccount(this))
-
 				.getSelectOpponentsIntent(1, 1, true)
 				.addOnSuccessListener(new OnSuccessListener<Intent>() {
 					@Override
@@ -419,6 +424,7 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 	// Leave the room.
 	public void leaveRoom() {
 		Log.d(TAG, "Leaving room.");
+		gameReady = false;
 		if (mRoomId != null) {
 			Games.getRealTimeMultiplayerClient(this,
 					GoogleSignIn.getLastSignedInAccount(this))
@@ -596,6 +602,7 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 		@Override
 		public void onLeftRoom(int code, @NonNull String roomId) {
 			Log.d(TAG, "Left room" + roomId);
+			gameReady = false;
 		}
 
 		@Override
@@ -644,8 +651,8 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 		}
 	}
 
-	public boolean isMRoomId(){
-		return mRoomId!=null;
+	public boolean isGameReady(){
+	return gameReady;
 	}
 
 

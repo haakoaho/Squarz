@@ -24,9 +24,10 @@ public class DesktopMultiPlayer implements MultiplayerInterface {
     }
 
     @Override
-    public boolean isMRoomId() {
+    public boolean isGameReady() {
         return false;
     }
+
 
     @Override
     public void checkForInvitation() {
