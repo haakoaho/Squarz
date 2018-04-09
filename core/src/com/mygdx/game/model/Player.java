@@ -1,11 +1,14 @@
 package com.mygdx.game.model;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.control.aI.PreferencesSettings;
+import com.mygdx.game.view.beginning.Pref;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
 
 /**
@@ -47,34 +50,79 @@ public class Player {
     }
 
 
-    public void increment(Texture t, Integer columnKey, Integer colorkey) {
-        //local variables
-        Integer counter = getCounter(columnKey);
-        Map<Integer, Square> row = getMap(columnKey);
-
-        //back end info
+    public void increment(Map<Integer, Square> row, Integer counter, Texture t, Integer columnKey, Integer colorkey) {
         row.put(counter, new Square(set));
-        incrementCounter(columnKey);
-        squareLimiter.minusOne(colorkey);
-
-        //front end info
-        row.get(counter).setPosition(new Vector2(WIDTH * (3+(columnKey*2))/8, 0));
-        row.get(counter).setTexture(t);
-        row.get(counter).setColorKey(colorkey);
-
-        handleOverLapping(columnKey, t, counter, row);
-    }
-    public void decrement(Integer toRemoveKey, Integer columnKey) {
-        Map<Integer, Square> row = getMap(columnKey);
-        row.remove(toRemoveKey);
-
-        if(toRemoveKey != getFirstSquareKey(columnKey)){
-            for (int i = toRemoveKey; toRemoveKey > getFirstSquareKey(columnKey); i--) {
-                row.put(i, row.get(i - 1));
+        squareLimiter.counter(colorkey);
+        if (columnKey == 0) {
+            row.get(counter).setPosition(new Vector2(WIDTH * 3/8, 0));
+            row.get(counter).setTexture(t);
+            row.get(counter).setColorKey(colorkey);
+            //overlapping
+            if (counter != this.getFirstLeftSquaresKey() && counter > 0 && row.get(counter - 1).getPosition().y < t.getHeight() + 5) {
+                row.get(counter).setPosition(new Vector2(WIDTH * 3/8,
+                        row.get(counter - 1).getPosition().y - t.getHeight() - 5));
             }
-            row.remove(getFirstSquareKey(columnKey));
+        } else if (columnKey == 1) {
+            row.get(counter).setPosition(new Vector2(WIDTH * 5/8, 0));
+            row.get(counter).setTexture(t);
+            row.get(counter).setColorKey(colorkey);
+            if (counter != this.getFirstMiddleSquaresKey() && counter > 0 && row.get(counter - 1).getPosition().y < t.getHeight() + 5) {
+                row.get(counter).setPosition(new Vector2(WIDTH * 5/8,
+                        row.get(counter - 1).getPosition().y - t.getHeight() - 5));
+            }
+        } else if (columnKey == 2) {
+            row.get(counter).setPosition(new Vector2(WIDTH * 7/8, 0));
+            row.get(counter).setTexture(t);
+            row.get(counter).setColorKey(colorkey);
+            if (counter != this.getFirstRightSquaresKey() && counter > 0 && row.get(counter - 1).getPosition().y < t.getHeight() + 5) {
+                row.get(counter).setPosition(new Vector2(WIDTH * 7/8,
+                        row.get(counter - 1).getPosition().y - t.getHeight() - 5));
+            }
         }
-        setFirstSquareKey(columnKey, getFirstSquareKey(columnKey) + 1);
+
+    }
+
+
+    public void decrement(Map<Integer, Square> row, Integer toRemoveKey, Integer columnKey) {
+        if (columnKey == 0) {
+
+            row.remove(toRemoveKey);
+
+            if (toRemoveKey == getFirstLeftSquaresKey()) {
+                firstLeftSquaresKey++;
+            } else {
+                for (int i = toRemoveKey; toRemoveKey > firstLeftSquaresKey; i--) {
+                    row.put(i, row.get(i - 1));
+                }
+                row.remove(firstLeftSquaresKey);
+                firstLeftSquaresKey++;
+            }
+        }if (columnKey == 1) {
+
+            row.remove(toRemoveKey);
+
+            if (toRemoveKey == getFirstMiddleSquaresKey()) {
+                firstMiddleSquaresKey++;
+            } else {
+                for (int i = toRemoveKey; toRemoveKey > firstMiddleSquaresKey; i--) {
+                    row.put(i, row.get(i - 1));
+                }
+                row.remove(firstMiddleSquaresKey);
+                firstMiddleSquaresKey++;
+            }
+        }if (columnKey == 2) {
+            row.remove(toRemoveKey);
+
+            if (toRemoveKey == getFirstRightSquaresKey()) {
+                firstRightSquaresKey++;
+            } else {
+                for (int i = toRemoveKey; toRemoveKey > firstRightSquaresKey; i--) {
+                    row.put(i, row.get(i - 1));
+                }
+                row.remove(firstRightSquaresKey);
+                firstRightSquaresKey++;
+            }
+        }
     }
 
     //used in collision to make code less cumbersome
@@ -91,18 +139,19 @@ public class Player {
         }
         return  toReturn;
     }
-    public void setFirstSquareKey(Integer columnKey, Integer newFirst){
-        if(columnKey == 0){
-            setFirstLeftSquaresKey(newFirst);
+    public Integer getCounter(Integer rowKey){
+        int toReturn;
+        if(rowKey == 0){
+            toReturn = getLeftCounter();
         }
-        else if(columnKey == 1){
-            setFirstMiddleSquaresKey(newFirst);
+        else if(rowKey == 1){
+            toReturn = getMiddleCounter();
         }
         else{
-            setFirstRightSquaresKey(newFirst);
+            toReturn = getRightCounter();
         }
+        return  toReturn;
     }
-
     public Map<Integer, Square> getMap(Integer rowKey){
         Map<Integer, Square> toReturn;
         if(rowKey == 0){
@@ -117,42 +166,10 @@ public class Player {
         return  toReturn;
     }
 
-    //returns the column's counter
-    public Integer getCounter(Integer columnKey){
-        Integer counter;
-        if (columnKey == 0){
-            counter = leftCounter;
-        }
-        else if (columnKey == 1){
-            counter = middleCounter;
-        }
-        else{
-            counter = rightCounter;
-        }
-        return counter;
-    }
-    public void incrementCounter(Integer columnKey){
-        if (columnKey == 0){
-            leftCounter += 1;
-        }
-        else if (columnKey == 1){
-            middleCounter += 1;
-        }
-        else{
-            rightCounter += 1;
-        }
-    }
-
-    public void handleOverLapping(Integer columnKey, Texture t, Integer counter, Map<Integer, Square> row){
-        if (counter != this.getFirstSquareKey(columnKey) && counter > 0 && row.get(counter - 1).getPosition().y < t.getHeight() + 5) {
-            row.get(counter).setPosition(new Vector2(WIDTH * (3+(columnKey*2))/8,
-                    row.get(counter - 1).getPosition().y - t.getHeight() - 5));
-        }
-    }
 
 
 
-    //----------   setters and getters
+    //setters and getters
 
     public Integer getFirstLeftSquaresKey() {
         return firstLeftSquaresKey;
@@ -232,13 +249,5 @@ public class Player {
 
     public void setSquareLimiter(SquareLimiter squareLimiter) {
         this.squareLimiter = squareLimiter;
-    }
-
-    public PreferencesSettings getSet() {
-        return set;
-    }
-
-    public void setSet(PreferencesSettings set) {
-        this.set = set;
     }
 }

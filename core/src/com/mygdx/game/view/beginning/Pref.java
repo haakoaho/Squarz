@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.model.Icon;
 import com.mygdx.game.model.State;
-import com.mygdx.game.view.PlayModeMulti;
 
 import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
@@ -48,6 +47,7 @@ public class Pref extends State {
                 gsm.set(new com.mygdx.game.view.AIPreferences(gsm));
                 dispose();
             }
+<<<<<<< HEAD
             if (quick.contains(x,y)){
                 gsm.getMultiplayerInterface().startQuickGame();
             }
@@ -58,6 +58,8 @@ public class Pref extends State {
                 gsm.getMultiplayerInterface().invite();
 
             }
+=======
+>>>>>>> parent of 6df28c3... Revert "Revert "Merge branch 'mathieu' into Maxime""
             if (back.contains(x,y)) {
                 gsm.set(new Menu(gsm));
                 dispose();

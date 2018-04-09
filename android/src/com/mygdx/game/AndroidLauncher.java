@@ -1,9 +1,7 @@
 package com.mygdx.game;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.Intent;
 import android.os.Bundle;
+<<<<<<< HEAD
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -37,26 +35,18 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.mygdx.game.model.MultiplayerInterface;
+=======
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
-import java.util.Set;
+import com.badlogic.gdx.backends.android.AndroidApplication;
+import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+>>>>>>> parent of 6df28c3... Revert "Revert "Merge branch 'mathieu' into Maxime""
 
-
-public class AndroidLauncher extends AndroidApplication implements MultiplayerInterface {
+public class AndroidLauncher extends AndroidApplication {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-		mGoogleSignInClient = GoogleSignIn.getClient(this, GoogleSignInOptions.DEFAULT_GAMES_SIGN_IN);
-
-
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
+<<<<<<< HEAD
 		config.useWakelock = true;
 
 		Squarz game = new Squarz(this);
@@ -657,5 +647,8 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 	}
 
 
+=======
+		initialize(new Squarz(), config);
+	}
+>>>>>>> parent of 6df28c3... Revert "Revert "Merge branch 'mathieu' into Maxime""
 }
-
