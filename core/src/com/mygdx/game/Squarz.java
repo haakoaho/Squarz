@@ -28,16 +28,8 @@ public class Squarz extends ApplicationAdapter {
 	public void create () {
 		batch = new SpriteBatch();
 		gsm = new GameStateManager();
-<<<<<<< HEAD
-<<<<<<< HEAD
-		gsm.setMultiplayerInterface(multiplayerInterface);
-		gsm.getMultiplayerInterface().startSignInIntent();
 
 
-=======
->>>>>>> parent of 6df28c3... Revert "Revert "Merge branch 'mathieu' into Maxime""
-=======
->>>>>>> parent of 6df28c3... Revert "Revert "Merge branch 'mathieu' into Maxime""
 		WIDTH = Gdx.graphics.getWidth();
 		HEIGHT = Gdx.graphics.getHeight();
 		valueVolume=0;
