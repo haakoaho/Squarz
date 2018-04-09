@@ -48,6 +48,7 @@ public class Pref extends State {
                 dispose();
             }
 <<<<<<< HEAD
+<<<<<<< HEAD
             if (quick.contains(x,y)){
                 gsm.getMultiplayerInterface().startQuickGame();
             }
@@ -58,6 +59,8 @@ public class Pref extends State {
                 gsm.getMultiplayerInterface().invite();
 
             }
+=======
+>>>>>>> parent of 6df28c3... Revert "Revert "Merge branch 'mathieu' into Maxime""
 =======
 >>>>>>> parent of 6df28c3... Revert "Revert "Merge branch 'mathieu' into Maxime""
             if (back.contains(x,y)) {

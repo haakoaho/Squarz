@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import android.os.Bundle;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -41,11 +42,18 @@ import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 >>>>>>> parent of 6df28c3... Revert "Revert "Merge branch 'mathieu' into Maxime""
 
+=======
+
+import com.badlogic.gdx.backends.android.AndroidApplication;
+import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+
+>>>>>>> parent of 6df28c3... Revert "Revert "Merge branch 'mathieu' into Maxime""
 public class AndroidLauncher extends AndroidApplication {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
+<<<<<<< HEAD
 <<<<<<< HEAD
 		config.useWakelock = true;
 
@@ -647,6 +655,10 @@ public class AndroidLauncher extends AndroidApplication {
 	}
 
 
+=======
+		initialize(new Squarz(), config);
+	}
+>>>>>>> parent of 6df28c3... Revert "Revert "Merge branch 'mathieu' into Maxime""
 =======
 		initialize(new Squarz(), config);
 	}
