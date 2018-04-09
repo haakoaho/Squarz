@@ -57,7 +57,7 @@ public class PlayModeAi extends State {
 
         this.settings = settings;
 
-        player = new Player();
+        this.player = new Player();
         this.ai = new AIPlayer();
         this.ai.setSettings(settings);
 
