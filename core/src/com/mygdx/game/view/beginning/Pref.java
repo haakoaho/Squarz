@@ -52,7 +52,7 @@ public class Pref extends State {
                 gsm.getMultiplayerInterface().startQuickGame();
                 // pushes to the multiplayer screen if room was succsesfully created
                 if (gsm.getMultiplayerInterface().isGameReady()) {
-                    gsm.push(new PlayModeMulti(gsm));
+                    gsm.set(new PlayModeMulti(gsm));
                 }
             }
             if (answer.contains(x,y)){
@@ -62,7 +62,7 @@ public class Pref extends State {
                 gsm.getMultiplayerInterface().invite();
                 // pushes to the multiplayer screen if room was succsesfully created
                 if (gsm.getMultiplayerInterface().isGameReady()) {
-                    gsm.push(new PlayModeMulti(gsm));
+                    gsm.set(new PlayModeMulti(gsm));
                 }
             }
             if (back.contains(x,y)) {

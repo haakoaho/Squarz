@@ -652,7 +652,7 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 	}
 
 	public boolean isGameReady(){
-	return gameReady;
+	return gameReady; //TODO make this return true when game is ready
 	}
 
 
