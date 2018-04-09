@@ -47,7 +47,25 @@ public class Pref extends State {
                 gsm.set(new com.mygdx.game.view.AIPreferences(gsm));
                 dispose();
             }
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+            if (quick.contains(x,y)){
+                gsm.getMultiplayerInterface().startQuickGame();
+            }
+            if (answer.contains(x,y)){
+                gsm.getMultiplayerInterface().checkForInvitation();
+            }
+            if(invite.contains(x,y)){
+                gsm.getMultiplayerInterface().invite();
 
+            }
+=======
+>>>>>>> parent of 6df28c3... Revert "Revert "Merge branch 'mathieu' into Maxime""
+=======
+>>>>>>> parent of 6df28c3... Revert "Revert "Merge branch 'mathieu' into Maxime""
+=======
+>>>>>>> parent of 6f07b88... Merge branch 'mathieu' into Maxime
             if (back.contains(x,y)) {
                 gsm.set(new Menu(gsm));
                 dispose();
@@ -58,6 +76,12 @@ public class Pref extends State {
     @Override
     public void update(float dt) {
         handleInput();
+
+        // pushes to the multiplayer screen if room was succsesfully created
+        if (gsm.getMultiplayerInterface().isGameReady()) {
+            gsm.set(new PlayModeMulti(gsm));
+        }
+
     }
 
     @Override
