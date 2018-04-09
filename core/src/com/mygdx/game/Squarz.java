@@ -30,6 +30,7 @@ public class Squarz extends ApplicationAdapter {
 		gsm = new GameStateManager();
 
 
+
 		WIDTH = Gdx.graphics.getWidth();
 		HEIGHT = Gdx.graphics.getHeight();
 		valueVolume=0;
