@@ -130,6 +130,7 @@ public class PlayModeAi extends State {
 
     @Override
     public void update(float dt) {
+        dt=1/30f;
         handleInput();
 
         //updating the countdown
