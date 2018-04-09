@@ -16,7 +16,7 @@ public class SquareLimiter {
         this.yellowLefting = nbSquare;
     }
 
-    public void counter(Integer colorKey){
+    public void minusOne(Integer colorKey){
         if (colorKey == 0){
             this.setRedLefting(this.getRedLefting() - 1);
         }

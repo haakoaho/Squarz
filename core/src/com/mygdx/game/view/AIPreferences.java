@@ -34,7 +34,7 @@ public class AIPreferences extends State {
         back = new Icon(new Texture(Gdx.files.internal(format+"/back.png")),0,0);
 
         setting = new PreferencesSettings();
-        countDown = new CountDown(60);
+        countDown = new CountDown(45);
 
         setAILevel.setPosX(WIDTH/2-setAILevel.getTexture().getWidth()/2);
         setAILevel.setPosY(HEIGHT*4/5-setAILevel.getTexture().getHeight()/2);
@@ -50,6 +50,7 @@ public class AIPreferences extends State {
 
     //used once a setting is changed
     public AIPreferences(GameStateManager gsm, PreferencesSettings setting, CountDown countDown){
+
         super(gsm);
         setAILevel = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/setAILevel.png")),0,0);
         setTimer = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/setTimer.png")),0,0);
