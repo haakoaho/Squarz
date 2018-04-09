@@ -70,6 +70,7 @@ public class PlayModeAi extends State {
 
         this.player = new Player(settings,countDown);
         this.ai = new AIPlayer(settings, countDown);
+
         this.ai.setSettings(settings);
 
         this.score = new Score();
