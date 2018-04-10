@@ -145,6 +145,7 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 
 		if (resultCode == Activity.RESULT_OK) {
 			// Start the game!
+            Log.d(TAG, "ready to start the game");
 			gameReady = true;
 		} else if (resultCode == Activity.RESULT_CANCELED) {
 			leaveRoom();
@@ -592,9 +593,9 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 			// Update UI and internal state based on room updates.
 			if (code == GamesCallbackStatusCodes.OK && room != null) {
 				Log.d(TAG, "Room " + room.getRoomId() + " joined.");
+				showWaitingRoom(room);
 			} else {
 				Log.w(TAG, "Error joining room: " + code);
-				// let screen go to sleep
 
 			}
 		}
