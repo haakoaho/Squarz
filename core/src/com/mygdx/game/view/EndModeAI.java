@@ -80,7 +80,7 @@ public class EndModeAI extends State {
     public void render(SpriteBatch sb) {
         sb.begin();
         Squarz.font.draw(sb, message1, WIDTH/2 - message1.width/2,HEIGHT * 4/5);
-        Squarz.font.draw(sb, message2, WIDTH/2 - message1.width/2,HEIGHT * 4/5-message1.height*3/2);
+        Squarz.font.draw(sb, message2, WIDTH/2 - message2.width/2,HEIGHT * 4/5-message1.height*3/2);
         Squarz.font.draw(sb, scoreUser, WIDTH * 2/5 - scoreUser.width/2, HEIGHT * 3/5);
         Squarz.font.draw(sb, scoreAi, WIDTH * 3/5 - scoreUser.width/2, HEIGHT * 3/5);
         sb.draw(replay.getTexture(), replay.getPosX(), replay.getPosY());
