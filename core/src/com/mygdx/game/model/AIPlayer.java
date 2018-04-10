@@ -2,9 +2,15 @@ package com.mygdx.game.model;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.control.aI.PreferencesSettings;
 
+import java.util.Map;
+
 import static com.badlogic.gdx.math.MathUtils.random;
+import static com.mygdx.game.Squarz.HEIGHT;
+import static com.mygdx.game.Squarz.WIDTH;
+import static com.mygdx.game.Squarz.format;
 
 /**
  * Created by Max on 13/03/2018.
@@ -15,21 +21,17 @@ import static com.badlogic.gdx.math.MathUtils.random;
 // Collision convention
 //    red < blue < yellow < red
 
-public class AIPlayer {
-    private Player computer;
-    private PreferencesSettings settings;
+public class AIPlayer extends Player{
     private Texture texture;
-    private Square square;
+    private com.mygdx.game.model.Square square;
     private Integer launcherCounter;
     private Integer deltaLauncher;
     private Integer renderCounter;
 
-
-    public AIPlayer (){
-        this.computer = new Player();
-        this.settings = new PreferencesSettings();
-        this.texture = new Texture (Gdx.files.internal("square.png"));
-        this.square = new Square();
+    public AIPlayer (PreferencesSettings set, CountDown countDown){
+        super(set, countDown);
+        this.texture = new Texture (Gdx.files.internal(format+"/square/square.png"));
+        this.square = new com.mygdx.game.model.Square(set);
 
         this.launcherCounter = 0;
         this.deltaLauncher = 70;
@@ -38,65 +40,124 @@ public class AIPlayer {
     }
 
     public void send(CountDown countDown){
-        //this.launcherCounter += 1;
+        this.launcherCounter += 1;
         if (countDown.getWorldTimer() > 0) {
-            if (this.launcherCounter == this.settings.getDtLaunching() ) {
+            if (this.launcherCounter == this.getSet().getDtLaunching() ) {
                 this.launcherCounter = 0;
 
                 //setting the random color
                 int colorKey = random(2);
                 setTheRandomTexture(colorKey);
 
-                //setting the random Texture in a random row
-                int row = random(2);
-
-                setTheRandomRow(row, colorKey);
-                
+                //setting the random Texture in a random column
+                int column = random(2);
+                setTheRandomColumn(column, colorKey);
             }
         }
     }
 
+    public void prgrmdSending(CountDown countDown){
+        this.launcherCounter += 1;
+        if (countDown.getWorldTimer() > 0) {
+            if (this.launcherCounter == this.getSet().getDtLaunching()) {
+                this.launcherCounter = 0;
+
+                if (!this.getSquareLimiter().isOver(0)){
+                    setTheRandomTexture(0);
+                    setTheRandomColumn(0, 0);
+                }else if (!this.getSquareLimiter().isOver(1)){
+                    setTheRandomTexture(1);
+                    setTheRandomColumn(1, 1);
+                }else{
+                    setTheRandomTexture(2);
+                    setTheRandomColumn(2, 2);
+                }
+            }
+        }
+
+    }
 
     public void setTheRandomTexture(int colorKey){
         if (colorKey == 0) {
-            this.texture = new Texture(Gdx.files.internal("square_red.png"));
+            this.texture = new Texture(Gdx.files.internal(format+"/square/square_red.png"));
         } else if (colorKey == 1) {
-            this.texture = new Texture(Gdx.files.internal("square_blue.png"));
+            this.texture = new Texture(Gdx.files.internal(format+"/square/square_blue.png"));
         } else {
-            this.texture = new Texture(Gdx.files.internal("square_yellow.png"));
+            this.texture = new Texture(Gdx.files.internal(format+"/square/square_yellow.png"));
         }
     }
 
-    public void setTheRandomRow(int row, int colorKey) {
-        computer.incrementOpponent(texture,row,colorKey);
+    public void setTheRandomColumn(int columnKey, int colorKey) {
+        if(!this.getSquareLimiter().isOver(colorKey)) {
 
+            if (columnKey == 0) {
+                incrementAI(texture, columnKey, colorKey);
+            }
+            if (columnKey == 1) {
+                incrementAI(texture, columnKey, colorKey);
+
+            }
+            if (columnKey == 2) {
+                incrementAI(texture, columnKey, colorKey);
+            }
+        }
     }
 
+    public void incrementAI(Texture t, Integer columnKey, Integer colorkey) {
+        Integer counter = this.getCounter(columnKey);
+        Map<Integer, Square> row = this.getMap(columnKey);
+
+        //back end
+        row.put(counter, new Square(this.getSet()));
+        incrementCounter(columnKey);
+        this.getSquareLimiter().minusOne(colorkey);
+
+        //front end
+        row.get(counter).setPosition(new Vector2(WIDTH * (3+(2*columnKey))/8, HEIGHT));
+        row.get(counter).setTexture(t);
+        row.get(counter).setColorKey(colorkey);
+
+        handleAIOverLapping(columnKey, t, counter, row);
+    }
+
+    public void handleAIOverLapping(Integer columnKey, Texture t, Integer counter, Map<Integer, Square> map){
+        if (counter != this.getFirstSquareKey(columnKey) && counter > 0 && map.get(counter - 1).getPosition().y >= HEIGHT - (t.getHeight()) - 5) {
+            map.get(counter).setPosition(new Vector2(WIDTH * 3 / 8,
+                    map.get(counter - 1).getPosition().y + t.getHeight() + 5));
+        }
+    }
 
     // ---------  general getters and setters
-
-
-    public PreferencesSettings getSettings() {
-        return settings;
-    }
-
-    public void setSettings(PreferencesSettings settings) {
-        this.settings = settings;
-    }
-
-    public Player getComputer() {
-        return computer;
-    }
-
-    public void setComputer(Player computer) {
-        this.computer = computer;
-    }
 
     public Texture getTexture() {
         return texture;
     }
-
     public void setTexture(Texture texture) {
         this.texture = texture;
     }
+    public com.mygdx.game.model.Square getSquare() {
+        return square;
+    }
+    public void setSquare(com.mygdx.game.model.Square square) {
+        this.square = square;
+    }
+    public Integer getLauncherCounter() {
+        return launcherCounter;
+    }
+    public void setLauncherCounter(Integer launcherCounter) {
+        this.launcherCounter = launcherCounter;
+    }
+    public Integer getDeltaLauncher() {
+        return deltaLauncher;
+    }
+    public void setDeltaLauncher(Integer deltaLauncher) {
+        this.deltaLauncher = deltaLauncher;
+    }
+    public Integer getRenderCounter() {
+        return renderCounter;
+    }
+    public void setRenderCounter(Integer renderCounter) {
+        this.renderCounter = renderCounter;
+    }
+
 }

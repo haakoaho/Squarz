@@ -8,6 +8,7 @@ import com.mygdx.game.model.State;
 
 import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
+import static com.mygdx.game.Squarz.format;
 
 public class Menu extends State {
     private Icon play, settings, history;
@@ -15,16 +16,16 @@ public class Menu extends State {
     public Menu(GameStateManager gsm) {
         super(gsm);
 
-        this.play = new Icon(new Texture(Gdx.files.internal("menu/play.png")),0,0);
-        this.settings = new Icon(new Texture(Gdx.files.internal("menu/settings.png")),0,0);
-        this.history = new Icon(new Texture(Gdx.files.internal("menu/history.png")),0,0);
+        this.play = new Icon(new Texture(Gdx.files.internal(format+"/menu/play.png")),0,0);
+        this.settings = new Icon(new Texture(Gdx.files.internal(format+"/menu/settings.png")),0,0);
+        this.history = new Icon(new Texture(Gdx.files.internal(format+"/menu/history.png")),0,0);
 
-        play.setPosX(WIDTH/2-play.getTexture().getWidth()/2);
-        play.setPosY(HEIGHT*3/4-play.getTexture().getHeight()/2);
-        settings.setPosX(WIDTH/2-settings.getTexture().getWidth()/2);
-        settings.setPosY(HEIGHT*2/4-settings.getTexture().getHeight()/2);
-        history.setPosX(WIDTH/2-history.getTexture().getWidth()/2);
-        history.setPosY(HEIGHT*1/4-history.getTexture().getHeight()/2);
+        this.play.setPosX(WIDTH/2-play.getTexture().getWidth()/2);
+        this.play.setPosY(HEIGHT*3/4-play.getTexture().getHeight()/2);
+        this.settings.setPosX(WIDTH/2-settings.getTexture().getWidth()/2);
+        this.settings.setPosY(HEIGHT*2/4-settings.getTexture().getHeight()/2);
+        this.history.setPosX(WIDTH/2-history.getTexture().getWidth()/2);
+        this.history.setPosY(HEIGHT*1/4-history.getTexture().getHeight()/2);
     }
 
     @Override
@@ -37,7 +38,7 @@ public class Menu extends State {
                 dispose();
             }
             if(settings.contains(x,y)){
-                gsm.set(new Settings(gsm));
+                gsm.set(new com.mygdx.game.view.beginning.Settings(gsm));
                 dispose();
             }
             if(history.contains(x,y)){
@@ -67,7 +68,4 @@ public class Menu extends State {
         settings.getTexture().dispose();
         history.getTexture().dispose();
     }
-
-
 }
-

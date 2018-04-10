@@ -9,12 +9,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Squarz;
 import com.mygdx.game.control.GameStateManager;
+import com.mygdx.game.control.aI.PreferencesSettings;
 import com.mygdx.game.model.Collision;
 import com.mygdx.game.model.CountDown;
 import com.mygdx.game.model.Player;
 import com.mygdx.game.model.Score;
 import com.mygdx.game.model.Square;
 import com.mygdx.game.model.State;
+import com.mygdx.game.view.beginning.Settings;
 
 import java.util.Queue;
 
@@ -32,6 +34,7 @@ public class PlayModeMulti extends State {
     private Integer collomnKey;
 
     private Score score;
+    private PreferencesSettings set;
     private CountDown countDown;
 
     private Player opponent;
@@ -41,12 +44,12 @@ public class PlayModeMulti extends State {
 
     public PlayModeMulti(GameStateManager gsm){
         super(gsm);
+        this.set = new PreferencesSettings();
+        this.countDown = new CountDown(60);
+        player = new Player(set, countDown);
+        opponent = new Player(set, countDown);
 
-
-        player = new Player();
-        opponent = new Player();
-
-        choiceSquare = new Square();
+        choiceSquare = new Square(set);
         choiceSquare.setPosition(new Vector2(WIDTH * 1 / 16, HEIGHT * 1 / 5));
 
         texture = new Texture(Gdx.files.internal("square.png"));
@@ -54,7 +57,7 @@ public class PlayModeMulti extends State {
 
         score = new Score();
 
-        countDown = new CountDown(60, 0);
+        countDown = new CountDown(60);
 
         collision = new Collision();
 
