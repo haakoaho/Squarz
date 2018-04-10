@@ -6,8 +6,11 @@ import com.mygdx.game.Squarz;
 import com.mygdx.game.model.MultiplayerInterface;
 import com.sun.org.apache.xpath.internal.operations.Mult;
 
+<<<<<<< HEAD
 import java.util.Queue;
 
+=======
+>>>>>>> Send+Invite
 public class DesktopLauncher{
 	public static void main (String[] arg){
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
