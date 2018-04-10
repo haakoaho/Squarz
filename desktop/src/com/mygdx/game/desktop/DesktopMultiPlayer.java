@@ -7,10 +7,24 @@ import java.util.Queue;
 
 
 public class DesktopMultiPlayer implements MultiplayerInterface {
-
     @Override
     public Queue<Byte> popMoves() {
         return null;
+    }
+
+    @Override
+    public void sendIncrement(Byte msg) {
+
+    }
+
+    @Override
+    public void startSignInIntent() {
+
+    }
+
+    @Override
+    public void signInSilently() {
+
     }
 
     @Override
@@ -28,7 +42,6 @@ public class DesktopMultiPlayer implements MultiplayerInterface {
         return false;
     }
 
-
     @Override
     public void checkForInvitation() {
 
@@ -36,22 +49,6 @@ public class DesktopMultiPlayer implements MultiplayerInterface {
 
     @Override
     public void leaveRoom() {
-
-    }
-
-
-    @Override
-    public void sendIncrement(Byte msg) {
-
-    }
-
-    @Override
-    public void startSignInIntent() {
-
-    }
-
-    @Override
-    public void signInSilently() {
 
     }
 }

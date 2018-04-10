@@ -10,6 +10,7 @@ import com.mygdx.game.model.State;
 
 import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
+import static com.mygdx.game.Squarz.format;
 import static com.mygdx.game.Squarz.valueVibration;
 import static com.mygdx.game.Squarz.valueVolume;
 
@@ -24,29 +25,28 @@ public class Settings extends State {
     public Settings(GameStateManager gsm) {
         super(gsm);
 
-        sound = new Icon(new Texture(Gdx.files.internal("settings/sound.png")),0,0);
-        maxS = new Icon(new Texture(Gdx.files.internal("add.png")),0,0);
-        minS = new Icon(new Texture(Gdx.files.internal("delete.png")),0,0);
-        vibration = new Icon(new Texture(Gdx.files.internal("settings/vibration.png")),0,0);
-        maxV = new Icon(new Texture(Gdx.files.internal("add.png")),0,0);
-        minV = new Icon(new Texture(Gdx.files.internal("delete.png")),0,0);
-        back = new Icon(new Texture(Gdx.files.internal("back.png")),0,0);
+        this.sound = new Icon(new Texture(Gdx.files.internal(format+"/settings/sound.png")),0,0);
+        this.maxS = new Icon(new Texture(Gdx.files.internal(format+"/add.png")),0,0);
+        this.minS = new Icon(new Texture(Gdx.files.internal(format+"/delete.png")),0,0);
+        this.vibration = new Icon(new Texture(Gdx.files.internal(format+"/settings/vibration.png")),0,0);
+        this.maxV = new Icon(new Texture(Gdx.files.internal(format+"/add.png")),0,0);
+        this.minV = new Icon(new Texture(Gdx.files.internal(format+"/delete.png")),0,0);
+        this.back = new Icon(new Texture(Gdx.files.internal(format+"/back.png")),0,0);
 
-        sound.setPosX(WIDTH/6-sound.getTexture().getWidth()/2);
-        sound.setPosY(7*HEIGHT/10-sound.getTexture().getHeight()/2);
-        maxS.setPosX(3*WIDTH/6-sound.getTexture().getWidth()/2);
-        maxS.setPosY(7*HEIGHT/10-maxS.getTexture().getHeight()/2);
-        minS.setPosX(5*WIDTH/6-sound.getTexture().getWidth()/2);
-        minS.setPosY(7*HEIGHT/10-minS.getTexture().getHeight()/2);
-        vibration.setPosX(WIDTH/6-vibration.getTexture().getWidth()/2);
-        vibration.setPosY(3*HEIGHT/10-vibration.getTexture().getHeight()/2);
-        maxV.setPosX(3*WIDTH/6-sound.getTexture().getWidth()/2);
-        maxV.setPosY(3*HEIGHT/10-maxV.getTexture().getHeight()/2);
-        minV.setPosX(5*WIDTH/6-sound.getTexture().getWidth()/2);
-        minV.setPosY(3*HEIGHT/10-minV.getTexture().getHeight()/2);
-        back.setPosX(back.getTexture().getWidth()/2);
-        back.setPosY(back.getTexture().getHeight()/2);
-
+        this.sound.setPosX(WIDTH/6-sound.getTexture().getWidth()/2);
+        this.sound.setPosY(7*HEIGHT/10-sound.getTexture().getHeight()/2);
+        this.maxS.setPosX(3*WIDTH/6-sound.getTexture().getWidth()/2);
+        this.maxS.setPosY(7*HEIGHT/10-maxS.getTexture().getHeight()/2);
+        this.minS.setPosX(5*WIDTH/6-sound.getTexture().getWidth()/2);
+        this.minS.setPosY(7*HEIGHT/10-minS.getTexture().getHeight()/2);
+        this.vibration.setPosX(WIDTH/6-vibration.getTexture().getWidth()/2);
+        this.vibration.setPosY(3*HEIGHT/10-vibration.getTexture().getHeight()/2);
+        this.maxV.setPosX(3*WIDTH/6-sound.getTexture().getWidth()/2);
+        this.maxV.setPosY(3*HEIGHT/10-maxV.getTexture().getHeight()/2);
+        this.minV.setPosX(5*WIDTH/6-sound.getTexture().getWidth()/2);
+        this.minV.setPosY(3*HEIGHT/10-minV.getTexture().getHeight()/2);
+        this.back.setPosX(back.getTexture().getWidth()/2);
+        this.back.setPosY(back.getTexture().getHeight()/2);
     }
 
     @Override

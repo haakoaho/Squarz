@@ -5,6 +5,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.control.aI.PreferencesSettings;
+
+import static com.mygdx.game.Squarz.format;
 
 /**
  * Created by Max on 06/03/2018.
@@ -19,44 +22,52 @@ public class Square {
     private Sprite sprite;
     private Texture texture;
     private Vector2 position;
-    private Integer speed;
     private Rectangle rectangle;
     private Integer colorKey;
+    private PreferencesSettings set;
 
-    public Square (){
-        this.texture = new Texture(Gdx.files.internal("square.png"));
+    private Integer freezeSpeed;
+
+    public Square (PreferencesSettings set){
+        this.texture = new Texture(Gdx.files.internal(format+"/square/square.png"));
         this.sprite = new Sprite(texture);
         this.position = new Vector2 (0, 0);
-        this.speed = 4;
         this.rectangle = new Rectangle(this.getPosition().x, this.getPosition().y,
                 this.getTexture().getWidth(), this.getTexture().getHeight());
         this.colorKey = 0;
+        this.set = set;
+        this.freezeSpeed = 0;
     }
 
 
     public void move(){
-        this.setPosition(new Vector2(this.getPosition().x, this.getPosition().y + this.getSpeed()));
+        this.setPosition(new Vector2(this.getPosition().x, this.getPosition().y + this.set.getStepX()));
     }
 
     public void reverseMove(){
-        this.setPosition(new Vector2(this.getPosition().x, this.getPosition().y - this.getSpeed()));
+        this.setPosition(new Vector2(this.getPosition().x, this.getPosition().y - this.set.getStepX()));
     }
 
     public boolean isInUser(){
-        if (this.getPosition() == new Vector2(10, 10)
-                || (this.getPosition().y > Gdx.graphics.getHeight() + this.getSpeed())){
+        if (this.getPosition().y + this.getTexture().getHeight() > Gdx.graphics.getHeight() + this.set.getStepX()){
             return false;
         }
         return true;
     }
 
     public boolean isInAi(){
-        if (this.getPosition() == new Vector2(10, 10)
-                || (this.getPosition().y + this.getSpeed() < 0 )){
+        if (this.getPosition().y + this.set.getStepX() < 0 ){
             return false;
         }
         return true;
     }
+
+
+
+
+
+
+
 
     public Sprite getSprite() {
         return sprite;
@@ -81,14 +92,6 @@ public class Square {
     public void setPosition(Vector2 position) {
         this.position = position;
         this.rectangle.set(position.x, position.y, this.getTexture().getWidth(), this.getTexture().getHeight());
-    }
-
-    public Integer getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(Integer speed) {
-        this.speed = speed;
     }
 
     public Rectangle getRectangle() {
