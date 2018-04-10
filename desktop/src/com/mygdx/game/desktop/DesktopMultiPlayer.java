@@ -4,6 +4,7 @@ import com.mygdx.game.model.MultiplayerInterface;
 
 import java.util.Queue;
 
+<<<<<<< HEAD
 
 
 
@@ -13,51 +14,71 @@ public class DesktopMultiPlayer implements MultiplayerInterface {
  */
 
 
+=======
+
+
+public class DesktopMultiPlayer implements MultiplayerInterface {
+>>>>>>> Send+Invite
     @Override
     public Queue<Byte> popMoves() {
         return null;
     }
 
     @Override
-    public void startQuickGame() {
+    public void sendIncrement(Byte msg) {
 
     }
     /*
 
     @Override
+<<<<<<< HEAD
     public void invite() {
+=======
+    public void startSignInIntent() {
+>>>>>>> Send+Invite
 
     }
 
     @Override
-    public boolean isGameReady() {
-        return false;
+    public void signInSilently() {
+
     }
 
+    @Override
+    public void startQuickGame() {
+
+    }
+
+    @Override
+    public void invite() {
+
+    } */
+
+    @Override
+<<<<<<< HEAD
+    public void sendIncrement(Byte msg) {
+
+=======
+    public boolean isGameReady() {
+        return false;
+>>>>>>> Send+Invite
+    }
 
     @Override
     public void checkForInvitation() {
 
     }
 
-    @Override
-    public void leaveRoom() {
-
-    } */
-
-
-    @Override
-    public void sendIncrement(Byte msg) {
-
-    }
-
-    @Override
-    public void startSignInIntent() {
-
-    }
-
+<<<<<<< HEAD
     // @Override
     public void signInSilently() {
 
     }
 }
+=======
+    @Override
+    public void leaveRoom() {
+
+    }
+}
+>>>>>>> Send+Invite
