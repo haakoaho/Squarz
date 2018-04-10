@@ -4,17 +4,10 @@ import com.mygdx.game.model.MultiplayerInterface;
 
 import java.util.Queue;
 
-<<<<<<< HEAD
-/**
- * Created by mathi on 03/04/2018.
- */
 
-public class DesktopMultiPlayer  implements MultiplayerInterface {
-=======
 
 
 public class DesktopMultiPlayer implements MultiplayerInterface {
->>>>>>> Send+Invite
 
     @Override
     public Queue<Byte> popMoves() {
@@ -27,8 +20,6 @@ public class DesktopMultiPlayer implements MultiplayerInterface {
     }
 
     @Override
-<<<<<<< HEAD
-=======
     public void invite() {
 
     }
@@ -51,7 +42,6 @@ public class DesktopMultiPlayer implements MultiplayerInterface {
 
 
     @Override
->>>>>>> Send+Invite
     public void sendIncrement(Byte msg) {
 
     }
@@ -60,13 +50,9 @@ public class DesktopMultiPlayer implements MultiplayerInterface {
     public void startSignInIntent() {
 
     }
-<<<<<<< HEAD
-}
-=======
 
     @Override
     public void signInSilently() {
 
     }
 }
->>>>>>> Send+Invite
