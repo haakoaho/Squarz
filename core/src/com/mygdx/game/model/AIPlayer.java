@@ -21,9 +21,7 @@ import static com.mygdx.game.Squarz.format;
 // Collision convention
 //    red < blue < yellow < red
 
-public class AIPlayer {
-    private Player computer;
-    private PreferencesSettings settings;
+public class AIPlayer extends Player{
     private Texture texture;
     private com.mygdx.game.model.Square square;
     private Integer launcherCounter;
@@ -31,8 +29,7 @@ public class AIPlayer {
     private Integer renderCounter;
 
     public AIPlayer (PreferencesSettings set, CountDown countDown){
-        this.settings = set;
-        this.computer = new Player(set, countDown);
+        super(set, countDown);
         this.texture = new Texture (Gdx.files.internal(format+"/square/square.png"));
         this.square = new com.mygdx.game.model.Square(set);
 
@@ -45,18 +42,16 @@ public class AIPlayer {
     public void send(CountDown countDown){
         this.launcherCounter += 1;
         if (countDown.getWorldTimer() > 0) {
-            if (this.launcherCounter == this.settings.getDtLaunching()) {
+            if (this.launcherCounter == this.getSet().getDtLaunching() ) {
                 this.launcherCounter = 0;
 
                 //setting the random color
                 int colorKey = random(2);
                 setTheRandomTexture(colorKey);
 
-                //setting the random Texture in a random row
-                int row = random(2);
-
-                setTheRandomRow(row, colorKey);
-
+                //setting the random Texture in a random column
+                int column = random(2);
+                setTheRandomColumn(column, colorKey);
             }
         }
     }
@@ -64,28 +59,23 @@ public class AIPlayer {
     public void prgrmdSending(CountDown countDown){
         this.launcherCounter += 1;
         if (countDown.getWorldTimer() > 0) {
-            if (this.launcherCounter == this.settings.getDtLaunching()) {
+            if (this.launcherCounter == this.getSet().getDtLaunching()) {
                 this.launcherCounter = 0;
 
-                if (!this.getComputer().getSquareLimiter().isOver(0)){
+                if (!this.getSquareLimiter().isOver(0)){
                     setTheRandomTexture(0);
-                    setTheRandomRow(0, 0);
-                }else if (!this.getComputer().getSquareLimiter().isOver(1)){
+                    setTheRandomColumn(0, 0);
+                }else if (!this.getSquareLimiter().isOver(1)){
                     setTheRandomTexture(1);
-                    setTheRandomRow(1, 1);
+                    setTheRandomColumn(1, 1);
                 }else{
                     setTheRandomTexture(2);
-                    setTheRandomRow(2, 2);
+                    setTheRandomColumn(2, 2);
                 }
-
-
-
             }
         }
 
     }
-
-
 
     public void setTheRandomTexture(int colorKey){
         if (colorKey == 0) {
@@ -97,71 +87,48 @@ public class AIPlayer {
         }
     }
 
-    public void setTheRandomRow(int row, int colorKey) {
-        if(!this.getComputer().getSquareLimiter().isOver(colorKey)) {
+    public void setTheRandomColumn(int columnKey, int colorKey) {
+        if(!this.getSquareLimiter().isOver(colorKey)) {
 
-            if (row == 0) {
-                incrementAI(computer.getLeft(), computer.getLeftCounter(), texture, row, colorKey);
-                computer.setLeftCounter(computer.getLeftCounter() + 1);
+            if (columnKey == 0) {
+                incrementAI(texture, columnKey, colorKey);
             }
-            if (row == 1) {
-                incrementAI(computer.getMiddle(), computer.getMiddleCounter(), texture, row, colorKey);
-                computer.setMiddleCounter(computer.getMiddleCounter() + 1);
+            if (columnKey == 1) {
+                incrementAI(texture, columnKey, colorKey);
 
             }
-            if (row == 2) {
-                incrementAI(computer.getRight(), computer.getRightCounter(), texture, row, colorKey);
-                computer.setRightCounter(computer.getRightCounter() + 1);
+            if (columnKey == 2) {
+                incrementAI(texture, columnKey, colorKey);
             }
         }
     }
 
-    public void incrementAI(Map<Integer, Square> row, Integer counter, Texture t, Integer columnKey, Integer colorkey) {
-        row.put(counter, new Square(settings));
-        this.computer.getSquareLimiter().counter(colorkey);
-        if (columnKey == 0) {
-            row.get(counter).setPosition(new Vector2(WIDTH * 3/8, HEIGHT));
-            row.get(counter).setTexture(t);
-            row.get(counter).setColorKey(colorkey);
-            if (counter != this.getComputer().getFirstLeftSquaresKey() && counter > 0 && row.get(counter - 1).getPosition().y >= HEIGHT - (t.getHeight()) - 5) {
-                row.get(counter).setPosition(new Vector2(WIDTH * 3 / 8,
-                        row.get(counter - 1).getPosition().y + t.getHeight() + 5));
-            }
-        } else if (columnKey == 1) {
-            row.get(counter).setPosition(new Vector2(WIDTH * 5/8, HEIGHT));
-            row.get(counter).setTexture(t);
-            row.get(counter).setColorKey(colorkey);
-            if (counter != this.getComputer().getFirstMiddleSquaresKey() && counter > 0 && row.get(counter - 1).getPosition().y >= HEIGHT - (t.getHeight()) - 5) {
-                row.get(counter).setPosition(new Vector2(WIDTH * 5/8,
-                        row.get(counter - 1).getPosition().y + t.getHeight() + 5));
-            }
-        } else if (columnKey == 2) {
-            row.get(counter).setPosition(new Vector2(WIDTH * 7/8, HEIGHT));
-            row.get(counter).setTexture(t);
-            row.get(counter).setColorKey(colorkey);
-            if (counter != this.getComputer().getFirstRightSquaresKey() && counter > 0 && row.get(counter - 1).getPosition().y >= HEIGHT - (t.getHeight()) - 5) {
-                row.get(counter).setPosition(new Vector2(WIDTH * 7/8,
-                        row.get(counter - 1).getPosition().y + t.getHeight() + 5));
-            }
-        }
+    public void incrementAI(Texture t, Integer columnKey, Integer colorkey) {
+        Integer counter = this.getCounter(columnKey);
+        Map<Integer, Square> row = this.getMap(columnKey);
+
+        //back end
+        row.put(counter, new Square(this.getSet()));
+        incrementCounter(columnKey);
+        this.getSquareLimiter().minusOne(colorkey);
+
+        //front end
+        row.get(counter).setPosition(new Vector2(WIDTH * (3+(2*columnKey))/8, HEIGHT));
+        row.get(counter).setTexture(t);
+        row.get(counter).setColorKey(colorkey);
+
+        handleAIOverLapping(columnKey, t, counter, row);
     }
 
+    public void handleAIOverLapping(Integer columnKey, Texture t, Integer counter, Map<Integer, Square> map){
+        if (counter != this.getFirstSquareKey(columnKey) && counter > 0 && map.get(counter - 1).getPosition().y >= HEIGHT - (t.getHeight()) - 5) {
+            map.get(counter).setPosition(new Vector2(WIDTH * 3 / 8,
+                    map.get(counter - 1).getPosition().y + t.getHeight() + 5));
+        }
+    }
 
     // ---------  general getters and setters
 
-
-    public PreferencesSettings getSettings() {
-        return settings;
-    }
-    public void setSettings(PreferencesSettings settings) {
-        this.settings = settings;
-    }
-    public Player getComputer() {
-        return computer;
-    }
-    public void setComputer(Player computer) {
-        this.computer = computer;
-    }
     public Texture getTexture() {
         return texture;
     }
