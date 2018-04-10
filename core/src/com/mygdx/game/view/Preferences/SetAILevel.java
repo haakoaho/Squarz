@@ -26,8 +26,8 @@ public class SetAILevel extends State{
 
     public SetAILevel(GameStateManager gsm, PreferencesSettings setting, CountDown countDown){
         super(gsm);
-        this.add = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/add.png")),0,0);
-        this.delete = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/delete.png")),0,0);
+        this.add = new Icon(new Texture(Gdx.files.internal(format+"/add.png")),0,0);
+        this.delete = new Icon(new Texture(Gdx.files.internal(format+"/delete.png")),0,0);
         this.levelToDraw = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/ai_levels/beginer.png")),0,0);
         this.set = setting;
         this.countDown = countDown;

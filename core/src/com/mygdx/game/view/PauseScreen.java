@@ -22,7 +22,7 @@ import static com.mygdx.game.Squarz.valueVolume;
 
 public class PauseScreen {
     private Icon texture, sound, vibration, resume, back, quickSetting, addS, deleteS, addV, deleteV, backToPause;
-    private GlyphLayout pauseGlyph;
+    private GlyphLayout pauseGlyph, sGlyph, vGlyph;
 
 
     public PauseScreen() {
@@ -72,6 +72,8 @@ public class PauseScreen {
         this.backToPause.setPosY(texture.getPosY() + texture.getTexture().getHeight()*3/4  - backToPause.getTexture().getHeight()/2);
 
         this.pauseGlyph = new GlyphLayout(Squarz.font, "PAUSE");
+        this.sGlyph = new GlyphLayout(Squarz.font, String.valueOf(valueVolume));
+        this.vGlyph = new GlyphLayout(Squarz.font, String.valueOf(valueVibration));
     }
 
     public void drawPause(SpriteBatch sb){
@@ -80,7 +82,7 @@ public class PauseScreen {
         sb.draw(back.getTexture(), back.getPosX(), back.getPosY());
         sb.draw(quickSetting.getTexture(), quickSetting.getPosX(), quickSetting.getPosY());
         Squarz.font.draw(sb, pauseGlyph,
-                (WIDTH/2 - pauseGlyph.width/2), texture.getPosY()+4/5*texture.getTexture().getHeight() -pauseGlyph.height/2);
+                (WIDTH/2 - pauseGlyph.width/2), texture.getPosY() + texture.getTexture().getHeight()*3/4 + pauseGlyph.height/2);
     }
     public void drawPauseSetting(SpriteBatch sb){
         sb.draw(texture.getTexture(), texture.getPosX(), texture.getPosY());
@@ -91,11 +93,13 @@ public class PauseScreen {
         sb.draw(addV.getTexture(), addV.getPosX(), addV.getPosY());
         sb.draw(deleteV.getTexture(), deleteV.getPosX(), deleteV.getPosY());
 
-        Squarz.font.draw(sb, valueVolume+"", texture.getPosX() + texture.getTexture().getWidth()*3/5,texture.getPosY() + texture.getTexture().getHeight()*11/20);
-        Squarz.font.draw(sb, valueVibration+"", texture.getPosX() + texture.getTexture().getWidth()*3/5,texture.getPosY() + texture.getTexture().getHeight()*6/20);
+        this.sGlyph.setText(Squarz.font, String.valueOf(valueVolume));
+        Squarz.font.draw(sb, sGlyph, texture.getPosX() + texture.getTexture().getWidth()*3/5 - sGlyph.width/2,texture.getPosY() + texture.getTexture().getHeight()*2/4  +sGlyph.height/2);
+        this.vGlyph.setText(Squarz.font, String.valueOf(valueVibration));
+        Squarz.font.draw(sb, vGlyph, texture.getPosX() + texture.getTexture().getWidth()*3/5 - vGlyph.width/2,texture.getPosY() + texture.getTexture().getHeight()*1/4  +vGlyph.height/2);
 
         Squarz.font.draw(sb, pauseGlyph,
-                (WIDTH/2 - pauseGlyph.width/2), texture.getPosY()+4/5*texture.getTexture().getHeight() -pauseGlyph.height/2);
+                (WIDTH/2 - pauseGlyph.width/2), texture.getPosY() + texture.getTexture().getHeight()*3/4 + pauseGlyph.height/2);
         sb.draw(backToPause.getTexture(), backToPause.getPosX(),backToPause.getPosY());
     }
 

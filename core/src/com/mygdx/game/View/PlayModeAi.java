@@ -107,8 +107,8 @@ public class PlayModeAi extends State {
 
         //Pause mode
         this.pause = new Icon(new Texture(Gdx.files.internal(format + "/pause.png")),0,0);
-        this.pause.setPosX(WIDTH * 1 / 16 - pause.getTexture().getWidth()/2);
-        this.pause.setPosY(HEIGHT * 15 / 16 - pause.getTexture().getHeight()/2);
+        this.pause.setPosX(redChoiceSquare.getPosX() + redChoiceSquare.getTexture().getWidth()/2 - pause.getTexture().getWidth()/2);
+        this.pause.setPosY(HEIGHT * 29 / 32 - pause.getTexture().getHeight()/2);
         this.pauseScreen = new PauseScreen();
 
         this.collision = new Collision();
@@ -148,7 +148,6 @@ public class PlayModeAi extends State {
                         defreeze();
                     }
                     if (pauseScreen.getBack().contains(x, y)){
-                        music.play();
                         defreeze();
                         gsm.set(new EndModeAI(gsm, settings, score, countDown));
                     }
@@ -466,7 +465,7 @@ public void movingAiSquare() {
     }
     public void drawTimeLeft(SpriteBatch sb) {
         time.setText(Squarz.font, String.valueOf(this.countDown.getWorldTimer()));
-        Squarz.font.draw(sb, String.valueOf(this.countDown.getWorldTimer()), redChoiceSquare.getPosX() + redChoiceSquare.getTexture().getWidth() / 2 - time.width / 2, HEIGHT * 28 / 32 - time.height / 2);
+        Squarz.font.draw(sb, String.valueOf(this.countDown.getWorldTimer()), redChoiceSquare.getPosX() + redChoiceSquare.getTexture().getWidth() / 2 - time.width / 2, HEIGHT * 27 / 32 - time.height / 2);
     }
 
 
