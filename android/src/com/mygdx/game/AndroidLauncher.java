@@ -434,10 +434,15 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 		}
 	}
 
+	@Override
+	public void writeToLog(String s) {
+		Log.d(TAG, s);
+	}
 
 
 
-    /*
+
+	/*
      * CALLBACKS SECTION. This section shows how we implement the several games
      * API callbacks.
      */

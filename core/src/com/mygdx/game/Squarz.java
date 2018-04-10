@@ -41,6 +41,8 @@ public class Squarz extends ApplicationAdapter  {
 		gsm.setMultiplayerInterface(multiplayerInterface);
 
 
+
+
 		WIDTH = Gdx.graphics.getWidth();
 		HEIGHT = Gdx.graphics.getHeight();
 		valueVolume=5;
