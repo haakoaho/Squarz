@@ -49,15 +49,14 @@ public class Pref extends State {
                 dispose();
             }
             if (quick.contains(x,y)){
-                gsm.getMultiplayerInterface().startSignInIntent();
                 gsm.getMultiplayerInterface().startQuickGame();
-                gsm.push(new PlayModeMulti(gsm));
             }
             if (answer.contains(x,y)){
-                //go to  answer
+                gsm.getMultiplayerInterface().checkForInvitation();
             }
             if(invite.contains(x,y)){
-                //go to invite
+                gsm.getMultiplayerInterface().invite();
+
             }
             if (back.contains(x,y)) {
                 gsm.set(new Menu(gsm));
@@ -65,10 +64,16 @@ public class Pref extends State {
             }
         }
     }
-//
+    //
     @Override
     public void update(float dt) {
         handleInput();
+
+        // pushes to the multiplayer screen if room was succsesfully created
+        if (gsm.getMultiplayerInterface().isGameReady()) {
+            gsm.set(new PlayModeMulti(gsm));
+        }
+
     }
 
     @Override
