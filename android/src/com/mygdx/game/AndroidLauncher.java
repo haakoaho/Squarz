@@ -1,14 +1,47 @@
 package com.mygdx.game;
 
 import android.os.Bundle;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
+
+import android.support.annotation.NonNull;
+import android.util.Log;
+import android.view.View;
+
+import com.badlogic.gdx.backends.android.AndroidApplication;
+import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.games.Games;
+import com.google.android.gms.games.GamesActivityResultCodes;
+import com.google.android.gms.games.GamesCallbackStatusCodes;
+import com.google.android.gms.games.GamesClient;
+import com.google.android.gms.games.InvitationsClient;
+import com.google.android.gms.games.Player;
+import com.google.android.gms.games.PlayersClient;
+import com.google.android.gms.games.RealTimeMultiplayerClient;
+import com.google.android.gms.games.multiplayer.Invitation;
+import com.google.android.gms.games.multiplayer.Multiplayer;
+import com.google.android.gms.games.multiplayer.Participant;
+import com.google.android.gms.games.multiplayer.realtime.OnRealTimeMessageReceivedListener;
+import com.google.android.gms.games.multiplayer.realtime.RealTimeMessage;
+import com.google.android.gms.games.multiplayer.realtime.Room;
+import com.google.android.gms.games.multiplayer.realtime.RoomConfig;
+import com.google.android.gms.games.multiplayer.realtime.RoomStatusUpdateCallback;
+import com.google.android.gms.games.multiplayer.realtime.RoomUpdateCallback;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.mygdx.game.model.MultiplayerInterface;
+
+
+
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
@@ -39,49 +72,41 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.mygdx.game.model.MultiplayerInterface;
-=======
-
-import com.badlogic.gdx.backends.android.AndroidApplication;
-import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
->>>>>>> parent of 6df28c3... Revert "Revert "Merge branch 'mathieu' into Maxime""
-
-=======
->>>>>>> parent of a2d165f... Revert "Merge branch 'Send+Invite' into Maxime"
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 
-<<<<<<< HEAD
-=======
->>>>>>> parent of 6df28c3... Revert "Revert "Merge branch 'mathieu' into Maxime""
-=======
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 
->>>>>>> parent of 6f07b88... Merge branch 'mathieu' into Maxime
->>>>>>> parent of a2d165f... Revert "Merge branch 'Send+Invite' into Maxime"
-public class AndroidLauncher extends AndroidApplication {
+
+import com.badlogic.gdx.backends.android.AndroidApplication;
+import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+
+
+public classAndroidLauncher extends AndroidApplication {
 	@Override
-	protected void onCreate (Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 		config.useWakelock = true;
 
 		Squarz game = new Squarz(this);
 		initialize(game, config);
+
 	}
+
+
+>>>>>>> parent of 366519d... 20:43
 
 	    /*
      * API INTEGRATION SECTION. This section contains the code that integrates
      * the game with the Google Play game services API.
      */
 
+<<<<<<< HEAD
 	final static String TAG = "Squarz";
 
 	// Request codes for the UIs that we show with startActivityForResult:
@@ -681,6 +706,9 @@ public class AndroidLauncher extends AndroidApplication {
 >>>>>>> parent of 6df28c3... Revert "Revert "Merge branch 'mathieu' into Maxime""
 =======
 >>>>>>> parent of a2d165f... Revert "Merge branch 'Send+Invite' into Maxime"
+=======
+		final  String TAG = "Squarz";
+>>>>>>> parent of 366519d... 20:43
 		initialize(new Squarz(), config);
 	}
 >>>>>>> parent of 6f07b88... Merge branch 'mathieu' into Maxime
