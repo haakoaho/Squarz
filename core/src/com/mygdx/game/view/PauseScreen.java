@@ -3,6 +3,7 @@ package com.mygdx.game.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.game.Squarz;
 import com.mygdx.game.model.Icon;
 
@@ -20,81 +21,86 @@ import static com.mygdx.game.Squarz.valueVolume;
  */
 
 public class PauseScreen {
-    private Texture texture, sound, vibration;
-    private Icon resume, back, quickSetting, addS, deleteS, addV, deleteV, backToPause;
+    private Icon texture, sound, vibration, resume, back, quickSetting, addS, deleteS, addV, deleteV, backToPause;
     private GlyphLayout pauseGlyph;
 
 
     public PauseScreen() {
-        this.texture = new Texture(Gdx.files.internal("rectangle.png"));
+
+        this.texture = new Icon(new Texture(Gdx.files.internal("rectangle.png")),0,0);
+        this.texture.setPosX(WIDTH/2 - this.texture.getTexture().getWidth()/2);
+        this.texture.setPosY(HEIGHT/2 - this.texture.getTexture().getHeight()/2);
+
         this.resume = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/play.png")),0, 0);
-        resume.setPosX(WIDTH/2 - getResume().getTexture().getWidth()/2 );
-        resume.setPosY(HEIGHT*2/5 - getResume().getTexture().getHeight()/2);
+        this.resume.setPosX(WIDTH/2 - resume.getTexture().getWidth()/2 );
+        this.resume.setPosY(HEIGHT/2 - texture.getTexture().getHeight()/6 - resume.getTexture().getHeight()/2);
+
         this.back = new Icon(new Texture(Gdx.files.internal(format+"/pause/back.png")),0, 0);
-        back.setPosX(WIDTH*2/3 - getBack().getTexture().getWidth()/2);
-        back.setPosY(HEIGHT*2/5 - getBack().getTexture().getHeight()/2);
+        this.back.setPosX(WIDTH/2 - texture.getTexture().getWidth()*1/3 - back.getTexture().getWidth()/2);
+        this.back.setPosY(HEIGHT/2 - texture.getTexture().getHeight()/6 - back.getTexture().getHeight()/2);
+
         this.quickSetting = new Icon(new Texture(Gdx.files.internal(format+"/pause/settings.png")),0, 0);
-        quickSetting.setPosX(WIDTH/3 - getQuickSetting().getTexture().getWidth()/2);
-        quickSetting.setPosY(HEIGHT*2/5 - getQuickSetting().getTexture().getHeight()/2);
+        this.quickSetting.setPosX(WIDTH/2 + texture.getTexture().getWidth()*1/3 - quickSetting.getTexture().getWidth()/2 );
+        this.quickSetting.setPosY(HEIGHT/2 - texture.getTexture().getHeight()/6 - quickSetting.getTexture().getHeight()/2);
+
+        this.sound = new Icon(new Texture(Gdx.files.internal(format+"/pause/speaker.png")),0,0);
+        this.sound.setPosX(texture.getPosX() + texture.getTexture().getWidth()/5 - sound.getTexture().getWidth()/2);
+        this.sound.setPosY(texture.getPosY() + texture.getTexture().getHeight()*2/4  - sound.getTexture().getHeight()/2);
+
+        this.vibration = new Icon(new Texture(Gdx.files.internal(format+"/pause/vibration.png")),0,0);
+        this.vibration.setPosX(texture.getPosX() + texture.getTexture().getWidth()/5 - vibration.getTexture().getWidth()/2);
+        this.vibration.setPosY(texture.getPosY() + texture.getTexture().getHeight()*1/4  - vibration.getTexture().getHeight()/2);
+
         this.addS = new Icon(new Texture(Gdx.files.internal(format+"/pause/add.png")), 0, 0);
-        addS.setPosX(WIDTH*65/100);
-        addS.setPosY(HEIGHT/2 - addS.getTexture().getHeight()/2);
+        this.addS.setPosX(texture.getPosX() + texture.getTexture().getWidth()*4/5 - addS.getTexture().getWidth()/2);
+        this.addS.setPosY(texture.getPosY() + texture.getTexture().getHeight()*2/4  - addS.getTexture().getHeight()/2);
+
         this.deleteS = new Icon(new Texture(Gdx.files.internal(format+"/pause/minus.png")), 0, 0);
-        deleteS.setPosX(WIDTH*40/100);
-        deleteS.setPosY(HEIGHT/2 - deleteS.getTexture().getHeight()/2);
+        this.deleteS.setPosX(texture.getPosX() + texture.getTexture().getWidth()*2/5 - deleteS.getTexture().getWidth()/2);
+        this.deleteS.setPosY(texture.getPosY() + texture.getTexture().getHeight()*2/4  - deleteS.getTexture().getHeight()/2);
+
         this.addV = new Icon(new Texture(Gdx.files.internal(format+"/pause/add.png")), 0, 0);
-        addV.setPosX(WIDTH*65/100);
-        addV.setPosY(HEIGHT/3 - addV.getTexture().getHeight()/2);
+        this.addV.setPosX(texture.getPosX() + texture.getTexture().getWidth()*4/5 - addV.getTexture().getWidth()/2);
+        this.addV.setPosY(texture.getPosY() + texture.getTexture().getHeight()*1/4  - addV.getTexture().getHeight()/2);
+
         this.deleteV = new Icon(new Texture(Gdx.files.internal(format+"/pause/minus.png")), 0, 0);
-        deleteV.setPosX(WIDTH*40/100);
-        deleteV.setPosY(HEIGHT/3 - deleteV.getTexture().getHeight()/2);
+        this.deleteV.setPosX(texture.getPosX() + texture.getTexture().getWidth()*2/5 - deleteV.getTexture().getWidth()/2);
+        this.deleteV.setPosY(texture.getPosY() + texture.getTexture().getHeight()*1/4  - deleteV.getTexture().getHeight()/2);
+
         this.backToPause = new Icon(new Texture(Gdx.files.internal(format+"/pause/back.png")),0, 0);
-        backToPause.setPosX(WIDTH*63/100);
-        backToPause.setPosY(HEIGHT*61/100);
+        this.backToPause.setPosX(texture.getPosX() + texture.getTexture().getWidth()*9/10 - backToPause.getTexture().getWidth()/2);
+        this.backToPause.setPosY(texture.getPosY() + texture.getTexture().getHeight()*3/4  - backToPause.getTexture().getHeight()/2);
+
         this.pauseGlyph = new GlyphLayout(Squarz.font, "PAUSE");
-
-
-        this.sound = new Texture(Gdx.files.internal(format+"/pause/speaker.png"));
-        this.vibration = new Texture(Gdx.files.internal(format+"/pause/vibration.png"));
-
     }
 
     public void drawPause(SpriteBatch sb){
-        sb.draw(this.getTexture(), WIDTH/2 - this.getTexture().getWidth()/2
-                , HEIGHT/2 - this.getTexture().getHeight()/2);
-        sb.draw(getResume().getTexture(), getResume().getPosX(), getResume().getPosY());
-        sb.draw(this.getBack().getTexture(), getBack().getPosX(), getBack().getPosY());
-        sb.draw(this.getQuickSetting().getTexture(), getQuickSetting().getPosX(), getQuickSetting().getPosY());
+        sb.draw(texture.getTexture(), texture.getPosX(), texture.getPosY());
+        sb.draw(resume.getTexture(), resume.getPosX(), resume.getPosY());
+        sb.draw(back.getTexture(), back.getPosX(), back.getPosY());
+        sb.draw(quickSetting.getTexture(), quickSetting.getPosX(), quickSetting.getPosY());
         Squarz.font.draw(sb, pauseGlyph,
-                (WIDTH/2 - pauseGlyph.width/2), HEIGHT/2 + this.getTexture().getHeight()*1/4);
+                (WIDTH/2 - pauseGlyph.width/2), texture.getPosY()+4/5*texture.getTexture().getHeight() -pauseGlyph.height/2);
     }
     public void drawPauseSetting(SpriteBatch sb){
-        sb.draw(this.getTexture(), WIDTH/2 - this.getTexture().getWidth()/2
-                , HEIGHT/2 - this.getTexture().getHeight()/2);
-        sb.draw(this.sound, WIDTH/4-sound.getWidth()/2, HEIGHT/2-sound.getHeight()/2);
-        sb.draw(this.vibration, WIDTH/4-sound.getWidth()/2, HEIGHT/3-sound.getHeight()/2);
+        sb.draw(texture.getTexture(), texture.getPosX(), texture.getPosY());
+        sb.draw(sound.getTexture(), sound.getPosX(), sound.getPosY());
+        sb.draw(vibration.getTexture(), vibration.getPosX(), vibration.getPosY());
         sb.draw(addS.getTexture(), addS.getPosX(), addS.getPosY());
         sb.draw(deleteS.getTexture(), deleteS.getPosX(), deleteS.getPosY());
         sb.draw(addV.getTexture(), addV.getPosX(), addV.getPosY());
         sb.draw(deleteV.getTexture(), deleteV.getPosX(), deleteV.getPosY());
 
-        Squarz.font.draw(sb, valueVolume+"", WIDTH*55/100,HEIGHT/2 + sound.getHeight()/4);
-        Squarz.font.draw(sb, valueVibration+"", WIDTH*55/100,HEIGHT/3 + sound.getHeight()/4);
-
-
+        Squarz.font.draw(sb, valueVolume+"", texture.getPosX() + texture.getTexture().getWidth()*3/5,texture.getPosY() + texture.getTexture().getHeight()*11/20);
+        Squarz.font.draw(sb, valueVibration+"", texture.getPosX() + texture.getTexture().getWidth()*3/5,texture.getPosY() + texture.getTexture().getHeight()*6/20);
 
         Squarz.font.draw(sb, pauseGlyph,
-                (WIDTH*2/5 - pauseGlyph.width/2), HEIGHT/2 + this.getTexture().getHeight()*1/4);
-        sb.draw(getBackToPause().getTexture(), getBackToPause().getPosX(),getBackToPause().getPosY());
+                (WIDTH/2 - pauseGlyph.width/2), texture.getPosY()+4/5*texture.getTexture().getHeight() -pauseGlyph.height/2);
+        sb.draw(backToPause.getTexture(), backToPause.getPosX(),backToPause.getPosY());
     }
-
-
 
     public Texture getTexture() {
-        return texture;
-    }
-    public void setTexture(Texture texture) {
-        this.texture = texture;
+        return texture.getTexture();
     }
     public Icon getResume() {
         return resume;

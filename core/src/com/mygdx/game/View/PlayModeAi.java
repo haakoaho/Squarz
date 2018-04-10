@@ -106,8 +106,9 @@ public class PlayModeAi extends State {
         this.colorKey = 0;
 
         //Pause mode
-        this.pause = new Icon(new Texture(Gdx.files.internal(format + "/pause.png"))
-                , WIDTH * 1 / 16, HEIGHT * 15 / 16 - this.texture.getHeight() / 2);
+        this.pause = new Icon(new Texture(Gdx.files.internal(format + "/pause.png")),0,0);
+        this.pause.setPosX(WIDTH * 1 / 16 - pause.getTexture().getWidth()/2);
+        this.pause.setPosY(HEIGHT * 15 / 16 - pause.getTexture().getHeight()/2);
         this.pauseScreen = new PauseScreen();
 
         this.collision = new Collision();
@@ -141,10 +142,13 @@ public class PlayModeAi extends State {
                 }
                 if (pauseFlag && !pauseSettings) {
                     freeze();
+                    music.pause();
                     if (pauseScreen.getResume().contains(x, y)) {
+                        music.play();
                         defreeze();
                     }
                     if (pauseScreen.getBack().contains(x, y)){
+                        music.play();
                         defreeze();
                         gsm.set(new EndModeAI(gsm, settings, score, countDown));
                     }
@@ -155,18 +159,18 @@ public class PlayModeAi extends State {
                 }
                 else if (pauseSettings){
                     if(pauseScreen.getDeleteS().contains(x, y)){
-                        valueVolume --;
+                        dec(0);
                         music.setVolume(Squarz.valueVolume * 0.15f);
                     }
                     if(pauseScreen.getAddS().contains(x, y)){
-                        valueVolume ++;
+                        inc(0);
                         music.setVolume(Squarz.valueVolume * 0.15f);
                     }
                     if (pauseScreen.getDeleteV().contains(x, y)) {
-                        valueVibration --;
+                        dec(1);
                     }
                     if (pauseScreen.getAddV().contains(x, y)) {
-                        valueVibration ++;
+                        inc(1);
                     }
                     if (pauseScreen.getBackToPause().contains(x, y)){
                         pauseSettings = false;
@@ -538,5 +542,33 @@ public void movingAiSquare() {
 
     public void setPlayer(Player player) {
         this.player = player;
+    }
+
+    public void inc(int i) {
+        if(i==0) { //volume
+            if (Squarz.valueVolume < 10) {
+                Squarz.valueVolume++;
+            }
+        }
+        if(i==1) { //vibration
+            if (Squarz.valueVibration < 10) {
+                Squarz.valueVibration++;
+            }
+        }
+
+    }
+
+    public void dec(int i) {
+        if(i==0) { //volume
+            if (Squarz.valueVolume > 0) {
+                Squarz.valueVolume--;
+            }
+        }
+        if(i==1) { //vibration
+            if (Squarz.valueVibration > 0) {
+                Squarz.valueVibration--;
+            }
+        }
+
     }
 }

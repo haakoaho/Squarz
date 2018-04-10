@@ -4,18 +4,14 @@ import com.mygdx.game.model.MultiplayerInterface;
 
 import java.util.Queue;
 
-<<<<<<< HEAD
 
 
 
 public class DesktopMultiPlayer implements MultiplayerInterface {
-=======
 /**
  * Created by mathi on 03/04/2018.
  */
 
-public class DesktopMultiPlayer  implements MultiplayerInterface {
->>>>>>> parent of 0aba017... Merge branch 'Send+Invite' into Lucas-le-BG-du-27
 
     @Override
     public Queue<Byte> popMoves() {
@@ -26,9 +22,9 @@ public class DesktopMultiPlayer  implements MultiplayerInterface {
     public void startQuickGame() {
 
     }
+    /*
 
     @Override
-<<<<<<< HEAD
     public void invite() {
 
     }
@@ -47,12 +43,10 @@ public class DesktopMultiPlayer  implements MultiplayerInterface {
     @Override
     public void leaveRoom() {
 
-    }
+    } */
 
 
     @Override
-=======
->>>>>>> parent of 0aba017... Merge branch 'Send+Invite' into Lucas-le-BG-du-27
     public void sendIncrement(Byte msg) {
 
     }
@@ -61,12 +55,9 @@ public class DesktopMultiPlayer  implements MultiplayerInterface {
     public void startSignInIntent() {
 
     }
-<<<<<<< HEAD
 
-    @Override
+    // @Override
     public void signInSilently() {
 
     }
-=======
->>>>>>> parent of 0aba017... Merge branch 'Send+Invite' into Lucas-le-BG-du-27
 }
