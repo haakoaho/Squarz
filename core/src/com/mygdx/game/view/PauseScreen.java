@@ -31,7 +31,7 @@ public class PauseScreen {
         this.texture.setPosX(WIDTH/2 - this.texture.getTexture().getWidth()/2);
         this.texture.setPosY(HEIGHT/2 - this.texture.getTexture().getHeight()/2);
 
-        this.resume = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/play.png")),0, 0);
+        this.resume = new Icon(new Texture(Gdx.files.internal(format+"/pause/resume.png")),0, 0);
         this.resume.setPosX(WIDTH/2 - resume.getTexture().getWidth()/2 );
         this.resume.setPosY(HEIGHT/2 - texture.getTexture().getHeight()/6 - resume.getTexture().getHeight()/2);
 
