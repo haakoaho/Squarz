@@ -2,6 +2,7 @@ package com.mygdx.game.view.beginning;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Squarz;
 import com.mygdx.game.control.GameStateManager;
@@ -21,6 +22,7 @@ import static com.mygdx.game.Squarz.valueVolume;
 public class Settings extends State {
     private Icon sound, vibration, back;
     private Icon maxS,minS,maxV,minV;
+    private GlyphLayout sLayout, vLayout;
 
     public Settings(GameStateManager gsm) {
         super(gsm);
@@ -35,18 +37,21 @@ public class Settings extends State {
 
         this.sound.setPosX(WIDTH/6-sound.getTexture().getWidth()/2);
         this.sound.setPosY(7*HEIGHT/10-sound.getTexture().getHeight()/2);
-        this.maxS.setPosX(3*WIDTH/6-sound.getTexture().getWidth()/2);
+        this.maxS.setPosX(5*WIDTH/6-maxS.getTexture().getWidth()/2);
         this.maxS.setPosY(7*HEIGHT/10-maxS.getTexture().getHeight()/2);
-        this.minS.setPosX(5*WIDTH/6-sound.getTexture().getWidth()/2);
+        this.minS.setPosX(3*WIDTH/6-minS.getTexture().getWidth()/2);
         this.minS.setPosY(7*HEIGHT/10-minS.getTexture().getHeight()/2);
         this.vibration.setPosX(WIDTH/6-vibration.getTexture().getWidth()/2);
         this.vibration.setPosY(3*HEIGHT/10-vibration.getTexture().getHeight()/2);
-        this.maxV.setPosX(3*WIDTH/6-sound.getTexture().getWidth()/2);
+        this.maxV.setPosX(5*WIDTH/6-maxV.getTexture().getWidth()/2);
         this.maxV.setPosY(3*HEIGHT/10-maxV.getTexture().getHeight()/2);
-        this.minV.setPosX(5*WIDTH/6-sound.getTexture().getWidth()/2);
+        this.minV.setPosX(3*WIDTH/6-minV.getTexture().getWidth()/2);
         this.minV.setPosY(3*HEIGHT/10-minV.getTexture().getHeight()/2);
         this.back.setPosX(back.getTexture().getWidth()/2);
         this.back.setPosY(back.getTexture().getHeight()/2);
+
+        this.sLayout = new GlyphLayout(Squarz.font, String.valueOf(valueVolume));
+        this.vLayout = new GlyphLayout(Squarz.font, String.valueOf(valueVibration));
     }
 
     @Override
@@ -83,11 +88,13 @@ public class Settings extends State {
         sb.begin();
         sb.draw(sound.getTexture(),sound.getPosX() ,sound.getPosY());
         sb.draw(maxS.getTexture(),maxS.getPosX(),maxS.getPosY());
-        Squarz.font.draw(sb, valueVolume+"", 62*WIDTH/100,72*HEIGHT/100);
+        this.sLayout.setText(Squarz.font,String.valueOf(valueVolume));
+        Squarz.font.draw(sb, this.sLayout, WIDTH*4/6-sLayout.width/2,7*HEIGHT/10+sLayout.height/2);
         sb.draw(minS.getTexture(),minS.getPosX(),minS.getPosY());
         sb.draw(vibration.getTexture(),vibration.getPosX(),vibration.getPosY());
         sb.draw(maxV.getTexture(),maxV.getPosX(),maxV.getPosY());
-        Squarz.font.draw(sb, valueVibration+"", 62*WIDTH/100,32*HEIGHT/100);
+        this.vLayout.setText(Squarz.font,String.valueOf(valueVibration));
+        Squarz.font.draw(sb, this.vLayout, WIDTH*4/6-vLayout.width/2,3*HEIGHT/10+vLayout.height/2);
         sb.draw(minV.getTexture(),minV.getPosX(),minV.getPosY());
         sb.draw(back.getTexture(),back.getPosY(),back.getPosY());
         sb.end();

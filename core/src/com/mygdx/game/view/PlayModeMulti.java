@@ -10,18 +10,21 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Squarz;
 import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.control.aI.PreferencesSettings;
+import com.mygdx.game.model.AIPlayer;
 import com.mygdx.game.model.Collision;
 import com.mygdx.game.model.CountDown;
 import com.mygdx.game.model.Player;
 import com.mygdx.game.model.Score;
 import com.mygdx.game.model.Square;
 import com.mygdx.game.model.State;
-import com.mygdx.game.view.beginning.Settings;
 
+import java.util.ArrayList;
 import java.util.Queue;
+
 
 import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
+import static com.mygdx.game.Squarz.format;
 
 public class PlayModeMulti extends State {
 
@@ -31,13 +34,14 @@ public class PlayModeMulti extends State {
     private Square choiceSquare;
     private Texture texture;
     private Integer colorkey;
-    private Integer collomnKey;
+    private Integer columnKey;
 
     private Score score;
     private PreferencesSettings set;
     private CountDown countDown;
 
-    private Player opponent;
+    private AIPlayer opponent;
+    private Queue<Byte> opponentMoves;
     private Player player;
 
     private Collision collision;
@@ -47,7 +51,7 @@ public class PlayModeMulti extends State {
         this.set = new PreferencesSettings();
         this.countDown = new CountDown(60);
         player = new Player(set, countDown);
-        opponent = new Player(set, countDown);
+        opponent = new AIPlayer(set, countDown);
 
         choiceSquare = new Square(set);
         choiceSquare.setPosition(new Vector2(WIDTH * 1 / 16, HEIGHT * 1 / 5));
@@ -100,18 +104,68 @@ public class PlayModeMulti extends State {
 
 
     public void handleReceivedMessage(){
-        Queue<Byte> moves = gsm.getMultiplayerInterface().popMoves();
+        Queue<Byte> moves = receive();
         for (int i = 0; i < moves.size(); i++) {
-         Byte b = moves.remove();
+            Byte b = moves.remove();
         }
+    }
+
+
+    public boolean newMessageDetected(){
+        boolean detected = false;
+        Queue<Byte> moves = receive();
+        if(moves.size()>opponentMoves.size()){
+            opponentMoves.add(moves.remove());
+            detected = true;
+        }
+        return detected;
+    }
+
+    /**
+     * called when a new message has been detected.
+     */
+    public void decryptMessage(){
+        Queue<Byte> moves = receive();
+        Byte b = moves.remove();
+        opponent.incrementAI(getTexture(getInformation(b).get(1)), getInformation(b).get(0), getInformation(b).get(1));
+    }
+
+    public ArrayList<Integer> getInformation(Byte b){
+        //Integer.parseInt(b.toString().substring(1,2));
+        ArrayList<Integer> information = new ArrayList<Integer>();
+        for(int i = 0; i<3; i++){
+            for(int j = 0; j<3; j++) {
+                if(i*64 + j*16 == b.floatValue()){
+                    information.add(i); //column key
+                    information.add(j); //colour key
+                }
+            }
+        }
+        return information;
+    }
+
+    public Texture getTexture(Integer colourKey){
+        Texture t = new Texture(Gdx.files.internal(format + "/square/square_red.png"));
+
+        if(colourKey == 0){
+            t = new Texture(Gdx.files.internal(format + "/square/square_red.png"));
+        }
+        if(colourKey == 1){
+            t = new Texture(Gdx.files.internal(format + "/square/square_blue.png"));
+        }
+        if(colourKey == 2){
+            t = new Texture(Gdx.files.internal(format + "/square/square_yellow.png"));
+        }
+        return t;
     }
 
 
     @Override
     public void update(float dt) {
         handleInput();
-        handleReceivedMessage();
-
+        if(newMessageDetected()){
+            decryptMessage();
+        }
     }
 
     @Override
@@ -130,7 +184,50 @@ public class PlayModeMulti extends State {
 
     }
 
-    Queue<Byte> recieve(){
+    Queue<Byte> receive(){
         return gsm.getMultiplayerInterface().popMoves();
+    }
+
+
+
+
+    public Texture getTexture() {
+        return texture;
+    }
+
+    public void setTexture(Texture texture) {
+        this.texture = texture;
+    }
+
+    public Integer getColorkey() {
+        return colorkey;
+    }
+
+    public void setColorkey(Integer colorkey) {
+        this.colorkey = colorkey;
+    }
+
+    public Integer getColumnKey() {
+        return columnKey;
+    }
+
+    public void setColumnKey(Integer columnKey) {
+        this.columnKey = columnKey;
+    }
+
+    public Player getOpponent() {
+        return opponent;
+    }
+
+    public void setOpponent(AIPlayer opponent) {
+        this.opponent = opponent;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 }
