@@ -56,27 +56,6 @@ public class AIPlayer extends Player{
         }
     }
 
-    public void prgrmdSending(CountDown countDown){
-        this.launcherCounter += 1;
-        if (countDown.getWorldTimer() > 0) {
-            if (this.launcherCounter == this.getSet().getDtLaunching()) {
-                this.launcherCounter = 0;
-
-                if (!this.getSquareLimiter().isOver(0)){
-                    setTheRandomTexture(0);
-                    setTheRandomColumn(0, 0);
-                }else if (!this.getSquareLimiter().isOver(1)){
-                    setTheRandomTexture(1);
-                    setTheRandomColumn(1, 1);
-                }else{
-                    setTheRandomTexture(2);
-                    setTheRandomColumn(2, 2);
-                }
-            }
-        }
-
-    }
-
     public void setTheRandomTexture(int colorKey){
         if (colorKey == 0) {
             this.texture = new Texture(Gdx.files.internal(format+"/square/square_red.png"));
@@ -159,5 +138,4 @@ public class AIPlayer extends Player{
     public void setRenderCounter(Integer renderCounter) {
         this.renderCounter = renderCounter;
     }
-
 }

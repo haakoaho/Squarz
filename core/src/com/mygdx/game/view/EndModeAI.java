@@ -45,7 +45,7 @@ public class EndModeAI extends State {
         this.back.setPosX(WIDTH/2 - back.getTexture().getWidth()/2);
         this.back.setPosY(HEIGHT/5 - back.getTexture().getHeight()/2);
 
-        this.scoreAi = new GlyphLayout(Squarz.font, s.getAiScore().toString());
+        this.scoreAi = new GlyphLayout(Squarz.font, s.getOpponentScore().toString());
         this.scoreUser = new GlyphLayout(Squarz.font, s.getUserScore().toString());
 
         this.countDown1 = new CountDown(countDown.getTimerKey());

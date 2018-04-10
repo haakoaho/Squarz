@@ -6,11 +6,11 @@ package com.mygdx.game.model;
 
 public class Score {
     private Integer userScore;
-    private Integer aiScore;
+    private Integer opponentScore;
 
     public Score(){
         this.userScore = 0;
-        this.aiScore = 0;
+        this.opponentScore = 0;
     }
 
     public Integer getUserScore() {
@@ -21,12 +21,12 @@ public class Score {
         this.userScore = userScore;
     }
 
-    public Integer getAiScore() {
-        return aiScore;
+    public Integer getOpponentScore() {
+        return opponentScore;
     }
 
-    public void setAiScore(Integer aiScore) {
-        this.aiScore = aiScore;
+    public void setOpponentScore(Integer opponentScore) {
+        this.opponentScore = opponentScore;
     }
 
     public void updateUser(){
@@ -34,6 +34,6 @@ public class Score {
     }
 
     public void updateAi() {
-        this.setAiScore(this.getAiScore() + 1);
+        this.setOpponentScore(this.getOpponentScore() + 1);
     }
 }

@@ -86,7 +86,7 @@ public class PlayModeAi extends State {
         this.redLeft = new GlyphLayout(Squarz.font, String.valueOf(this.player.getSquareLimiter().getRedLefting()));
         this.yellowLeft = new GlyphLayout(Squarz.font, String.valueOf(this.player.getSquareLimiter().getYellowLefting()));
         this.blueLeft = new GlyphLayout(Squarz.font, String.valueOf(this.player.getSquareLimiter().getBlueLefting()));
-        this.scoreAi = new GlyphLayout(Squarz.font, String.valueOf(score.getAiScore()));
+        this.scoreAi = new GlyphLayout(Squarz.font, String.valueOf(score.getOpponentScore()));
         this.scoreUser = new GlyphLayout(Squarz.font, String.valueOf(score.getUserScore()));
         this.time = new GlyphLayout(Squarz.font, String.valueOf(this.countDown.getWorldTimer()));
 
@@ -298,25 +298,16 @@ public class PlayModeAi extends State {
         if (this.redChoiceSquare.contains(x, y)) {
             this.setColorKey(0);
             this.texture = new Texture(Gdx.files.internal(format + "/square/square_red.png"));
-            this.redChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_red_selected.png")));
-            this.yellowChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_yellow.png")));
-            this.blueChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_blue.png")));
         }
 
         if (this.blueChoiceSquare.contains(x, y)) {
             this.setColorKey(1);
             this.texture = new Texture(Gdx.files.internal(format + "/square/square_blue.png"));
-            this.redChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_red.png")));
-            this.yellowChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_yellow.png")));
-            this.blueChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_blue_selected.png")));
         }
 
         if (this.yellowChoiceSquare.contains(x, y)) {
             this.setColorKey(2);
             this.texture = new Texture(Gdx.files.internal(format + "/square/square_yellow.png"));
-            this.redChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_red.png")));
-            this.yellowChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_yellow_selected.png")));
-            this.blueChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_blue.png")));
         }
     }
 
@@ -441,13 +432,13 @@ public void movingAiSquare() {
     }
 
     public void drawScore(SpriteBatch sb) {
-        scoreAi.setText(Squarz.font, String.valueOf(score.getAiScore()));
+        scoreAi.setText(Squarz.font, String.valueOf(score.getOpponentScore()));
         scoreUser.setText(Squarz.font, String.valueOf(score.getUserScore()));
         Squarz.font.draw(sb, scoreAi, redChoiceSquare.getPosX() + redChoiceSquare.getTexture().getWidth() / 2 - scoreAi.width / 2, HEIGHT * 45 / 64 - scoreAi.height / 2);
         Squarz.font.draw(sb, scoreUser, redChoiceSquare.getPosX() + redChoiceSquare.getTexture().getWidth() / 2 - scoreUser.width / 2, HEIGHT * 39 / 64 - scoreUser.height / 2);
     }
     public void drawScorePause(SpriteBatch sb){
-        scoreAi.setText(Squarz.font, String.valueOf(score.getAiScore()));
+        scoreAi.setText(Squarz.font, String.valueOf(score.getOpponentScore()));
         scoreUser.setText(Squarz.font, String.valueOf(score.getUserScore()));
         Squarz.font.draw(sb, scoreAi, WIDTH/2 + pauseScreen.getTexture().getWidth()*1/8 - scoreAi.width/2, HEIGHT/2 + 2*scoreAi.height);
         Squarz.font.draw(sb, scoreUser, WIDTH/2 - pauseScreen.getTexture().getWidth()*1/8 - scoreUser.width/2, HEIGHT/2 + 2*scoreUser.height);
@@ -540,4 +531,5 @@ public void movingAiSquare() {
     public void setPlayer(Player player) {
         this.player = player;
     }
+
 }

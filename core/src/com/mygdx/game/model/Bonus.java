@@ -12,7 +12,7 @@ import java.util.Map;
 public class Bonus {
     private Map<Integer, Integer> bonusKey;
     private Map<Integer, Texture> bonusTex;
-    private Map<Integer, Integer> selectedBonusKey;
+    private Integer selectedBonusKey;
 
     private Texture speedUp, clearAll, bounce, killer;
 
@@ -37,10 +37,10 @@ public class Bonus {
     public void setBonusTex(Map<Integer, Texture> bonusTex) {
         this.bonusTex = bonusTex;
     }
-    public Map<Integer, Integer> getSelectedBonusKey() {
+    public Integer getSelectedBonusKey() {
         return selectedBonusKey;
     }
-    public void setSelectedBonusKey(Map<Integer, Integer> selectedBonusKey) {
+    public void setSelectedBonusKey(Integer selectedBonusKey) {
         this.selectedBonusKey = selectedBonusKey;
     }
 
