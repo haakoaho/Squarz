@@ -121,7 +121,7 @@ public class PlayModeAi extends State {
 
         music.setLooping(true);
         music.setVolume(Squarz.valueVolume * 0.15f);
-        music.play();
+
 
         sound = Gdx.audio.newSound(Gdx.files.internal("sound/goal.mp3"));
     }
@@ -135,6 +135,7 @@ public class PlayModeAi extends State {
 
             if (!ready) {
                 ready = true;
+                music.play();
             }
             else {
                 if (pause.contains(x, y)) {
