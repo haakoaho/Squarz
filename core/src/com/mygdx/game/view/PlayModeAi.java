@@ -73,8 +73,13 @@ public class PlayModeAi extends State {
         this.settings = settings;
         this.countDown = countDown;
 
+<<<<<<< HEAD
         this.player = new Player(this.settings,this.countDown);
         this.ai = new AIPlayer(this.settings,this.countDown);
+=======
+        this.player = new Player(settings,countDown);
+        this.ai = new AIPlayer(settings, countDown);
+>>>>>>> parent of 0aba017... Merge branch 'Send+Invite' into Lucas-le-BG-du-27
         this.ai.setSet(settings);
 
         this.score = new Score();
