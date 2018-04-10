@@ -22,6 +22,7 @@ import java.util.Queue;
 
 import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
+import static com.mygdx.game.Squarz.format;
 
 public class PlayModeMulti extends State {
 
@@ -52,7 +53,7 @@ public class PlayModeMulti extends State {
         choiceSquare = new Square(set);
         choiceSquare.setPosition(new Vector2(WIDTH * 1 / 16, HEIGHT * 1 / 5));
 
-        texture = new Texture(Gdx.files.internal("square.png"));
+        texture = new Texture(Gdx.files.internal(format+"/square/square.png"));
         colorkey = 0;
 
         score = new Score();
@@ -62,12 +63,12 @@ public class PlayModeMulti extends State {
         collision = new Collision();
 
 
-        music=Gdx.audio.newMusic(Gdx.files.internal("sound/here.mp3"));
+        music=Gdx.audio.newMusic(Gdx.files.internal("sound/reset.mp3"));
         music.setLooping(true);
         music.setVolume(Squarz.valueVolume*0.1f);
         music.play();
 
-        sound = Gdx.audio.newSound(Gdx.files.internal("sound/meuh.mp3"));
+        sound = Gdx.audio.newSound(Gdx.files.internal("sound/goal.mp3"));
 
     }
 
@@ -82,12 +83,12 @@ public class PlayModeMulti extends State {
                 this.colorkey = 0;
             }
             if (this.colorkey == 0) {
-                this.texture = new Texture(Gdx.files.internal("square_red.png"));
+                this.texture = new Texture(Gdx.files.internal(format+"/square/square_red.png"));
             } else {
                 if (this.colorkey == 1) {
-                    this.texture = new Texture(Gdx.files.internal("square_blue.png"));
+                    this.texture = new Texture(Gdx.files.internal(format+"/square/square_blue.png"));
                 } else {
-                    this.texture = new Texture(Gdx.files.internal("square_yellow.png"));
+                    this.texture = new Texture(Gdx.files.internal(format+"/square/square_yellow.png"));
                 }
             }
             this.choiceSquare.setTexture(texture);
