@@ -26,7 +26,7 @@ public class EndModeAI extends State {
     private Score score;
     private Icon replay, back;
     private CountDown countDown1;
-    private GlyphLayout scoreUser, scoreAi, message;
+    private GlyphLayout scoreUser, scoreAi, message1, message2;
     public EndModeAI(GameStateManager gsm, PreferencesSettings setting, Score s, CountDown countDown){
         super(gsm);
         this.setting = setting;
@@ -44,11 +44,14 @@ public class EndModeAI extends State {
         this.scoreUser = new GlyphLayout(Squarz.font, s.getUserScore().toString());
 
         if(s.getAiScore()>s.getUserScore()) {
-            this.message = new GlyphLayout(Squarz.font, "Haha! Computer better!");
+            this.message1 = new GlyphLayout(Squarz.font, "Haha!");
+            this.message2 = new GlyphLayout(Squarz.font, "Computer better!");
         } else if (s.getAiScore()<s.getUserScore()) {
-            this.message = new GlyphLayout(Squarz.font, "Human won! Well played...");
+            this.message1 = new GlyphLayout(Squarz.font, "Human won...");
+            this.message2 = new GlyphLayout(Squarz.font, "But computer is still better!");
         } else {
-            this.message = new GlyphLayout(Squarz.font, "Tie! Wait for the revenge...");
+            this.message1 = new GlyphLayout(Squarz.font, "Tie!");
+            this.message2 = new GlyphLayout(Squarz.font, "Revenge?");
         }
 
         this.countDown1 = new CountDown(countDown.getTimerKey());
@@ -76,7 +79,8 @@ public class EndModeAI extends State {
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
-        Squarz.font.draw(sb, message, WIDTH/2 - message.width/2,HEIGHT * 4/5);
+        Squarz.font.draw(sb, message1, WIDTH/2 - message1.width/2,HEIGHT * 4/5);
+        Squarz.font.draw(sb, message2, WIDTH/2 - message1.width/2,HEIGHT * 4/5-message1.height*3/2);
         Squarz.font.draw(sb, scoreUser, WIDTH * 2/5 - scoreUser.width/2, HEIGHT * 3/5);
         Squarz.font.draw(sb, scoreAi, WIDTH * 3/5 - scoreUser.width/2, HEIGHT * 3/5);
         sb.draw(replay.getTexture(), replay.getPosX(), replay.getPosY());

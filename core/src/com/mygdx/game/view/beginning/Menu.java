@@ -1,7 +1,9 @@
 package com.mygdx.game.view.beginning;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.Squarz;
 import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.model.Icon;
 import com.mygdx.game.model.State;
@@ -12,6 +14,7 @@ import static com.mygdx.game.Squarz.format;
 
 public class Menu extends State {
     private Icon play, settings, history;
+    private GlyphLayout name, credits;
 
     public Menu(GameStateManager gsm) {
         super(gsm);
@@ -26,6 +29,9 @@ public class Menu extends State {
         this.settings.setPosY(HEIGHT*2/4-settings.getTexture().getHeight()/2);
         this.history.setPosX(WIDTH/2-history.getTexture().getWidth()/2);
         this.history.setPosY(HEIGHT*1/4-history.getTexture().getHeight()/2);
+
+        this.name = new GlyphLayout(Squarz.font,"Let\'s play to Squarz!");
+        this.credits = new GlyphLayout(Squarz.font,"A NTNU creation");
     }
 
     @Override
@@ -56,9 +62,11 @@ public class Menu extends State {
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
+        Squarz.font.draw(sb, name, WIDTH/2 - name.width/2,HEIGHT-2*name.height);
         sb.draw(play.getTexture(), play.getPosX(), play.getPosY());
         sb.draw(settings.getTexture(), settings.getPosX(), settings.getPosY());
         sb.draw(history.getTexture(), history.getPosX(), history.getPosY());
+        Squarz.font.draw(sb, credits, WIDTH/2 - credits.width/2,2*credits.height);
         sb.end();
     }
 
