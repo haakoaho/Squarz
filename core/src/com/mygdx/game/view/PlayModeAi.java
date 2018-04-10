@@ -214,10 +214,7 @@ public class PlayModeAi extends State {
             if(!pauseFlag){
                 //updating the countdown
                 this.countDown.update(dt);
-<<<<<<< HEAD
-=======
                 //random sending by the AI
->>>>>>> mathieu
                 ai.send(this.countDown);
             }
 
