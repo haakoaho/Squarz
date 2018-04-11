@@ -40,13 +40,13 @@ public class EndModeAI extends State {
         this.back.setPosX(WIDTH/2 - back.getTexture().getWidth()/2);
         this.back.setPosY(HEIGHT/5 - back.getTexture().getHeight()/2);
 
-        this.scoreAi = new GlyphLayout(Squarz.font, s.getAiScore().toString());
+        this.scoreAi = new GlyphLayout(Squarz.font, s.getOpponentScore().toString());
         this.scoreUser = new GlyphLayout(Squarz.font, s.getUserScore().toString());
 
-        if(s.getAiScore()>s.getUserScore()) {
+        if(s.getOpponentScore()>s.getUserScore()) {
             this.message1 = new GlyphLayout(Squarz.font, "Haha!");
             this.message2 = new GlyphLayout(Squarz.font, "Computer better!");
-        } else if (s.getAiScore()<s.getUserScore()) {
+        } else if (s.getOpponentScore()<s.getUserScore()) {
             this.message1 = new GlyphLayout(Squarz.font, "Human won...");
             this.message2 = new GlyphLayout(Squarz.font, "But computer is still better!");
         } else {

@@ -1,8 +1,6 @@
 package com.mygdx.game.model;
 
 
-import static com.mygdx.game.Squarz.HEIGHT;
-
 /**
  * Created by Max on 14/03/2018.
  */
@@ -24,89 +22,89 @@ public class Collision {
             }
     }
 
-    public void deleteOnceAiOut(Player p, Integer column){
+    public void deleteOnceOpponentOut(Player p, Integer column){
         //if square goes outside
         if (p.getCounter(column) > p.getFirstSquareKey(column) && !p.getMap(column).get(p.getFirstSquareKey(column)).isInAi()) {
             p.decrement(p.getFirstSquareKey(column), column);
         }
     }
 
-    public boolean isCollisionPossible(Player p, Player c, Integer rowKey){
-        return p.getCounter(rowKey) > p.getFirstSquareKey(rowKey)
-                && c.getCounter(rowKey) > c.getFirstSquareKey(rowKey);
+    public boolean isCollisionPossible(Player p, Player c, Integer columnKey){
+        return p.getCounter(columnKey) > p.getFirstSquareKey(columnKey)
+                && c.getCounter(columnKey) > c.getFirstSquareKey(columnKey);
     }
-    public boolean isOverlapping(Player p, Player c, Integer rowKey){
-        return (p.getMap(rowKey).get(p.getFirstSquareKey(rowKey)).getRectangle().overlaps(
-                c.getMap(rowKey).get(c.getFirstSquareKey(rowKey)).getRectangle()));
+    public boolean isOverlapping(Player p, Player c, Integer columnKey){
+        return (p.getMap(columnKey).get(p.getFirstSquareKey(columnKey)).getRectangle().overlaps(
+                c.getMap(columnKey).get(c.getFirstSquareKey(columnKey)).getRectangle()));
     }
 
-    public void handleWhenPlayerRed(Player p, Player c, Integer rowKey){
+    public void handleWhenPlayerRed(Player p, Player c, Integer columnKey){
         // if computer red
-        if (c.getMap(rowKey).get(c.getFirstSquareKey(rowKey)).getColorKey() == 0) {
-            p.decrement(p.getFirstSquareKey(rowKey), rowKey);
-            c.decrement(c.getFirstSquareKey(rowKey), rowKey);
+        if (c.getMap(columnKey).get(c.getFirstSquareKey(columnKey)).getColorKey() == 0) {
+            p.decrement(p.getFirstSquareKey(columnKey), columnKey);
+            c.decrement(c.getFirstSquareKey(columnKey), columnKey);
 
             //if computer blue
-        } else if (c.getMap(rowKey).get(c.getFirstSquareKey(rowKey)).getColorKey() == 1) {
-            p.decrement(p.getFirstSquareKey(rowKey), rowKey);
+        } else if (c.getMap(columnKey).get(c.getFirstSquareKey(columnKey)).getColorKey() == 1) {
+            p.decrement(p.getFirstSquareKey(columnKey), columnKey);
 
             //if computer yellow
-        } else if (c.getMap(rowKey).get(c.getFirstSquareKey(rowKey)).getColorKey() == 2) {
-            c.decrement(c.getFirstSquareKey(rowKey), rowKey);
+        } else if (c.getMap(columnKey).get(c.getFirstSquareKey(columnKey)).getColorKey() == 2) {
+            c.decrement(c.getFirstSquareKey(columnKey), columnKey);
         }
     }
-    public  void handleWhenPlayerBlue(Player p, Player c, Integer rowKey){
+    public  void handleWhenPlayerBlue(Player p, Player c, Integer columnKey){
         // if computer red
-        if (c.getMap(rowKey).get(c.getFirstSquareKey(rowKey)).getColorKey() == 0) {
-            c.decrement(c.getFirstSquareKey(rowKey), rowKey);
+        if (c.getMap(columnKey).get(c.getFirstSquareKey(columnKey)).getColorKey() == 0) {
+            c.decrement(c.getFirstSquareKey(columnKey), columnKey);
 
             //if computer blue
-        } else if (c.getMap(rowKey).get(c.getFirstSquareKey(rowKey)).getColorKey() == 1) {
-            p.decrement(p.getFirstSquareKey(rowKey), rowKey);
-            c.decrement(c.getFirstSquareKey(rowKey), rowKey);
+        } else if (c.getMap(columnKey).get(c.getFirstSquareKey(columnKey)).getColorKey() == 1) {
+            p.decrement(p.getFirstSquareKey(columnKey), columnKey);
+            c.decrement(c.getFirstSquareKey(columnKey), columnKey);
 
             //if computer yellow
-        } else if (c.getMap(rowKey).get(c.getFirstSquareKey(rowKey)).getColorKey() == 2) {
-            p.decrement(p.getFirstSquareKey(rowKey), rowKey);
+        } else if (c.getMap(columnKey).get(c.getFirstSquareKey(columnKey)).getColorKey() == 2) {
+            p.decrement(p.getFirstSquareKey(columnKey), columnKey);
         }
     }
-    public  void handleWhenPlayerYellow(Player p, Player c, Integer rowKey){
+    public  void handleWhenPlayerYellow(Player p, Player c, Integer columnKey){
         // if computer red
-        if (c.getMap(rowKey).get(c.getFirstSquareKey(rowKey)).getColorKey() == 0) {
-            p.decrement(p.getFirstSquareKey(rowKey), rowKey);
+        if (c.getMap(columnKey).get(c.getFirstSquareKey(columnKey)).getColorKey() == 0) {
+            p.decrement(p.getFirstSquareKey(columnKey), columnKey);
 
             //if computer blue
-        } else if (c.getMap(rowKey).get(c.getFirstSquareKey(rowKey)).getColorKey() == 1) {
-            c.decrement(c.getFirstSquareKey(rowKey), rowKey);
+        } else if (c.getMap(columnKey).get(c.getFirstSquareKey(columnKey)).getColorKey() == 1) {
+            c.decrement(c.getFirstSquareKey(columnKey), columnKey);
 
             //if computer yellow
-        } else if (c.getMap(rowKey).get(c.getFirstSquareKey(rowKey)).getColorKey() == 2) {
-            p.decrement(p.getFirstSquareKey(rowKey), rowKey);
-            c.decrement(c.getFirstSquareKey(rowKey), rowKey);
+        } else if (c.getMap(columnKey).get(c.getFirstSquareKey(columnKey)).getColorKey() == 2) {
+            p.decrement(p.getFirstSquareKey(columnKey), columnKey);
+            c.decrement(c.getFirstSquareKey(columnKey), columnKey);
         }
     }
 
 
-    public void collision(Player player, AIPlayer computer) {
+    public void collision(Player player, AIPlayer opponent) {
 
         for (int rowKey = 0; rowKey < 3; rowKey++) {
-            if (!player.getMap(rowKey).isEmpty() && !computer.getMap(rowKey).isEmpty()) {
+            if (!player.getMap(rowKey).isEmpty() && !opponent.getMap(rowKey).isEmpty()) {
                 //if square goes outside
                 deleteOncePlayerOut(player, rowKey);
-                deleteOnceAiOut(computer, rowKey);
+                deleteOnceOpponentOut(opponent, rowKey);
 
 
                 // if a square is in game (avoid null pointer exception) and overlaps
-                if (isCollisionPossible(player, computer, rowKey) && isOverlapping(player, computer, rowKey)) {
+                if (isCollisionPossible(player, opponent, rowKey) && isOverlapping(player, opponent, rowKey)) {
                     //if player red
                     if (player.getMap(rowKey).get(player.getFirstSquareKey(rowKey)).getColorKey() == 0) {
-                        handleWhenPlayerRed(player, computer, rowKey);
+                        handleWhenPlayerRed(player, opponent, rowKey);
                         //si player est bleu
                     } else if (player.getMap(rowKey).get(player.getFirstSquareKey(rowKey)).getColorKey() == 1) {
-                        handleWhenPlayerBlue(player, computer, rowKey);
+                        handleWhenPlayerBlue(player, opponent, rowKey);
                         //si player est jaune
                     } else if (player.getMap(rowKey).get(player.getFirstSquareKey(rowKey)).getColorKey() == 2) {
-                        handleWhenPlayerYellow(player, computer, rowKey);
+                        handleWhenPlayerYellow(player, opponent, rowKey);
                     }
                 }
 

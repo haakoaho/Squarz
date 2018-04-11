@@ -140,19 +140,19 @@ public class AIPlayer extends Player{
         if(!this.getSquareLimiter().isOver(colorKey)) {
 
             if (columnKey == 0) {
-                incrementAI(texture, columnKey, colorKey);
+                incrementOpponent(texture, columnKey, colorKey);
             }
             if (columnKey == 1) {
-                incrementAI(texture, columnKey, colorKey);
+                incrementOpponent(texture, columnKey, colorKey);
 
             }
             if (columnKey == 2) {
-                incrementAI(texture, columnKey, colorKey);
+                incrementOpponent(texture, columnKey, colorKey);
             }
         }
     }
 
-    public void incrementAI(Texture t, Integer columnKey, Integer colorkey) {
+    public void incrementOpponent(Texture t, Integer columnKey, Integer colorkey) {
         Integer counter = this.getCounter(columnKey);
         Map<Integer, Square> row = this.getMap(columnKey);
 

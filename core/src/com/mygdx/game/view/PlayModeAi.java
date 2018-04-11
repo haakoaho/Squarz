@@ -24,8 +24,6 @@ import com.mygdx.game.model.State;
 import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
 import static com.mygdx.game.Squarz.format;
-import static com.mygdx.game.Squarz.valueVibration;
-import static com.mygdx.game.Squarz.valueVolume;
 
 /**
  * Created by Max on 06/03/2018.
@@ -68,7 +66,8 @@ public class PlayModeAi extends State {
 
 
     public PlayModeAi(GameStateManager gsm, PreferencesSettings settings, CountDown countDown) {
-        super(gsm);
+
+super(gsm);
 
         this.settings = settings;
         this.countDown = countDown;
@@ -80,13 +79,13 @@ public class PlayModeAi extends State {
         this.score = new Score();
         this.shapeRenderer = new ShapeRenderer();
 
-        choiceSquare = new Square(settings);
+    choiceSquare = new Square(settings);
         choiceSquare.setPosition(new Vector2(WIDTH/16, HEIGHT/5));
 
         this.redLeft = new GlyphLayout(Squarz.font, String.valueOf(this.player.getSquareLimiter().getRedLefting()));
         this.yellowLeft = new GlyphLayout(Squarz.font, String.valueOf(this.player.getSquareLimiter().getYellowLefting()));
         this.blueLeft = new GlyphLayout(Squarz.font, String.valueOf(this.player.getSquareLimiter().getBlueLefting()));
-        this.scoreAi = new GlyphLayout(Squarz.font, String.valueOf(score.getAiScore()));
+        this.scoreAi = new GlyphLayout(Squarz.font, String.valueOf(score.getOpponentScore()));
         this.scoreUser = new GlyphLayout(Squarz.font, String.valueOf(score.getUserScore()));
         this.time = new GlyphLayout(Squarz.font, String.valueOf(this.countDown.getWorldTimer()));
 
@@ -95,17 +94,17 @@ public class PlayModeAi extends State {
 
 
         this.redChoiceSquare = new Icon(new Texture(Gdx.files.internal(format + "/square/square_red_selected.png"))
-                , WIDTH * 1 / 16, HEIGHT / 2 - this.texture.getHeight() * 3 / 2);
+            , WIDTH * 1 / 16, HEIGHT / 2 - this.texture.getHeight() * 3 / 2);
         this.blueChoiceSquare = new Icon(new Texture(Gdx.files.internal(format + "/square/square_blue.png"))
-                , WIDTH * 1 / 16, HEIGHT / 2 - this.texture.getHeight() * 11 / 4);
+            , WIDTH * 1 / 16, HEIGHT / 2 - this.texture.getHeight() * 11 / 4);
         this.yellowChoiceSquare = new Icon(new Texture(Gdx.files.internal(format + "/square/square_yellow.png"))
-                , WIDTH * 1 / 16, HEIGHT / 2 - this.texture.getHeight() * 4);
+            , WIDTH * 1 / 16, HEIGHT / 2 - this.texture.getHeight() * 4);
         this.pause = new Icon(new Texture(Gdx.files.internal(format + "/pause.png"))
-                , WIDTH * 1 / 16, HEIGHT * 15 / 16 - this.texture.getHeight() / 2);
+            , WIDTH * 1 / 16, HEIGHT * 15 / 16 - this.texture.getHeight() / 2);
 
         this.colorKey = 0;
 
-        //Pause mode
+    //Pause mode
         this.pause = new Icon(new Texture(Gdx.files.internal(format + "/pause.png")),0,0);
         this.pause.setPosX(redChoiceSquare.getPosX() + redChoiceSquare.getTexture().getWidth()/2 - pause.getTexture().getWidth()/2);
         this.pause.setPosY(HEIGHT * 29 / 32 - pause.getTexture().getHeight()/2);
@@ -115,17 +114,16 @@ public class PlayModeAi extends State {
 
         this.temporarySpeed = this.settings.getStepX();
 
-        readyGlyph = new GlyphLayout(Squarz.font, "READY ?");
+    readyGlyph = new GlyphLayout(Squarz.font, "READY ?");
 
-        music = Gdx.audio.newMusic(Gdx.files.internal("sound/reset.mp3"));
+    music = Gdx.audio.newMusic(Gdx.files.internal("sound/reset.mp3"));
 
         music.setLooping(true);
         music.setVolume(Squarz.valueVolume * 0.15f);
 
 
-        sound = Gdx.audio.newSound(Gdx.files.internal("sound/goal.mp3"));
-    }
-
+    sound = Gdx.audio.newSound(Gdx.files.internal("sound/goal.mp3"));
+}
     @Override
     public void handleInput() {
 
@@ -445,14 +443,14 @@ public void movingAiSquare() {
     }
 
     public void drawScore(SpriteBatch sb) {
-        scoreAi.setText(Squarz.font, String.valueOf(score.getAiScore()));
+        scoreAi.setText(Squarz.font, String.valueOf(score.getOpponentScore()));
         scoreUser.setText(Squarz.font, String.valueOf(score.getUserScore()));
         Squarz.font.draw(sb, scoreAi, redChoiceSquare.getPosX() + redChoiceSquare.getTexture().getWidth() / 2 - scoreAi.width / 2, HEIGHT * 45 / 64 - scoreAi.height / 2);
         Squarz.font.draw(sb, scoreUser, redChoiceSquare.getPosX() + redChoiceSquare.getTexture().getWidth() / 2 - scoreUser.width / 2, HEIGHT * 39 / 64 - scoreUser.height / 2);
     }
     /*
     public void drawScorePause(SpriteBatch sb){
-        scoreAi.setText(Squarz.font, String.valueOf(score.getAiScore()));
+        scoreAi.setText(Squarz.font, String.valueOf(score.getOpponentScore()));
         scoreUser.setText(Squarz.font, String.valueOf(score.getUserScore()));
         Squarz.font.draw(sb, scoreAi, WIDTH/2 + pauseScreen.getTexture().getWidth()*1/8 - scoreAi.width/2, HEIGHT/2 + 2*scoreAi.height);
         Squarz.font.draw(sb, scoreUser, WIDTH/2 - pauseScreen.getTexture().getWidth()*1/8 - scoreUser.width/2, HEIGHT/2 + 2*scoreUser.height);
