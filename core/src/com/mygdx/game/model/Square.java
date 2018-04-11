@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.control.aI.PreferencesSettings;
 
+import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.format;
 
 /**
@@ -19,7 +20,7 @@ import static com.mygdx.game.Squarz.format;
 //    red < blue < yellow < red
 
 public class Square {
-    private static final float TIME = 1/30;
+    private static final double TIME = 1/30;
     private Sprite sprite;
     private Texture texture;
     private Vector2 position;
@@ -42,13 +43,11 @@ public class Square {
 
 
     public void move(float dt){
-        float realStepY = dt * this.set.getStepX() / TIME;
-        this.setPosition(new Vector2(this.getPosition().x, this.getPosition().y + realStepY));
+        this.setPosition(new Vector2(this.getPosition().x, (float)(this.getPosition().y + this.set.getStepX()*dt)));
     }
 
     public void reverseMove(float dt){
-        float realStepY = dt * this.set.getStepX() / TIME;
-        this.setPosition(new Vector2(this.getPosition().x, this.getPosition().y - realStepY));
+        this.setPosition(new Vector2(this.getPosition().x, (float)(this.getPosition().y - this.set.getStepX()*dt)));
     }
 
     public boolean isInUser(){

@@ -149,8 +149,8 @@ public class PlayModeMulti extends State {
              //MultiplayerInterface.leaveRoom();
          }
 
-        movingPlayerSquare();
-        movingOpponentSquare();
+        movingPlayerSquare(dt);
+        movingOpponentSquare(dt);
 
         collision.collision(this.player, this.opponent);
     }
@@ -214,10 +214,10 @@ public class PlayModeMulti extends State {
         }
     }
 
-    public void movingPlayerSquare() {
+    public void movingPlayerSquare(float dt) {
         if (!player.getLeft().isEmpty()) {
             for (int i = player.getFirstLeftSquaresKey(); i < player.getLeftCounter(); i++) {
-                player.getLeft().get(i).move();
+                player.getLeft().get(i).move(dt);
                 //dealing with the score
                 if (player.getLeft().get(i).getPosition().y >= HEIGHT && player.getLeft().get(i).getPosition().y < HEIGHT + this.set.getStepX()) {
                     sound.play(Squarz.valueVolume * 0.15f);
@@ -228,7 +228,7 @@ public class PlayModeMulti extends State {
         }
         if (!player.getMiddle().isEmpty()) {
             for (int i = player.getFirstMiddleSquaresKey(); i < player.getMiddleCounter(); i++) {
-                player.getMiddle().get(i).move();
+                player.getMiddle().get(i).move(dt);
                 if (player.getMiddle().get(i).getPosition().y >= HEIGHT && player.getMiddle().get(i).getPosition().y < HEIGHT + this.set.getStepX()) {
                     sound.play(Squarz.valueVolume * 0.15f);
                     Gdx.input.vibrate(Squarz.valueVibration * 100);
@@ -238,7 +238,7 @@ public class PlayModeMulti extends State {
         }
         if (!player.getRight().isEmpty()) {
             for (int i = player.getFirstRightSquaresKey(); i < player.getRightCounter(); i++) {
-                player.getRight().get(i).move();
+                player.getRight().get(i).move(dt);
                 if (player.getRight().get(i).getPosition().y >= HEIGHT && player.getRight().get(i).getPosition().y < HEIGHT + this.set.getStepX()) {
                     sound.play(Squarz.valueVolume * 0.15f);
                     Gdx.input.vibrate(Squarz.valueVibration * 100);
@@ -248,10 +248,10 @@ public class PlayModeMulti extends State {
         }
     }
 
-    public void movingOpponentSquare() {
+    public void movingOpponentSquare(float dt) {
         if (!opponent.getLeft().isEmpty()) {
             for (int i = opponent.getFirstLeftSquaresKey(); i < opponent.getLeftCounter(); i++) {
-                opponent.getLeft().get(i).reverseMove();
+                opponent.getLeft().get(i).reverseMove(dt);
                 //dealing with the score
                 if (opponent.getLeft().get(i).getPosition().y <= 0 && opponent.getLeft().get(i).getPosition().y > -this.set.getStepX()) {
                     sound.play(Squarz.valueVolume * 0.15f);
@@ -262,7 +262,7 @@ public class PlayModeMulti extends State {
         }
         if (!opponent.getMiddle().isEmpty()) {
             for (int i = opponent.getFirstMiddleSquaresKey(); i < opponent.getMiddleCounter(); i++) {
-                opponent.getMiddle().get(i).reverseMove();
+                opponent.getMiddle().get(i).reverseMove(dt);
                 //dealing with the score
                 if (opponent.getMiddle().get(i).getPosition().y <= 0 && opponent.getMiddle().get(i).getPosition().y > -this.set.getStepX()) {
                     sound.play(Squarz.valueVolume * 0.15f);
@@ -273,7 +273,7 @@ public class PlayModeMulti extends State {
         }
         if (!opponent.getRight().isEmpty()) {
             for (int i = opponent.getFirstRightSquaresKey(); i < opponent.getRightCounter(); i++) {
-                opponent.getRight().get(i).reverseMove();
+                opponent.getRight().get(i).reverseMove(dt);
                 if (opponent.getRight().get(i).getPosition().y <= 0 && opponent.getRight().get(i).getPosition().y > -this.set.getStepX()) {
                     sound.play(Squarz.valueVolume * 0.15f);
                     Gdx.input.vibrate(Squarz.valueVibration * 100);
