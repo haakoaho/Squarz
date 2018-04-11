@@ -115,12 +115,14 @@ public class PlayModeMulti extends State {
         if (Gdx.input.justTouched()) {
             int x = Gdx.input.getX();
             int y = HEIGHT - Gdx.input.getY();
-
+/*
             if (!ready) {
                 ready = true;
                 music.play();
             }
             else {
+            */
+                    music.play();
                     //Colour choice button
                     chosingTheColour(x, y);
 
@@ -136,7 +138,7 @@ public class PlayModeMulti extends State {
                         creatingANewSquare(x);
                     }
 
-            }
+            //}
         }
 
     }
@@ -148,7 +150,7 @@ public class PlayModeMulti extends State {
             decryptMessage();
         }
 
-        if (ready) {
+        //if (ready) {
 
                 //updating the countdown
                 this.countDown.update(dt);
@@ -165,18 +167,18 @@ public class PlayModeMulti extends State {
             movingOpponentSquare();
 
             collision.collision(this.player, this.opponent);
-        }
+        //}
 
     }
 
     @Override
     public void render(SpriteBatch sb) {
-        if (!ready) {
+       /* if (!ready) {
             sb.begin();
             Squarz.font.draw(sb, readyGlyph,
                     (float) (WIDTH / 2 - readyGlyph.width / 2.), HEIGHT / 2 - readyGlyph.height / 2);
             sb.end();
-        } else {
+        } else {*/
             drawLines();
 
             sb.begin();
@@ -190,7 +192,7 @@ public class PlayModeMulti extends State {
             drawCounter(sb);
 
             sb.end();
-        }
+        //}
 
     }
 
