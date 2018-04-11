@@ -116,30 +116,23 @@ public class PlayModeMulti extends State {
         if (Gdx.input.justTouched()) {
             int x = Gdx.input.getX();
             int y = HEIGHT - Gdx.input.getY();
+             //Colour choice button
+            chosingTheColour(x, y);
 
-            if (!ready) {
-                ready = true;
-                music.play();
-            } else {
-                //Colour choice button
-                chosingTheColour(x, y);
+            //go to end mode, test only
+            if (y > HEIGHT * 3 / 4 && x > HEIGHT / 2) {
+                music.stop();
+                sound.stop();
+                gsm.set(new EndModeAI(gsm, set, score, countDown));
+            }
 
-                //go to end mode, test only
-                if (y > HEIGHT * 3 / 4 && x > HEIGHT / 2) {
-                    music.stop();
-                    sound.stop();
-                    gsm.set(new EndModeAI(gsm, set, score, countDown));
-                }
-
-                //Implementation for the launcher of each row
-                if (!this.player.getSquareLimiter().isOver(colorKey)) {
-                    creatingANewSquare(x);
-                }
-
+            //Implementation for the launcher of each row
+            if (!this.player.getSquareLimiter().isOver(colorKey)) {
+                creatingANewSquare(x);
             }
         }
-
     }
+
 
     @Override
     public void update(float dt) {
@@ -148,50 +141,34 @@ public class PlayModeMulti extends State {
             decryptMessage();
         }
 
-        if (ready) {
+        //updating the countdown
+        this.countDown.update(dt);
+         if (this.countDown.isTimeUp()) {
+             music.stop();
+             gsm.set(new EndModeAI(gsm, set, score, countDown));
+             //MultiplayerInterface.leaveRoom();
+         }
 
-            //updating the countdown
-            this.countDown.update(dt);
+        movingPlayerSquare();
+        movingOpponentSquare();
 
-
-            if (this.countDown.isTimeUp()) {
-                music.stop();
-                gsm.set(new EndModeAI(gsm, set, score, countDown));
-                //MultiplayerInterface.leaveRoom();
-            }
-
-            movingPlayerSquare();
-            movingOpponentSquare();
-
-            collision.collision(this.player, this.opponent);
-        }
-
+        collision.collision(this.player, this.opponent);
     }
 
     @Override
     public void render(SpriteBatch sb) {
-        if (!ready) {
-            sb.begin();
-            Squarz.font.draw(sb, readyGlyph,
-                    (float) (WIDTH / 2 - readyGlyph.width / 2.), HEIGHT / 2 - readyGlyph.height / 2);
-            sb.end();
-        } else {
-            drawLines();
+        drawLines();
+        sb.begin();
 
-            sb.begin();
+        drawChosingColorSquares(sb);
+        drawingSquares(sb, player);
+        drawingSquares(sb, opponent);
+        drawTimeLeft(sb);
+        drawScore(sb);
+        drawCounter(sb);
 
-            drawChosingColorSquares(sb);
-            drawingSquares(sb, player);
-            drawingSquares(sb, opponent);
-
-            drawTimeLeft(sb);
-            drawScore(sb);
-            drawCounter(sb);
-
-            sb.end();
+        sb.end();
         }
-
-    }
 
     @Override
     public void dispose() {

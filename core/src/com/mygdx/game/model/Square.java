@@ -19,6 +19,7 @@ import static com.mygdx.game.Squarz.format;
 //    red < blue < yellow < red
 
 public class Square {
+    private static final float TIME = 1/30;
     private Sprite sprite;
     private Texture texture;
     private Vector2 position;
@@ -40,12 +41,14 @@ public class Square {
     }
 
 
-    public void move(){
-        this.setPosition(new Vector2(this.getPosition().x, this.getPosition().y + this.set.getStepX()));
+    public void move(float dt){
+        float realStepY = dt * this.set.getStepX() / TIME;
+        this.setPosition(new Vector2(this.getPosition().x, this.getPosition().y + realStepY));
     }
 
-    public void reverseMove(){
-        this.setPosition(new Vector2(this.getPosition().x, this.getPosition().y - this.set.getStepX()));
+    public void reverseMove(float dt){
+        float realStepY = dt * this.set.getStepX() / TIME;
+        this.setPosition(new Vector2(this.getPosition().x, this.getPosition().y - realStepY));
     }
 
     public boolean isInUser(){
