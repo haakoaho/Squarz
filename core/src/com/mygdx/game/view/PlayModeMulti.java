@@ -116,29 +116,21 @@ public class PlayModeMulti extends State {
         if (Gdx.input.justTouched()) {
             int x = Gdx.input.getX();
             int y = HEIGHT - Gdx.input.getY();
+             //Colour choice button
+            chosingTheColour(x, y);
 
-            if (!ready) {
-                ready = true;
-                music.play();
-            } else {
-                //Colour choice button
-                chosingTheColour(x, y);
+            //go to end mode, test only
+            if (y > HEIGHT * 3 / 4 && x > HEIGHT / 2) {
+                music.stop();
+                sound.stop();
+                gsm.set(new EndModeAI(gsm, set, score, countDown));
+            }
 
-                //go to end mode, test only
-                if (y > HEIGHT * 3 / 4 && x > HEIGHT / 2) {
-                    music.stop();
-                    sound.stop();
-                    gsm.set(new EndModeAI(gsm, set, score, countDown));
-                }
-
-                //Implementation for the launcher of each row
-                if (!this.player.getSquareLimiter().isOver(colorKey)) {
-                    creatingANewSquare(x);
-                }
-
+            //Implementation for the launcher of each row
+            if (!this.player.getSquareLimiter().isOver(colorKey)) {
+                creatingAndSendingANewSquare(x);
             }
         }
-
     }
 
     @Override
@@ -148,50 +140,34 @@ public class PlayModeMulti extends State {
             decryptMessage();
         }
 
-        if (ready) {
+        //updating the countdown
+        this.countDown.update(dt);
+         if (this.countDown.isTimeUp()) {
+             music.stop();
+             gsm.set(new EndModeAI(gsm, set, score, countDown));
+             //MultiplayerInterface.leaveRoom();
+         }
 
-            //updating the countdown
-            this.countDown.update(dt);
+        movingPlayerSquare(dt);
+        movingOpponentSquare(dt);
 
-
-            if (this.countDown.isTimeUp()) {
-                music.stop();
-                gsm.set(new EndModeAI(gsm, set, score, countDown));
-                //MultiplayerInterface.leaveRoom();
-            }
-
-            movingPlayerSquare();
-            movingOpponentSquare();
-
-            collision.collision(this.player, this.opponent);
-        }
-
+        collision.collision(this.player, this.opponent);
     }
 
     @Override
     public void render(SpriteBatch sb) {
-        if (!ready) {
-            sb.begin();
-            Squarz.font.draw(sb, readyGlyph,
-                    (float) (WIDTH / 2 - readyGlyph.width / 2.), HEIGHT / 2 - readyGlyph.height / 2);
-            sb.end();
-        } else {
-            drawLines();
+        drawLines();
+        sb.begin();
 
-            sb.begin();
+        drawChosingColorSquares(sb);
+        drawingSquares(sb, player);
+        drawingSquares(sb, opponent);
+        drawTimeLeft(sb);
+        drawScore(sb);
+        drawCounter(sb);
 
-            drawChosingColorSquares(sb);
-            drawingSquares(sb, player);
-            drawingSquares(sb, opponent);
-
-            drawTimeLeft(sb);
-            drawScore(sb);
-            drawCounter(sb);
-
-            sb.end();
+        sb.end();
         }
-
-    }
 
     @Override
     public void dispose() {
@@ -225,24 +201,30 @@ public class PlayModeMulti extends State {
         }
     }
 
-    public void creatingANewSquare(int x) {
+    public void creatingAndSendingANewSquare(int x) {
         if (x > WIDTH / 4 && x < WIDTH / 2) {
             player.increment(texture, 0, colorKey);
+            send(encryption(0, colorKey));
+            System.out.println(encryption(0, colorKey).toString());
         }
         if (x > WIDTH / 2 && x < WIDTH * 3 / 4) {
             player.increment(texture, 1, colorKey);
+            send(encryption(1, colorKey));
+            System.out.println(encryption(1, colorKey).toString());
         }
         if (x > WIDTH * 3 / 4) {
             player.increment(texture, 2, colorKey);
+            send(encryption(2, colorKey));
+            System.out.println(encryption(2, colorKey).toString());
         }
     }
 
-    public void movingPlayerSquare() {
+    public void movingPlayerSquare(float dt) {
         if (!player.getLeft().isEmpty()) {
             for (int i = player.getFirstLeftSquaresKey(); i < player.getLeftCounter(); i++) {
-                player.getLeft().get(i).move();
+                player.getLeft().get(i).move(dt);
                 //dealing with the score
-                if (player.getLeft().get(i).getPosition().y >= HEIGHT && player.getLeft().get(i).getPosition().y < HEIGHT + this.set.getStepX()) {
+                if (player.getLeft().get(i).getPosition().y >= HEIGHT && player.getLeft().get(i).getPosition().y < HEIGHT + this.set.getStepX()*dt) {
                     sound.play(Squarz.valueVolume * 0.15f);
                     Gdx.input.vibrate(Squarz.valueVibration * 100);
                     this.score.updateUser();
@@ -251,8 +233,8 @@ public class PlayModeMulti extends State {
         }
         if (!player.getMiddle().isEmpty()) {
             for (int i = player.getFirstMiddleSquaresKey(); i < player.getMiddleCounter(); i++) {
-                player.getMiddle().get(i).move();
-                if (player.getMiddle().get(i).getPosition().y >= HEIGHT && player.getMiddle().get(i).getPosition().y < HEIGHT + this.set.getStepX()) {
+                player.getMiddle().get(i).move(dt);
+                if (player.getMiddle().get(i).getPosition().y >= HEIGHT && player.getMiddle().get(i).getPosition().y < HEIGHT + this.set.getStepX()*dt) {
                     sound.play(Squarz.valueVolume * 0.15f);
                     Gdx.input.vibrate(Squarz.valueVibration * 100);
                     this.score.updateUser();
@@ -261,8 +243,8 @@ public class PlayModeMulti extends State {
         }
         if (!player.getRight().isEmpty()) {
             for (int i = player.getFirstRightSquaresKey(); i < player.getRightCounter(); i++) {
-                player.getRight().get(i).move();
-                if (player.getRight().get(i).getPosition().y >= HEIGHT && player.getRight().get(i).getPosition().y < HEIGHT + this.set.getStepX()) {
+                player.getRight().get(i).move(dt);
+                if (player.getRight().get(i).getPosition().y >= HEIGHT && player.getRight().get(i).getPosition().y < HEIGHT + this.set.getStepX()*dt) {
                     sound.play(Squarz.valueVolume * 0.15f);
                     Gdx.input.vibrate(Squarz.valueVibration * 100);
                     this.score.updateUser();
@@ -271,12 +253,12 @@ public class PlayModeMulti extends State {
         }
     }
 
-    public void movingOpponentSquare() {
+    public void movingOpponentSquare(float dt) {
         if (!opponent.getLeft().isEmpty()) {
             for (int i = opponent.getFirstLeftSquaresKey(); i < opponent.getLeftCounter(); i++) {
-                opponent.getLeft().get(i).reverseMove();
+                opponent.getLeft().get(i).reverseMove(dt);
                 //dealing with the score
-                if (opponent.getLeft().get(i).getPosition().y <= 0 && opponent.getLeft().get(i).getPosition().y > -this.set.getStepX()) {
+                if (opponent.getLeft().get(i).getPosition().y <= 0 && opponent.getLeft().get(i).getPosition().y > -this.set.getStepX()*dt) {
                     sound.play(Squarz.valueVolume * 0.15f);
                     Gdx.input.vibrate(Squarz.valueVibration * 100);
                     this.score.updateAi();
@@ -285,9 +267,9 @@ public class PlayModeMulti extends State {
         }
         if (!opponent.getMiddle().isEmpty()) {
             for (int i = opponent.getFirstMiddleSquaresKey(); i < opponent.getMiddleCounter(); i++) {
-                opponent.getMiddle().get(i).reverseMove();
+                opponent.getMiddle().get(i).reverseMove(dt);
                 //dealing with the score
-                if (opponent.getMiddle().get(i).getPosition().y <= 0 && opponent.getMiddle().get(i).getPosition().y > -this.set.getStepX()) {
+                if (opponent.getMiddle().get(i).getPosition().y <= 0 && opponent.getMiddle().get(i).getPosition().y > -this.set.getStepX()*dt) {
                     sound.play(Squarz.valueVolume * 0.15f);
                     Gdx.input.vibrate(Squarz.valueVibration * 100);
                     this.score.updateAi();
@@ -296,8 +278,8 @@ public class PlayModeMulti extends State {
         }
         if (!opponent.getRight().isEmpty()) {
             for (int i = opponent.getFirstRightSquaresKey(); i < opponent.getRightCounter(); i++) {
-                opponent.getRight().get(i).reverseMove();
-                if (opponent.getRight().get(i).getPosition().y <= 0 && opponent.getRight().get(i).getPosition().y > -this.set.getStepX()) {
+                opponent.getRight().get(i).reverseMove(dt);
+                if (opponent.getRight().get(i).getPosition().y <= 0 && opponent.getRight().get(i).getPosition().y > -this.set.getStepX()*dt) {
                     sound.play(Squarz.valueVolume * 0.15f);
                     Gdx.input.vibrate(Squarz.valueVibration * 100);
                     this.score.updateAi();
@@ -358,6 +340,19 @@ public class PlayModeMulti extends State {
         sb.draw(yellowChoiceSquare.getTexture(), yellowChoiceSquare.getPosX(), yellowChoiceSquare.getPosY());
     }
 
+    //---------------------------------- sending ------------------------------------
+
+    public Byte encryption(int columnKey, int colorKey){
+        Byte b = new Byte("3");
+        if(columnKey==0 && colorKey == 0){
+            b = new Byte("0");
+        }
+        if(columnKey==0 && colorKey == 1){
+            b = new Byte("16");
+        }
+        return b;
+    }
+
 
     //---------------------------------- detection ----------------------------------
 
@@ -374,6 +369,7 @@ public class PlayModeMulti extends State {
         if (moves != null && opponentMoves != null && moves.size() > opponentMoves.size()) {
             opponentMoves.add(moves.remove());
             detected = true;
+            System.out.println("Detected!!!");
         }
         return detected;
     }
