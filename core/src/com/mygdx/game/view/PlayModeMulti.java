@@ -205,17 +205,17 @@ public class PlayModeMulti extends State {
         if (x > WIDTH / 4 && x < WIDTH / 2) {
             player.increment(texture, 0, colorKey);
             send(encryption(0, colorKey));
-            System.out.print(encryption(0, colorKey));
+            System.out.println(encryption(0, colorKey).toString());
         }
         if (x > WIDTH / 2 && x < WIDTH * 3 / 4) {
             player.increment(texture, 1, colorKey);
             send(encryption(1, colorKey));
-            System.out.print(encryption(0, colorKey));
+            System.out.println(encryption(0, colorKey).toString());
         }
         if (x > WIDTH * 3 / 4) {
             player.increment(texture, 2, colorKey);
             send(encryption(2, colorKey));
-            System.out.print(encryption(0, colorKey));
+            System.out.println(encryption(0, colorKey).toString());
         }
     }
 
@@ -224,7 +224,7 @@ public class PlayModeMulti extends State {
             for (int i = player.getFirstLeftSquaresKey(); i < player.getLeftCounter(); i++) {
                 player.getLeft().get(i).move(dt);
                 //dealing with the score
-                if (player.getLeft().get(i).getPosition().y >= HEIGHT && player.getLeft().get(i).getPosition().y < HEIGHT + this.set.getStepX()) {
+                if (player.getLeft().get(i).getPosition().y >= HEIGHT && player.getLeft().get(i).getPosition().y < HEIGHT + this.set.getStepX()*dt) {
                     sound.play(Squarz.valueVolume * 0.15f);
                     Gdx.input.vibrate(Squarz.valueVibration * 100);
                     this.score.updateUser();
@@ -234,7 +234,7 @@ public class PlayModeMulti extends State {
         if (!player.getMiddle().isEmpty()) {
             for (int i = player.getFirstMiddleSquaresKey(); i < player.getMiddleCounter(); i++) {
                 player.getMiddle().get(i).move(dt);
-                if (player.getMiddle().get(i).getPosition().y >= HEIGHT && player.getMiddle().get(i).getPosition().y < HEIGHT + this.set.getStepX()) {
+                if (player.getMiddle().get(i).getPosition().y >= HEIGHT && player.getMiddle().get(i).getPosition().y < HEIGHT + this.set.getStepX()*dt) {
                     sound.play(Squarz.valueVolume * 0.15f);
                     Gdx.input.vibrate(Squarz.valueVibration * 100);
                     this.score.updateUser();
@@ -244,7 +244,7 @@ public class PlayModeMulti extends State {
         if (!player.getRight().isEmpty()) {
             for (int i = player.getFirstRightSquaresKey(); i < player.getRightCounter(); i++) {
                 player.getRight().get(i).move(dt);
-                if (player.getRight().get(i).getPosition().y >= HEIGHT && player.getRight().get(i).getPosition().y < HEIGHT + this.set.getStepX()) {
+                if (player.getRight().get(i).getPosition().y >= HEIGHT && player.getRight().get(i).getPosition().y < HEIGHT + this.set.getStepX()*dt) {
                     sound.play(Squarz.valueVolume * 0.15f);
                     Gdx.input.vibrate(Squarz.valueVibration * 100);
                     this.score.updateUser();
@@ -258,7 +258,7 @@ public class PlayModeMulti extends State {
             for (int i = opponent.getFirstLeftSquaresKey(); i < opponent.getLeftCounter(); i++) {
                 opponent.getLeft().get(i).reverseMove(dt);
                 //dealing with the score
-                if (opponent.getLeft().get(i).getPosition().y <= 0 && opponent.getLeft().get(i).getPosition().y > -this.set.getStepX()) {
+                if (opponent.getLeft().get(i).getPosition().y <= 0 && opponent.getLeft().get(i).getPosition().y > -this.set.getStepX()*dt) {
                     sound.play(Squarz.valueVolume * 0.15f);
                     Gdx.input.vibrate(Squarz.valueVibration * 100);
                     this.score.updateAi();
@@ -269,7 +269,7 @@ public class PlayModeMulti extends State {
             for (int i = opponent.getFirstMiddleSquaresKey(); i < opponent.getMiddleCounter(); i++) {
                 opponent.getMiddle().get(i).reverseMove(dt);
                 //dealing with the score
-                if (opponent.getMiddle().get(i).getPosition().y <= 0 && opponent.getMiddle().get(i).getPosition().y > -this.set.getStepX()) {
+                if (opponent.getMiddle().get(i).getPosition().y <= 0 && opponent.getMiddle().get(i).getPosition().y > -this.set.getStepX()*dt) {
                     sound.play(Squarz.valueVolume * 0.15f);
                     Gdx.input.vibrate(Squarz.valueVibration * 100);
                     this.score.updateAi();
@@ -279,7 +279,7 @@ public class PlayModeMulti extends State {
         if (!opponent.getRight().isEmpty()) {
             for (int i = opponent.getFirstRightSquaresKey(); i < opponent.getRightCounter(); i++) {
                 opponent.getRight().get(i).reverseMove(dt);
-                if (opponent.getRight().get(i).getPosition().y <= 0 && opponent.getRight().get(i).getPosition().y > -this.set.getStepX()) {
+                if (opponent.getRight().get(i).getPosition().y <= 0 && opponent.getRight().get(i).getPosition().y > -this.set.getStepX()*dt) {
                     sound.play(Squarz.valueVolume * 0.15f);
                     Gdx.input.vibrate(Squarz.valueVibration * 100);
                     this.score.updateAi();
@@ -342,10 +342,10 @@ public class PlayModeMulti extends State {
 
     //---------------------------------- sending ------------------------------------
 
-    public byte encryption(int columnKey, int colorKey){
-        Byte b = new Byte("01000000");
+    public Byte encryption(int columnKey, int colorKey){
+        Byte b = new Byte("3");
         if(columnKey==0 && colorKey == 0){
-            b = new Byte("00000000");
+            b = new Byte("0");
         }
         return b;
     }
