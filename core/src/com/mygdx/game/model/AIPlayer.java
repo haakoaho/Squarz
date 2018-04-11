@@ -62,8 +62,6 @@ public class AIPlayer extends Player{
         }
     }
 
-<<<<<<< HEAD
-=======
     public void prgrmdSending(CountDown countDown) {
         this.launcherCounter += 1;
         if (countDown.getWorldTimer() > 0) {
@@ -128,7 +126,6 @@ public class AIPlayer extends Player{
     }
 
 
->>>>>>> origin/Max
     public void setTheRandomTexture(int colorKey){
         if (colorKey == 0) {
             this.texture = new Texture(Gdx.files.internal(format+"/square/square_red.png"));

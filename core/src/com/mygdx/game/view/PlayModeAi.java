@@ -536,8 +536,6 @@ public void movingAiSquare() {
         this.player = player;
     }
 
-<<<<<<< HEAD
-=======
     public void inc(int i) {
         if(i==0) { //volume
             if (Squarz.valueVolume < 10) {
@@ -563,7 +561,5 @@ public void movingAiSquare() {
                 Squarz.valueVibration--;
             }
         }
-
     }
->>>>>>> origin/Max
 }

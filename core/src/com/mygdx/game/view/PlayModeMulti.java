@@ -58,7 +58,7 @@ public class PlayModeMulti extends State {
     private Queue<Byte> opponentMoves; //initialisation ?
 
 
-    public PlayModeMulti(GameStateManager gsm){
+    public PlayModeMulti(GameStateManager gsm) {
         super(gsm);
         this.set = new PreferencesSettings();
         this.countDown = new CountDown(60);
@@ -109,6 +109,7 @@ public class PlayModeMulti extends State {
 
     }
 
+
     @Override
     public void handleInput() {
 
@@ -119,8 +120,7 @@ public class PlayModeMulti extends State {
             if (!ready) {
                 ready = true;
                 music.play();
-            }
-            else {
+            } else {
                 //Colour choice button
                 chosingTheColour(x, y);
 
@@ -144,7 +144,7 @@ public class PlayModeMulti extends State {
     @Override
     public void update(float dt) {
         handleInput();
-        if(newMessageDetected()){
+        if (newMessageDetected()) {
             decryptMessage();
         }
 
@@ -152,7 +152,6 @@ public class PlayModeMulti extends State {
 
             //updating the countdown
             this.countDown.update(dt);
-
 
 
             if (this.countDown.isTimeUp()) {
@@ -200,8 +199,6 @@ public class PlayModeMulti extends State {
     }
 
 
-
-
     public void chosingTheColour(int x, int y) {
         if (this.redChoiceSquare.contains(x, y)) {
             this.setColorKey(0);
@@ -240,8 +237,8 @@ public class PlayModeMulti extends State {
         }
     }
 
-    public void movingPlayerSquare(){
-        if(!player.getLeft().isEmpty()) {
+    public void movingPlayerSquare() {
+        if (!player.getLeft().isEmpty()) {
             for (int i = player.getFirstLeftSquaresKey(); i < player.getLeftCounter(); i++) {
                 player.getLeft().get(i).move();
                 //dealing with the score
@@ -252,7 +249,7 @@ public class PlayModeMulti extends State {
                 }
             }
         }
-        if(!player.getMiddle().isEmpty()) {
+        if (!player.getMiddle().isEmpty()) {
             for (int i = player.getFirstMiddleSquaresKey(); i < player.getMiddleCounter(); i++) {
                 player.getMiddle().get(i).move();
                 if (player.getMiddle().get(i).getPosition().y >= HEIGHT && player.getMiddle().get(i).getPosition().y < HEIGHT + this.set.getStepX()) {
@@ -262,7 +259,7 @@ public class PlayModeMulti extends State {
                 }
             }
         }
-        if(!player.getRight().isEmpty()) {
+        if (!player.getRight().isEmpty()) {
             for (int i = player.getFirstRightSquaresKey(); i < player.getRightCounter(); i++) {
                 player.getRight().get(i).move();
                 if (player.getRight().get(i).getPosition().y >= HEIGHT && player.getRight().get(i).getPosition().y < HEIGHT + this.set.getStepX()) {
@@ -275,7 +272,7 @@ public class PlayModeMulti extends State {
     }
 
     public void movingOpponentSquare() {
-        if(!opponent.getLeft().isEmpty()) {
+        if (!opponent.getLeft().isEmpty()) {
             for (int i = opponent.getFirstLeftSquaresKey(); i < opponent.getLeftCounter(); i++) {
                 opponent.getLeft().get(i).reverseMove();
                 //dealing with the score
@@ -286,7 +283,7 @@ public class PlayModeMulti extends State {
                 }
             }
         }
-        if(!opponent.getMiddle().isEmpty()) {
+        if (!opponent.getMiddle().isEmpty()) {
             for (int i = opponent.getFirstMiddleSquaresKey(); i < opponent.getMiddleCounter(); i++) {
                 opponent.getMiddle().get(i).reverseMove();
                 //dealing with the score
@@ -297,7 +294,7 @@ public class PlayModeMulti extends State {
                 }
             }
         }
-        if(!opponent.getRight().isEmpty()) {
+        if (!opponent.getRight().isEmpty()) {
             for (int i = opponent.getFirstRightSquaresKey(); i < opponent.getRightCounter(); i++) {
                 opponent.getRight().get(i).reverseMove();
                 if (opponent.getRight().get(i).getPosition().y <= 0 && opponent.getRight().get(i).getPosition().y > -this.set.getStepX()) {
@@ -309,9 +306,8 @@ public class PlayModeMulti extends State {
         }
     }
 
-
-    public void drawingSquares(SpriteBatch sb, Player p){
-        for(int columnKey = 0; columnKey < 3; columnKey ++) {
+    public void drawingSquares(SpriteBatch sb, Player p) {
+        for (int columnKey = 0; columnKey < 3; columnKey++) {
             if (!p.getMap(columnKey).isEmpty()) {
                 for (int i = p.getFirstSquareKey(columnKey); i < p.getCounter(columnKey); i++) {
                     sb.draw(p.getMap(columnKey).get(i).getTexture(),
@@ -337,11 +333,13 @@ public class PlayModeMulti extends State {
         Squarz.font.draw(sb, blueLeft, blueChoiceSquare.getPosX() + blueChoiceSquare.getTexture().getWidth() / 2 - blueLeft.width / 2, blueChoiceSquare.getPosY() + blueChoiceSquare.getTexture().getHeight() / 2 + blueLeft.height / 2);
         Squarz.font.draw(sb, yellowLeft, yellowChoiceSquare.getPosX() + yellowChoiceSquare.getTexture().getWidth() / 2 - yellowLeft.width / 2, yellowChoiceSquare.getPosY() + yellowChoiceSquare.getTexture().getHeight() / 2 + yellowLeft.height / 2);
     }
+
     public void drawTimeLeft(SpriteBatch sb) {
         time.setText(Squarz.font, String.valueOf(this.countDown.getWorldTimer()));
         Squarz.font.draw(sb, String.valueOf(this.countDown.getWorldTimer()), redChoiceSquare.getPosX() + redChoiceSquare.getTexture().getWidth() / 2 - time.width / 2, HEIGHT * 27 / 32 - time.height / 2);
     }
-    public void drawLines(){
+
+    public void drawLines() {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         shapeRenderer.setColor(1, 1, 1, 1);
         shapeRenderer.line(WIDTH / 4, 0, WIDTH / 4, HEIGHT);
@@ -353,25 +351,27 @@ public class PlayModeMulti extends State {
         shapeRenderer.end();
 
     }
-    public void drawChosingColorSquares(SpriteBatch sb){
+
+    public void drawChosingColorSquares(SpriteBatch sb) {
         sb.draw(redChoiceSquare.getTexture(), redChoiceSquare.getPosX(), redChoiceSquare.getPosY());
         sb.draw(blueChoiceSquare.getTexture(), blueChoiceSquare.getPosX(), blueChoiceSquare.getPosY());
         sb.draw(yellowChoiceSquare.getTexture(), yellowChoiceSquare.getPosX(), yellowChoiceSquare.getPosY());
     }
 
 
-    public void handleReceivedMessage(){
+    //---------------------------------- detection ----------------------------------
+
+    public void handleReceivedMessage() {
         Queue<Byte> moves = receive();
         for (int i = 0; i < moves.size(); i++) {
             Byte b = moves.remove();
         }
     }
 
-
-    public boolean newMessageDetected(){
+    public boolean newMessageDetected() {
         boolean detected = false;
         Queue<Byte> moves = receive();
-        if(moves != null && opponentMoves!= null && moves.size()>opponentMoves.size()){
+        if (moves != null && opponentMoves != null && moves.size() > opponentMoves.size()) {
             opponentMoves.add(moves.remove());
             detected = true;
         }
@@ -381,18 +381,18 @@ public class PlayModeMulti extends State {
     /**
      * called when a new message has been detected.
      */
-    public void decryptMessage(){
+    public void decryptMessage() {
         Queue<Byte> moves = receive();
         Byte b = moves.remove();
         opponent.incrementOpponent(getTexture(getInformation(b).get(1)), getInformation(b).get(0), getInformation(b).get(1));
     }
 
-    public ArrayList<Integer> getInformation(Byte b){
+    public ArrayList<Integer> getInformation(Byte b) {
         //Integer.parseInt(b.toString().substring(1,2));
         ArrayList<Integer> information = new ArrayList<Integer>();
-        for(int i = 0; i<3; i++){
-            for(int j = 0; j<3; j++) {
-                if(i*64 + j*16 == b.floatValue()){
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (i * 64 + j * 16 == b.floatValue()) {
                     information.add(i); //column key
                     information.add(j); //colour key
                 }
@@ -401,30 +401,27 @@ public class PlayModeMulti extends State {
         return information;
     }
 
-    public Texture getTexture(Integer colourKey){
+    public Texture getTexture(Integer colourKey) {
         Texture t = new Texture(Gdx.files.internal(format + "/square/square_red.png"));
 
-        if(colourKey == 0){
+        if (colourKey == 0) {
             t = new Texture(Gdx.files.internal(format + "/square/square_red.png"));
         }
-        if(colourKey == 1){
+        if (colourKey == 1) {
             t = new Texture(Gdx.files.internal(format + "/square/square_blue.png"));
         }
-        if(colourKey == 2){
+        if (colourKey == 2) {
             t = new Texture(Gdx.files.internal(format + "/square/square_yellow.png"));
         }
         return t;
     }
 
 
-
-
-    void send(byte b){
+    void send(byte b) {
         gsm.getMultiplayerInterface().sendIncrement(b);
-
     }
 
-    Queue<Byte> receive(){
+    Queue<Byte> receive() {
         return gsm.getMultiplayerInterface().popMoves();
     }
 
