@@ -6,7 +6,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.model.Icon;
 import com.mygdx.game.model.State;
-import com.mygdx.game.view.PlayModeMulti;
+
+import java.util.Queue;
 
 import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
@@ -71,8 +72,12 @@ public class Pref extends State {
 
         // pushes to the multiplayer screen if room was succsesfully created
         if (gsm.getMultiplayerInterface().isGameReady()) {
-            gsm.set(new PlayModeMulti(gsm));
+            //gsm.set(new PlayModeMulti(gsm));
+            gsm.getMultiplayerInterface().sendIncrement((byte)1000);
+            Queue<Byte> moves  =  gsm.getMultiplayerInterface().popMoves();
+            gsm.getMultiplayerInterface().writeToLog("message received :" + moves);
         }
+
 
     }
 

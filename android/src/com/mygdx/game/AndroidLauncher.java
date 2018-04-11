@@ -39,13 +39,9 @@ import com.google.android.gms.tasks.Task;
 import com.mygdx.game.model.MultiplayerInterface;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Queue;
-import java.util.Set;
 
 
 public class AndroidLauncher extends AndroidApplication implements MultiplayerInterface {
@@ -628,12 +624,6 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
      * protocol.
      */
 
-	// Score of other participants. We update this as we receive their scores
-	// from the network.
-	Map<String, Integer> mParticipantScore = new HashMap<>();
-
-	// Participants who sent us their final score.
-	Set<String> mFinishedParticipants = new HashSet<>();
 
 	// Called when we receive a real-time message from the network.
 	OnRealTimeMessageReceivedListener mOnRealTimeMessageReceivedListener = new OnRealTimeMessageReceivedListener() {
@@ -649,18 +639,42 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 	public void sendIncrement(Byte b){
 		byte[] msg = new byte[1];
 		msg[0] = b;
-
-		for (Participant p : mParticipants) {
-			//sends unreliable messages to increase performance
-			mRealTimeMultiplayerClient.sendUnreliableMessage(msg, mRoomId,
-					p.getParticipantId());
-		}
+		String participantId = getParticipantId();
+		Task<Integer> task = Games.getRealTimeMultiplayerClient(this, GoogleSignIn.getLastSignedInAccount(this))
+				.sendReliableMessage(msg, mRoomId, participantId,
+						new RealTimeMultiplayerClient.ReliableMessageSentCallback() {
+							@Override
+							public void onRealTimeMessageSent(int statusCode, int tokenId, String recipientParticipantId) {
+								Log.d(TAG, "RealTime message sent");
+								Log.d(TAG, "  statusCode: " + statusCode);
+								Log.d(TAG, "  tokenId: " + tokenId);
+								Log.d(TAG, "  recipientParticipantId: " + recipientParticipantId);
+							}
+						})
+				.addOnSuccessListener(new OnSuccessListener<Integer>() {
+					@Override
+					public void onSuccess(Integer tokenId) {
+						Log.d(TAG, "Created a reliable message with tokenId: " + tokenId);
+					}
+				});
 	}
+
+
 
 	public boolean isGameReady(){
-		return gameReady; //TODO make this return true when game is ready
+		return gameReady;
 	}
 
+	private String getParticipantId() {
+		for (Participant participant : mParticipants) {
+			String participantId = participant.getParticipantId();
+			if (!participantId.equals(mMyId)) {
+				return participantId;
+			}
 
+
+		}
+		writeToLog("error in getParticipantId");
+		return "";
+	}
 }
-
