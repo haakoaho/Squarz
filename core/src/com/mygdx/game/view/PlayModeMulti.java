@@ -371,7 +371,7 @@ public class PlayModeMulti extends State {
     public boolean newMessageDetected(){
         boolean detected = false;
         Queue<Byte> moves = receive();
-        if(moves.size()>opponentMoves.size()){
+        if(moves != null && opponentMoves != null && moves.size()>opponentMoves.size()){
             opponentMoves.add(moves.remove());
             detected = true;
         }
