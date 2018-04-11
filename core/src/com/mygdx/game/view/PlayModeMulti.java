@@ -133,7 +133,6 @@ public class PlayModeMulti extends State {
         }
     }
 
-
     @Override
     public void update(float dt) {
         handleInput();
@@ -205,12 +204,18 @@ public class PlayModeMulti extends State {
     public void creatingANewSquare(int x) {
         if (x > WIDTH / 4 && x < WIDTH / 2) {
             player.increment(texture, 0, colorKey);
+            send(encryption(0, colorKey));
+            System.out.print(encryption(0, colorKey));
         }
         if (x > WIDTH / 2 && x < WIDTH * 3 / 4) {
             player.increment(texture, 1, colorKey);
+            send(encryption(1, colorKey));
+            System.out.print(encryption(0, colorKey));
         }
         if (x > WIDTH * 3 / 4) {
             player.increment(texture, 2, colorKey);
+            send(encryption(2, colorKey));
+            System.out.print(encryption(0, colorKey));
         }
     }
 
@@ -333,6 +338,16 @@ public class PlayModeMulti extends State {
         sb.draw(redChoiceSquare.getTexture(), redChoiceSquare.getPosX(), redChoiceSquare.getPosY());
         sb.draw(blueChoiceSquare.getTexture(), blueChoiceSquare.getPosX(), blueChoiceSquare.getPosY());
         sb.draw(yellowChoiceSquare.getTexture(), yellowChoiceSquare.getPosX(), yellowChoiceSquare.getPosY());
+    }
+
+    //---------------------------------- sending ------------------------------------
+
+    public byte encryption(int columnKey, int colorKey){
+        Byte b = new Byte("01000000");
+        if(columnKey==0 && colorKey == 0){
+            b = new Byte("00000000");
+        }
+        return b;
     }
 
 
