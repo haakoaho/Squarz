@@ -31,12 +31,16 @@ public class Squarz extends ApplicationAdapter  {
 		this.multiplayerInterface = multiplayerInterface;
 	}
 
+	public Squarz(){
+	}
+
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		gsm = new GameStateManager();
 		gsm.setMultiplayerInterface(multiplayerInterface);
-		gsm.getMultiplayerInterface().startSignInIntent();
+
+
 
 
 		WIDTH = Gdx.graphics.getWidth();
@@ -46,19 +50,34 @@ public class Squarz extends ApplicationAdapter  {
 
 		if (WIDTH < 600) {
 			format="low";
+			FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/Alcubierre.otf"));
+			FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+			parameter.size = 30;
+			parameter.borderWidth = 2;
+			parameter.borderColor = Color.WHITE;
+			font = generator.generateFont(parameter);
+			generator.dispose();
 		} else if (WIDTH < 1000) {
 			format="medium";
+			FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/Alcubierre.otf"));
+			FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+			parameter.size = 60;
+			parameter.borderWidth = 2;
+			parameter.borderColor = Color.WHITE;
+			font = generator.generateFont(parameter);
+			generator.dispose();
 		} else {
 			format="high";
+			FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/Alcubierre.otf"));
+			FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+			parameter.size = 80;
+			parameter.borderWidth = 2;
+			parameter.borderColor = Color.WHITE;
+			font = generator.generateFont(parameter);
+			generator.dispose();
 		}
 
-		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/Alcubierre.otf"));
-		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-		parameter.size = 50;
-		parameter.borderWidth = 2;
-		parameter.borderColor = Color.WHITE;
-		font = generator.generateFont(parameter);
-		generator.dispose();
+
         gsm.push(new Menu(gsm));
 	}
 

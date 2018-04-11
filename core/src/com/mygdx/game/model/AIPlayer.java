@@ -28,6 +28,12 @@ public class AIPlayer extends Player{
     private Integer deltaLauncher;
     private Integer renderCounter;
 
+    private boolean wave1 = true;
+    private boolean wave2 = true;
+    private boolean wave3 = true;
+    private boolean wave4 = true;
+    private boolean wave5 = true;
+
     public AIPlayer (PreferencesSettings set, CountDown countDown){
         super(set, countDown);
         this.texture = new Texture (Gdx.files.internal(format+"/square/square.png"));
@@ -56,6 +62,73 @@ public class AIPlayer extends Player{
         }
     }
 
+<<<<<<< HEAD
+=======
+    public void prgrmdSending(CountDown countDown) {
+        this.launcherCounter += 1;
+        if (countDown.getWorldTimer() > 0) {
+            //random flow
+            if (this.launcherCounter == this.getSet().getDtLaunching()) {
+                this.launcherCounter = 0;
+
+                //setting the random color
+                int colorKey = random(2);
+                setTheRandomTexture(colorKey);
+
+                //setting the random Texture in a random row
+                int row = random(2);
+
+                setTheRandomColumn(row, colorKey);
+            }
+
+            myWave(countDown);
+
+
+
+        }
+
+    }
+
+    public void myWave(CountDown countDown){
+        if (wave1) {
+            wave1 =  createAWave(55, countDown);
+        }
+        if (wave2) {
+            wave2 =  createAWave(40, countDown);
+            //createAWave(40, countDown);
+        }
+        if (wave3) {
+            wave3 =  createAWave(30, countDown);
+        }
+        if (wave4) {
+            wave4 =  createAWave(25, countDown);
+        }
+        if (wave5) {
+            wave5 =  createAWave(10, countDown);
+            //createAWave(40, countDown);
+        }
+
+    }
+
+
+    public void setOneSquare(int row, int colorkey){
+        setTheRandomTexture(colorkey);
+        setTheRandomColumn(row,colorkey);
+    }
+
+    public boolean createAWave(int time, CountDown countDown){
+
+        if (time == countDown.getWorldTimer()){
+            setOneSquare(random(2),random(2));
+            setOneSquare(random(2),random(2));
+            setOneSquare(random(2),random(2));
+            return false;
+        }
+        return true;
+    }
+
+
+>>>>>>> origin/Max
     public void setTheRandomTexture(int colorKey){
         if (colorKey == 0) {
             this.texture = new Texture(Gdx.files.internal(format+"/square/square_red.png"));
@@ -70,19 +143,19 @@ public class AIPlayer extends Player{
         if(!this.getSquareLimiter().isOver(colorKey)) {
 
             if (columnKey == 0) {
-                incrementAI(texture, columnKey, colorKey);
+                incrementOpponent(texture, columnKey, colorKey);
             }
             if (columnKey == 1) {
-                incrementAI(texture, columnKey, colorKey);
+                incrementOpponent(texture, columnKey, colorKey);
 
             }
             if (columnKey == 2) {
-                incrementAI(texture, columnKey, colorKey);
+                incrementOpponent(texture, columnKey, colorKey);
             }
         }
     }
 
-    public void incrementAI(Texture t, Integer columnKey, Integer colorkey) {
+    public void incrementOpponent(Texture t, Integer columnKey, Integer colorkey) {
         Integer counter = this.getCounter(columnKey);
         Map<Integer, Square> row = this.getMap(columnKey);
 

@@ -50,20 +50,13 @@ public class Pref extends State {
             }
             if (quick.contains(x,y)){
                 gsm.getMultiplayerInterface().startQuickGame();
-                // pushes to the multiplayer screen if room was succsesfully created
-                if (gsm.getMultiplayerInterface().isGameReady()) {
-                    gsm.set(new PlayModeMulti(gsm));
-                }
             }
             if (answer.contains(x,y)){
                 gsm.getMultiplayerInterface().checkForInvitation();
             }
             if(invite.contains(x,y)){
                 gsm.getMultiplayerInterface().invite();
-                // pushes to the multiplayer screen if room was succsesfully created
-                if (gsm.getMultiplayerInterface().isGameReady()) {
-                    gsm.set(new PlayModeMulti(gsm));
-                }
+
             }
             if (back.contains(x,y)) {
                 gsm.set(new Menu(gsm));
@@ -71,10 +64,16 @@ public class Pref extends State {
             }
         }
     }
-//
+    //
     @Override
     public void update(float dt) {
         handleInput();
+
+        // pushes to the multiplayer screen if room was succsesfully created
+        if (gsm.getMultiplayerInterface().isGameReady()) {
+            gsm.set(new PlayModeMulti(gsm));
+        }
+
     }
 
     @Override

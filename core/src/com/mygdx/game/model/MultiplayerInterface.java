@@ -15,4 +15,6 @@ public interface MultiplayerInterface {
     public boolean isGameReady(); // returns if the game is ready to be played
     public void checkForInvitation(); //receive an invitation
     public void leaveRoom(); //game is over we destroy the room
+
+    public void writeToLog(String s); //writes data to the log for debugging purposes
 }

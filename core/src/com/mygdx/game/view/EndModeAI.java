@@ -24,19 +24,14 @@ import static com.mygdx.game.Squarz.format;
 public class EndModeAI extends State {
     private PreferencesSettings setting;
     private Score score;
-    private Texture gameOver; //, scoreTex;
     private Icon replay, back;
     private CountDown countDown1;
-    private GlyphLayout scoreUser, scoreAi;
+    private GlyphLayout scoreUser, scoreAi, message1, message2;
     public EndModeAI(GameStateManager gsm, PreferencesSettings setting, Score s, CountDown countDown){
         super(gsm);
         this.setting = setting;
         this.score  = s;
-        //vraies textures:
-        this.gameOver = new Texture(Gdx.files.internal(format+"/temporary/gameOver.png"));
-        //this.scoreTex = new Texture(Gdx.files.internal("temporary/scoreTex.png"));
 
-        //a mettre en icon:
         this.replay = new Icon(new Texture(Gdx.files.internal(format+"/endMode/replay.png")), 0, 0);
         this.replay.setPosX(WIDTH/2-replay.getTexture().getWidth()/2);
         this.replay.setPosY(HEIGHT*2/5-replay.getTexture().getHeight()/2);
@@ -47,6 +42,17 @@ public class EndModeAI extends State {
 
         this.scoreAi = new GlyphLayout(Squarz.font, s.getOpponentScore().toString());
         this.scoreUser = new GlyphLayout(Squarz.font, s.getUserScore().toString());
+
+        if(s.getOpponentScore()>s.getUserScore()) {
+            this.message1 = new GlyphLayout(Squarz.font, "Haha!");
+            this.message2 = new GlyphLayout(Squarz.font, "Computer better!");
+        } else if (s.getOpponentScore()<s.getUserScore()) {
+            this.message1 = new GlyphLayout(Squarz.font, "Human won...");
+            this.message2 = new GlyphLayout(Squarz.font, "But computer is still better!");
+        } else {
+            this.message1 = new GlyphLayout(Squarz.font, "Tie!");
+            this.message2 = new GlyphLayout(Squarz.font, "Revenge?");
+        }
 
         this.countDown1 = new CountDown(countDown.getTimerKey());
     }
@@ -73,7 +79,8 @@ public class EndModeAI extends State {
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
-        sb.draw(gameOver, WIDTH/2-gameOver.getWidth()/2, HEIGHT*4/5-gameOver.getHeight()/2);
+        Squarz.font.draw(sb, message1, WIDTH/2 - message1.width/2,HEIGHT * 4/5);
+        Squarz.font.draw(sb, message2, WIDTH/2 - message2.width/2,HEIGHT * 4/5-message1.height*3/2);
         Squarz.font.draw(sb, scoreUser, WIDTH * 2/5 - scoreUser.width/2, HEIGHT * 3/5);
         Squarz.font.draw(sb, scoreAi, WIDTH * 3/5 - scoreUser.width/2, HEIGHT * 3/5);
         sb.draw(replay.getTexture(), replay.getPosX(), replay.getPosY());

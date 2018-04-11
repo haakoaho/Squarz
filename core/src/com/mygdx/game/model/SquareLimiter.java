@@ -1,7 +1,7 @@
 package com.mygdx.game.model;
 
 /**
- * Created by Antoine Dc on 17/03/2018.
+ * Created by Max on 17/03/2018.
  */
 
 public class SquareLimiter {
