@@ -641,7 +641,6 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 		public void onRealTimeMessageReceived(@NonNull RealTimeMessage realTimeMessage) {
 			byte[] buf = realTimeMessage.getMessageData();
 			moves.add(buf[0]);
-
 		}
 	};
 
