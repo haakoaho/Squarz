@@ -649,7 +649,6 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 	public void sendIncrement(Byte b){
 		byte[] msg = new byte[1];
 		msg[0] = b;
-
 		for (Participant p : mParticipants) {
 			//sends unreliable messages to increase performance
 			mRealTimeMultiplayerClient.sendUnreliableMessage(msg, mRoomId,

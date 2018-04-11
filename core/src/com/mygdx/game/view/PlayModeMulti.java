@@ -128,7 +128,7 @@ public class PlayModeMulti extends State {
 
             //Implementation for the launcher of each row
             if (!this.player.getSquareLimiter().isOver(colorKey)) {
-                creatingANewSquare(x);
+                creatingAndSendingANewSquare(x);
             }
         }
     }
@@ -201,7 +201,7 @@ public class PlayModeMulti extends State {
         }
     }
 
-    public void creatingANewSquare(int x) {
+    public void creatingAndSendingANewSquare(int x) {
         if (x > WIDTH / 4 && x < WIDTH / 2) {
             player.increment(texture, 0, colorKey);
             send(encryption(0, colorKey));
@@ -210,12 +210,12 @@ public class PlayModeMulti extends State {
         if (x > WIDTH / 2 && x < WIDTH * 3 / 4) {
             player.increment(texture, 1, colorKey);
             send(encryption(1, colorKey));
-            System.out.println(encryption(0, colorKey).toString());
+            System.out.println(encryption(1, colorKey).toString());
         }
         if (x > WIDTH * 3 / 4) {
             player.increment(texture, 2, colorKey);
             send(encryption(2, colorKey));
-            System.out.println(encryption(0, colorKey).toString());
+            System.out.println(encryption(2, colorKey).toString());
         }
     }
 
@@ -347,6 +347,9 @@ public class PlayModeMulti extends State {
         if(columnKey==0 && colorKey == 0){
             b = new Byte("0");
         }
+        if(columnKey==0 && colorKey == 1){
+            b = new Byte("16");
+        }
         return b;
     }
 
@@ -366,6 +369,7 @@ public class PlayModeMulti extends State {
         if (moves != null && opponentMoves != null && moves.size() > opponentMoves.size()) {
             opponentMoves.add(moves.remove());
             detected = true;
+            System.out.println("Detected!!!");
         }
         return detected;
     }
