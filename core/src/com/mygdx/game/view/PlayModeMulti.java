@@ -22,6 +22,7 @@ import com.mygdx.game.model.Square;
 import com.mygdx.game.model.State;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Queue;
 
 
@@ -107,6 +108,7 @@ public class PlayModeMulti extends State {
 
         sound = Gdx.audio.newSound(Gdx.files.internal("sound/goal.mp3"));
 
+        opponentMoves = new LinkedList<Byte>();
     }
 
 
@@ -136,8 +138,10 @@ public class PlayModeMulti extends State {
     @Override
     public void update(float dt) {
         handleInput();
-        if (newMessageDetected()) {
-            decryptMessage();
+        Queue<Byte> lastMove = receive();
+        if (lastMove.size()>0) {
+            decryptMessage(lastMove);
+            System.out.println("Detected");
         }
 
         //updating the countdown
@@ -350,6 +354,10 @@ public class PlayModeMulti extends State {
         if(columnKey==0 && colorKey == 1){
             b = new Byte("16");
         }
+        if(columnKey==0 && colorKey == 2){
+            b = new Byte("32");
+        }
+
         return b;
     }
 
@@ -363,24 +371,17 @@ public class PlayModeMulti extends State {
         }
     }
 
-    public boolean newMessageDetected() {
-        boolean detected = false;
-        Queue<Byte> moves = receive();
-        if (moves != null && opponentMoves != null && moves.size() > opponentMoves.size()) {
-            opponentMoves.add(moves.remove());
-            detected = true;
-            System.out.println("Detected!!!");
-        }
-        return detected;
-    }
-
     /**
      * called when a new message has been detected.
      */
-    public void decryptMessage() {
-        Queue<Byte> moves = receive();
-        Byte b = moves.remove();
-        opponent.incrementOpponent(getTexture(getInformation(b).get(1)), getInformation(b).get(0), getInformation(b).get(1));
+    public void decryptMessage(Queue<Byte> lastMove) {
+        System.out.println("Move SIZE:"+lastMove.size());
+        Byte b = lastMove.peek();
+        System.out.println("The byte: "+b.toString());
+        if(getInformation(b).size()>0) {
+            opponent.incrementOpponent(getTexture(getInformation(b).get(1)), getInformation(b).get(0), getInformation(b).get(1));
+        }
+
     }
 
     public ArrayList<Integer> getInformation(Byte b) {

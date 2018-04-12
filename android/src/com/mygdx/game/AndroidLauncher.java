@@ -240,7 +240,16 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 
 
 	public Queue<Byte> popMoves() {
-		Queue<Byte> tempQueue = moves;
+		Queue<Byte> tempQueue = new LinkedList<Byte>();
+		if(moves.size()!=0) {
+			tempQueue.add(moves.peek());
+		}
+		if (moves.size()!=0) {
+			System.out.println("m "+moves.size());
+		}
+		if (tempQueue.size()!=0) {
+			System.out.println("tQ "+tempQueue.size());
+		}
 		moves.clear();
 		return tempQueue;
 	}
@@ -631,7 +640,6 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 		public void onRealTimeMessageReceived(@NonNull RealTimeMessage realTimeMessage) {
 			byte[] buf = realTimeMessage.getMessageData();
 			moves.add(buf[0]);
-
 		}
 	};
 
