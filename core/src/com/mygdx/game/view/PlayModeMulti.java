@@ -347,18 +347,8 @@ public class PlayModeMulti extends State {
     //---------------------------------- sending ------------------------------------
 
     public Byte encryption(int columnKey, int colorKey){
-        Byte b = new Byte("3");
-        if(columnKey==0 && colorKey == 0){
-            b = new Byte("0");
-        }
-        if(columnKey==0 && colorKey == 1){
-            b = new Byte("16");
-        }
-        if(columnKey==0 && colorKey == 2){
-            b = new Byte("32");
-        }
-
-        return b;
+        int number =  columnKey*5 + colorKey * 2;
+        return new Byte(""+number);
     }
 
 
@@ -389,7 +379,7 @@ public class PlayModeMulti extends State {
         ArrayList<Integer> information = new ArrayList<Integer>();
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                if (i * 64 + j * 16 == b.floatValue()) {
+                if (i * 5 + j * 2 == b.floatValue()) {
                     information.add(i); //column key
                     information.add(j); //colour key
                 }
