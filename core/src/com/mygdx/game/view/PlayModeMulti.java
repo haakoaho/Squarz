@@ -231,17 +231,14 @@ public class PlayModeMulti extends State {
         if (x > WIDTH / 4 && x < WIDTH / 2) {
             player.increment(texture, 0, colorKey);
             send(encryption(0, colorKey));
-            System.out.println(encryption(0, colorKey).toString());
         }
         if (x > WIDTH / 2 && x < WIDTH * 3 / 4) {
             player.increment(texture, 1, colorKey);
             send(encryption(1, colorKey));
-            System.out.println(encryption(1, colorKey).toString());
         }
         if (x > WIDTH * 3 / 4) {
             player.increment(texture, 2, colorKey);
             send(encryption(2, colorKey));
-            System.out.println(encryption(2, colorKey).toString());
         }
     }
 
@@ -388,23 +385,22 @@ public class PlayModeMulti extends State {
      * called when a new message has been detected.
      */
     public void decryptMessage(Queue<Byte> lastMove) {
-        System.out.println("Move SIZE:"+lastMove.size());
         Byte b = lastMove.peek();
-        System.out.println("The byte: "+b.toString());
-        if(getInformation(b).size()>0) {
-            opponent.incrementOpponent(getTexture(getInformation(b).get(1)), getInformation(b).get(0), getInformation(b).get(1));
+        ArrayList<Integer> list = getInformation(b);
+        if(list.size()>0) {
+            opponent.incrementOpponent(getTexture(list.get(1)), list.get(0), list.get(1));
         }
 
     }
 
     public ArrayList<Integer> getInformation(Byte b) {
-        //Integer.parseInt(b.toString().substring(1,2));
         ArrayList<Integer> information = new ArrayList<Integer>();
         System.out.println(b.floatValue());
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if (i * 5 + j * 2 == b.floatValue()) {
                     information.add(i); //column key
+                    System.out.println(i);
                     information.add(j); //colour key
                 }
             }
