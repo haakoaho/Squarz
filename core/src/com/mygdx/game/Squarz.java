@@ -47,7 +47,7 @@ public class Squarz extends ApplicationAdapter  {
 		valueVolume=5;
 		valueVibration=5;
 
-		if (WIDTH < 800) {
+		if (WIDTH < 600) {
 			format="low";
 			FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/Alcubierre.otf"));
 			FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
@@ -67,7 +67,7 @@ public class Squarz extends ApplicationAdapter  {
 			font2 = generator.generateFont(parameter2);
 			font3 = generator.generateFont(parameter3);
 			generator.dispose();
-		} else if (WIDTH < 1200) {
+		} else if (WIDTH < 1000) {
 			format="medium";
 			FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/Alcubierre.otf"));
 			FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
