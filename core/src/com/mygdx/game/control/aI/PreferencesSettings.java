@@ -51,6 +51,16 @@ public class PreferencesSettings {
     public Bonus getBonuses() { return bonuses; }
     public void setBonuses(Bonus bonuses) { this.bonuses = bonuses; }
 
+    public String getStringLevel() {
+        String res = "";
+        int levelKey = this.getLevelKey();
+        if (levelKey==0) {res="Beginner";}
+        if (levelKey==1) {res="Medium";}
+        if (levelKey==2) {res="Advanced";}
+        if (levelKey==3) {res="Expert";}
+        return res;
+    }
+
     public void AILevelUp() {
         int currentLevel = this.getLevelKey();
         if (currentLevel != 3) {

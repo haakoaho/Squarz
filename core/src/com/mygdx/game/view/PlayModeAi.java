@@ -79,12 +79,12 @@ super(gsm);
         this.score = new Score();
         this.shapeRenderer = new ShapeRenderer();
 
-    choiceSquare = new Square(settings);
+        choiceSquare = new Square(settings);
         choiceSquare.setPosition(new Vector2(WIDTH/16, HEIGHT/5));
 
-        this.redLeft = new GlyphLayout(Squarz.font, String.valueOf(this.player.getSquareLimiter().getRedLefting()));
-        this.yellowLeft = new GlyphLayout(Squarz.font, String.valueOf(this.player.getSquareLimiter().getYellowLefting()));
-        this.blueLeft = new GlyphLayout(Squarz.font, String.valueOf(this.player.getSquareLimiter().getBlueLefting()));
+        this.redLeft = new GlyphLayout(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getRedLefting()));
+        this.yellowLeft = new GlyphLayout(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getYellowLefting()));
+        this.blueLeft = new GlyphLayout(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getBlueLefting()));
         this.scoreAi = new GlyphLayout(Squarz.font, String.valueOf(score.getOpponentScore()));
         this.scoreUser = new GlyphLayout(Squarz.font, String.valueOf(score.getUserScore()));
         this.time = new GlyphLayout(Squarz.font, String.valueOf(this.countDown.getWorldTimer()));
@@ -178,12 +178,12 @@ super(gsm);
                     //Colour choice button
                     chosingTheColour(x, y);
 
-                    //go to end mode, test only
+                    /*
                     if (y > HEIGHT * 3 / 4 && x > HEIGHT / 2) {
                         music.stop();
                         sound.stop();
                         gsm.set(new EndModeAI(gsm, settings, score, countDown));
-                    }
+                    } */
 
                     //Implementation for the launcher of each row
                     if (!this.player.getSquareLimiter().isOver(colorKey)) {
@@ -334,32 +334,6 @@ super(gsm);
     }
 
 
-    /*public void movingSquare(Player p, boolean goingUp) {
-        for (int rowKey = 0; rowKey < 3; rowKey++) {
-            for (int i = p.getFirstSquareKey(rowKey); i < p.getCounter(rowKey); i++) {
-                if(goingUp) {
-                    p.getMap(rowKey).get(i).move();
-                }
-                else{
-                    p.getMap(rowKey).get(i).reverseMove();
-                }
-                //dealing with the score
-                /*if (p.getMap(rowKey).get(i).getPosition().y >= HEIGHT && p.getMap(rowKey).get(i).getPosition().y < HEIGHT + this.settings.getStepX()) {
-                    sound.play(Squarz.valueVolume * 0.1f);
-                    Gdx.input.vibrate(Squarz.valueVibration * 100);
-                    if(goingUp){
-                        this.score.updateUser();
-                    }
-                    if(!goingUp){
-                        this.score.updateAi();
-                    }
-                }
-            }
-        }
-    }
-*/
-
-
 public void movingPlayerSquare(float dt){
     if(!player.getLeft().isEmpty()) {
         for (int i = player.getFirstLeftSquaresKey(); i < player.getLeftCounter(); i++) {
@@ -367,7 +341,7 @@ public void movingPlayerSquare(float dt){
             //dealing with the score
             if (player.getLeft().get(i).getPosition().y >= HEIGHT && player.getLeft().get(i).getPosition().y < HEIGHT + this.settings.getStepX()*dt) {
                 sound.play(Squarz.valueVolume * 0.15f);
-                Gdx.input.vibrate(Squarz.valueVibration * 100);
+                Gdx.input.vibrate(Squarz.valueVibration * 50);
                 this.score.updateUser();
             }
         }
@@ -377,7 +351,7 @@ public void movingPlayerSquare(float dt){
             player.getMiddle().get(i).move(dt);
             if (player.getMiddle().get(i).getPosition().y >= HEIGHT && player.getMiddle().get(i).getPosition().y < HEIGHT + this.settings.getStepX()*dt) {
                 sound.play(Squarz.valueVolume * 0.15f);
-                Gdx.input.vibrate(Squarz.valueVibration * 100);
+                Gdx.input.vibrate(Squarz.valueVibration * 50);
                 this.score.updateUser();
             }
         }
@@ -387,7 +361,7 @@ public void movingPlayerSquare(float dt){
             player.getRight().get(i).move(dt);
             if (player.getRight().get(i).getPosition().y >= HEIGHT && player.getRight().get(i).getPosition().y < HEIGHT + this.settings.getStepX()*dt) {
                 sound.play(Squarz.valueVolume * 0.15f);
-                Gdx.input.vibrate(Squarz.valueVibration * 100);
+                Gdx.input.vibrate(Squarz.valueVibration * 50);
                 this.score.updateUser();
             }
         }
@@ -401,7 +375,7 @@ public void movingAiSquare(float dt) {
             //dealing with the score
             if (ai.getLeft().get(i).getPosition().y <= 0 && ai.getLeft().get(i).getPosition().y > -this.settings.getStepX()*dt) {
                 sound.play(Squarz.valueVolume * 0.15f);
-                Gdx.input.vibrate(Squarz.valueVibration * 100);
+                Gdx.input.vibrate(Squarz.valueVibration * 50);
                 this.score.updateAi();
             }
         }
@@ -412,7 +386,7 @@ public void movingAiSquare(float dt) {
             //dealing with the score
             if (ai.getMiddle().get(i).getPosition().y <= 0 && ai.getMiddle().get(i).getPosition().y > -this.settings.getStepX()*dt) {
                 sound.play(Squarz.valueVolume * 0.15f);
-                Gdx.input.vibrate(Squarz.valueVibration * 100);
+                Gdx.input.vibrate(Squarz.valueVibration * 50);
                 this.score.updateAi();
             }
         }
@@ -422,7 +396,7 @@ public void movingAiSquare(float dt) {
             ai.getRight().get(i).reverseMove(dt);
             if (ai.getRight().get(i).getPosition().y <= 0 && ai.getRight().get(i).getPosition().y > -this.settings.getStepX()*dt) {
                 sound.play(Squarz.valueVolume * 0.15f);
-                Gdx.input.vibrate(Squarz.valueVibration * 100);
+                Gdx.input.vibrate(Squarz.valueVibration * 50);
                 this.score.updateAi();
             }
         }
@@ -457,12 +431,12 @@ public void movingAiSquare(float dt) {
      */
     public void drawCounter(SpriteBatch sb) {
         //number of user squares lefting
-        redLeft.setText(Squarz.font, String.valueOf(this.player.getSquareLimiter().getRedLefting()));
-        blueLeft.setText(Squarz.font, String.valueOf(this.player.getSquareLimiter().getBlueLefting()));
-        yellowLeft.setText(Squarz.font, String.valueOf(this.player.getSquareLimiter().getYellowLefting()));
-        Squarz.font.draw(sb, redLeft, redChoiceSquare.getPosX() + redChoiceSquare.getTexture().getWidth() / 2 - redLeft.width / 2, redChoiceSquare.getPosY() + redChoiceSquare.getTexture().getHeight() / 2 + redLeft.height / 2);
-        Squarz.font.draw(sb, blueLeft, blueChoiceSquare.getPosX() + blueChoiceSquare.getTexture().getWidth() / 2 - blueLeft.width / 2, blueChoiceSquare.getPosY() + blueChoiceSquare.getTexture().getHeight() / 2 + blueLeft.height / 2);
-        Squarz.font.draw(sb, yellowLeft, yellowChoiceSquare.getPosX() + yellowChoiceSquare.getTexture().getWidth() / 2 - yellowLeft.width / 2, yellowChoiceSquare.getPosY() + yellowChoiceSquare.getTexture().getHeight() / 2 + yellowLeft.height / 2);
+        redLeft.setText(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getRedLefting()));
+        blueLeft.setText(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getBlueLefting()));
+        yellowLeft.setText(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getYellowLefting()));
+        Squarz.font2.draw(sb, redLeft, redChoiceSquare.getPosX() + redChoiceSquare.getTexture().getWidth() / 2 - redLeft.width / 2, redChoiceSquare.getPosY() + redChoiceSquare.getTexture().getHeight() / 2 + redLeft.height / 2);
+        Squarz.font2.draw(sb, blueLeft, blueChoiceSquare.getPosX() + blueChoiceSquare.getTexture().getWidth() / 2 - blueLeft.width / 2, blueChoiceSquare.getPosY() + blueChoiceSquare.getTexture().getHeight() / 2 + blueLeft.height / 2);
+        Squarz.font2.draw(sb, yellowLeft, yellowChoiceSquare.getPosX() + yellowChoiceSquare.getTexture().getWidth() / 2 - yellowLeft.width / 2, yellowChoiceSquare.getPosY() + yellowChoiceSquare.getTexture().getHeight() / 2 + yellowLeft.height / 2);
     }
     public void drawTimeLeft(SpriteBatch sb) {
         time.setText(Squarz.font, String.valueOf(this.countDown.getWorldTimer()));

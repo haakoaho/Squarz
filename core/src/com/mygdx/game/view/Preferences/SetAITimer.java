@@ -2,6 +2,7 @@ package com.mygdx.game.view.Preferences;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Squarz;
 import com.mygdx.game.control.GameStateManager;
@@ -12,6 +13,7 @@ import com.mygdx.game.model.State;
 
 import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
+import static com.mygdx.game.Squarz.font2;
 import static com.mygdx.game.Squarz.format;
 
 /**
@@ -22,7 +24,7 @@ public class SetAITimer extends State {
     private PreferencesSettings set;
     private CountDown countDown;
     private Icon add, delete, countDownIcon, back;
-
+    private GlyphLayout choose;
 
     public SetAITimer(GameStateManager gsm, PreferencesSettings setting, CountDown countDown){
         super(gsm);
@@ -32,6 +34,8 @@ public class SetAITimer extends State {
         this.set = setting;
         this.countDown = countDown;
         this.back = new Icon(new Texture(Gdx.files.internal(format+"/back.png")),0,0);
+
+        this.choose = new GlyphLayout(font2, this.countDown.getWorldTimer()+" seconds");
 
         add.setPosX(WIDTH/2-add.getTexture().getWidth()/2);
         add.setPosY(HEIGHT*2/3-add.getTexture().getHeight()/2);
@@ -53,11 +57,13 @@ public class SetAITimer extends State {
             if(add.contains(x,y)) { //add
                 if (this.countDown.getWorldTimer() != 60) {
                     this.countDown.increaseTime();
+                    this.choose = new GlyphLayout(font2, this.countDown.getWorldTimer()+" seconds");
                 }
             }
             if(delete.contains(x,y)) { //delete
                 if (this.countDown.getWorldTimer() != 30) {
                     this.countDown.decreaseTime();
+                    this.choose = new GlyphLayout(font2, this.countDown.getWorldTimer()+" seconds");
                 }
             }
             if(countDownIcon.contains(x,y)){ //go back
@@ -79,12 +85,11 @@ public class SetAITimer extends State {
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
-
+        font2.draw(sb, this.choose, WIDTH/2 - this.choose.width/2, 8*HEIGHT/10 - this.choose.height/2);
         sb.draw(add.getTexture(), add.getPosX(), add.getPosY());
         sb.draw(delete.getTexture(),delete.getPosX(), delete.getPosY());
         drawAccurateTexture(sb);
         sb.draw(back.getTexture(),back.getPosX(),back.getPosY());
-
         sb.end();
     }
 

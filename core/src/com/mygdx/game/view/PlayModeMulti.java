@@ -29,11 +29,13 @@ import java.util.Queue;
 import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
 import static com.mygdx.game.Squarz.format;
+import static com.mygdx.game.Squarz.valueVolume;
 
 public class PlayModeMulti extends State {
     private Music music;
     private Sound sound;
     private GlyphLayout readyGlyph, redLeft, yellowLeft, blueLeft, scoreUser, scoreOpponent, time;
+    private boolean varMute;
 
     private ShapeRenderer shapeRenderer;
 
@@ -47,7 +49,7 @@ public class PlayModeMulti extends State {
 
     private Square choiceSquare;
 
-    private Icon redChoiceSquare, blueChoiceSquare, yellowChoiceSquare, pause;
+    private Icon redChoiceSquare, blueChoiceSquare, yellowChoiceSquare, mute;
     private Texture texture;
     private Integer colorKey;
     private Integer columnKey;
@@ -70,12 +72,19 @@ public class PlayModeMulti extends State {
         choiceSquare = new Square(set);
         choiceSquare.setPosition(new Vector2(WIDTH * 1 / 16, HEIGHT * 1 / 5));
 
+        if(valueVolume==0) {
+            this.mute = new Icon(new Texture(Gdx.files.internal(format+"/mute.png")),0,0);
+            this.varMute=true;
+        } else {
+            this.mute = new Icon(new Texture(Gdx.files.internal(format+"/setting/sound.png")),0,0);
+            this.varMute=false;
+        }
+        this.mute.setPosX(redChoiceSquare.getPosX()+redChoiceSquare.getTexture().getWidth()/2-this.mute.getTexture().getWidth()/2);
+        this.mute.setPosY(HEIGHT * 29 / 32 - this.mute.getTexture().getHeight()/2);
+
         this.colorKey = 0;
-
         score = new Score();
-
         countDown = new CountDown(60);
-
         collision = new Collision();
 
         //all the texture
@@ -89,13 +98,11 @@ public class PlayModeMulti extends State {
                 , WIDTH * 1 / 16, HEIGHT / 2 - this.texture.getHeight() * 11 / 4);
         this.yellowChoiceSquare = new Icon(new Texture(Gdx.files.internal(format + "/square/square_yellow.png"))
                 , WIDTH * 1 / 16, HEIGHT / 2 - this.texture.getHeight() * 4);
-        this.pause = new Icon(new Texture(Gdx.files.internal(format + "/pause.png"))
-                , WIDTH * 1 / 16, HEIGHT * 15 / 16 - this.texture.getHeight() / 2);
 
         //texts on the screen
-        this.redLeft = new GlyphLayout(Squarz.font, String.valueOf(this.player.getSquareLimiter().getRedLefting()));
-        this.yellowLeft = new GlyphLayout(Squarz.font, String.valueOf(this.player.getSquareLimiter().getYellowLefting()));
-        this.blueLeft = new GlyphLayout(Squarz.font, String.valueOf(this.player.getSquareLimiter().getBlueLefting()));
+        this.redLeft = new GlyphLayout(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getRedLefting()));
+        this.yellowLeft = new GlyphLayout(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getYellowLefting()));
+        this.blueLeft = new GlyphLayout(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getBlueLefting()));
         this.scoreOpponent = new GlyphLayout(Squarz.font, String.valueOf(score.getOpponentScore()));
         this.scoreUser = new GlyphLayout(Squarz.font, String.valueOf(score.getUserScore()));
         this.time = new GlyphLayout(Squarz.font, String.valueOf(this.countDown.getWorldTimer()));
@@ -121,11 +128,18 @@ public class PlayModeMulti extends State {
              //Colour choice button
             chosingTheColour(x, y);
 
-            //go to end mode, test only
-            if (y > HEIGHT * 3 / 4 && x > HEIGHT / 2) {
-                music.stop();
-                sound.stop();
-                gsm.set(new EndModeAI(gsm, set, score, countDown));
+            if(mute.contains(x,y)) {
+                if(varMute) {
+                    valueVolume=5;
+                    music.setVolume(valueVolume);
+                    this.mute.setTexture(new Texture(Gdx.files.internal(format+"/setting/sound.png")));
+                    varMute=false;
+                } else {
+                    valueVolume=0;
+                    music.setVolume(valueVolume);
+                    this.mute.setTexture(new Texture(Gdx.files.internal(format+"/mute.png")));
+                    varMute=true;
+                }
             }
 
             //Implementation for the launcher of each row
@@ -230,7 +244,7 @@ public class PlayModeMulti extends State {
                 //dealing with the score
                 if (player.getLeft().get(i).getPosition().y >= HEIGHT && player.getLeft().get(i).getPosition().y < HEIGHT + this.set.getStepX()*dt) {
                     sound.play(Squarz.valueVolume * 0.15f);
-                    Gdx.input.vibrate(Squarz.valueVibration * 100);
+                    Gdx.input.vibrate(Squarz.valueVibration * 50);
                     this.score.updateUser();
                 }
             }
@@ -240,7 +254,7 @@ public class PlayModeMulti extends State {
                 player.getMiddle().get(i).move(dt);
                 if (player.getMiddle().get(i).getPosition().y >= HEIGHT && player.getMiddle().get(i).getPosition().y < HEIGHT + this.set.getStepX()*dt) {
                     sound.play(Squarz.valueVolume * 0.15f);
-                    Gdx.input.vibrate(Squarz.valueVibration * 100);
+                    Gdx.input.vibrate(Squarz.valueVibration * 50);
                     this.score.updateUser();
                 }
             }
@@ -250,7 +264,7 @@ public class PlayModeMulti extends State {
                 player.getRight().get(i).move(dt);
                 if (player.getRight().get(i).getPosition().y >= HEIGHT && player.getRight().get(i).getPosition().y < HEIGHT + this.set.getStepX()*dt) {
                     sound.play(Squarz.valueVolume * 0.15f);
-                    Gdx.input.vibrate(Squarz.valueVibration * 100);
+                    Gdx.input.vibrate(Squarz.valueVibration * 50);
                     this.score.updateUser();
                 }
             }
@@ -264,7 +278,7 @@ public class PlayModeMulti extends State {
                 //dealing with the score
                 if (opponent.getLeft().get(i).getPosition().y <= 0 && opponent.getLeft().get(i).getPosition().y > -this.set.getStepX()*dt) {
                     sound.play(Squarz.valueVolume * 0.15f);
-                    Gdx.input.vibrate(Squarz.valueVibration * 100);
+                    Gdx.input.vibrate(Squarz.valueVibration * 50);
                     this.score.updateAi();
                 }
             }
@@ -275,7 +289,7 @@ public class PlayModeMulti extends State {
                 //dealing with the score
                 if (opponent.getMiddle().get(i).getPosition().y <= 0 && opponent.getMiddle().get(i).getPosition().y > -this.set.getStepX()*dt) {
                     sound.play(Squarz.valueVolume * 0.15f);
-                    Gdx.input.vibrate(Squarz.valueVibration * 100);
+                    Gdx.input.vibrate(Squarz.valueVibration * 50);
                     this.score.updateAi();
                 }
             }
@@ -285,7 +299,7 @@ public class PlayModeMulti extends State {
                 opponent.getRight().get(i).reverseMove(dt);
                 if (opponent.getRight().get(i).getPosition().y <= 0 && opponent.getRight().get(i).getPosition().y > -this.set.getStepX()*dt) {
                     sound.play(Squarz.valueVolume * 0.15f);
-                    Gdx.input.vibrate(Squarz.valueVibration * 100);
+                    Gdx.input.vibrate(Squarz.valueVibration * 50);
                     this.score.updateAi();
                 }
             }
@@ -312,12 +326,12 @@ public class PlayModeMulti extends State {
 
     public void drawCounter(SpriteBatch sb) {
         //number of user squares lefting
-        redLeft.setText(Squarz.font, String.valueOf(this.player.getSquareLimiter().getRedLefting()));
-        blueLeft.setText(Squarz.font, String.valueOf(this.player.getSquareLimiter().getBlueLefting()));
-        yellowLeft.setText(Squarz.font, String.valueOf(this.player.getSquareLimiter().getYellowLefting()));
-        Squarz.font.draw(sb, redLeft, redChoiceSquare.getPosX() + redChoiceSquare.getTexture().getWidth() / 2 - redLeft.width / 2, redChoiceSquare.getPosY() + redChoiceSquare.getTexture().getHeight() / 2 + redLeft.height / 2);
-        Squarz.font.draw(sb, blueLeft, blueChoiceSquare.getPosX() + blueChoiceSquare.getTexture().getWidth() / 2 - blueLeft.width / 2, blueChoiceSquare.getPosY() + blueChoiceSquare.getTexture().getHeight() / 2 + blueLeft.height / 2);
-        Squarz.font.draw(sb, yellowLeft, yellowChoiceSquare.getPosX() + yellowChoiceSquare.getTexture().getWidth() / 2 - yellowLeft.width / 2, yellowChoiceSquare.getPosY() + yellowChoiceSquare.getTexture().getHeight() / 2 + yellowLeft.height / 2);
+        redLeft.setText(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getRedLefting()));
+        blueLeft.setText(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getBlueLefting()));
+        yellowLeft.setText(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getYellowLefting()));
+        Squarz.font2.draw(sb, redLeft, redChoiceSquare.getPosX() + redChoiceSquare.getTexture().getWidth() / 2 - redLeft.width / 2, redChoiceSquare.getPosY() + redChoiceSquare.getTexture().getHeight() / 2 + redLeft.height / 2);
+        Squarz.font2.draw(sb, blueLeft, blueChoiceSquare.getPosX() + blueChoiceSquare.getTexture().getWidth() / 2 - blueLeft.width / 2, blueChoiceSquare.getPosY() + blueChoiceSquare.getTexture().getHeight() / 2 + blueLeft.height / 2);
+        Squarz.font2.draw(sb, yellowLeft, yellowChoiceSquare.getPosX() + yellowChoiceSquare.getTexture().getWidth() / 2 - yellowLeft.width / 2, yellowChoiceSquare.getPosY() + yellowChoiceSquare.getTexture().getHeight() / 2 + yellowLeft.height / 2);
     }
 
     public void drawTimeLeft(SpriteBatch sb) {
