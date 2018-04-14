@@ -153,7 +153,6 @@ public class PlayModeMulti extends State {
         Queue<Byte> lastMove = receive();
         if (lastMove.size()>0) {
             decryptMessage(lastMove);
-            System.out.println("Detected");
         }
 
         //updating the countdown
@@ -196,7 +195,7 @@ public class PlayModeMulti extends State {
     public boolean isAllowedToPlay(float exTime){
         boolean allowed = false;
         float timeRef = countDown.getWorldTimer()-countDown.getTimeCount();
-        allowed = exTime - timeRef > 0.45;
+        allowed = exTime - timeRef > 0.5;
         if(allowed){this.exTime = timeRef;}
         return  allowed;
     }
@@ -395,12 +394,10 @@ public class PlayModeMulti extends State {
 
     public ArrayList<Integer> getInformation(Byte b) {
         ArrayList<Integer> information = new ArrayList<Integer>();
-        System.out.println(b.floatValue());
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if (i * 5 + j * 2 == b.floatValue()) {
                     information.add(i); //column key
-                    System.out.println(i);
                     information.add(j); //colour key
                 }
             }
