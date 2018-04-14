@@ -22,7 +22,6 @@ import com.mygdx.game.model.Square;
 import com.mygdx.game.model.State;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.Queue;
 
 
@@ -55,6 +54,8 @@ public class PlayModeMulti extends State {
     private Integer columnKey;
 
     private Score score;
+
+    private float exTime;
 
 
     public PlayModeMulti(GameStateManager gsm) {
@@ -112,6 +113,7 @@ public class PlayModeMulti extends State {
         music.setVolume(Squarz.valueVolume * 0.15f);
 
         sound = Gdx.audio.newSound(Gdx.files.internal("sound/goal.mp3"));
+        exTime = countDown.getWorldTimer();
     }
 
 
@@ -139,7 +141,7 @@ public class PlayModeMulti extends State {
             }
 
             //Implementation for the launcher of each row
-            if (!this.player.getSquareLimiter().isOver(colorKey)) {
+            if (!this.player.getSquareLimiter().isOver(colorKey) && isAllowedToPlay(exTime)) {
                 creatingAndSendingANewSquare(x);
             }
         }
@@ -190,6 +192,18 @@ public class PlayModeMulti extends State {
 
     }
 
+
+    public boolean isAllowedToPlay(float exTime){
+        //initialisation
+        boolean allowed = false;
+        float timeRef = countDown.getTimeCount();
+
+        float diff = exTime - timeRef;
+        allowed = diff > 0.5;
+        this.exTime = timeRef;
+
+        return  allowed;
+    }
 
     public void chosingTheColour(int x, int y) {
         if (this.redChoiceSquare.contains(x, y)) {
