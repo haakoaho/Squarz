@@ -22,7 +22,6 @@ import com.mygdx.game.model.Square;
 import com.mygdx.game.model.State;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.Queue;
 
 
@@ -55,6 +54,8 @@ public class PlayModeMulti extends State {
     private Integer columnKey;
 
     private Score score;
+
+    private float exTime;
 
 
     public PlayModeMulti(GameStateManager gsm) {
@@ -112,6 +113,7 @@ public class PlayModeMulti extends State {
         music.setVolume(Squarz.valueVolume * 0.15f);
 
         sound = Gdx.audio.newSound(Gdx.files.internal("sound/goal.mp3"));
+        exTime = countDown.getWorldTimer();
     }
 
 
@@ -139,7 +141,7 @@ public class PlayModeMulti extends State {
             }
 
             //Implementation for the launcher of each row
-            if (!this.player.getSquareLimiter().isOver(colorKey)) {
+            if (!this.player.getSquareLimiter().isOver(colorKey) && isAllowedToPlay(exTime)) {
                 creatingAndSendingANewSquare(x);
             }
         }
@@ -151,7 +153,6 @@ public class PlayModeMulti extends State {
         Queue<Byte> lastMove = receive();
         if (lastMove.size()>0) {
             decryptMessage(lastMove);
-            System.out.println("Detected");
         }
 
         //updating the countdown
@@ -191,6 +192,14 @@ public class PlayModeMulti extends State {
     }
 
 
+    public boolean isAllowedToPlay(float exTime){
+        boolean allowed = false;
+        float timeRef = countDown.getWorldTimer()-countDown.getTimeCount();
+        allowed = exTime - timeRef > 0.5;
+        if(allowed){this.exTime = timeRef;}
+        return  allowed;
+    }
+
     public void chosingTheColour(int x, int y) {
         if (this.redChoiceSquare.contains(x, y)) {
             this.setColorKey(0);
@@ -221,17 +230,14 @@ public class PlayModeMulti extends State {
         if (x > WIDTH / 4 && x < WIDTH / 2) {
             player.increment(texture, 0, colorKey);
             send(encryption(0, colorKey));
-            System.out.println(encryption(0, colorKey).toString());
         }
         if (x > WIDTH / 2 && x < WIDTH * 3 / 4) {
             player.increment(texture, 1, colorKey);
             send(encryption(1, colorKey));
-            System.out.println(encryption(1, colorKey).toString());
         }
         if (x > WIDTH * 3 / 4) {
             player.increment(texture, 2, colorKey);
             send(encryption(2, colorKey));
-            System.out.println(encryption(2, colorKey).toString());
         }
     }
 
@@ -360,6 +366,7 @@ public class PlayModeMulti extends State {
 
     public Byte encryption(int columnKey, int colorKey){
         int number =  columnKey*5 + colorKey * 2;
+        System.out.println(number);
         return new Byte(""+number);
     }
 
@@ -377,17 +384,15 @@ public class PlayModeMulti extends State {
      * called when a new message has been detected.
      */
     public void decryptMessage(Queue<Byte> lastMove) {
-        System.out.println("Move SIZE:"+lastMove.size());
         Byte b = lastMove.peek();
-        System.out.println("The byte: "+b.toString());
-        if(getInformation(b).size()>0) {
-            opponent.incrementOpponent(getTexture(getInformation(b).get(1)), getInformation(b).get(0), getInformation(b).get(1));
+        ArrayList<Integer> list = getInformation(b);
+        if(list.size()>0) {
+            opponent.incrementOpponent(getTexture(list.get(1)), list.get(0), list.get(1));
         }
 
     }
 
     public ArrayList<Integer> getInformation(Byte b) {
-        //Integer.parseInt(b.toString().substring(1,2));
         ArrayList<Integer> information = new ArrayList<Integer>();
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {

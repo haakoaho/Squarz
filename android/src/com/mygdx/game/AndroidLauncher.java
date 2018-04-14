@@ -244,12 +244,7 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 		if(moves.size()!=0) {
 			tempQueue.add(moves.peek());
 		}
-		if (moves.size()!=0) {
-			System.out.println("m "+moves.size());
-		}
-		if (tempQueue.size()!=0) {
-			System.out.println("tQ "+tempQueue.size());
-		}
+
 		moves.clear();
 		return tempQueue;
 	}
