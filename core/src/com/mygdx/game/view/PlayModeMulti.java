@@ -370,6 +370,7 @@ public class PlayModeMulti extends State {
 
     public Byte encryption(int columnKey, int colorKey){
         int number =  columnKey*5 + colorKey * 2;
+        System.out.println(number);
         return new Byte(""+number);
     }
 
@@ -399,6 +400,7 @@ public class PlayModeMulti extends State {
     public ArrayList<Integer> getInformation(Byte b) {
         //Integer.parseInt(b.toString().substring(1,2));
         ArrayList<Integer> information = new ArrayList<Integer>();
+        System.out.println(b.floatValue());
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if (i * 5 + j * 2 == b.floatValue()) {
