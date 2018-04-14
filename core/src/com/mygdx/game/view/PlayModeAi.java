@@ -63,7 +63,7 @@ public class PlayModeAi extends State {
     private Boolean pauseSettings = false;
     private PauseScreen pauseScreen;
     private Integer temporarySpeed;
-
+    private float exTime;
 
     public PlayModeAi(GameStateManager gsm, PreferencesSettings settings, CountDown countDown) {
 
@@ -123,6 +123,8 @@ super(gsm);
 
 
     sound = Gdx.audio.newSound(Gdx.files.internal("sound/goal.mp3"));
+
+        exTime = countDown.getWorldTimer();
 }
     @Override
     public void handleInput() {
@@ -186,12 +188,20 @@ super(gsm);
                     } */
 
                     //Implementation for the launcher of each row
-                    if (!this.player.getSquareLimiter().isOver(colorKey)) {
+                    if (!this.player.getSquareLimiter().isOver(colorKey) && isAllowedToPlay(exTime)) {
                         creatingANewSquare(x);
                     }
                 }
             }
         }
+    }
+
+    public boolean isAllowedToPlay(float exTime){
+        boolean allowed = false;
+        float timeRef = countDown.getWorldTimer()-countDown.getTimeCount();
+        allowed = exTime - timeRef > 0.5;
+        if(allowed){this.exTime = timeRef;}
+        return  allowed;
     }
 
     private Integer getColumnKey(){
