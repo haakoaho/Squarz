@@ -56,10 +56,6 @@ public class PlayModeMulti extends State {
 
     private Score score;
 
-    private Boolean ready = false;
-
-    private Queue<Byte> opponentMoves; //initialisation ?
-
 
     public PlayModeMulti(GameStateManager gsm) {
         super(gsm);
@@ -76,11 +72,10 @@ public class PlayModeMulti extends State {
             this.mute = new Icon(new Texture(Gdx.files.internal(format+"/mute.png")),0,0);
             this.varMute=true;
         } else {
-            this.mute = new Icon(new Texture(Gdx.files.internal(format+"/setting/sound.png")),0,0);
+            this.mute = new Icon(new Texture(Gdx.files.internal(format+"/settings/sound.png")),0,0);
             this.varMute=false;
         }
-        this.mute.setPosX(redChoiceSquare.getPosX()+redChoiceSquare.getTexture().getWidth()/2-this.mute.getTexture().getWidth()/2);
-        this.mute.setPosY(HEIGHT * 29 / 32 - this.mute.getTexture().getHeight()/2);
+
 
         this.colorKey = 0;
         score = new Score();
@@ -107,6 +102,9 @@ public class PlayModeMulti extends State {
         this.scoreUser = new GlyphLayout(Squarz.font, String.valueOf(score.getUserScore()));
         this.time = new GlyphLayout(Squarz.font, String.valueOf(this.countDown.getWorldTimer()));
 
+        this.mute.setPosX(redChoiceSquare.getPosX()+redChoiceSquare.getTexture().getWidth()/2-this.mute.getTexture().getWidth()/2);
+        this.mute.setPosY(HEIGHT * 29 / 32 - this.mute.getTexture().getHeight()/2);
+
         this.readyGlyph = new GlyphLayout(Squarz.font, "READY ?");
 
         music = Gdx.audio.newMusic(Gdx.files.internal("sound/reset.mp3"));
@@ -114,8 +112,6 @@ public class PlayModeMulti extends State {
         music.setVolume(Squarz.valueVolume * 0.15f);
 
         sound = Gdx.audio.newSound(Gdx.files.internal("sound/goal.mp3"));
-
-        opponentMoves = new LinkedList<Byte>();
     }
 
 
@@ -132,7 +128,7 @@ public class PlayModeMulti extends State {
                 if(varMute) {
                     valueVolume=5;
                     music.setVolume(valueVolume);
-                    this.mute.setTexture(new Texture(Gdx.files.internal(format+"/setting/sound.png")));
+                    this.mute.setTexture(new Texture(Gdx.files.internal(format+"/settings/sound.png")));
                     varMute=false;
                 } else {
                     valueVolume=0;
@@ -160,11 +156,11 @@ public class PlayModeMulti extends State {
 
         //updating the countdown
         this.countDown.update(dt);
-         if (this.countDown.isTimeUp()) {
-             music.stop();
-             gsm.set(new EndModeAI(gsm, set, score, countDown));
-             //MultiplayerInterface.leaveRoom();
-         }
+        if (this.countDown.isTimeUp()) {
+            music.stop();
+            gsm.set(new EndModeAI(gsm, set, score, countDown));
+            // leaveRoom();
+        }
 
         movingPlayerSquare(dt);
         movingOpponentSquare(dt);
@@ -183,6 +179,8 @@ public class PlayModeMulti extends State {
         drawTimeLeft(sb);
         drawScore(sb);
         drawCounter(sb);
+
+        sb.draw(mute.getTexture(),mute.getPosX(),mute.getPosY());
 
         sb.end();
         }
