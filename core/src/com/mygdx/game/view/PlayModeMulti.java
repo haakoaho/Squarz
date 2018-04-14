@@ -195,15 +195,9 @@ public class PlayModeMulti extends State {
 
     public boolean isAllowedToPlay(float exTime){
         boolean allowed = false;
-        //initialisation
-        if(exTime == countDown.getWorldTimer()) {
-            allowed = true;
-        }
-        else {
-            float timeRef = countDown.getTimeCount();
-            allowed = exTime - timeRef > 0.2;
-            this.exTime = timeRef;
-        }
+        float timeRef = countDown.getWorldTimer()-countDown.getTimeCount();
+        allowed = exTime - timeRef > 0.45;
+        if(allowed){this.exTime = timeRef;}
         return  allowed;
     }
 
