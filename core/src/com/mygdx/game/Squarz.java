@@ -19,8 +19,7 @@ public class Squarz extends ApplicationAdapter  {
 
 	public MultiplayerInterface multiplayerInterface;
 
-	public static BitmapFont font;
-	public static BitmapFont font2;
+	public static BitmapFont font, font2, font3;
 
 	public static int valueVolume, valueVibration;
 
@@ -52,28 +51,61 @@ public class Squarz extends ApplicationAdapter  {
 			format="low";
 			FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/Alcubierre.otf"));
 			FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-			parameter.size = 30;
+			FreeTypeFontGenerator.FreeTypeFontParameter parameter2 = new FreeTypeFontGenerator.FreeTypeFontParameter();
+			FreeTypeFontGenerator.FreeTypeFontParameter parameter3 = new FreeTypeFontGenerator.FreeTypeFontParameter();
+			parameter.size = 50;
+			parameter2.size = 35;
+			parameter3.size = 25;
 			parameter.borderWidth = 2;
+			parameter2.borderWidth = 3;
+			parameter3.borderWidth = 4;
+			parameter3.color = Color.BLACK;
 			parameter.borderColor = Color.WHITE;
+			parameter2.borderColor = Color.WHITE;
+			parameter3.borderColor = Color.BLACK;
 			font = generator.generateFont(parameter);
+			font2 = generator.generateFont(parameter2);
+			font3 = generator.generateFont(parameter3);
 			generator.dispose();
 		} else if (WIDTH < 1000) {
 			format="medium";
 			FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/Alcubierre.otf"));
 			FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-			parameter.size = 60;
+			FreeTypeFontGenerator.FreeTypeFontParameter parameter2 = new FreeTypeFontGenerator.FreeTypeFontParameter();
+			FreeTypeFontGenerator.FreeTypeFontParameter parameter3 = new FreeTypeFontGenerator.FreeTypeFontParameter();
+			parameter.size = 70;
+			parameter2.size = 45;
+			parameter3.size = 35;
 			parameter.borderWidth = 2;
+			parameter2.borderWidth = 3;
+			parameter3.borderWidth = 4;
+			parameter3.color = Color.BLACK;
 			parameter.borderColor = Color.WHITE;
+			parameter2.borderColor = Color.WHITE;
+			parameter3.borderColor = Color.BLACK;
 			font = generator.generateFont(parameter);
+			font2 = generator.generateFont(parameter2);
+			font3 = generator.generateFont(parameter3);
 			generator.dispose();
 		} else {
 			format="high";
 			FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/Alcubierre.otf"));
 			FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-			parameter.size = 80;
+			FreeTypeFontGenerator.FreeTypeFontParameter parameter2 = new FreeTypeFontGenerator.FreeTypeFontParameter();
+			FreeTypeFontGenerator.FreeTypeFontParameter parameter3 = new FreeTypeFontGenerator.FreeTypeFontParameter();
+			parameter.size = 90;
+			parameter2.size = 60;
+			parameter3.size = 45;
 			parameter.borderWidth = 2;
+			parameter2.borderWidth = 3;
+			parameter3.borderWidth = 4;
+			parameter3.color = Color.BLACK;
 			parameter.borderColor = Color.WHITE;
+			parameter2.borderColor = Color.WHITE;
+			parameter3.borderColor = Color.BLACK;
 			font = generator.generateFont(parameter);
+			font2 = generator.generateFont(parameter2);
+			font3 = generator.generateFont(parameter3);
 			generator.dispose();
 		}
 

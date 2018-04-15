@@ -35,7 +35,8 @@ public class Collision {
     }
     public boolean isOverlapping(Player p, Player c, Integer columnKey){
         return (p.getMap(columnKey).get(p.getFirstSquareKey(columnKey)).getRectangle().overlaps(
-                c.getMap(columnKey).get(c.getFirstSquareKey(columnKey)).getRectangle()));
+                c.getMap(columnKey).get(c.getFirstSquareKey(columnKey)).getRectangle()) || c.getMap(columnKey).get(c.getFirstSquareKey(columnKey)).getRectangle().overlaps(
+                p.getMap(columnKey).get(p.getFirstSquareKey(columnKey)).getRectangle()));
     }
 
     public void handleWhenPlayerRed(Player p, Player c, Integer columnKey){

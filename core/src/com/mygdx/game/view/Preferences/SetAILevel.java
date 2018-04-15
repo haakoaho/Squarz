@@ -2,6 +2,7 @@ package com.mygdx.game.view.Preferences;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.control.aI.PreferencesSettings;
 import com.mygdx.game.model.CountDown;
@@ -12,6 +13,7 @@ import com.mygdx.game.view.beginning.Menu;
 
 import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
+import static com.mygdx.game.Squarz.font2;
 import static com.mygdx.game.Squarz.format;
 
 /**
@@ -22,6 +24,7 @@ public class SetAILevel extends State{
     private Icon add, delete, levelToDraw, back;
     private PreferencesSettings set;
     private CountDown countDown;
+    private GlyphLayout choose;
 
 
     public SetAILevel(GameStateManager gsm, PreferencesSettings setting, CountDown countDown){
@@ -33,6 +36,7 @@ public class SetAILevel extends State{
         this.countDown = countDown;
         this.back = new Icon(new Texture(Gdx.files.internal(format+"/back.png")),0,0);
 
+        this.choose = new GlyphLayout(font2,this.set.getStringLevel());
 
         add.setPosX(WIDTH/2-add.getTexture().getWidth()/2);
         add.setPosY(HEIGHT*2/3-add.getTexture().getHeight()/2);
@@ -53,10 +57,12 @@ public class SetAILevel extends State{
             int y = HEIGHT - Gdx.input.getY();
             if(add.contains(x,y)){ //add
                 this.set.AILevelUp();
+                this.choose = new GlyphLayout(font2,this.set.getStringLevel());
                 setTextureToDraw();
             }
             if(delete.contains(x,y)){ //delete
                 this.set.AILevelDown();
+                this.choose = new GlyphLayout(font2,this.set.getStringLevel());
                 setTextureToDraw();
             }
             if(levelToDraw.contains(x,y)){//go back
@@ -77,6 +83,7 @@ public class SetAILevel extends State{
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
+        font2.draw(sb, this.choose, WIDTH/2 - this.choose.width/2, 8*HEIGHT/10 - this.choose.height/2);
         sb.draw(add.getTexture(), add.getPosX(),add.getPosY() );
         sb.draw(delete.getTexture(),delete.getPosX() ,delete.getPosY() );
         sb.draw(levelToDraw.getTexture(),levelToDraw.getPosX() , levelToDraw.getPosY());

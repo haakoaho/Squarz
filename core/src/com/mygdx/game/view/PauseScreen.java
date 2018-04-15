@@ -72,8 +72,8 @@ public class PauseScreen {
         this.backToPause.setPosY(texture.getPosY() + texture.getTexture().getHeight()*3/4  - backToPause.getTexture().getHeight()/2);
 
         this.pauseGlyph = new GlyphLayout(Squarz.font, "PAUSE");
-        this.sGlyph = new GlyphLayout(Squarz.font, String.valueOf(valueVolume));
-        this.vGlyph = new GlyphLayout(Squarz.font, String.valueOf(valueVibration));
+        this.sGlyph = new GlyphLayout(Squarz.font2, String.valueOf(valueVolume));
+        this.vGlyph = new GlyphLayout(Squarz.font2, String.valueOf(valueVibration));
     }
 
     public void drawPause(SpriteBatch sb){
@@ -93,10 +93,10 @@ public class PauseScreen {
         sb.draw(addV.getTexture(), addV.getPosX(), addV.getPosY());
         sb.draw(deleteV.getTexture(), deleteV.getPosX(), deleteV.getPosY());
 
-        this.sGlyph.setText(Squarz.font, String.valueOf(valueVolume));
-        Squarz.font.draw(sb, sGlyph, texture.getPosX() + texture.getTexture().getWidth()*3/5 - sGlyph.width/2,texture.getPosY() + texture.getTexture().getHeight()*2/4  +sGlyph.height/2);
-        this.vGlyph.setText(Squarz.font, String.valueOf(valueVibration));
-        Squarz.font.draw(sb, vGlyph, texture.getPosX() + texture.getTexture().getWidth()*3/5 - vGlyph.width/2,texture.getPosY() + texture.getTexture().getHeight()*1/4  +vGlyph.height/2);
+        this.sGlyph.setText(Squarz.font2, String.valueOf(valueVolume));
+        Squarz.font2.draw(sb, sGlyph, texture.getPosX() + texture.getTexture().getWidth()*3/5 - sGlyph.width/2,texture.getPosY() + texture.getTexture().getHeight()*2/4  +sGlyph.height/2);
+        this.vGlyph.setText(Squarz.font2, String.valueOf(valueVibration));
+        Squarz.font2.draw(sb, vGlyph, texture.getPosX() + texture.getTexture().getWidth()*3/5 - vGlyph.width/2,texture.getPosY() + texture.getTexture().getHeight()*1/4  +vGlyph.height/2);
 
         Squarz.font.draw(sb, pauseGlyph,
                 (WIDTH/2 - pauseGlyph.width/2), texture.getPosY() + texture.getTexture().getHeight()*3/4 + pauseGlyph.height/2);

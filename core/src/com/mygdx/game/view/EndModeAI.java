@@ -48,7 +48,7 @@ public class EndModeAI extends State {
             this.message2 = new GlyphLayout(Squarz.font, "Computer better!");
         } else if (s.getOpponentScore()<s.getUserScore()) {
             this.message1 = new GlyphLayout(Squarz.font, "Human won...");
-            this.message2 = new GlyphLayout(Squarz.font, "But computer is still better!");
+            this.message2 = new GlyphLayout(Squarz.font, "Well played!");
         } else {
             this.message1 = new GlyphLayout(Squarz.font, "Tie!");
             this.message2 = new GlyphLayout(Squarz.font, "Revenge?");

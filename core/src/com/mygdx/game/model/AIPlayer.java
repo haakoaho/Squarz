@@ -155,7 +155,6 @@ public class AIPlayer extends Player{
     public void incrementOpponent(Texture t, Integer columnKey, Integer colorkey) {
         Integer counter = this.getCounter(columnKey);
         Map<Integer, Square> row = this.getMap(columnKey);
-
         //back end
         row.put(counter, new Square(this.getSet()));
         incrementCounter(columnKey);
@@ -208,5 +207,4 @@ public class AIPlayer extends Player{
     public void setRenderCounter(Integer renderCounter) {
         this.renderCounter = renderCounter;
     }
-
 }

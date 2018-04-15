@@ -51,6 +51,16 @@ public class PreferencesSettings {
     public Bonus getBonuses() { return bonuses; }
     public void setBonuses(Bonus bonuses) { this.bonuses = bonuses; }
 
+    public String getStringLevel() {
+        String res = "";
+        int levelKey = this.getLevelKey();
+        if (levelKey==0) {res="Beginner";}
+        if (levelKey==1) {res="Medium";}
+        if (levelKey==2) {res="Advanced";}
+        if (levelKey==3) {res="Expert";}
+        return res;
+    }
+
     public void AILevelUp() {
         int currentLevel = this.getLevelKey();
         if (currentLevel != 3) {
@@ -83,7 +93,7 @@ public class PreferencesSettings {
 
     public void setBeginner(){
         setLevelKey(0);
-        setStepX(HEIGHT/300);
+        setStepX(HEIGHT/6);
         setDtLaunching(80);
         setDtWaves(400);
         setSquaresize(2);
@@ -91,7 +101,7 @@ public class PreferencesSettings {
 
     public void setMedium(){
         setLevelKey(1);
-        setStepX(HEIGHT/300);
+        setStepX(HEIGHT/6);
         setDtLaunching(60);
         setDtWaves(300);
         setSquaresize(3);
@@ -99,7 +109,7 @@ public class PreferencesSettings {
 
     public void setAdvanced(){
         setLevelKey(2);
-        setStepX(HEIGHT/200);
+        setStepX(HEIGHT/6);
         setDtLaunching(50);
         setDtWaves(200);
         setSquaresize(5);
@@ -107,7 +117,7 @@ public class PreferencesSettings {
 
     public void setExpert(){
         setLevelKey(3);
-        setStepX(HEIGHT/150);
+        setStepX(HEIGHT/6);
         setDtLaunching(40);
         setDtWaves(150);
         setSquaresize(7);

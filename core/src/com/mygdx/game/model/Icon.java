@@ -2,6 +2,9 @@ package com.mygdx.game.model;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+
+import static com.mygdx.game.Squarz.font3;
 
 /**
  * Created by Lucas on 12/03/2018.
@@ -10,6 +13,7 @@ import com.badlogic.gdx.graphics.Texture;
 public class Icon {
     private Texture texture;
     private Texture selected, off;
+    private GlyphLayout legend;
     private int posX, posY;
 
     public Icon (Texture texture, int posx, int posy) {
@@ -18,6 +22,7 @@ public class Icon {
         this.off = texture;
         this.posX = posx;
         this.posY = posy;
+        this.legend = new GlyphLayout(font3, "");
     }
 
     public Texture getTexture() {
@@ -58,6 +63,14 @@ public class Icon {
 
     public void setPosY(int posY) {
         this.posY = posY;
+    }
+
+    public void setLegend(String leg) {
+        this.legend = new GlyphLayout(font3, leg);
+    }
+
+    public GlyphLayout getLegend() {
+        return this.legend;
     }
 
     public boolean contains(int x, int y) {  // return true if (x,y) is in the icon (this = the icon)
