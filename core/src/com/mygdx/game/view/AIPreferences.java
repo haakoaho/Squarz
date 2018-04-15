@@ -109,6 +109,9 @@ public class AIPreferences extends State {
             if (back.contains(x, y)){
                 gsm.set(new Pref(gsm));
             }
+            if(setBonuses.contains(x, y)){
+                gsm.set(new BonusSelection(gsm, setting, countDown, this.setting.getBonuses()));
+            }
         }
     }
 

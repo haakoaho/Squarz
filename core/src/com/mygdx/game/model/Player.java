@@ -41,6 +41,16 @@ public class Player {
         if (countDown.getWorldTimer()==45) {this.squareLimiter = new SquareLimiter(15);}
         if (countDown.getWorldTimer()==60) {this.squareLimiter = new SquareLimiter(20);}
 
+        // Multi bonus effect : +3 of each colored square
+        if(set.getBonuses().getColorKey() == 5){
+            this.squareLimiter = new SquareLimiter(this.getSquareLimiter().getBlueLeft() + 3);
+        }
+        /*
+        if(set.getBonuses().getBonusKey() == 5){this.getSquareLimiter().setRedLeft(this.getSquareLimiter().getRedLeft() + 3);}
+        if(set.getBonuses().getBonusKey() == 5){this.getSquareLimiter().setBlueLeft(this.getSquareLimiter().getBlueLeft() + 3);}
+        if(set.getBonuses().getBonusKey() == 5){this.getSquareLimiter().setYellowLeft(this.getSquareLimiter().getYellowLeft() + 3);
+        */
+
         this.firstLeftSquaresKey = 0;
         this.firstMiddleSquaresKey = 0;
         this.firstRightSquaresKey = 0;
@@ -48,21 +58,24 @@ public class Player {
 
 
     public void increment(Texture t, Integer columnKey, Integer colorkey) {
-        //local variables
-        Integer counter = getCounter(columnKey);
-        Map<Integer, Square> row = getMap(columnKey);
+        //in the case of the bonus none and multi, they don't have to be drawn like an usual square
+        if (colorkey != 3 && colorkey != 5) {
+            //local variables
+            Integer counter = getCounter(columnKey);
+            Map<Integer, Square> column = getMap(columnKey);
 
-        //back end info
-        row.put(counter, new Square(set));
-        incrementCounter(columnKey);
-        squareLimiter.minusOne(colorkey);
+            //back end info
+            column.put(counter, new Square(set));
+            incrementCounter(columnKey);
+            squareLimiter.minusOne(colorkey);
 
-        //front end info
-        row.get(counter).setPosition(new Vector2(WIDTH * (3+(columnKey*2))/8, 0));
-        row.get(counter).setTexture(t);
-        row.get(counter).setColorKey(colorkey);
+            //front end info
+            column.get(counter).setPosition(new Vector2(WIDTH * (3 + (columnKey * 2)) / 8, 0));
+            column.get(counter).setTexture(t);
+            column.get(counter).setColorKey(colorkey);
 
-        handleOverLapping(columnKey, t, counter, row);
+            handleOverLapping(columnKey, t, counter, column);
+        }
     }
     public void decrement(Integer toRemoveKey, Integer columnKey) {
         Map<Integer, Square> row = getMap(columnKey);
@@ -78,12 +91,12 @@ public class Player {
     }
 
     //used in collision to make code less cumbersome
-    public Integer getFirstSquareKey(Integer rowKey){
+    public Integer getFirstSquareKey(Integer columnKey){
         int toReturn;
-        if(rowKey == 0){
+        if(columnKey == 0){
             toReturn = getFirstLeftSquaresKey();
         }
-        else if(rowKey == 1){
+        else if(columnKey == 1){
             toReturn = getFirstMiddleSquaresKey();
         }
         else{
@@ -103,12 +116,12 @@ public class Player {
         }
     }
 
-    public Map<Integer, Square> getMap(Integer rowKey){
+    public Map<Integer, Square> getMap(Integer columnKey){
         Map<Integer, Square> toReturn;
-        if(rowKey == 0){
+        if(columnKey == 0){
             toReturn = getLeft();
         }
-        else if(rowKey == 1){
+        else if(columnKey == 1){
             toReturn = getMiddle();
         }
         else{

@@ -85,6 +85,17 @@ public class Collision {
         }
     }
 
+    public void handleWithKillerBonus(Player p, Player c, Integer columnKey){
+        // if computer killer
+        if (c.getMap(columnKey).get(c.getFirstSquareKey(columnKey)).getColorKey() == 4) {
+            p.decrement(p.getFirstSquareKey(columnKey), columnKey);
+            c.decrement(c.getFirstSquareKey(columnKey), columnKey);
+
+        } else {
+            c.decrement(p.getFirstSquareKey(columnKey), columnKey);
+
+        }
+    }
 
     public void collision(Player player, AIPlayer opponent) {
 
@@ -106,6 +117,9 @@ public class Collision {
                         //si player est jaune
                     } else if (player.getMap(rowKey).get(player.getFirstSquareKey(rowKey)).getColorKey() == 2) {
                         handleWhenPlayerYellow(player, opponent, rowKey);
+                        //si player uses the killer bonus
+                    } else if (player.getMap(rowKey).get(player.getFirstSquareKey(rowKey)).getColorKey() == 4) {
+                        handleWithKillerBonus(player, opponent, rowKey);
                     }
                 }
 

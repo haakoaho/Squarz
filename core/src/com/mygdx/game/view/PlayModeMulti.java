@@ -57,7 +57,6 @@ public class PlayModeMulti extends State {
 
     private float exTime;
 
-
     public PlayModeMulti(GameStateManager gsm) {
 
         super(gsm);
@@ -97,9 +96,9 @@ public class PlayModeMulti extends State {
                 , WIDTH * 1 / 16, HEIGHT / 2 - this.texture.getHeight() * 4);
 
         //texts on the screen
-        this.redLeft = new GlyphLayout(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getRedLefting()));
-        this.yellowLeft = new GlyphLayout(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getYellowLefting()));
-        this.blueLeft = new GlyphLayout(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getBlueLefting()));
+        this.redLeft = new GlyphLayout(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getRedLeft()));
+        this.yellowLeft = new GlyphLayout(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getYellowLeft()));
+        this.blueLeft = new GlyphLayout(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getBlueLeft()));
         this.scoreOpponent = new GlyphLayout(Squarz.font, String.valueOf(score.getOpponentScore()));
         this.scoreUser = new GlyphLayout(Squarz.font, String.valueOf(score.getUserScore()));
         this.time = new GlyphLayout(Squarz.font, String.valueOf(this.countDown.getWorldTimer()));
@@ -116,7 +115,6 @@ public class PlayModeMulti extends State {
         sound = Gdx.audio.newSound(Gdx.files.internal("sound/goal.mp3"));
         exTime = countDown.getWorldTimer();
     }
-
 
     @Override
     public void handleInput() {
@@ -198,7 +196,6 @@ public class PlayModeMulti extends State {
 
     }
 
-
     @Override
     public void dispose() {
 
@@ -238,7 +235,6 @@ public class PlayModeMulti extends State {
             this.blueChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_blue.png")));
         }
     }
-
 
     public void creatingAndSendingANewSquare(int x) {
         if (x > WIDTH / 4 && x < WIDTH / 2) {
@@ -289,7 +285,6 @@ public class PlayModeMulti extends State {
         }
     }
 
-
     public void movingOpponentSquare(float dt) {
         if (!opponent.getLeft().isEmpty()) {
             for (int i = opponent.getFirstLeftSquaresKey(); i < opponent.getLeftCounter(); i++) {
@@ -325,7 +320,6 @@ public class PlayModeMulti extends State {
         }
     }
 
-
     public void drawingSquares(SpriteBatch sb, Player p) {
         for (int columnKey = 0; columnKey < 3; columnKey++) {
             if (!p.getMap(columnKey).isEmpty()) {
@@ -344,9 +338,9 @@ public class PlayModeMulti extends State {
     }
     public void drawCounter(SpriteBatch sb) {
         //number of user squares lefting
-        redLeft.setText(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getRedLefting()));
-        blueLeft.setText(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getBlueLefting()));
-        yellowLeft.setText(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getYellowLefting()));
+        redLeft.setText(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getRedLeft()));
+        blueLeft.setText(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getBlueLeft()));
+        yellowLeft.setText(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getYellowLeft()));
         Squarz.font2.draw(sb, redLeft, redChoiceSquare.getPosX() + redChoiceSquare.getTexture().getWidth() / 2 - redLeft.width / 2, redChoiceSquare.getPosY() + redChoiceSquare.getTexture().getHeight() / 2 + redLeft.height / 2);
         Squarz.font2.draw(sb, blueLeft, blueChoiceSquare.getPosX() + blueChoiceSquare.getTexture().getWidth() / 2 - blueLeft.width / 2, blueChoiceSquare.getPosY() + blueChoiceSquare.getTexture().getHeight() / 2 + blueLeft.height / 2);
         Squarz.font2.draw(sb, yellowLeft, yellowChoiceSquare.getPosX() + yellowChoiceSquare.getTexture().getWidth() / 2 - yellowLeft.width / 2, yellowChoiceSquare.getPosY() + yellowChoiceSquare.getTexture().getHeight() / 2 + yellowLeft.height / 2);
@@ -387,9 +381,6 @@ public class PlayModeMulti extends State {
     void send(byte b){
         gsm.getMultiplayerInterface().sendIncrement(b);
     }
-
-
-
 
     //---------------------------------- detection ----------------------------------
 
@@ -447,13 +438,13 @@ public class PlayModeMulti extends State {
         return t;
     }
 
-
     Queue<Byte> receive() {
         return gsm.getMultiplayerInterface().popMoves();
     }
 
-
-
+    /**
+     * General getters and setters.
+     */
 
     public Texture getTexture() {
         return texture;

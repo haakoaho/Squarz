@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Squarz;
 import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.control.aI.PreferencesSettings;
@@ -49,9 +48,7 @@ public class PlayModeAi extends State {
 
     private Collision collision;
 
-    private Square choiceSquare;
-
-    private Icon redChoiceSquare, blueChoiceSquare, yellowChoiceSquare, pause;
+    private Icon redChoiceSquare, blueChoiceSquare, yellowChoiceSquare, pause, bonusChoiceSquare;
     private Texture texture;
     private Integer colorKey;
 
@@ -64,10 +61,11 @@ public class PlayModeAi extends State {
     private PauseScreen pauseScreen;
     private Integer temporarySpeed;
     private float exTime;
+    private Integer bonusKey;
 
     public PlayModeAi(GameStateManager gsm, PreferencesSettings settings, CountDown countDown) {
 
-super(gsm);
+        super(gsm);
 
         this.settings = settings;
         this.countDown = countDown;
@@ -79,19 +77,20 @@ super(gsm);
         this.score = new Score();
         this.shapeRenderer = new ShapeRenderer();
 
-        choiceSquare = new Square(settings);
-        choiceSquare.setPosition(new Vector2(WIDTH/16, HEIGHT/5));
+        //choiceSquare = new Square(settings);
+        //choiceSquare.setPosition(new Vector2(WIDTH/16, HEIGHT/5));
 
-        this.redLeft = new GlyphLayout(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getRedLefting()));
-        this.yellowLeft = new GlyphLayout(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getYellowLefting()));
-        this.blueLeft = new GlyphLayout(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getBlueLefting()));
+        this.redLeft = new GlyphLayout(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getRedLeft()));
+        this.yellowLeft = new GlyphLayout(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getYellowLeft()));
+        this.blueLeft = new GlyphLayout(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getBlueLeft()));
         this.scoreAi = new GlyphLayout(Squarz.font, String.valueOf(score.getOpponentScore()));
         this.scoreUser = new GlyphLayout(Squarz.font, String.valueOf(score.getUserScore()));
         this.time = new GlyphLayout(Squarz.font, String.valueOf(this.countDown.getWorldTimer()));
 
+        this.bonusKey = 0;
+        this.setBonusKey(this.settings.getBonuses().getBonusKey());
 
         this.texture = new Texture(Gdx.files.internal(format + "/square/square_red.png"));
-
 
         this.redChoiceSquare = new Icon(new Texture(Gdx.files.internal(format + "/square/square_red_selected.png"))
             , WIDTH * 1 / 16, HEIGHT / 2 - this.texture.getHeight() * 3 / 2);
@@ -99,6 +98,12 @@ super(gsm);
             , WIDTH * 1 / 16, HEIGHT / 2 - this.texture.getHeight() * 11 / 4);
         this.yellowChoiceSquare = new Icon(new Texture(Gdx.files.internal(format + "/square/square_yellow.png"))
             , WIDTH * 1 / 16, HEIGHT / 2 - this.texture.getHeight() * 4);
+
+        this.bonusChoiceSquare = new Icon(new Texture(Gdx.files.internal(format + "/bonuses/none.png"))
+                , WIDTH * 1 / 16, HEIGHT / 2 - this.texture.getHeight() * 21 / 4);
+        this.bonusChoiceSquare.setTexture(this.settings.getBonuses().getBonustexture(this.settings.getBonuses().getBonusKey()));
+
+
         this.pause = new Icon(new Texture(Gdx.files.internal(format + "/pause.png"))
             , WIDTH * 1 / 16, HEIGHT * 15 / 16 - this.texture.getHeight() / 2);
 
@@ -264,6 +269,7 @@ super(gsm);
             sb.draw(redChoiceSquare.getTexture(), redChoiceSquare.getPosX(), redChoiceSquare.getPosY());
             sb.draw(blueChoiceSquare.getTexture(), blueChoiceSquare.getPosX(), blueChoiceSquare.getPosY());
             sb.draw(yellowChoiceSquare.getTexture(), yellowChoiceSquare.getPosX(), yellowChoiceSquare.getPosY());
+            sb.draw(bonusChoiceSquare.getTexture(), bonusChoiceSquare.getPosX(), bonusChoiceSquare.getPosY());
             sb.draw(pause.getTexture(), pause.getPosX(), pause.getPosY());
 
             drawingSquares(sb, player);
@@ -309,25 +315,25 @@ super(gsm);
         if (this.redChoiceSquare.contains(x, y)) {
             this.setColorKey(0);
             this.texture = new Texture(Gdx.files.internal(format + "/square/square_red.png"));
-            this.redChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_red_selected.png")));
-            this.blueChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_blue.png")));
-            this.yellowChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_yellow.png")));
+            this.redChoiceSquare.setTexture(texture);
         }
 
         if (this.blueChoiceSquare.contains(x, y)) {
             this.setColorKey(1);
             this.texture = new Texture(Gdx.files.internal(format + "/square/square_blue.png"));
-            this.redChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_red.png")));
-            this.blueChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_blue_selected.png")));
-            this.yellowChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_yellow.png")));
+            this.blueChoiceSquare.setTexture(texture);
         }
 
         if (this.yellowChoiceSquare.contains(x, y)) {
             this.setColorKey(2);
             this.texture = new Texture(Gdx.files.internal(format + "/square/square_yellow.png"));
-            this.redChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_red.png")));
-            this.blueChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_blue.png")));
-            this.yellowChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_yellow_selected.png")));
+            this.yellowChoiceSquare.setTexture(texture);
+        }
+
+        if (this.bonusChoiceSquare.contains(x, y)) {
+            this.setColorKey(this.settings.getBonuses().getColorKey());
+            this.setTexture(this.settings.getBonuses().getBonustexture(this.colorKey));
+            this.bonusChoiceSquare.setTexture(texture);
         }
     }
 
@@ -415,11 +421,11 @@ public void movingAiSquare(float dt) {
 
 
     public void drawingSquares(SpriteBatch sb, Player p){
-        for(int rowKey = 0; rowKey < 3; rowKey ++) {
-            if (!p.getMap(rowKey).isEmpty()) {
-                for (int i = p.getFirstSquareKey(rowKey); i < p.getCounter(rowKey); i++) {
-                    sb.draw(p.getMap(rowKey).get(i).getTexture(),
-                            p.getMap(rowKey).get(i).getPosition().x - p.getMap(rowKey).get(i).getTexture().getWidth() / 2, p.getMap(rowKey).get(i).getPosition().y - p.getMap(rowKey).get(i).getTexture().getHeight() / 2);
+        for(int columnKey = 0; columnKey < 3; columnKey ++) {
+            if (!p.getMap(columnKey).isEmpty()) {
+                for (int i = p.getFirstSquareKey(columnKey); i < p.getCounter(columnKey); i++) {
+                    sb.draw(p.getMap(columnKey).get(i).getTexture(),
+                            p.getMap(columnKey).get(i).getPosition().x - p.getMap(columnKey).get(i).getTexture().getWidth() / 2, p.getMap(columnKey).get(i).getPosition().y - p.getMap(columnKey).get(i).getTexture().getHeight() / 2);
                 }
             }
         }
@@ -440,10 +446,10 @@ public void movingAiSquare(float dt) {
      }
      */
     public void drawCounter(SpriteBatch sb) {
-        //number of user squares lefting
-        redLeft.setText(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getRedLefting()));
-        blueLeft.setText(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getBlueLefting()));
-        yellowLeft.setText(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getYellowLefting()));
+        //number of user squares left
+        redLeft.setText(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getRedLeft()));
+        blueLeft.setText(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getBlueLeft()));
+        yellowLeft.setText(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getYellowLeft()));
         Squarz.font2.draw(sb, redLeft, redChoiceSquare.getPosX() + redChoiceSquare.getTexture().getWidth() / 2 - redLeft.width / 2, redChoiceSquare.getPosY() + redChoiceSquare.getTexture().getHeight() / 2 + redLeft.height / 2);
         Squarz.font2.draw(sb, blueLeft, blueChoiceSquare.getPosX() + blueChoiceSquare.getTexture().getWidth() / 2 - blueLeft.width / 2, blueChoiceSquare.getPosY() + blueChoiceSquare.getTexture().getHeight() / 2 + blueLeft.height / 2);
         Squarz.font2.draw(sb, yellowLeft, yellowChoiceSquare.getPosX() + yellowChoiceSquare.getTexture().getWidth() / 2 - yellowLeft.width / 2, yellowChoiceSquare.getPosY() + yellowChoiceSquare.getTexture().getHeight() / 2 + yellowLeft.height / 2);
@@ -526,6 +532,14 @@ public void movingAiSquare(float dt) {
 
     public void setPlayer(Player player) {
         this.player = player;
+    }
+
+    public Integer getBonusKey() {
+        return bonusKey;
+    }
+
+    public void setBonusKey(Integer bonusKey) {
+        this.bonusKey = bonusKey;
     }
 
     public void inc(int i) {
