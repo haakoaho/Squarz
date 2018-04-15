@@ -151,7 +151,6 @@ public class Player {
     }
 
 
-
     //----------   setters and getters
 
     public Integer getFirstLeftSquaresKey() {

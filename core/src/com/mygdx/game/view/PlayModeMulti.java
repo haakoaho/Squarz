@@ -53,9 +53,11 @@ public class PlayModeMulti extends State {
 
     private Score score;
 
-    private Boolean ready = false;
-
     private Queue<Byte> opponentMoves; //initialisation ?
+
+    private byte[] b = new byte[1];
+    private Integer columnByte;
+    private Integer colorByte;
 
 
     public PlayModeMulti(GameStateManager gsm){
@@ -116,7 +118,7 @@ public class PlayModeMulti extends State {
             int x = Gdx.input.getX();
             int y = HEIGHT - Gdx.input.getY();
 
-                    music.play();
+                    //music.play();
                     //Colour choice button
                     chosingTheColour(x, y);
 
@@ -129,7 +131,8 @@ public class PlayModeMulti extends State {
 
                     //Implementation for the launcher of each row
                     if (!this.player.getSquareLimiter().isOver(colorKey)) {
-                        creatingANewSquare(x);
+                        creatingAndSendingANewSquare(x);
+
                     }
         }
 
@@ -150,7 +153,7 @@ public class PlayModeMulti extends State {
             if (this.countDown.isTimeUp()) {
                 music.stop();
                 gsm.set(new EndModeAI(gsm, set, score, countDown));
-                //MultiplayerInterface.leaveRoom();
+                gsm.getMultiplayerInterface().leaveRoom();
             }
 
             movingPlayerSquare();
@@ -212,19 +215,23 @@ public class PlayModeMulti extends State {
             this.blueChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_blue.png")));
         }
     }
-
-    public void creatingANewSquare(int x) {
+    public void creatingAndSendingANewSquare(int x) {
         if (x > WIDTH / 4 && x < WIDTH / 2) {
             player.increment(texture, 0, colorKey);
+            byte b = encryption(0, colorKey);
+            send(b);
         }
         if (x > WIDTH / 2 && x < WIDTH * 3 / 4) {
             player.increment(texture, 1, colorKey);
+            byte b = encryption(1, colorKey);
+            send(b);
         }
         if (x > WIDTH * 3 / 4) {
             player.increment(texture, 2, colorKey);
+            byte b = encryption(2, colorKey);
+            send(b);
         }
     }
-
     public void movingPlayerSquare(){
         if(!player.getLeft().isEmpty()) {
             for (int i = player.getFirstLeftSquaresKey(); i < player.getLeftCounter(); i++) {
@@ -258,7 +265,6 @@ public class PlayModeMulti extends State {
             }
         }
     }
-
     public void movingOpponentSquare() {
         if(!opponent.getLeft().isEmpty()) {
             for (int i = opponent.getFirstLeftSquaresKey(); i < opponent.getLeftCounter(); i++) {
@@ -294,7 +300,6 @@ public class PlayModeMulti extends State {
         }
     }
 
-
     public void drawingSquares(SpriteBatch sb, Player p){
         for(int columnKey = 0; columnKey < 3; columnKey ++) {
             if (!p.getMap(columnKey).isEmpty()) {
@@ -305,14 +310,12 @@ public class PlayModeMulti extends State {
             }
         }
     }
-
     public void drawScore(SpriteBatch sb) {
         scoreOpponent.setText(Squarz.font, String.valueOf(score.getOpponentScore()));
         scoreUser.setText(Squarz.font, String.valueOf(score.getUserScore()));
         Squarz.font.draw(sb, scoreOpponent, redChoiceSquare.getPosX() + redChoiceSquare.getTexture().getWidth() / 2 - scoreOpponent.width / 2, HEIGHT * 45 / 64 - scoreOpponent.height / 2);
         Squarz.font.draw(sb, scoreUser, redChoiceSquare.getPosX() + redChoiceSquare.getTexture().getWidth() / 2 - scoreUser.width / 2, HEIGHT * 39 / 64 - scoreUser.height / 2);
     }
-
     public void drawCounter(SpriteBatch sb) {
         //number of user squares lefting
         redLeft.setText(Squarz.font, String.valueOf(this.player.getSquareLimiter().getRedLefting()));
@@ -352,6 +355,30 @@ public class PlayModeMulti extends State {
         }
     }
 
+    public byte encryption(int columnKey, int colorKey){
+        if(columnKey == 2){
+            columnByte = 10000000;
+        }else{
+            columnByte = columnKey * 1000000;
+        }
+
+        if(colorKey == 2){
+            colorByte = 100000;
+        }else{
+            colorByte = colorKey * 10000;
+        }
+
+        byte[] b = Integer.toString( columnByte + colorByte).getBytes();
+        System.out.println(b[0]);
+        return b[0];
+    }
+
+    void send(byte b){
+        gsm.getMultiplayerInterface().sendIncrement(b);
+    }
+
+
+
 
     public boolean newMessageDetected(){
         boolean detected = false;
@@ -375,6 +402,7 @@ public class PlayModeMulti extends State {
     public ArrayList<Integer> getInformation(Byte b){
         //Integer.parseInt(b.toString().substring(1,2));
         ArrayList<Integer> information = new ArrayList<Integer>();
+        //i column; j color
         for(int i = 0; i<3; i++){
             for(int j = 0; j<3; j++) {
                 if(i*64 + j*16 == b.floatValue()){
@@ -404,10 +432,6 @@ public class PlayModeMulti extends State {
 
 
 
-    void send(byte b){
-        gsm.getMultiplayerInterface().sendIncrement(b);
-
-    }
 
     Queue<Byte> receive(){
         return gsm.getMultiplayerInterface().popMoves();
