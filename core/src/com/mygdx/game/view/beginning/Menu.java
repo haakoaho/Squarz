@@ -20,6 +20,8 @@ public class Menu extends State {
     public Menu(GameStateManager gsm) {
         super(gsm);
 
+
+
         this.play = new Icon(new Texture(Gdx.files.internal(format+"/menu/play.png")),0,0);
         this.settings = new Icon(new Texture(Gdx.files.internal(format+"/menu/settings.png")),0,0);
         this.history = new Icon(new Texture(Gdx.files.internal(format+"/menu/history.png")),0,0);

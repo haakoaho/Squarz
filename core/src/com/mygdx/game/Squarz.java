@@ -39,8 +39,7 @@ public class Squarz extends ApplicationAdapter  {
 		gsm = new GameStateManager();
 		gsm.setMultiplayerInterface(multiplayerInterface);
 
-
-
+		gsm.getMultiplayerInterface().startSignInIntent();
 
 		WIDTH = Gdx.graphics.getWidth();
 		HEIGHT = Gdx.graphics.getHeight();
@@ -56,9 +55,9 @@ public class Squarz extends ApplicationAdapter  {
 			parameter.size = 50;
 			parameter2.size = 35;
 			parameter3.size = 25;
-			parameter.borderWidth = 2;
+			parameter.borderWidth = 4;
 			parameter2.borderWidth = 3;
-			parameter3.borderWidth = 4;
+			parameter3.borderWidth = 2;
 			parameter3.color = Color.BLACK;
 			parameter.borderColor = Color.WHITE;
 			parameter2.borderColor = Color.WHITE;
@@ -76,9 +75,9 @@ public class Squarz extends ApplicationAdapter  {
 			parameter.size = 70;
 			parameter2.size = 45;
 			parameter3.size = 35;
-			parameter.borderWidth = 2;
+			parameter.borderWidth = 4;
 			parameter2.borderWidth = 3;
-			parameter3.borderWidth = 4;
+			parameter3.borderWidth = 2;
 			parameter3.color = Color.BLACK;
 			parameter.borderColor = Color.WHITE;
 			parameter2.borderColor = Color.WHITE;
@@ -96,9 +95,9 @@ public class Squarz extends ApplicationAdapter  {
 			parameter.size = 90;
 			parameter2.size = 60;
 			parameter3.size = 45;
-			parameter.borderWidth = 2;
+			parameter.borderWidth = 4;
 			parameter2.borderWidth = 3;
-			parameter3.borderWidth = 4;
+			parameter3.borderWidth = 2;
 			parameter3.color = Color.BLACK;
 			parameter.borderColor = Color.WHITE;
 			parameter2.borderColor = Color.WHITE;
