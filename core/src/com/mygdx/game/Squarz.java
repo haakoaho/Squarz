@@ -75,10 +75,10 @@ public class Squarz extends ApplicationAdapter  {
 			FreeTypeFontGenerator.FreeTypeFontParameter parameter3 = new FreeTypeFontGenerator.FreeTypeFontParameter();
 			parameter.size = 60;
 			parameter2.size = 40;
-			parameter3.size = 30;
+			parameter3.size = 20;
 			parameter.borderWidth = 2;
 			parameter2.borderWidth = 3;
-			parameter3.borderWidth = 4;
+			parameter3.borderWidth = 2;
 			parameter3.color = Color.BLACK;
 			parameter.borderColor = Color.WHITE;
 			parameter2.borderColor = Color.WHITE;

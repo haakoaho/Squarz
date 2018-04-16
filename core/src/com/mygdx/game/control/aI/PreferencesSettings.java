@@ -57,6 +57,15 @@ public class PreferencesSettings {
         return res;
     }
 
+    public String getStringBonus() {
+        String res = "";
+        int bonusKey = this.bonuses.getBonusKey();
+        if (bonusKey==0) {res="None";}
+        if (bonusKey==1) {res="The Killer";}
+        if (bonusKey==2) {res="The Multiplicator";}
+        return res;
+    }
+
     public void AILevelUp() {
         int currentLevel = this.getLevelKey();
         if (currentLevel != 3) {
