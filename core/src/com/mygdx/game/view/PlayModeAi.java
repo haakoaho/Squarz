@@ -185,13 +185,6 @@ public class PlayModeAi extends State {
                     //Colour choice button
                     chosingTheColour(x, y);
 
-                    /*
-                    if (y > HEIGHT * 3 / 4 && x > HEIGHT / 2) {
-                        music.stop();
-                        sound.stop();
-                        gsm.set(new EndModeAI(gsm, settings, score, countDown));
-                    } */
-
                     //Implementation for the launcher of each row
                     if (!this.player.getSquareLimiter().isOver(colorKey) && isAllowedToPlay(exTime)) {
                         creatingANewSquare(x);
@@ -315,19 +308,25 @@ public class PlayModeAi extends State {
         if (this.redChoiceSquare.contains(x, y)) {
             this.setColorKey(0);
             this.texture = new Texture(Gdx.files.internal(format + "/square/square_red.png"));
-            this.redChoiceSquare.setTexture(texture);
+            this.redChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_red_selected.png")));
+            this.blueChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_blue.png")));
+            this.yellowChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_yellow.png")));
         }
 
         if (this.blueChoiceSquare.contains(x, y)) {
             this.setColorKey(1);
             this.texture = new Texture(Gdx.files.internal(format + "/square/square_blue.png"));
-            this.blueChoiceSquare.setTexture(texture);
+            this.redChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_red.png")));
+            this.blueChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_blue_selected.png")));
+            this.yellowChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_yellow.png")));
         }
 
         if (this.yellowChoiceSquare.contains(x, y)) {
             this.setColorKey(2);
             this.texture = new Texture(Gdx.files.internal(format + "/square/square_yellow.png"));
-            this.yellowChoiceSquare.setTexture(texture);
+            this.redChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_red.png")));
+            this.blueChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_blue.png")));
+            this.yellowChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_yellow_selected.png")));
         }
 
         if (this.bonusChoiceSquare.contains(x, y)) {

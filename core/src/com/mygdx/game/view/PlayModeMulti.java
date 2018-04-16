@@ -382,24 +382,6 @@ public class PlayModeMulti extends State {
         gsm.getMultiplayerInterface().sendIncrement(b);
     }
 
-    //---------------------------------- detection ----------------------------------
-
-   /* public void handleReceivedMessage() {
-        Queue<Byte> moves = receive();
-<<<<<<< HEAD
-        if(moves != null && opponentMoves != null && moves.size()>opponentMoves.size()){
-            opponentMoves.add(moves.remove());
-            detected = true;
-=======
-        for (int i = 0; i < moves.size(); i++) {
-            Byte b = moves.remove();
->>>>>>> Lucas-le-BG-du-27
-        }
-    }*/
-
-    /**
-     * called when a new message has been detected.
-     */
     public void decryptMessage(Queue<Byte> lastMove) {
         Byte b = lastMove.peek();
         ArrayList<Integer> list = getInformation(b);
@@ -411,6 +393,7 @@ public class PlayModeMulti extends State {
 
     public ArrayList<Integer> getInformation(Byte b) {
         ArrayList<Integer> information = new ArrayList<Integer>();
+        int code;
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
