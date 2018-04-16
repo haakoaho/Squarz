@@ -315,19 +315,19 @@ public class PlayModeAi extends State {
         if (this.redChoiceSquare.contains(x, y)) {
             this.setColorKey(0);
             this.texture = new Texture(Gdx.files.internal(format + "/square/square_red.png"));
-            this.redChoiceSquare.setTexture(texture);
+            this.redChoiceSquare.setTexture(new Texture (Gdx.files.internal(format+"/square/square_red_selected.png")));
         }
 
         if (this.blueChoiceSquare.contains(x, y)) {
             this.setColorKey(1);
             this.texture = new Texture(Gdx.files.internal(format + "/square/square_blue.png"));
-            this.blueChoiceSquare.setTexture(texture);
+            this.blueChoiceSquare.setTexture(new Texture (Gdx.files.internal(format+"/square/square_blue_selected.png")));
         }
 
         if (this.yellowChoiceSquare.contains(x, y)) {
             this.setColorKey(2);
             this.texture = new Texture(Gdx.files.internal(format + "/square/square_yellow.png"));
-            this.yellowChoiceSquare.setTexture(texture);
+            this.yellowChoiceSquare.setTexture(new Texture (Gdx.files.internal(format+"/square/square_yellow_selected.png")));
         }
 
         if (this.bonusChoiceSquare.contains(x, y)) {
