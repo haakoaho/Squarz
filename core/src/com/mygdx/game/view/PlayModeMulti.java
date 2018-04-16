@@ -57,8 +57,8 @@ public class PlayModeMulti extends State {
 
     private float exTime;
 
-
     public PlayModeMulti(GameStateManager gsm) {
+
         super(gsm);
         this.set = new PreferencesSettings();
         this.countDown = new CountDown(60);
@@ -69,12 +69,12 @@ public class PlayModeMulti extends State {
         choiceSquare = new Square(set);
         choiceSquare.setPosition(new Vector2(WIDTH * 1 / 16, HEIGHT * 1 / 5));
 
-        if(valueVolume==0) {
-            this.mute = new Icon(new Texture(Gdx.files.internal(format+"/mute.png")),0,0);
-            this.varMute=true;
+        if (valueVolume == 0) {
+            this.mute = new Icon(new Texture(Gdx.files.internal(format + "/mute.png")), 0, 0);
+            this.varMute = true;
         } else {
-            this.mute = new Icon(new Texture(Gdx.files.internal(format+"/settings/sound.png")),0,0);
-            this.varMute=false;
+            this.mute = new Icon(new Texture(Gdx.files.internal(format + "/settings/sound.png")), 0, 0);
+            this.varMute = false;
         }
 
 
@@ -96,15 +96,15 @@ public class PlayModeMulti extends State {
                 , WIDTH * 1 / 16, HEIGHT / 2 - this.texture.getHeight() * 4);
 
         //texts on the screen
-        this.redLeft = new GlyphLayout(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getRedLefting()));
-        this.yellowLeft = new GlyphLayout(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getYellowLefting()));
-        this.blueLeft = new GlyphLayout(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getBlueLefting()));
+        this.redLeft = new GlyphLayout(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getRedLeft()));
+        this.yellowLeft = new GlyphLayout(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getYellowLeft()));
+        this.blueLeft = new GlyphLayout(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getBlueLeft()));
         this.scoreOpponent = new GlyphLayout(Squarz.font, String.valueOf(score.getOpponentScore()));
         this.scoreUser = new GlyphLayout(Squarz.font, String.valueOf(score.getUserScore()));
         this.time = new GlyphLayout(Squarz.font, String.valueOf(this.countDown.getWorldTimer()));
 
-        this.mute.setPosX(redChoiceSquare.getPosX()+redChoiceSquare.getTexture().getWidth()/2-this.mute.getTexture().getWidth()/2);
-        this.mute.setPosY(HEIGHT * 29 / 32 - this.mute.getTexture().getHeight()/2);
+        this.mute.setPosX(redChoiceSquare.getPosX() + redChoiceSquare.getTexture().getWidth() / 2 - this.mute.getTexture().getWidth() / 2);
+        this.mute.setPosY(HEIGHT * 29 / 32 - this.mute.getTexture().getHeight() / 2);
 
         this.readyGlyph = new GlyphLayout(Squarz.font, "READY ?");
 
@@ -116,27 +116,27 @@ public class PlayModeMulti extends State {
         exTime = countDown.getWorldTimer();
     }
 
-
     @Override
     public void handleInput() {
 
         if (Gdx.input.justTouched()) {
             int x = Gdx.input.getX();
             int y = HEIGHT - Gdx.input.getY();
-             //Colour choice button
+
+            //Colour choice button
             chosingTheColour(x, y);
 
-            if(mute.contains(x,y)) {
-                if(varMute) {
-                    valueVolume=5;
+            if (mute.contains(x, y)) {
+                if (varMute) {
+                    valueVolume = 5;
                     music.setVolume(valueVolume);
-                    this.mute.setTexture(new Texture(Gdx.files.internal(format+"/settings/sound.png")));
-                    varMute=false;
+                    this.mute.setTexture(new Texture(Gdx.files.internal(format + "/settings/sound.png")));
+                    varMute = false;
                 } else {
-                    valueVolume=0;
+                    valueVolume = 0;
                     music.setVolume(valueVolume);
-                    this.mute.setTexture(new Texture(Gdx.files.internal(format+"/mute.png")));
-                    varMute=true;
+                    this.mute.setTexture(new Texture(Gdx.files.internal(format + "/mute.png")));
+                    varMute = true;
                 }
             }
 
@@ -151,9 +151,10 @@ public class PlayModeMulti extends State {
     public void update(float dt) {
         handleInput();
         Queue<Byte> lastMove = receive();
-        if (lastMove.size()>0) {
+        if (lastMove.size() > 0) {
             decryptMessage(lastMove);
         }
+
 
         //updating the countdown
         this.countDown.update(dt);
@@ -171,8 +172,10 @@ public class PlayModeMulti extends State {
 
     @Override
     public void render(SpriteBatch sb) {
+
         drawLines();
         sb.begin();
+
 
         drawChosingColorSquares(sb);
         drawingSquares(sb, player);
@@ -181,10 +184,17 @@ public class PlayModeMulti extends State {
         drawScore(sb);
         drawCounter(sb);
 
-        sb.draw(mute.getTexture(),mute.getPosX(),mute.getPosY());
+        sb.draw(mute.getTexture(), mute.getPosX(), mute.getPosY());
+
+
+        drawTimeLeft(sb);
+        drawScore(sb);
+        drawCounter(sb);
 
         sb.end();
-        }
+
+
+    }
 
     @Override
     public void dispose() {
@@ -320,19 +330,17 @@ public class PlayModeMulti extends State {
             }
         }
     }
-
     public void drawScore(SpriteBatch sb) {
         scoreOpponent.setText(Squarz.font, String.valueOf(score.getOpponentScore()));
         scoreUser.setText(Squarz.font, String.valueOf(score.getUserScore()));
         Squarz.font.draw(sb, scoreOpponent, redChoiceSquare.getPosX() + redChoiceSquare.getTexture().getWidth() / 2 - scoreOpponent.width / 2, HEIGHT * 45 / 64 - scoreOpponent.height / 2);
         Squarz.font.draw(sb, scoreUser, redChoiceSquare.getPosX() + redChoiceSquare.getTexture().getWidth() / 2 - scoreUser.width / 2, HEIGHT * 39 / 64 - scoreUser.height / 2);
     }
-
     public void drawCounter(SpriteBatch sb) {
         //number of user squares lefting
-        redLeft.setText(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getRedLefting()));
-        blueLeft.setText(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getBlueLefting()));
-        yellowLeft.setText(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getYellowLefting()));
+        redLeft.setText(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getRedLeft()));
+        blueLeft.setText(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getBlueLeft()));
+        yellowLeft.setText(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getYellowLeft()));
         Squarz.font2.draw(sb, redLeft, redChoiceSquare.getPosX() + redChoiceSquare.getTexture().getWidth() / 2 - redLeft.width / 2, redChoiceSquare.getPosY() + redChoiceSquare.getTexture().getHeight() / 2 + redLeft.height / 2);
         Squarz.font2.draw(sb, blueLeft, blueChoiceSquare.getPosX() + blueChoiceSquare.getTexture().getWidth() / 2 - blueLeft.width / 2, blueChoiceSquare.getPosY() + blueChoiceSquare.getTexture().getHeight() / 2 + blueLeft.height / 2);
         Squarz.font2.draw(sb, yellowLeft, yellowChoiceSquare.getPosX() + yellowChoiceSquare.getTexture().getWidth() / 2 - yellowLeft.width / 2, yellowChoiceSquare.getPosY() + yellowChoiceSquare.getTexture().getHeight() / 2 + yellowLeft.height / 2);
@@ -370,15 +378,24 @@ public class PlayModeMulti extends State {
         return new Byte(""+number);
     }
 
+    void send(byte b){
+        gsm.getMultiplayerInterface().sendIncrement(b);
+    }
 
     //---------------------------------- detection ----------------------------------
 
-    public void handleReceivedMessage() {
+   /* public void handleReceivedMessage() {
         Queue<Byte> moves = receive();
+<<<<<<< HEAD
+        if(moves != null && opponentMoves != null && moves.size()>opponentMoves.size()){
+            opponentMoves.add(moves.remove());
+            detected = true;
+=======
         for (int i = 0; i < moves.size(); i++) {
             Byte b = moves.remove();
+>>>>>>> Lucas-le-BG-du-27
         }
-    }
+    }*/
 
     /**
      * called when a new message has been detected.
@@ -394,6 +411,7 @@ public class PlayModeMulti extends State {
 
     public ArrayList<Integer> getInformation(Byte b) {
         ArrayList<Integer> information = new ArrayList<Integer>();
+
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if (i * 5 + j * 2 == b.floatValue()) {
@@ -420,17 +438,13 @@ public class PlayModeMulti extends State {
         return t;
     }
 
-
-    void send(byte b) {
-        gsm.getMultiplayerInterface().sendIncrement(b);
-    }
-
     Queue<Byte> receive() {
         return gsm.getMultiplayerInterface().popMoves();
     }
 
-
-
+    /**
+     * General getters and setters.
+     */
 
     public Texture getTexture() {
         return texture;

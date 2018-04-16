@@ -43,11 +43,11 @@ public class Square {
 
 
     public void move(float dt){
-        this.setPosition(new Vector2(this.getPosition().x, (float)(this.getPosition().y + this.set.getStepX()*dt)));
+        this.setPosition(new Vector2(this.getPosition().x, (this.getPosition().y + this.set.getStepX()*dt)));
     }
 
     public void reverseMove(float dt){
-        this.setPosition(new Vector2(this.getPosition().x, (float)(this.getPosition().y - this.set.getStepX()*dt)));
+        this.setPosition(new Vector2(this.getPosition().x, (this.getPosition().y - this.set.getStepX()*dt)));
     }
 
     public boolean isInUser(){
