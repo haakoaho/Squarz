@@ -15,8 +15,6 @@ public class PreferencesSettings {
     private int stepX;
     private float dtLaunching;
     private float dtWaves;
-    private int squaresize;
-    //setBonus
     private Bonus bonuses;
 
     public PreferencesSettings(){
@@ -46,8 +44,6 @@ public class PreferencesSettings {
     public void setDtWaves(float dtWaves) {
         this.dtWaves = dtWaves;
     }
-    public int getSquaresize() { return squaresize; }
-    public void setSquaresize(int squaresize) { this.squaresize = squaresize; }
     public Bonus getBonuses() { return bonuses; }
     public void setBonuses(Bonus bonuses) { this.bonuses = bonuses; }
 
@@ -96,7 +92,6 @@ public class PreferencesSettings {
         setStepX(HEIGHT/6);
         setDtLaunching(80);
         setDtWaves(400);
-        setSquaresize(2);
     }
 
     public void setMedium(){
@@ -104,7 +99,6 @@ public class PreferencesSettings {
         setStepX(HEIGHT/6);
         setDtLaunching(60);
         setDtWaves(300);
-        setSquaresize(3);
     }
 
     public void setAdvanced(){
@@ -112,7 +106,6 @@ public class PreferencesSettings {
         setStepX(HEIGHT/6);
         setDtLaunching(50);
         setDtWaves(200);
-        setSquaresize(5);
     }
 
     public void setExpert(){
@@ -120,6 +113,5 @@ public class PreferencesSettings {
         setStepX(HEIGHT/6);
         setDtLaunching(40);
         setDtWaves(150);
-        setSquaresize(7);
     }
 }
