@@ -15,8 +15,6 @@ public class PreferencesSettings {
     private int stepX;
     private float dtLaunching;
     private float dtWaves;
-    private int squaresize;
-    //setBonus
     private Bonus bonuses;
 
     public PreferencesSettings(){
@@ -46,8 +44,6 @@ public class PreferencesSettings {
     public void setDtWaves(float dtWaves) {
         this.dtWaves = dtWaves;
     }
-    public int getSquaresize() { return squaresize; }
-    public void setSquaresize(int squaresize) { this.squaresize = squaresize; }
     public Bonus getBonuses() { return bonuses; }
     public void setBonuses(Bonus bonuses) { this.bonuses = bonuses; }
 
@@ -58,6 +54,15 @@ public class PreferencesSettings {
         if (levelKey==1) {res="Medium";}
         if (levelKey==2) {res="Advanced";}
         if (levelKey==3) {res="Expert";}
+        return res;
+    }
+
+    public String getStringBonus() {
+        String res = "";
+        int bonusKey = this.bonuses.getBonusKey();
+        if (bonusKey==0) {res="None";}
+        if (bonusKey==1) {res="The Killer";}
+        if (bonusKey==2) {res="The Multiplicator";}
         return res;
     }
 
@@ -96,7 +101,6 @@ public class PreferencesSettings {
         setStepX(HEIGHT/6);
         setDtLaunching(80);
         setDtWaves(400);
-        setSquaresize(2);
     }
 
     public void setMedium(){
@@ -104,7 +108,6 @@ public class PreferencesSettings {
         setStepX(HEIGHT/6);
         setDtLaunching(60);
         setDtWaves(300);
-        setSquaresize(3);
     }
 
     public void setAdvanced(){
@@ -112,7 +115,6 @@ public class PreferencesSettings {
         setStepX(HEIGHT/6);
         setDtLaunching(50);
         setDtWaves(200);
-        setSquaresize(5);
     }
 
     public void setExpert(){
@@ -120,6 +122,5 @@ public class PreferencesSettings {
         setStepX(HEIGHT/6);
         setDtLaunching(40);
         setDtWaves(150);
-        setSquaresize(7);
     }
 }

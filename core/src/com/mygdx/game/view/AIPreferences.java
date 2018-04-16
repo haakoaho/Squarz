@@ -75,7 +75,7 @@ public class AIPreferences extends State {
 
         AILevel = new GlyphLayout(font2, this.setting.getStringLevel());
         Timer = new GlyphLayout(font2, this.countDown.getWorldTimer()+" seconds");
-        Bonuses = new GlyphLayout(font2, "None");
+        Bonuses = new GlyphLayout(font2, this.setting.getStringBonus());
 
         setAILevel.setPosX(WIDTH/4-setAILevel.getTexture().getWidth()/2);
         setAILevel.setPosY(HEIGHT*4/5-setAILevel.getTexture().getHeight()/2);
@@ -110,7 +110,7 @@ public class AIPreferences extends State {
                 gsm.set(new Pref(gsm));
             }
             if(setBonuses.contains(x, y)){
-                gsm.set(new BonusSelection(gsm, setting, countDown, this.setting.getBonuses()));
+                gsm.set(new BonusSelection(gsm, setting, countDown));
             }
         }
     }
