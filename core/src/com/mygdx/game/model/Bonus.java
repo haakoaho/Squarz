@@ -13,7 +13,7 @@ import static com.mygdx.game.Squarz.format;
 public class Bonus {
     private Integer bonusKey, colorKey;
 
-    private Texture none, killer, multi, selectedBonus; // bounce
+    private Texture none, killer, multi, selectedBonus, cleaner; // bounce
 
     public Bonus(){
         this.bonusKey = 0;
@@ -24,6 +24,7 @@ public class Bonus {
         this.none = new Texture(Gdx.files.internal(format+"/bonuses/none.png"));
         this.killer = new Texture(Gdx.files.internal(format+"/bonuses/killer.png"));
         this.multi = new Texture(Gdx.files.internal(format+"/bonuses/multi.png"));
+        this.cleaner = new Texture((Gdx.files.internal(format+"/bonuses/cleaner.png")));
     }
 
     /*public Bonus(int bonusKey, int colorKey, Texture texture){
@@ -50,6 +51,11 @@ public class Bonus {
             //multi
             this.setSelectedBonus(this.getMulti());
             this.colorKey = 5;
+        }
+        if(bonusKey == 3){
+            //cleaner
+            this.setSelectedBonus(this.getCleaner());
+            this.colorKey = 6;
         }
         return selectedBonus;
     }
@@ -92,5 +98,11 @@ public class Bonus {
     }
     public void setColorKey(Integer colorKey) {
         this.colorKey = colorKey;
+    }
+    public Texture getCleaner() {
+        return cleaner;
+    }
+    public void setCleaner(Texture cleaner) {
+        this.cleaner = cleaner;
     }
 }

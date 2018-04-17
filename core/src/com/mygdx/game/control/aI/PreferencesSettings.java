@@ -1,7 +1,6 @@
 package com.mygdx.game.control.aI;
 
 import com.mygdx.game.model.Bonus;
-import com.mygdx.game.model.CountDown;
 
 import static com.mygdx.game.Squarz.HEIGHT;
 
@@ -15,13 +14,15 @@ public class PreferencesSettings {
     private int stepX;
     private float dtLaunching;
     private float dtWaves;
-    private Bonus bonuses;
+    private Bonus bonus1;
+    private Bonus bonus2;
 
     public PreferencesSettings(){
         //default AI level settings
         setMedium();
 
-        this.bonuses = new Bonus();
+        this.bonus1 = new Bonus();
+        this.bonus2 = new Bonus();
     }
 
     public int getLevelKey() { return levelKey; }
@@ -44,8 +45,11 @@ public class PreferencesSettings {
     public void setDtWaves(float dtWaves) {
         this.dtWaves = dtWaves;
     }
-    public Bonus getBonuses() { return bonuses; }
-    public void setBonuses(Bonus bonuses) { this.bonuses = bonuses; }
+    public Bonus getBonus1() { return bonus1; }
+    public void setBonus1(Bonus bonus1) { this.bonus1 = bonus1; }
+
+    public Bonus getBonus2() { return bonus2; }
+    public void setBonus2(Bonus bonus2) { this.bonus2 = bonus2; }
 
     public String getStringLevel() {
         String res = "";
@@ -57,12 +61,43 @@ public class PreferencesSettings {
         return res;
     }
 
-    public String getStringBonus() {
+    public String getStringBonus1() {
         String res = "";
-        int bonusKey = this.bonuses.getBonusKey();
+        int bonusKey = this.bonus1.getBonusKey();
         if (bonusKey==0) {res="None";}
         if (bonusKey==1) {res="The Killer";}
         if (bonusKey==2) {res="The Multiplicator";}
+        if (bonusKey==3) {res="the Cleaner";}
+        return res;
+    }
+
+    public String getStringBonus2() {
+        String res = "";
+        int bonusKey = this.bonus2.getBonusKey();
+        if (bonusKey==0) {res="None";}
+        if (bonusKey==1) {res="The Killer";}
+        if (bonusKey==2) {res="The Multiplicator";}
+        if (bonusKey==3) {res="the Cleaner";}
+        return res;
+    }
+
+    public String getDescriptionBonus1() {
+        String res = "";
+        int bonusKey = this.bonus1.getBonusKey();
+        if (bonusKey==0) {res="None";}
+        if (bonusKey==1) {res="The Killer : an invicible square !";}
+        if (bonusKey==2) {res="The Multiplicator : You are allowed to have \n3 extra squares of each color";}
+        if (bonusKey==3) {res="The Cleaner : All the existing squares \n on the field are destroyed";}
+        return res;
+    }
+
+    public String getDescriptionBonus2() {
+        String res = "";
+        int bonusKey = this.bonus2.getBonusKey();
+        if (bonusKey==0) {res="None";}
+        if (bonusKey==1) {res="The Killer : an invicible square !";}
+        if (bonusKey==2) {res="The Multiplicator : You are allowed to have \n3 extra squares of each color";}
+        if (bonusKey==3) {res="The Cleaner : All the existing squares \n on the field are destroyed";}
         return res;
     }
 

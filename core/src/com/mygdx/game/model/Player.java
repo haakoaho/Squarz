@@ -42,14 +42,12 @@ public class Player {
         if (countDown.getWorldTimer()==60) {this.squareLimiter = new SquareLimiter(20);}
 
         // Multi bonus effect : +3 of each colored square
-        if(set.getBonuses().getColorKey() == 5){
+        if(set.getBonus1().getColorKey() == 5){
             this.squareLimiter = new SquareLimiter(this.getSquareLimiter().getBlueLeft() + 3);
         }
-        /*
-        if(set.getBonuses().getBonusKey() == 5){this.getSquareLimiter().setRedLeft(this.getSquareLimiter().getRedLeft() + 3);}
-        if(set.getBonuses().getBonusKey() == 5){this.getSquareLimiter().setBlueLeft(this.getSquareLimiter().getBlueLeft() + 3);}
-        if(set.getBonuses().getBonusKey() == 5){this.getSquareLimiter().setYellowLeft(this.getSquareLimiter().getYellowLeft() + 3);
-        */
+        if(set.getBonus2().getColorKey() == 5){
+            this.squareLimiter = new SquareLimiter(this.getSquareLimiter().getBlueLeft() + 3);
+        }
 
         this.firstLeftSquaresKey = 0;
         this.firstMiddleSquaresKey = 0;
@@ -58,8 +56,8 @@ public class Player {
 
 
     public void increment(Texture t, Integer columnKey, Integer colorkey) {
-        //in the case of the bonus none and multi, they don't have to be drawn like an usual square
-        if (colorkey != 3 && colorkey != 5) {
+        //in the case of the bonus none and multi and cleaner, they don't have to be drawn like an usual square
+        if (colorkey != 3 && colorkey != 5 && colorkey != 6) {
             //local variables
             Integer counter = getCounter(columnKey);
             Map<Integer, Square> column = getMap(columnKey);
@@ -76,16 +74,20 @@ public class Player {
 
             handleOverLapping(columnKey, t, counter, column);
         }
+
     }
+
+
+
     public void decrement(Integer toRemoveKey, Integer columnKey) {
-        Map<Integer, Square> row = getMap(columnKey);
-        row.remove(toRemoveKey);
+        Map<Integer, Square> column = getMap(columnKey);
+        column.remove(toRemoveKey);
 
         if(toRemoveKey != getFirstSquareKey(columnKey)){
             for (int i = toRemoveKey; toRemoveKey > getFirstSquareKey(columnKey); i--) {
-                row.put(i, row.get(i - 1));
+                column.put(i, column.get(i - 1));
             }
-            row.remove(getFirstSquareKey(columnKey));
+            column.remove(getFirstSquareKey(columnKey));
         }
         setFirstSquareKey(columnKey, getFirstSquareKey(columnKey) + 1);
     }
