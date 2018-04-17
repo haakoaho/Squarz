@@ -81,7 +81,7 @@ public class PlayModeMulti extends State {
         this.colorKey = 0;
         score = new Score();
         countDown = new CountDown(60);
-        collision = new Collision();
+        collision = new Collision(score);
 
         //all the texture
         this.shapeRenderer = new ShapeRenderer();
@@ -262,7 +262,6 @@ public class PlayModeMulti extends State {
                             && player.getMap(columnKey).get(player.getFirstSquareKey(columnKey)).getPosition().y < HEIGHT + this.set.getStepX()*dt) {
                         sound.play(Squarz.valueVolume * 0.15f);
                         Gdx.input.vibrate(Squarz.valueVibration * 50);
-                        this.score.updateUser();
                     }
                 }
             }
@@ -278,7 +277,6 @@ public class PlayModeMulti extends State {
                     if (opponent.getMap(columnKey).get(i).getPosition().y <= 0 && opponent.getMap(columnKey).get(i).getPosition().y > -this.set.getStepX()*dt) {
                         sound.play(Squarz.valueVolume * 0.15f);
                         Gdx.input.vibrate(Squarz.valueVibration * 50);
-                        this.score.updateAi();
                     }
                 }
             }

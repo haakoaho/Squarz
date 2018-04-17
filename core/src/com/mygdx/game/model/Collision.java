@@ -11,7 +11,9 @@ package com.mygdx.game.model;
 //    red < blue < yellow < red
 
 public class Collision {
-    public Collision() {
+    private Score score;
+    public Collision(Score score) {
+        this.score = score;
     }
 
     public void deleteOncePlayerOut(Player p, Integer column) {
@@ -19,6 +21,7 @@ public class Collision {
         //revoir !
             if (p.getCounter(column) >= p.getFirstSquareKey(column) && !p.getMap(column).get(p.getFirstSquareKey(column)).isInUser()) {
                 p.decrement(p.getFirstSquareKey(column), column);
+                score.updateUser();
             }
     }
 
@@ -26,6 +29,7 @@ public class Collision {
         //if square goes outside
         if (p.getCounter(column) > p.getFirstSquareKey(column) && !p.getMap(column).get(p.getFirstSquareKey(column)).isInAi()) {
             p.decrement(p.getFirstSquareKey(column), column);
+            score.updateAi();
         }
     }
 

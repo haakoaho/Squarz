@@ -116,7 +116,7 @@ public class PlayModeAi extends State {
         this.pause.setPosY(HEIGHT * 29 / 32 - pause.getTexture().getHeight()/2);
         this.pauseScreen = new PauseScreen();
 
-        this.collision = new Collision();
+        this.collision = new Collision(score);
 
         this.temporarySpeed = this.settings.getStepX();
 
@@ -365,7 +365,6 @@ public class PlayModeAi extends State {
                            && player.getMap(columnKey).get(player.getFirstSquareKey(columnKey)).getPosition().y < HEIGHT + this.settings.getStepX() * dt) {
                        sound.play(Squarz.valueVolume * 0.15f);
                        Gdx.input.vibrate(Squarz.valueVibration * 50);
-                       this.score.updateUser();
                     }
                 }
             }
@@ -382,7 +381,6 @@ public void movingAiSquare(float dt) {
                 if (ai.getMap(columnKey).get(i).getPosition().y <= 0 && ai.getMap(columnKey).get(i).getPosition().y > -this.settings.getStepX()*dt) {
                     sound.play(Squarz.valueVolume * 0.15f);
                     Gdx.input.vibrate(Squarz.valueVibration * 50);
-                    this.score.updateAi();
                 }
             }
         }
