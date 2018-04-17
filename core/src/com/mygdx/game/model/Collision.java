@@ -17,7 +17,7 @@ public class Collision {
     public void deleteOncePlayerOut(Player p, Integer column) {
         //if square goes outside (scores)
         //revoir !
-            if (p.getCounter(column) > p.getFirstSquareKey(column) && !p.getMap(column).get(p.getFirstSquareKey(column)).isInUser()) {
+            if (p.getCounter(column) >= p.getFirstSquareKey(column) && !p.getMap(column).get(p.getFirstSquareKey(column)).isInUser()) {
                 p.decrement(p.getFirstSquareKey(column), column);
             }
     }
@@ -98,14 +98,16 @@ public class Collision {
     }
 
     public void collision(Player player, AIPlayer opponent) {
-
         for (int columnKey = 0; columnKey < 3; columnKey++) {
-            if (!player.getMap(columnKey).isEmpty() && !opponent.getMap(columnKey).isEmpty()) {
-                //if square goes outside
+            //if square goes outside
+            if(!player.getMap(columnKey).isEmpty()) {
                 deleteOncePlayerOut(player, columnKey);
+            }
+            if(!opponent.getMap(columnKey).isEmpty()) {
                 deleteOnceOpponentOut(opponent, columnKey);
+            }
 
-
+            if (!player.getMap(columnKey).isEmpty() && !opponent.getMap(columnKey).isEmpty()) {
                 // if a square is in game (avoid null pointer exception) and overlaps
                 if (isCollisionPossible(player, opponent, columnKey) && isOverlapping(player, opponent, columnKey)) {
                     //if player red

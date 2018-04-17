@@ -65,6 +65,7 @@ public class PlayModeAi extends State {
     private Integer temporarySpeed;
     private float exTime;
 
+
     public PlayModeAi(GameStateManager gsm, PreferencesSettings settings, CountDown countDown) {
 
         super(gsm);
@@ -212,6 +213,7 @@ public class PlayModeAi extends State {
                 this.countDown.update(dt);
                 //random sending by the AI
                 ai.send(this.countDown);
+
             }
 
             if (this.countDown.isTimeUp()) {
@@ -353,76 +355,39 @@ public class PlayModeAi extends State {
         }
     }
 
+    public void movingPlayerSquare (float dt){
+        for (Integer columnKey = 0; columnKey < 3; columnKey++) {
+           if (!player.getMap(columnKey).isEmpty()) {
+               for (int i = player.getFirstSquareKey(columnKey); i < player.getCounter(columnKey); i++) {
+                   player.getMap(columnKey).get(i).move(dt);
+                   //dealing with the score
+                   if (player.getMap(columnKey).get(player.getFirstSquareKey(columnKey)).getPosition().y >= HEIGHT
+                           && player.getMap(columnKey).get(player.getFirstSquareKey(columnKey)).getPosition().y < HEIGHT + this.settings.getStepX() * dt) {
+                       sound.play(Squarz.valueVolume * 0.15f);
+                       Gdx.input.vibrate(Squarz.valueVibration * 50);
+                       this.score.updateUser();
+                    }
+                }
+            }
+        }
+    }
 
-public void movingPlayerSquare(float dt){
-    if(!player.getLeft().isEmpty()) {
-        for (int i = player.getFirstLeftSquaresKey(); i < player.getLeftCounter(); i++) {
-            player.getLeft().get(i).move(dt);
-            //dealing with the score
-            if (player.getLeft().get(i).getPosition().y >= HEIGHT && player.getLeft().get(i).getPosition().y < HEIGHT + this.settings.getStepX()*dt) {
-                sound.play(Squarz.valueVolume * 0.15f);
-                Gdx.input.vibrate(Squarz.valueVibration * 50);
-                this.score.updateUser();
-            }
-        }
-    }
-    if(!player.getMiddle().isEmpty()) {
-        for (int i = player.getFirstMiddleSquaresKey(); i < player.getMiddleCounter(); i++) {
-            player.getMiddle().get(i).move(dt);
-            if (player.getMiddle().get(i).getPosition().y >= HEIGHT && player.getMiddle().get(i).getPosition().y < HEIGHT + this.settings.getStepX()*dt) {
-                sound.play(Squarz.valueVolume * 0.15f);
-                Gdx.input.vibrate(Squarz.valueVibration * 50);
-                this.score.updateUser();
-            }
-        }
-    }
-    if(!player.getRight().isEmpty()) {
-        for (int i = player.getFirstRightSquaresKey(); i < player.getRightCounter(); i++) {
-            player.getRight().get(i).move(dt);
-            if (player.getRight().get(i).getPosition().y >= HEIGHT && player.getRight().get(i).getPosition().y < HEIGHT + this.settings.getStepX()*dt) {
-                sound.play(Squarz.valueVolume * 0.15f);
-                Gdx.input.vibrate(Squarz.valueVibration * 50);
-                this.score.updateUser();
-            }
-        }
-    }
-}
 
 public void movingAiSquare(float dt) {
-    if(!ai.getLeft().isEmpty()) {
-        for (int i = ai.getFirstLeftSquaresKey(); i < ai.getLeftCounter(); i++) {
-            ai.getLeft().get(i).reverseMove(dt);
-            //dealing with the score
-            if (ai.getLeft().get(i).getPosition().y <= 0 && ai.getLeft().get(i).getPosition().y > -this.settings.getStepX()*dt) {
-                sound.play(Squarz.valueVolume * 0.15f);
-                Gdx.input.vibrate(Squarz.valueVibration * 50);
-                this.score.updateAi();
-            }
-        }
-    }
-    if(!ai.getMiddle().isEmpty()) {
-        for (int i = ai.getFirstMiddleSquaresKey(); i < ai.getMiddleCounter(); i++) {
-            ai.getMiddle().get(i).reverseMove(dt);
-            //dealing with the score
-            if (ai.getMiddle().get(i).getPosition().y <= 0 && ai.getMiddle().get(i).getPosition().y > -this.settings.getStepX()*dt) {
-                sound.play(Squarz.valueVolume * 0.15f);
-                Gdx.input.vibrate(Squarz.valueVibration * 50);
-                this.score.updateAi();
-            }
-        }
-    }
-    if(!ai.getRight().isEmpty()) {
-        for (int i = ai.getFirstRightSquaresKey(); i < ai.getRightCounter(); i++) {
-            ai.getRight().get(i).reverseMove(dt);
-            if (ai.getRight().get(i).getPosition().y <= 0 && ai.getRight().get(i).getPosition().y > -this.settings.getStepX()*dt) {
-                sound.play(Squarz.valueVolume * 0.15f);
-                Gdx.input.vibrate(Squarz.valueVibration * 50);
-                this.score.updateAi();
+    for(int columnKey=0; columnKey<3; columnKey++) {
+        if(!ai.getMap(columnKey).isEmpty()) {
+            for (int i = ai.getFirstSquareKey(columnKey); i < ai.getCounter(columnKey); i++) {
+                ai.getMap(columnKey).get(i).reverseMove(dt);
+                //dealing with the score
+                if (ai.getMap(columnKey).get(i).getPosition().y <= 0 && ai.getMap(columnKey).get(i).getPosition().y > -this.settings.getStepX()*dt) {
+                    sound.play(Squarz.valueVolume * 0.15f);
+                    Gdx.input.vibrate(Squarz.valueVibration * 50);
+                    this.score.updateAi();
+                }
             }
         }
     }
 }
-
 
     public void drawingSquares(SpriteBatch sb, Player p){
         for(int columnKey = 0; columnKey < 3; columnKey ++) {

@@ -205,7 +205,7 @@ public class PlayModeMulti extends State {
     public boolean isAllowedToPlay(float exTime){
         boolean allowed = false;
         float timeRef = countDown.getWorldTimer()-countDown.getTimeCount();
-        allowed = exTime - timeRef > 0.3;
+        allowed = exTime - timeRef > 0.45;
         if(allowed){this.exTime = timeRef;}
         return  allowed;
     }
@@ -252,69 +252,34 @@ public class PlayModeMulti extends State {
     }
 
     public void movingPlayerSquare(float dt) {
-        if (!player.getLeft().isEmpty()) {
-            for (int i = player.getFirstLeftSquaresKey(); i < player.getLeftCounter(); i++) {
-                player.getLeft().get(i).move(dt);
-                //dealing with the score
-                if (player.getLeft().get(i).getPosition().y >= HEIGHT && player.getLeft().get(i).getPosition().y < HEIGHT + this.set.getStepX()*dt) {
-                    sound.play(Squarz.valueVolume * 0.15f);
-                    Gdx.input.vibrate(Squarz.valueVibration * 50);
-                    this.score.updateUser();
-                }
-            }
-        }
-        if (!player.getMiddle().isEmpty()) {
-            for (int i = player.getFirstMiddleSquaresKey(); i < player.getMiddleCounter(); i++) {
-                player.getMiddle().get(i).move(dt);
-                if (player.getMiddle().get(i).getPosition().y >= HEIGHT && player.getMiddle().get(i).getPosition().y < HEIGHT + this.set.getStepX()*dt) {
-                    sound.play(Squarz.valueVolume * 0.15f);
-                    Gdx.input.vibrate(Squarz.valueVibration * 50);
-                    this.score.updateUser();
-                }
-            }
-        }
-        if (!player.getRight().isEmpty()) {
-            for (int i = player.getFirstRightSquaresKey(); i < player.getRightCounter(); i++) {
-                player.getRight().get(i).move(dt);
-                if (player.getRight().get(i).getPosition().y >= HEIGHT && player.getRight().get(i).getPosition().y < HEIGHT + this.set.getStepX()*dt) {
-                    sound.play(Squarz.valueVolume * 0.15f);
-                    Gdx.input.vibrate(Squarz.valueVibration * 50);
-                    this.score.updateUser();
+        for(Integer columnKey=0; columnKey<3; columnKey++) {
+            if (!player.getMap(columnKey).isEmpty()) {
+                for (int i = player.getFirstSquareKey(columnKey); i < player.getCounter(columnKey); i++) {
+                    player.getMap(columnKey).get(i).move(dt);
+
+                    //dealing with the score
+                    if (player.getMap(columnKey).get(player.getFirstSquareKey(columnKey)).getPosition().y >= HEIGHT
+                            && player.getMap(columnKey).get(player.getFirstSquareKey(columnKey)).getPosition().y < HEIGHT + this.set.getStepX()*dt) {
+                        sound.play(Squarz.valueVolume * 0.15f);
+                        Gdx.input.vibrate(Squarz.valueVibration * 50);
+                        this.score.updateUser();
+                    }
                 }
             }
         }
     }
 
     public void movingOpponentSquare(float dt) {
-        if (!opponent.getLeft().isEmpty()) {
-            for (int i = opponent.getFirstLeftSquaresKey(); i < opponent.getLeftCounter(); i++) {
-                opponent.getLeft().get(i).reverseMove(dt);
-                //dealing with the score
-                if (opponent.getLeft().get(i).getPosition().y <= 0 && opponent.getLeft().get(i).getPosition().y > -this.set.getStepX()*dt) {
-                    sound.play(Squarz.valueVolume * 0.15f);
-                    Gdx.input.vibrate(Squarz.valueVibration * 50);
-                    this.score.updateAi();
-                }
-            }
-        }
-        if (!opponent.getMiddle().isEmpty()) {
-            for (int i = opponent.getFirstMiddleSquaresKey(); i < opponent.getMiddleCounter(); i++) {
-                opponent.getMiddle().get(i).reverseMove(dt);
-                //dealing with the score
-                if (opponent.getMiddle().get(i).getPosition().y <= 0 && opponent.getMiddle().get(i).getPosition().y > -this.set.getStepX()*dt) {
-                    sound.play(Squarz.valueVolume * 0.15f);
-                    Gdx.input.vibrate(Squarz.valueVibration * 50);
-                    this.score.updateAi();
-                }
-            }
-        }
-        if (!opponent.getRight().isEmpty()) {
-            for (int i = opponent.getFirstRightSquaresKey(); i < opponent.getRightCounter(); i++) {
-                opponent.getRight().get(i).reverseMove(dt);
-                if (opponent.getRight().get(i).getPosition().y <= 0 && opponent.getRight().get(i).getPosition().y > -this.set.getStepX()*dt) {
-                    sound.play(Squarz.valueVolume * 0.15f);
-                    Gdx.input.vibrate(Squarz.valueVibration * 50);
-                    this.score.updateAi();
+        for(int columnKey=0; columnKey<3; columnKey++){
+            if (!opponent.getMap(columnKey).isEmpty()) {
+                for (int i = opponent.getFirstSquareKey(columnKey); i < opponent.getCounter(columnKey); i++) {
+                    opponent.getMap(columnKey).get(i).reverseMove(dt);
+                    //dealing with the score
+                    if (opponent.getMap(columnKey).get(i).getPosition().y <= 0 && opponent.getMap(columnKey).get(i).getPosition().y > -this.set.getStepX()*dt) {
+                        sound.play(Squarz.valueVolume * 0.15f);
+                        Gdx.input.vibrate(Squarz.valueVibration * 50);
+                        this.score.updateAi();
+                    }
                 }
             }
         }
