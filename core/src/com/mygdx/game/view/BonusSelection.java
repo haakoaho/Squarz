@@ -25,7 +25,7 @@ import static com.mygdx.game.Squarz.format;
 public class BonusSelection extends State {
 
     private GlyphLayout bonusTitle, clean, selected, bonusDescription1, bonusDescription2;
-    private Icon back, multi, killer, none, cleaner, emptyField1, emptyField2, cleanButton, selectButton;
+    private Icon back, multi, punisher, none, mrPropre, emptyField1, emptyField2, cleanButton, selectButton;
     private CountDown countDown;
     private PreferencesSettings settings;
     private Boolean isFilled1;
@@ -77,17 +77,17 @@ public class BonusSelection extends State {
         emptyField2.setPosX(WIDTH*2/3 - emptyField2.getTexture().getWidth()/2);
         emptyField2.setPosY(HEIGHT*3/4 - emptyField2.getTexture().getHeight()/2);
 
-        killer = new Icon(new Texture(Gdx.files.internal(format+"/bonuses/killer.png")),0,0);
-        killer.setPosX(WIDTH*1/6 + WIDTH*2/9- killer.getTexture().getWidth()/2);
-        killer.setPosY(HEIGHT/2 - killer.getTexture().getHeight()/2);
+        punisher = new Icon(new Texture(Gdx.files.internal(format+"/bonuses/punisher.png")),0,0);
+        punisher.setPosX(WIDTH*1/6 + WIDTH*2/9- punisher.getTexture().getWidth()/2);
+        punisher.setPosY(HEIGHT/2 - punisher.getTexture().getHeight()/2);
 
         multi = new Icon(new Texture(Gdx.files.internal(format+"/bonuses/multi.png")),0,0);
         multi.setPosX(WIDTH*1/6 + WIDTH*4/9 - multi.getTexture().getWidth()/2);
         multi.setPosY(HEIGHT/2 - multi.getTexture().getWidth()/2);
 
-        cleaner = new Icon(new Texture(Gdx.files.internal(format+"/bonuses/cleaner.png")),0,0);
-        cleaner.setPosX(WIDTH*5/6 - multi.getTexture().getWidth()/2);
-        cleaner.setPosY(HEIGHT/2 - multi.getTexture().getWidth()/2);
+        mrPropre = new Icon(new Texture(Gdx.files.internal(format+"/bonuses/mrPropre.png")),0,0);
+        mrPropre.setPosX(WIDTH*5/6 - multi.getTexture().getWidth()/2);
+        mrPropre.setPosY(HEIGHT/2 - multi.getTexture().getWidth()/2);
 
 
 
@@ -150,9 +150,9 @@ public class BonusSelection extends State {
         Squarz.font2.draw(sb, selected, WIDTH * 2/3 - selected.width/2 + this.none.getTexture().getWidth()/2, HEIGHT * 5/8 + selected.height/2);
 
         sb.draw(none.getTexture(), none.getPosX(), none.getPosY());
-        sb.draw(killer.getTexture(), killer.getPosX(), killer.getPosY());
+        sb.draw(punisher.getTexture(), punisher.getPosX(), punisher.getPosY());
         sb.draw(multi.getTexture(), multi.getPosX(), multi.getPosY());
-        sb.draw(cleaner.getTexture(), cleaner.getPosX(), cleaner.getPosY());
+        sb.draw(mrPropre.getTexture(), mrPropre.getPosX(), mrPropre.getPosY());
 
         font2.draw(sb, this.bonusDescription1, this.none.getPosX() + (WIDTH*2/3+this.none.getTexture().getWidth())/2 - this.bonusDescription1.width/2,
                 this.none.getPosY() - this.none.getTexture().getHeight()/2 - HEIGHT/6 + HEIGHT/6/2 + this.bonusDescription1.height/2);
@@ -202,13 +202,13 @@ public class BonusSelection extends State {
                 isFilled1 = false;
             }
         }
-        if (killer.contains(x, y)){
+        if (punisher.contains(x, y)){
             isFilled(1, 4);
         }
         if (multi.contains(x, y)){
             isFilled(2, 5);
         }
-        if (cleaner.contains(x, y)){
+        if (mrPropre.contains(x, y)){
             isFilled(3, 6);
         }
 

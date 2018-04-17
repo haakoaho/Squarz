@@ -2,7 +2,6 @@ package com.mygdx.game.model;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.mygdx.game.view.BonusSelection;
 
 import static com.mygdx.game.Squarz.format;
 
@@ -13,7 +12,7 @@ import static com.mygdx.game.Squarz.format;
 public class Bonus {
     private Integer bonusKey, colorKey;
 
-    private Texture none, killer, multi, selectedBonus, cleaner; // bounce
+    private Texture none, punisher, multi, selectedBonus, mrPropre; // bounce
 
     public Bonus(){
         this.bonusKey = 0;
@@ -22,19 +21,10 @@ public class Bonus {
         //setting Textures;
         this.selectedBonus =  new Texture(Gdx.files.internal(format+"/bonuses/none.png"));
         this.none = new Texture(Gdx.files.internal(format+"/bonuses/none.png"));
-        this.killer = new Texture(Gdx.files.internal(format+"/bonuses/killer.png"));
+        this.punisher = new Texture(Gdx.files.internal(format+"/bonuses/punisher.png"));
         this.multi = new Texture(Gdx.files.internal(format+"/bonuses/multi.png"));
-        this.cleaner = new Texture((Gdx.files.internal(format+"/bonuses/cleaner.png")));
+        this.mrPropre = new Texture((Gdx.files.internal(format+"/bonuses/mrPropre.png")));
     }
-
-    /*public Bonus(int bonusKey, int colorKey, Texture texture){
-        this.bonusKey = bonusKey;
-        this.colorKey = colorKey;
-
-        //setting Textures;
-        //this.selectedBonus =  new Texture(Gdx.files.internal(format+"/bonuses/none.png"));
-        this.setSelectedBonus(texture);
-    }*/
 
     public Texture getBonustexture(Integer bonusKey){
         if(bonusKey == 0){
@@ -43,8 +33,8 @@ public class Bonus {
             this.colorKey = 3;
         }
         if(bonusKey == 1){
-            //killer
-            this.setSelectedBonus(this.getKiller());
+            //punisher
+            this.setSelectedBonus(this.getPunisher());
             this.colorKey = 4;
         }
         if(bonusKey == 2){
@@ -53,8 +43,8 @@ public class Bonus {
             this.colorKey = 5;
         }
         if(bonusKey == 3){
-            //cleaner
-            this.setSelectedBonus(this.getCleaner());
+            //mrPropre
+            this.setSelectedBonus(this.getMrPropre());
             this.colorKey = 6;
         }
         return selectedBonus;
@@ -75,11 +65,11 @@ public class Bonus {
     public void setNone(Texture none) {
         this.none = none;
     }
-    public Texture getKiller() {
-        return killer;
+    public Texture getPunisher() {
+        return punisher;
     }
-    public void setKiller(Texture killer) {
-        this.killer = killer;
+    public void setPunisher(Texture punisher) {
+        this.punisher = punisher;
     }
     public Texture getMulti() {
         return multi;
@@ -99,10 +89,10 @@ public class Bonus {
     public void setColorKey(Integer colorKey) {
         this.colorKey = colorKey;
     }
-    public Texture getCleaner() {
-        return cleaner;
+    public Texture getMrPropre() {
+        return mrPropre;
     }
-    public void setCleaner(Texture cleaner) {
-        this.cleaner = cleaner;
+    public void setMrPropre(Texture mrPropre) {
+        this.mrPropre = mrPropre;
     }
 }

@@ -85,8 +85,8 @@ public class Collision {
         }
     }
 
-    public void handleWithKillerBonus(Player p, Player c, Integer columnKey){
-        // if computer killer
+    public void handleWithPunisherBonus(Player p, Player c, Integer columnKey){
+        // if computer punisher
         if (c.getMap(columnKey).get(c.getFirstSquareKey(columnKey)).getColorKey() == 4) {
             p.decrement(p.getFirstSquareKey(columnKey), columnKey);
             c.decrement(c.getFirstSquareKey(columnKey), columnKey);
@@ -95,10 +95,6 @@ public class Collision {
             c.decrement(p.getFirstSquareKey(columnKey), columnKey);
 
         }
-    }
-
-    public void handleWithCleanerBonus(Player p, Integer columnKey){
-            p.decrement(p.getFirstSquareKey(columnKey), columnKey);
     }
 
     public void collision(Player player, AIPlayer opponent) {
@@ -121,15 +117,12 @@ public class Collision {
                         //si player est jaune
                     } else if (player.getMap(columnKey).get(player.getFirstSquareKey(columnKey)).getColorKey() == 2) {
                         handleWhenPlayerYellow(player, opponent, columnKey);
-                        //si player uses the killer bonus
+                        //si player uses the punisher bonus
                     } else if (player.getMap(columnKey).get(player.getFirstSquareKey(columnKey)).getColorKey() == 4) {
-                        handleWithKillerBonus(player, opponent, columnKey);
-                        //si player uses the Cleaner bonus
-                    } else if (player.getMap(columnKey).get(player.getFirstSquareKey(columnKey)).getColorKey() == 5) {
-                        handleWithCleanerBonus(player, columnKey);
+                        handleWithPunisherBonus(player, opponent, columnKey);
+                        //si player uses the Mr.Propre bonus
                     }
                 }
-
             }
         }
     }

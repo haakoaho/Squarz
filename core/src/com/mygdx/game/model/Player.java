@@ -56,7 +56,7 @@ public class Player {
 
 
     public void increment(Texture t, Integer columnKey, Integer colorkey) {
-        //in the case of the bonus none and multi and cleaner, they don't have to be drawn like an usual square
+        //in the case of the bonus none and multi and Mr.Propre, they don't have to be drawn like an usual square
         if (colorkey != 3 && colorkey != 5 && colorkey != 6) {
             //local variables
             Integer counter = getCounter(columnKey);

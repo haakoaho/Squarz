@@ -327,7 +327,7 @@ public class PlayModeAi extends State {
             this.setColorKey(this.settings.getBonus1().getColorKey());
             this.setTexture(this.settings.getBonus1().getBonustexture(this.colorKey));
             if(this.settings.getBonus1().getBonusKey() == 3){
-                cleanerEffect();
+                mrPropreEffect();
             }
         }
 
@@ -335,13 +335,13 @@ public class PlayModeAi extends State {
             this.setColorKey(this.settings.getBonus2().getColorKey());
             this.setTexture(this.settings.getBonus2().getBonustexture(this.colorKey));
             if(this.settings.getBonus2().getBonusKey() == 3){
-                cleanerEffect();
+                mrPropreEffect();
             }
         }
     }
 
 
-    public void cleanerEffect(){
+    public void mrPropreEffect(){
         for (int columnKey = 0; columnKey<3; columnKey ++ ) {
             this.getPlayer().setFirstSquareKey(columnKey, this.getPlayer().getCounter(columnKey));
             this.getAi().setFirstSquareKey(columnKey, this.getAi().getCounter(columnKey));

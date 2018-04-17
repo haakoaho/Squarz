@@ -65,9 +65,9 @@ public class PreferencesSettings {
         String res = "";
         int bonusKey = this.bonus1.getBonusKey();
         if (bonusKey==0) {res="None";}
-        if (bonusKey==1) {res="The Killer";}
-        if (bonusKey==2) {res="The Multiplicator";}
-        if (bonusKey==3) {res="the Cleaner";}
+        if (bonusKey==1) {res="The Punisher";}
+        if (bonusKey==2) {res="The Multiplier";}
+        if (bonusKey==3) {res="Mr. Propre";}
         return res;
     }
 
@@ -75,9 +75,9 @@ public class PreferencesSettings {
         String res = "";
         int bonusKey = this.bonus2.getBonusKey();
         if (bonusKey==0) {res="None";}
-        if (bonusKey==1) {res="The Killer";}
-        if (bonusKey==2) {res="The Multiplicator";}
-        if (bonusKey==3) {res="the Cleaner";}
+        if (bonusKey==1) {res="The Punisher";}
+        if (bonusKey==2) {res="The Multiplier";}
+        if (bonusKey==3) {res="Mr. Propre";}
         return res;
     }
 
@@ -85,9 +85,9 @@ public class PreferencesSettings {
         String res = "";
         int bonusKey = this.bonus1.getBonusKey();
         if (bonusKey==0) {res="None";}
-        if (bonusKey==1) {res="The Killer : an invicible square !";}
-        if (bonusKey==2) {res="The Multiplicator : You are allowed to have \n3 extra squares of each color";}
-        if (bonusKey==3) {res="The Cleaner : All the existing squares \n on the field are destroyed";}
+        if (bonusKey==1) {res="The Punisher : an invicible square !";}
+        if (bonusKey==2) {res="The Multiplier : You are allowed to have \n3 extra squares of each color";}
+        if (bonusKey==3) {res="Mr. Propre : All the existing squares \n on the field are destroyed";}
         return res;
     }
 
@@ -95,9 +95,9 @@ public class PreferencesSettings {
         String res = "";
         int bonusKey = this.bonus2.getBonusKey();
         if (bonusKey==0) {res="None";}
-        if (bonusKey==1) {res="The Killer : an invicible square !";}
-        if (bonusKey==2) {res="The Multiplicator : You are allowed to have \n3 extra squares of each color";}
-        if (bonusKey==3) {res="The Cleaner : All the existing squares \n on the field are destroyed";}
+        if (bonusKey==1) {res="The Punisher : an invicible square !";}
+        if (bonusKey==2) {res="The Multiplier : You are allowed to have \n3 extra squares of each color";}
+        if (bonusKey==3) {res="Mr. Propre : All the existing squares \n on the field are destroyed";}
         return res;
     }
 
