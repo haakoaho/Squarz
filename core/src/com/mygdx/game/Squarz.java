@@ -56,9 +56,9 @@ public class Squarz extends ApplicationAdapter  {
 			parameter.size = 45;
 			parameter2.size = 30;
 			parameter3.size = 20;
-			parameter.borderWidth = 2;
+			parameter.borderWidth = 4;
 			parameter2.borderWidth = 3;
-			parameter3.borderWidth = 4;
+			parameter3.borderWidth = 2;
 			parameter3.color = Color.BLACK;
 			parameter.borderColor = Color.WHITE;
 			parameter2.borderColor = Color.WHITE;
@@ -73,10 +73,10 @@ public class Squarz extends ApplicationAdapter  {
 			FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
 			FreeTypeFontGenerator.FreeTypeFontParameter parameter2 = new FreeTypeFontGenerator.FreeTypeFontParameter();
 			FreeTypeFontGenerator.FreeTypeFontParameter parameter3 = new FreeTypeFontGenerator.FreeTypeFontParameter();
-			parameter.size = 60;
+			parameter.size = 70;
 			parameter2.size = 40;
 			parameter3.size = 20;
-			parameter.borderWidth = 2;
+			parameter.borderWidth = 4;
 			parameter2.borderWidth = 3;
 			parameter3.borderWidth = 2;
 			parameter3.color = Color.BLACK;
@@ -96,9 +96,9 @@ public class Squarz extends ApplicationAdapter  {
 			parameter.size = 90;
 			parameter2.size = 60;
 			parameter3.size = 45;
-			parameter.borderWidth = 2;
+			parameter.borderWidth = 4;
 			parameter2.borderWidth = 3;
-			parameter3.borderWidth = 4;
+			parameter3.borderWidth = 2;
 			parameter3.color = Color.BLACK;
 			parameter.borderColor = Color.WHITE;
 			parameter2.borderColor = Color.WHITE;

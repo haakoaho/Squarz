@@ -306,10 +306,6 @@ public class PlayModeAi extends State {
             this.redChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_red.png")));
             this.blueChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_blue_selected.png")));
             this.yellowChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_yellow.png")));
-<<<<<<< HEAD
-
-=======
->>>>>>> Max
         }
 
         if (this.yellowChoiceSquare.contains(x, y)) {
@@ -318,8 +314,6 @@ public class PlayModeAi extends State {
             this.redChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_red.png")));
             this.blueChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_blue.png")));
             this.yellowChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_yellow_selected.png")));
-<<<<<<< HEAD
-=======
         }
 
         if (this.bonusChoiceSquare1.contains(x, y)) {
@@ -328,7 +322,6 @@ public class PlayModeAi extends State {
             if(this.settings.getBonus1().getBonusKey() == 3){
                 mrPropreEffect();
             }
->>>>>>> Max
         }
 
         if (this.bonusChoiceSquare2.contains(x, y)) {
