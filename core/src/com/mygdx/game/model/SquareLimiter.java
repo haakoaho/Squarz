@@ -8,14 +8,21 @@ public class SquareLimiter {
     private Integer redLeft;
     private Integer blueLeft;
     private Integer yellowLeft;
-    private Integer bonusLeft;
+    private Integer bonusPunisherLeft;
 
 
-    public SquareLimiter(Integer nbSquare) {
+    public SquareLimiter(Integer nbSquare, Integer bonusLeft) {
         this.redLeft = nbSquare;
         this.blueLeft = nbSquare;
         this.yellowLeft = nbSquare;
-        this.bonusLeft = 3;
+        this.bonusPunisherLeft = bonusLeft;
+    }
+
+    public SquareLimiter(Integer redLeft, Integer blueLeft, Integer yellowLeft, Integer bonusLeft){
+        this.redLeft = redLeft;
+        this.blueLeft = blueLeft;
+        this.yellowLeft = yellowLeft;
+        this.bonusPunisherLeft = bonusLeft;
     }
 
     public void minusOne(Integer colorKey){
@@ -28,8 +35,8 @@ public class SquareLimiter {
         if (colorKey == 2){
             this.setYellowLeft(this.getYellowLeft() - 1);
         }
-        if (colorKey >= 3){
-            this.setBonusLeft(this.getBonusLeft() - 1);
+        if (colorKey == 4){
+            this.setBonusPunisherLeft(this.bonusPunisherLeft -1);
         }
     }
 
@@ -49,8 +56,8 @@ public class SquareLimiter {
                 return true;
             }
         }
-        if(colorkey>=3){
-            if(this.getBonusLeft() == 0){
+        if (colorkey == 4){
+            if(this.getBonusPunisherLeft() == 0){
                 return true;
             }
         }
@@ -84,11 +91,12 @@ public class SquareLimiter {
         this.yellowLeft = yellowLeft;
     }
 
-    public Integer getBonusLeft() {
-        return bonusLeft;
+    public Integer getBonusPunisherLeft() {
+        return bonusPunisherLeft;
     }
 
-    public void setBonusLeft(Integer bonusLeft) {
-        this.bonusLeft = bonusLeft;
+    public void setBonusPunisherLeft(Integer bonusLeft1) {
+        this.bonusPunisherLeft = bonusLeft1;
     }
+
 }

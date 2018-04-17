@@ -25,7 +25,7 @@ import static com.mygdx.game.Squarz.format;
 public class BonusSelection extends State {
 
     private GlyphLayout bonusTitle, clean, selected, bonusDescription1, bonusDescription2;
-    private Icon back, multi, punisher, none, mrPropre, emptyField1, emptyField2, cleanButton, selectButton;
+    private Icon back, nurse, punisher, none, mrPropre, emptyField1, emptyField2, cleanButton, selectButton;
     private CountDown countDown;
     private PreferencesSettings settings;
     private Boolean isFilled1;
@@ -38,7 +38,7 @@ public class BonusSelection extends State {
         super(gsm);
 
         this.bonusTitle = new GlyphLayout(Squarz.font, "CHOOSE YOUR BONUS");
-        this.clean = new GlyphLayout(Squarz.font2, "CLEAN");
+        this.clean = new GlyphLayout(Squarz.font2, "CLEAN ALL");
         this.selected = new GlyphLayout(Squarz.font2, "SELECT");
         this.countDown = countDown;
         this.settings = settings;
@@ -81,13 +81,13 @@ public class BonusSelection extends State {
         punisher.setPosX(WIDTH*1/6 + WIDTH*2/9- punisher.getTexture().getWidth()/2);
         punisher.setPosY(HEIGHT/2 - punisher.getTexture().getHeight()/2);
 
-        multi = new Icon(new Texture(Gdx.files.internal(format+"/bonuses/multi.png")),0,0);
-        multi.setPosX(WIDTH*1/6 + WIDTH*4/9 - multi.getTexture().getWidth()/2);
-        multi.setPosY(HEIGHT/2 - multi.getTexture().getWidth()/2);
+        nurse = new Icon(new Texture(Gdx.files.internal(format+"/bonuses/nurse.png")),0,0);
+        nurse.setPosX(WIDTH*1/6 + WIDTH*4/9 - nurse.getTexture().getWidth()/2);
+        nurse.setPosY(HEIGHT/2 - nurse.getTexture().getWidth()/2);
 
         mrPropre = new Icon(new Texture(Gdx.files.internal(format+"/bonuses/mrPropre.png")),0,0);
-        mrPropre.setPosX(WIDTH*5/6 - multi.getTexture().getWidth()/2);
-        mrPropre.setPosY(HEIGHT/2 - multi.getTexture().getWidth()/2);
+        mrPropre.setPosX(WIDTH*5/6 - nurse.getTexture().getWidth()/2);
+        mrPropre.setPosY(HEIGHT/2 - nurse.getTexture().getWidth()/2);
 
 
 
@@ -117,6 +117,7 @@ public class BonusSelection extends State {
                 this.settings.getBonus2().setBonusKey(0);
                 bonusDescription1.setText(font2, this.settings.getDescriptionBonus1());
                 bonusDescription2.setText(font2, this.settings.getDescriptionBonus2());
+
             }
 
 
@@ -151,7 +152,7 @@ public class BonusSelection extends State {
 
         sb.draw(none.getTexture(), none.getPosX(), none.getPosY());
         sb.draw(punisher.getTexture(), punisher.getPosX(), punisher.getPosY());
-        sb.draw(multi.getTexture(), multi.getPosX(), multi.getPosY());
+        sb.draw(nurse.getTexture(), nurse.getPosX(), nurse.getPosY());
         sb.draw(mrPropre.getTexture(), mrPropre.getPosX(), mrPropre.getPosY());
 
         font2.draw(sb, this.bonusDescription1, this.none.getPosX() + (WIDTH*2/3+this.none.getTexture().getWidth())/2 - this.bonusDescription1.width/2,
@@ -205,7 +206,7 @@ public class BonusSelection extends State {
         if (punisher.contains(x, y)){
             isFilled(1, 4);
         }
-        if (multi.contains(x, y)){
+        if (nurse.contains(x, y)){
             isFilled(2, 5);
         }
         if (mrPropre.contains(x, y)){

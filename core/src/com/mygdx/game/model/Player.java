@@ -37,17 +37,10 @@ public class Player {
         this.middleCounter = 0;
         this.rightCounter = 0;
 
-        if (countDown.getWorldTimer()==30) {this.squareLimiter = new SquareLimiter(10);}
-        if (countDown.getWorldTimer()==45) {this.squareLimiter = new SquareLimiter(15);}
-        if (countDown.getWorldTimer()==60) {this.squareLimiter = new SquareLimiter(20);}
+        if (countDown.getWorldTimer()==30) {this.squareLimiter = new SquareLimiter(10, 1);}
+        if (countDown.getWorldTimer()==45) {this.squareLimiter = new SquareLimiter(15, 1);}
+        if (countDown.getWorldTimer()==60) {this.squareLimiter = new SquareLimiter(20, 1);}
 
-        // Multi bonus effect : +3 of each colored square
-        if(set.getBonus1().getColorKey() == 5){
-            this.squareLimiter = new SquareLimiter(this.getSquareLimiter().getBlueLeft() + 3);
-        }
-        if(set.getBonus2().getColorKey() == 5){
-            this.squareLimiter = new SquareLimiter(this.getSquareLimiter().getBlueLeft() + 3);
-        }
 
         this.firstLeftSquaresKey = 0;
         this.firstMiddleSquaresKey = 0;
@@ -56,8 +49,8 @@ public class Player {
 
 
     public void increment(Texture t, Integer columnKey, Integer colorkey) {
-        //in the case of the bonus none and multi and Mr.Propre, they don't have to be drawn like an usual square
-        if (colorkey != 3 && colorkey != 5 && colorkey != 6) {
+        //in the case of the bonus none and nurse and Mr.Propre, they don't have to be drawn like an usual square
+        //if (colorkey != 3 && colorkey != 5 && colorkey != 6) {
             //local variables
             Integer counter = getCounter(columnKey);
             Map<Integer, Square> column = getMap(columnKey);
@@ -73,7 +66,7 @@ public class Player {
             column.get(counter).setColorKey(colorkey);
 
             handleOverLapping(columnKey, t, counter, column);
-        }
+        //}
 
     }
 

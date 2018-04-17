@@ -12,7 +12,7 @@ import static com.mygdx.game.Squarz.format;
 public class Bonus {
     private Integer bonusKey, colorKey;
 
-    private Texture none, punisher, multi, selectedBonus, mrPropre; // bounce
+    private Texture none, punisher, nurse, selectedBonus, mrPropre; // bounce
 
     public Bonus(){
         this.bonusKey = 0;
@@ -22,7 +22,7 @@ public class Bonus {
         this.selectedBonus =  new Texture(Gdx.files.internal(format+"/bonuses/none.png"));
         this.none = new Texture(Gdx.files.internal(format+"/bonuses/none.png"));
         this.punisher = new Texture(Gdx.files.internal(format+"/bonuses/punisher.png"));
-        this.multi = new Texture(Gdx.files.internal(format+"/bonuses/multi.png"));
+        this.nurse = new Texture(Gdx.files.internal(format+"/bonuses/nurse.png"));
         this.mrPropre = new Texture((Gdx.files.internal(format+"/bonuses/mrPropre.png")));
     }
 
@@ -38,8 +38,8 @@ public class Bonus {
             this.colorKey = 4;
         }
         if(bonusKey == 2){
-            //multi
-            this.setSelectedBonus(this.getMulti());
+            //nurse
+            this.setSelectedBonus(this.getNurse());
             this.colorKey = 5;
         }
         if(bonusKey == 3){
@@ -71,11 +71,11 @@ public class Bonus {
     public void setPunisher(Texture punisher) {
         this.punisher = punisher;
     }
-    public Texture getMulti() {
-        return multi;
+    public Texture getNurse() {
+        return nurse;
     }
-    public void setMulti(Texture multi) {
-        this.multi = multi;
+    public void setNurse(Texture nurse) {
+        this.nurse = nurse;
     }
     public Texture getSelectedBonus() {
         return selectedBonus;
@@ -95,4 +95,5 @@ public class Bonus {
     public void setMrPropre(Texture mrPropre) {
         this.mrPropre = mrPropre;
     }
+
 }

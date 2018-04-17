@@ -16,12 +16,9 @@ import com.mygdx.game.model.CountDown;
 import com.mygdx.game.model.Icon;
 import com.mygdx.game.model.Player;
 import com.mygdx.game.model.Score;
-import com.mygdx.game.model.Square;
+import com.mygdx.game.model.SquareLimiter;
 import com.mygdx.game.model.State;
 
-
-import java.util.HashMap;
-import java.util.Map;
 
 import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
@@ -64,6 +61,8 @@ public class PlayModeAi extends State {
     private PauseScreen pauseScreen;
     private Integer temporarySpeed;
     private float exTime;
+    private Boolean firstIsUsed = false;
+    private Boolean secondIsUsed = false;
 
     public PlayModeAi(GameStateManager gsm, PreferencesSettings settings, CountDown countDown) {
 
@@ -102,6 +101,7 @@ public class PlayModeAi extends State {
         this.bonusChoiceSquare2 = new Icon(new Texture(Gdx.files.internal(format + "/bonuses/none.png"))
                 , WIDTH * 1 / 16, HEIGHT / 2 - this.texture.getHeight() * 26 / 4);
         this.bonusChoiceSquare2.setTexture(this.settings.getBonus2().getBonustexture(this.settings.getBonus2().getBonusKey()));
+
 
 
         this.pause = new Icon(new Texture(Gdx.files.internal(format + "/pause.png"))
@@ -323,23 +323,54 @@ public class PlayModeAi extends State {
             this.yellowChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_yellow_selected.png")));
         }
 
-        if (this.bonusChoiceSquare1.contains(x, y)) {
-            this.setColorKey(this.settings.getBonus1().getColorKey());
-            this.setTexture(this.settings.getBonus1().getBonustexture(this.colorKey));
-            if(this.settings.getBonus1().getBonusKey() == 3){
-                mrPropreEffect();
+        if (this.bonusChoiceSquare1.contains(x, y) && !firstIsUsed) {
+
+            if(this.settings.getBonus1().getBonusKey() == 1){punisherEffect();}
+            if(this.settings.getBonus1().getBonusKey() == 2){
+                if(this.getSecondIsUsed()) {
+                    nurseEffect(0);
+                }
+                else{
+                    nurseEffect(1);
+                }
             }
+
+            if(this.settings.getBonus1().getBonusKey() == 3){mrPropreEffect();}
+
+            //after utilisation
+            this.bonusChoiceSquare1.setTexture(new Texture( Gdx.files.internal(format+"/bonuses/used.png")));
+            this.setFirstIsUsed(true);
         }
 
-        if (this.bonusChoiceSquare2.contains(x, y)) {
-            this.setColorKey(this.settings.getBonus2().getColorKey());
-            this.setTexture(this.settings.getBonus2().getBonustexture(this.colorKey));
-            if(this.settings.getBonus2().getBonusKey() == 3){
-                mrPropreEffect();
+        if (this.bonusChoiceSquare2.contains(x, y) && !secondIsUsed) {
+
+            if(this.settings.getBonus2().getBonusKey() == 1){punisherEffect();}
+            if(this.settings.getBonus2().getBonusKey() == 2){
+                if(this.getFirstIsUsed()) {
+                    nurseEffect(0);
+                }
+                else{
+                    nurseEffect(1);
+                }
             }
+
+            if(this.settings.getBonus2().getBonusKey() == 3){mrPropreEffect();}
+
+            this.bonusChoiceSquare2.setTexture(new Texture( Gdx.files.internal(format+"/bonuses/used.png")));
+            this.setSecondIsUsed(true);
         }
     }
 
+    //Bonus effects
+
+    public void punisherEffect(){
+        this.setColorKey(4);
+        this.setTexture(new Texture( Gdx.files.internal((format+"/bonuses/punisher.png"))));
+    }
+
+    public void nurseEffect(Integer bonusLeft){
+        this.getPlayer().setSquareLimiter(new SquareLimiter(this.getPlayer().getSquareLimiter().getRedLeft() + 3, this.getPlayer().getSquareLimiter().getBlueLeft() + 3, this.getPlayer().getSquareLimiter().getYellowLeft() + 3, bonusLeft));
+    }
 
     public void mrPropreEffect(){
         for (int columnKey = 0; columnKey<3; columnKey ++ ) {
@@ -543,6 +574,22 @@ public void movingAiSquare(float dt) {
 
     public void setPlayer(Player player) {
         this.player = player;
+    }
+
+    public Boolean getFirstIsUsed() {
+        return firstIsUsed;
+    }
+
+    public void setFirstIsUsed(Boolean firstIsUsed) {
+        this.firstIsUsed = firstIsUsed;
+    }
+
+    public Boolean getSecondIsUsed() {
+        return secondIsUsed;
+    }
+
+    public void setSecondIsUsed(Boolean secondIsUsed) {
+        this.secondIsUsed = secondIsUsed;
     }
 
     public void inc(int i) {

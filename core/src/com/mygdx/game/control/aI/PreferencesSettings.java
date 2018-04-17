@@ -66,7 +66,7 @@ public class PreferencesSettings {
         int bonusKey = this.bonus1.getBonusKey();
         if (bonusKey==0) {res="None";}
         if (bonusKey==1) {res="The Punisher";}
-        if (bonusKey==2) {res="The Multiplier";}
+        if (bonusKey==2) {res="The Nurse";}
         if (bonusKey==3) {res="Mr. Propre";}
         return res;
     }
@@ -76,7 +76,7 @@ public class PreferencesSettings {
         int bonusKey = this.bonus2.getBonusKey();
         if (bonusKey==0) {res="None";}
         if (bonusKey==1) {res="The Punisher";}
-        if (bonusKey==2) {res="The Multiplier";}
+        if (bonusKey==2) {res="The Nurse";}
         if (bonusKey==3) {res="Mr. Propre";}
         return res;
     }
@@ -86,7 +86,7 @@ public class PreferencesSettings {
         int bonusKey = this.bonus1.getBonusKey();
         if (bonusKey==0) {res="None";}
         if (bonusKey==1) {res="The Punisher : an invicible square !";}
-        if (bonusKey==2) {res="The Multiplier : You are allowed to have \n3 extra squares of each color";}
+        if (bonusKey==2) {res="The Nurse : it gives 3 extra squares of each color";}
         if (bonusKey==3) {res="Mr. Propre : All the existing squares \n on the field are destroyed";}
         return res;
     }
@@ -96,7 +96,7 @@ public class PreferencesSettings {
         int bonusKey = this.bonus2.getBonusKey();
         if (bonusKey==0) {res="None";}
         if (bonusKey==1) {res="The Punisher : an invicible square !";}
-        if (bonusKey==2) {res="The Multiplier : You are allowed to have \n3 extra squares of each color";}
+        if (bonusKey==2) {res="The Nurse : it gives 3 extra squares of each color";}
         if (bonusKey==3) {res="Mr. Propre : All the existing squares \n on the field are destroyed";}
         return res;
     }
