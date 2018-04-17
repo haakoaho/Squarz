@@ -37,13 +37,8 @@ public class BonusSelection extends State {
     protected BonusSelection(GameStateManager gsm, PreferencesSettings settings, CountDown countDown) {
         super(gsm);
 
-<<<<<<< HEAD
         this.bonusTitle = new GlyphLayout(Squarz.font, "CHOOSE YOUR BONUSES");
-        this.clean = new GlyphLayout(Squarz.font2, "CLEAN");
-=======
-        this.bonusTitle = new GlyphLayout(Squarz.font, "CHOOSE YOUR BONUS");
         this.clean = new GlyphLayout(Squarz.font2, "CLEAN ALL");
->>>>>>> Max
         this.selected = new GlyphLayout(Squarz.font2, "SELECT");
         this.countDown = countDown;
         this.settings = settings;

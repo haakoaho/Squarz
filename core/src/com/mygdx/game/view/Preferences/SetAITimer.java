@@ -24,7 +24,7 @@ public class SetAITimer extends State {
     private PreferencesSettings set;
     private CountDown countDown;
     private Icon add, delete, countDownIcon, back;
-    private GlyphLayout choose;
+    private GlyphLayout choose, timeTitle;
 
     public SetAITimer(GameStateManager gsm, PreferencesSettings setting, CountDown countDown){
         super(gsm);
@@ -35,6 +35,7 @@ public class SetAITimer extends State {
         this.countDown = countDown;
         this.back = new Icon(new Texture(Gdx.files.internal(format+"/back.png")),0,0);
 
+        this.timeTitle = new GlyphLayout(Squarz.font, "CHOOSE THE TIME");
         this.choose = new GlyphLayout(font2, this.countDown.getWorldTimer()+" seconds");
 
         add.setPosX(WIDTH/2-add.getTexture().getWidth()/2);
@@ -85,6 +86,7 @@ public class SetAITimer extends State {
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
+        Squarz.font.draw(sb, timeTitle, WIDTH/2 - timeTitle.width/2,HEIGHT-2*timeTitle.height);
         font2.draw(sb, this.choose, WIDTH/2 - this.choose.width/2, 8*HEIGHT/10 - this.choose.height/2);
         sb.draw(add.getTexture(), add.getPosX(), add.getPosY());
         sb.draw(delete.getTexture(),delete.getPosX(), delete.getPosY());

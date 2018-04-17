@@ -103,11 +103,7 @@ public class PlayModeAi extends State {
                 , WIDTH * 1 / 16, HEIGHT / 2 - this.texture.getHeight() * 26 / 4);
         this.bonusChoiceSquare2.setTexture(this.settings.getBonus2().getBonustexture(this.settings.getBonus2().getBonusKey()));
 
-
-
-        this.pause = new Icon(new Texture(Gdx.files.internal(format + "/pause.png"))
-            , WIDTH * 1 / 16, HEIGHT * 15 / 16 - this.texture.getHeight() / 2);
-
+        
         this.colorKey = 0;
 
     //Pause mode

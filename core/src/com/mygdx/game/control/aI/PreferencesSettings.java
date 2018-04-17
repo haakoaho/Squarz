@@ -85,15 +85,9 @@ public class PreferencesSettings {
         String res = "";
         int bonusKey = this.bonus1.getBonusKey();
         if (bonusKey==0) {res="None";}
-<<<<<<< HEAD
-        if (bonusKey==1) {res="The Punisher: an invicible square !";}
-        if (bonusKey==2) {res="The Multiplier: you are allowed to\nhave 3 extra squares of each color";}
-        if (bonusKey==3) {res="Mr. Propre: all the existing squares \n on the field are destroyed";}
-=======
-        if (bonusKey==1) {res="The Punisher : an invicible square !";}
-        if (bonusKey==2) {res="The Nurse : it gives 3 extra squares of each color";}
-        if (bonusKey==3) {res="Mr. Propre : All the existing squares \n on the field are destroyed";}
->>>>>>> Max
+        if (bonusKey==1) {res="The Punisher: an invincible square !";}
+        if (bonusKey==2) {res="The Nurse: it gives 3 extra\nsquares of each color";}
+        if (bonusKey==3) {res="Mr. Propre: all the existing squares\non the field are destroyed";}
         return res;
     }
 
@@ -101,15 +95,9 @@ public class PreferencesSettings {
         String res = "";
         int bonusKey = this.bonus2.getBonusKey();
         if (bonusKey==0) {res="None";}
-<<<<<<< HEAD
-        if (bonusKey==1) {res="The Punisher: an invicible square !";}
-        if (bonusKey==2) {res="The Multiplier: you are allowed to\nhave 3 extra squares of each color";}
-        if (bonusKey==3) {res="Mr. Propre: all the existing squares \n on the field are destroyed";}
-=======
-        if (bonusKey==1) {res="The Punisher : an invicible square !";}
-        if (bonusKey==2) {res="The Nurse : it gives 3 extra squares of each color";}
-        if (bonusKey==3) {res="Mr. Propre : All the existing squares \n on the field are destroyed";}
->>>>>>> Max
+        if (bonusKey==1) {res="The Punisher: an invincible square!";}
+        if (bonusKey==2) {res="The Nurse: it gives you 3 extra\nsquares of each color";}
+        if (bonusKey==3) {res="Mr. Propre: all the existing squares\non the field are destroyed";}
         return res;
     }
 

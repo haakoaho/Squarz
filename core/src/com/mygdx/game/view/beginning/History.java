@@ -34,10 +34,10 @@ public class History extends State {
         this.part1 = new GlyphLayout(font3, "Squarz has two modes: AI or Multiplayer.");
         this.part2 = new GlyphLayout(font3, "The aim of Squarz is the same in each mode:");
         this.part3 = new GlyphLayout(font3, "Score a maximum of goal!");
-        this.part4 = new GlyphLayout(font3, "To do that, you can launch 3 kind of squares:");
+        this.part4 = new GlyphLayout(font3, "To do that, you can launch 3 kinds of squares:");
         this.part5 = new GlyphLayout(font3, "Red, Blue or Yellow");
         this.part6 = new GlyphLayout(font3, "Your opponent will do the same, care!");
-        this.part6b = new GlyphLayout(font3, "Luckly, you can destroy its squares: Play smart!");
+        this.part6b = new GlyphLayout(font3, "Luckily, you can destroy its squares: Play smart!");
         this.part7 = new GlyphLayout(font3, "If one of your square spends the goal line, you score!");
         this.part8 = new GlyphLayout(font3, "Very important, the strength of each color:");
         this.part9 = new GlyphLayout(font, "<");
