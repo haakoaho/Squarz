@@ -42,7 +42,7 @@ public class AIPreferences extends State {
 
         AILevel = new GlyphLayout(font2, this.setting.getStringLevel());
         Timer = new GlyphLayout(font2, this.countDown.getWorldTimer()+" seconds");
-        Bonuses = new GlyphLayout(font2, "None");
+        Bonuses = new GlyphLayout(font2, "None \n\nNone");
 
         setAILevel.setPosX(WIDTH/4-setAILevel.getTexture().getWidth()/2);
         setAILevel.setPosY(HEIGHT*4/5-setAILevel.getTexture().getHeight()/2);
@@ -75,7 +75,7 @@ public class AIPreferences extends State {
 
         AILevel = new GlyphLayout(font2, this.setting.getStringLevel());
         Timer = new GlyphLayout(font2, this.countDown.getWorldTimer()+" seconds");
-        Bonuses = new GlyphLayout(font2, this.setting.getStringBonus());
+        Bonuses = new GlyphLayout(font2, this.setting.getStringBonus1() + "\n\n" + this.setting.getStringBonus2());
 
         setAILevel.setPosX(WIDTH/4-setAILevel.getTexture().getWidth()/2);
         setAILevel.setPosY(HEIGHT*4/5-setAILevel.getTexture().getHeight()/2);
@@ -131,7 +131,7 @@ public class AIPreferences extends State {
         font2.draw(sb,this.Timer, 3*WIDTH/4 - this.Timer.width/2, setTimer.getPosY() + setTimer.getTexture().getHeight()/2 - this.Timer.height/2);
         sb.draw(setBonuses.getTexture(),setBonuses.getPosX() ,setBonuses.getPosY() );
         font3.draw(sb,this.setBonuses.getLegend(), setBonuses.getPosX() + setBonuses.getTexture().getWidth()/2 - this.setBonuses.getLegend().width/2, setBonuses.getPosY() - 2*this.setBonuses.getLegend().height);
-        font2.draw(sb,this.Bonuses, 3*WIDTH/4 - this.Bonuses.width/2, setBonuses.getPosY() + setBonuses.getTexture().getHeight()/2 - this.Bonuses.height/2);
+        font2.draw(sb,this.Bonuses, 3*WIDTH/4 - this.Bonuses.width/2, setBonuses.getPosY() + setBonuses.getTexture().getHeight()/2 + this.Bonuses.height/2 - this.setBonuses.getLegend().height/2);
         sb.draw(play.getTexture(),play.getPosX(),play.getPosY());
         sb.draw(back.getTexture(), back.getPosX(), back.getPosX());
         sb.end();

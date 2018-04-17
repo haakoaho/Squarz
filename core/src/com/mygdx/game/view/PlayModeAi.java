@@ -20,6 +20,9 @@ import com.mygdx.game.model.Square;
 import com.mygdx.game.model.State;
 
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
 import static com.mygdx.game.Squarz.format;
@@ -48,7 +51,7 @@ public class PlayModeAi extends State {
 
     private Collision collision;
 
-    private Icon redChoiceSquare, blueChoiceSquare, yellowChoiceSquare, pause, bonusChoiceSquare;
+    private Icon redChoiceSquare, blueChoiceSquare, yellowChoiceSquare, pause, bonusChoiceSquare1, bonusChoiceSquare2;
     private Texture texture;
     private Integer colorKey;
 
@@ -61,7 +64,6 @@ public class PlayModeAi extends State {
     private PauseScreen pauseScreen;
     private Integer temporarySpeed;
     private float exTime;
-    private Integer bonusKey;
 
     public PlayModeAi(GameStateManager gsm, PreferencesSettings settings, CountDown countDown) {
 
@@ -77,18 +79,12 @@ public class PlayModeAi extends State {
         this.score = new Score();
         this.shapeRenderer = new ShapeRenderer();
 
-        //choiceSquare = new Square(settings);
-        //choiceSquare.setPosition(new Vector2(WIDTH/16, HEIGHT/5));
-
         this.redLeft = new GlyphLayout(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getRedLeft()));
         this.yellowLeft = new GlyphLayout(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getYellowLeft()));
         this.blueLeft = new GlyphLayout(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getBlueLeft()));
         this.scoreAi = new GlyphLayout(Squarz.font, String.valueOf(score.getOpponentScore()));
         this.scoreUser = new GlyphLayout(Squarz.font, String.valueOf(score.getUserScore()));
         this.time = new GlyphLayout(Squarz.font, String.valueOf(this.countDown.getWorldTimer()));
-
-        this.bonusKey = 0;
-        this.setBonusKey(this.settings.getBonuses().getBonusKey());
 
         this.texture = new Texture(Gdx.files.internal(format + "/square/square_red.png"));
 
@@ -99,9 +95,13 @@ public class PlayModeAi extends State {
         this.yellowChoiceSquare = new Icon(new Texture(Gdx.files.internal(format + "/square/square_yellow.png"))
             , WIDTH * 1 / 16, HEIGHT / 2 - this.texture.getHeight() * 4);
 
-        this.bonusChoiceSquare = new Icon(new Texture(Gdx.files.internal(format + "/bonuses/none.png"))
+        this.bonusChoiceSquare1 = new Icon(new Texture(Gdx.files.internal(format + "/bonuses/none.png"))
                 , WIDTH * 1 / 16, HEIGHT / 2 - this.texture.getHeight() * 21 / 4);
-        this.bonusChoiceSquare.setTexture(this.settings.getBonuses().getBonustexture(this.settings.getBonuses().getBonusKey()));
+        this.bonusChoiceSquare1.setTexture(this.settings.getBonus1().getBonustexture(this.settings.getBonus1().getBonusKey()));
+
+        this.bonusChoiceSquare2 = new Icon(new Texture(Gdx.files.internal(format + "/bonuses/none.png"))
+                , WIDTH * 1 / 16, HEIGHT / 2 - this.texture.getHeight() * 26 / 4);
+        this.bonusChoiceSquare2.setTexture(this.settings.getBonus2().getBonustexture(this.settings.getBonus2().getBonusKey()));
 
 
         this.pause = new Icon(new Texture(Gdx.files.internal(format + "/pause.png"))
@@ -195,25 +195,11 @@ public class PlayModeAi extends State {
     }
 
     public boolean isAllowedToPlay(float exTime){
-        boolean allowed = false;
+        boolean allowed;
         float timeRef = countDown.getWorldTimer()-countDown.getTimeCount();
         allowed = exTime - timeRef > 0.5;
         if(allowed){this.exTime = timeRef;}
         return  allowed;
-    }
-
-    private Integer getColumnKey(){
-        if (Gdx.input.getX() > WIDTH / 4 && Gdx.input.getX() < WIDTH / 2) {
-           return 0;
-        }
-        if (Gdx.input.getX() > WIDTH / 2 && Gdx.input.getX() < WIDTH * 3 / 4) {
-           return 1;
-        }
-        if (Gdx.input.getX() > WIDTH * 3 / 4) {
-          return 2;
-
-        }
-        return 3; // User didn't click on a row
     }
 
     @Override
@@ -262,7 +248,8 @@ public class PlayModeAi extends State {
             sb.draw(redChoiceSquare.getTexture(), redChoiceSquare.getPosX(), redChoiceSquare.getPosY());
             sb.draw(blueChoiceSquare.getTexture(), blueChoiceSquare.getPosX(), blueChoiceSquare.getPosY());
             sb.draw(yellowChoiceSquare.getTexture(), yellowChoiceSquare.getPosX(), yellowChoiceSquare.getPosY());
-            sb.draw(bonusChoiceSquare.getTexture(), bonusChoiceSquare.getPosX(), bonusChoiceSquare.getPosY());
+            sb.draw(bonusChoiceSquare1.getTexture(), bonusChoiceSquare1.getPosX(), bonusChoiceSquare1.getPosY());
+            sb.draw(bonusChoiceSquare2.getTexture(), bonusChoiceSquare2.getPosX(), bonusChoiceSquare2.getPosY());
             sb.draw(pause.getTexture(), pause.getPosX(), pause.getPosY());
 
             drawingSquares(sb, player);
@@ -319,7 +306,10 @@ public class PlayModeAi extends State {
             this.redChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_red.png")));
             this.blueChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_blue_selected.png")));
             this.yellowChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_yellow.png")));
+<<<<<<< HEAD
 
+=======
+>>>>>>> Max
         }
 
         if (this.yellowChoiceSquare.contains(x, y)) {
@@ -328,12 +318,33 @@ public class PlayModeAi extends State {
             this.redChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_red.png")));
             this.blueChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_blue.png")));
             this.yellowChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_yellow_selected.png")));
+<<<<<<< HEAD
+=======
         }
 
-        if (this.bonusChoiceSquare.contains(x, y)) {
-            this.setColorKey(this.settings.getBonuses().getColorKey());
-            this.setTexture(this.settings.getBonuses().getBonustexture(this.colorKey));
-            this.bonusChoiceSquare.setTexture(texture);
+        if (this.bonusChoiceSquare1.contains(x, y)) {
+            this.setColorKey(this.settings.getBonus1().getColorKey());
+            this.setTexture(this.settings.getBonus1().getBonustexture(this.colorKey));
+            if(this.settings.getBonus1().getBonusKey() == 3){
+                mrPropreEffect();
+            }
+>>>>>>> Max
+        }
+
+        if (this.bonusChoiceSquare2.contains(x, y)) {
+            this.setColorKey(this.settings.getBonus2().getColorKey());
+            this.setTexture(this.settings.getBonus2().getBonustexture(this.colorKey));
+            if(this.settings.getBonus2().getBonusKey() == 3){
+                mrPropreEffect();
+            }
+        }
+    }
+
+
+    public void mrPropreEffect(){
+        for (int columnKey = 0; columnKey<3; columnKey ++ ) {
+            this.getPlayer().setFirstSquareKey(columnKey, this.getPlayer().getCounter(columnKey));
+            this.getAi().setFirstSquareKey(columnKey, this.getAi().getCounter(columnKey));
         }
     }
 
@@ -532,14 +543,6 @@ public void movingAiSquare(float dt) {
 
     public void setPlayer(Player player) {
         this.player = player;
-    }
-
-    public Integer getBonusKey() {
-        return bonusKey;
-    }
-
-    public void setBonusKey(Integer bonusKey) {
-        this.bonusKey = bonusKey;
     }
 
     public void inc(int i) {

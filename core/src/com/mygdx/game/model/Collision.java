@@ -85,8 +85,8 @@ public class Collision {
         }
     }
 
-    public void handleWithKillerBonus(Player p, Player c, Integer columnKey){
-        // if computer killer
+    public void handleWithPunisherBonus(Player p, Player c, Integer columnKey){
+        // if computer punisher
         if (c.getMap(columnKey).get(c.getFirstSquareKey(columnKey)).getColorKey() == 4) {
             p.decrement(p.getFirstSquareKey(columnKey), columnKey);
             c.decrement(c.getFirstSquareKey(columnKey), columnKey);
@@ -99,30 +99,30 @@ public class Collision {
 
     public void collision(Player player, AIPlayer opponent) {
 
-        for (int rowKey = 0; rowKey < 3; rowKey++) {
-            if (!player.getMap(rowKey).isEmpty() && !opponent.getMap(rowKey).isEmpty()) {
+        for (int columnKey = 0; columnKey < 3; columnKey++) {
+            if (!player.getMap(columnKey).isEmpty() && !opponent.getMap(columnKey).isEmpty()) {
                 //if square goes outside
-                deleteOncePlayerOut(player, rowKey);
-                deleteOnceOpponentOut(opponent, rowKey);
+                deleteOncePlayerOut(player, columnKey);
+                deleteOnceOpponentOut(opponent, columnKey);
 
 
                 // if a square is in game (avoid null pointer exception) and overlaps
-                if (isCollisionPossible(player, opponent, rowKey) && isOverlapping(player, opponent, rowKey)) {
+                if (isCollisionPossible(player, opponent, columnKey) && isOverlapping(player, opponent, columnKey)) {
                     //if player red
-                    if (player.getMap(rowKey).get(player.getFirstSquareKey(rowKey)).getColorKey() == 0) {
-                        handleWhenPlayerRed(player, opponent, rowKey);
+                    if (player.getMap(columnKey).get(player.getFirstSquareKey(columnKey)).getColorKey() == 0) {
+                        handleWhenPlayerRed(player, opponent, columnKey);
                         //si player est bleu
-                    } else if (player.getMap(rowKey).get(player.getFirstSquareKey(rowKey)).getColorKey() == 1) {
-                        handleWhenPlayerBlue(player, opponent, rowKey);
+                    } else if (player.getMap(columnKey).get(player.getFirstSquareKey(columnKey)).getColorKey() == 1) {
+                        handleWhenPlayerBlue(player, opponent, columnKey);
                         //si player est jaune
-                    } else if (player.getMap(rowKey).get(player.getFirstSquareKey(rowKey)).getColorKey() == 2) {
-                        handleWhenPlayerYellow(player, opponent, rowKey);
-                        //si player uses the killer bonus
-                    } else if (player.getMap(rowKey).get(player.getFirstSquareKey(rowKey)).getColorKey() == 4) {
-                        handleWithKillerBonus(player, opponent, rowKey);
+                    } else if (player.getMap(columnKey).get(player.getFirstSquareKey(columnKey)).getColorKey() == 2) {
+                        handleWhenPlayerYellow(player, opponent, columnKey);
+                        //si player uses the punisher bonus
+                    } else if (player.getMap(columnKey).get(player.getFirstSquareKey(columnKey)).getColorKey() == 4) {
+                        handleWithPunisherBonus(player, opponent, columnKey);
+                        //si player uses the Mr.Propre bonus
                     }
                 }
-
             }
         }
     }
