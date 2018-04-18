@@ -19,6 +19,7 @@ import com.mygdx.game.model.Icon;
 import com.mygdx.game.model.Player;
 import com.mygdx.game.model.Score;
 import com.mygdx.game.model.Square;
+import com.mygdx.game.model.SquareLimiter;
 import com.mygdx.game.model.State;
 
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public class PlayModeMulti extends State {
 
     private ShapeRenderer shapeRenderer;
 
-    private PreferencesSettings set;
+    private PreferencesSettings settings;
     private CountDown countDown;
 
     private AIPlayer opponent;
@@ -48,7 +49,7 @@ public class PlayModeMulti extends State {
 
     private Square choiceSquare;
 
-    private Icon redChoiceSquare, blueChoiceSquare, yellowChoiceSquare, mute;
+    private Icon redChoiceSquare, blueChoiceSquare, yellowChoiceSquare, mute, bonusChoiceSquare1, bonusChoiceSquare2;
     private Texture texture;
     private Integer colorKey;
     private Integer columnKey;
@@ -56,17 +57,19 @@ public class PlayModeMulti extends State {
     private Score score;
 
     private float exTime;
+    private Boolean firstIsUsed = false;
+    private Boolean secondIsUsed = false;
 
-    public PlayModeMulti(GameStateManager gsm) {
+    public PlayModeMulti(GameStateManager gsm, PreferencesSettings settings, CountDown countDown) {
 
         super(gsm);
-        this.set = new PreferencesSettings();
-        this.countDown = new CountDown(60);
-        player = new Player(set, countDown);
-        opponent = new AIPlayer(set, countDown);
+        this.settings = settings;
+        this.countDown = countDown;
+        player = new Player(settings, countDown);
+        opponent = new AIPlayer(settings, countDown);
 
 
-        choiceSquare = new Square(set);
+        choiceSquare = new Square(settings);
         choiceSquare.setPosition(new Vector2(WIDTH * 1 / 16, HEIGHT * 1 / 5));
 
         if (valueVolume == 0) {
@@ -81,7 +84,7 @@ public class PlayModeMulti extends State {
         this.colorKey = 0;
         score = new Score();
         countDown = new CountDown(60);
-        collision = new Collision();
+        collision = new Collision(score);
 
         //all the texture
         this.shapeRenderer = new ShapeRenderer();
@@ -102,6 +105,14 @@ public class PlayModeMulti extends State {
         this.scoreOpponent = new GlyphLayout(Squarz.font, String.valueOf(score.getOpponentScore()));
         this.scoreUser = new GlyphLayout(Squarz.font, String.valueOf(score.getUserScore()));
         this.time = new GlyphLayout(Squarz.font, String.valueOf(this.countDown.getWorldTimer()));
+
+        this.bonusChoiceSquare1 = new Icon(new Texture(Gdx.files.internal(format + "/bonuses/none.png"))
+                , WIDTH * 1 / 16, HEIGHT / 2 - this.texture.getHeight() * 21 / 4);
+        this.bonusChoiceSquare1.setTexture(this.settings.getBonus1().getBonustexture(this.settings.getBonus1().getBonusKey()));
+
+        this.bonusChoiceSquare2 = new Icon(new Texture(Gdx.files.internal(format + "/bonuses/none.png"))
+                , WIDTH * 1 / 16, HEIGHT / 2 - this.texture.getHeight() * 26 / 4);
+        this.bonusChoiceSquare2.setTexture(this.settings.getBonus2().getBonustexture(this.settings.getBonus2().getBonusKey()));
 
         this.mute.setPosX(redChoiceSquare.getPosX() + redChoiceSquare.getTexture().getWidth() / 2 - this.mute.getTexture().getWidth() / 2);
         this.mute.setPosY(HEIGHT * 29 / 32 - this.mute.getTexture().getHeight() / 2);
@@ -125,6 +136,7 @@ public class PlayModeMulti extends State {
 
             //Colour choice button
             chosingTheColour(x, y);
+            choosingTheBonuses(x, y);
 
             if (mute.contains(x, y)) {
                 if (varMute) {
@@ -160,7 +172,7 @@ public class PlayModeMulti extends State {
         this.countDown.update(dt);
         if (this.countDown.isTimeUp()) {
             music.stop();
-            gsm.set(new EndModeAI(gsm, set, score, countDown));
+            gsm.set(new EndModeAI(gsm, settings, score, countDown));
             // leaveRoom();
         }
 
@@ -184,6 +196,9 @@ public class PlayModeMulti extends State {
         drawScore(sb);
         drawCounter(sb);
 
+        sb.draw(bonusChoiceSquare1.getTexture(), bonusChoiceSquare1.getPosX(), bonusChoiceSquare1.getPosY());
+        sb.draw(bonusChoiceSquare2.getTexture(), bonusChoiceSquare2.getPosX(), bonusChoiceSquare2.getPosY());
+
         sb.draw(mute.getTexture(), mute.getPosX(), mute.getPosY());
 
 
@@ -202,10 +217,12 @@ public class PlayModeMulti extends State {
     }
 
 
+
+    //to avoid people sending too many squares
     public boolean isAllowedToPlay(float exTime){
         boolean allowed = false;
         float timeRef = countDown.getWorldTimer()-countDown.getTimeCount();
-        allowed = exTime - timeRef > 0.5;
+        allowed = exTime - timeRef > 0.45;
         if(allowed){this.exTime = timeRef;}
         return  allowed;
     }
@@ -236,85 +253,96 @@ public class PlayModeMulti extends State {
         }
     }
 
+    /**
+     * choosingTheBonus sends the information of clearance in the same time. (M propre effect)
+     */
+    public void choosingTheBonuses(int x, int y){
+        if (this.bonusChoiceSquare1.contains(x, y) && !firstIsUsed) {
+
+            this.settings.getBonus1().update(this.getPlayer(), this.getAi());
+            if(this.settings.getBonus1().getBonusKey() == 1){
+                this.settings.getBonus1().punisherEffect();
+                this.colorKey = this.settings.getBonus1().getColorKey();
+                this.setTexture(new Texture(Gdx.files.internal(format+"/bonuses/punisher.png")));}
+            if(this.settings.getBonus1().getBonusKey() == 2){this.settings.getBonus1().nurseEffectPlayer();}
+            if(this.settings.getBonus1().getBonusKey() == 3){
+                this.settings.getBonus1().mrPropreEffect();
+                send(new Byte("25"));
+            }
+
+            //after utilisation
+            this.bonusChoiceSquare1.setTexture(new Texture( Gdx.files.internal(format+"/bonuses/used.png")));
+            this.setFirstIsUsed(true);
+        }
+
+        if (this.bonusChoiceSquare2.contains(x, y) && !secondIsUsed) {
+
+            this.settings.getBonus2().update(this.getPlayer(), this.getAi());
+            if(this.settings.getBonus2().getBonusKey() == 1){this.settings.getBonus2().punisherEffect();this.setTexture(new Texture(Gdx.files.internal(format+"/bonuses/punisheer..png")));}
+            if(this.settings.getBonus2().getBonusKey() == 2){this.settings.getBonus2().nurseEffectPlayer();}
+            if(this.settings.getBonus2().getBonusKey() == 3){
+                this.settings.getBonus2().mrPropreEffect();
+            send(new Byte("25"));}
+
+            this.bonusChoiceSquare2.setTexture(new Texture( Gdx.files.internal(format+"/bonuses/used.png")));
+            this.setSecondIsUsed(true);
+        }
+    }
+
     public void creatingAndSendingANewSquare(int x) {
+        if(this.getColumn(x) != -1) {
+            player.increment(texture, this.getColumn(x), colorKey);
+        }
+        //punisher bonus:
+        if(colorKey == 4){
+            send(encryption(this.getColumn(x), 15)); //15*2 15*2+5 = 35   15*2 +5*2 = 40
+        }
+        else {
+            send(encryption(this.getColumn(x), colorKey));
+        }
+    }
+
+    public Integer getColumn(int x){
+        int tempColKey = -1;
         if (x > WIDTH / 4 && x < WIDTH / 2) {
-            player.increment(texture, 0, colorKey);
-            send(encryption(0, colorKey));
+            tempColKey = 0;
         }
         if (x > WIDTH / 2 && x < WIDTH * 3 / 4) {
-            player.increment(texture, 1, colorKey);
-            send(encryption(1, colorKey));
+            tempColKey = 1;
         }
         if (x > WIDTH * 3 / 4) {
-            player.increment(texture, 2, colorKey);
-            send(encryption(2, colorKey));
+            tempColKey = 2;
         }
+        return tempColKey;
     }
+
 
     public void movingPlayerSquare(float dt) {
-        if (!player.getLeft().isEmpty()) {
-            for (int i = player.getFirstLeftSquaresKey(); i < player.getLeftCounter(); i++) {
-                player.getLeft().get(i).move(dt);
-                //dealing with the score
-                if (player.getLeft().get(i).getPosition().y >= HEIGHT && player.getLeft().get(i).getPosition().y < HEIGHT + this.set.getStepX()*dt) {
-                    sound.play(Squarz.valueVolume * 0.15f);
-                    Gdx.input.vibrate(Squarz.valueVibration * 50);
-                    this.score.updateUser();
-                }
-            }
-        }
-        if (!player.getMiddle().isEmpty()) {
-            for (int i = player.getFirstMiddleSquaresKey(); i < player.getMiddleCounter(); i++) {
-                player.getMiddle().get(i).move(dt);
-                if (player.getMiddle().get(i).getPosition().y >= HEIGHT && player.getMiddle().get(i).getPosition().y < HEIGHT + this.set.getStepX()*dt) {
-                    sound.play(Squarz.valueVolume * 0.15f);
-                    Gdx.input.vibrate(Squarz.valueVibration * 50);
-                    this.score.updateUser();
-                }
-            }
-        }
-        if (!player.getRight().isEmpty()) {
-            for (int i = player.getFirstRightSquaresKey(); i < player.getRightCounter(); i++) {
-                player.getRight().get(i).move(dt);
-                if (player.getRight().get(i).getPosition().y >= HEIGHT && player.getRight().get(i).getPosition().y < HEIGHT + this.set.getStepX()*dt) {
-                    sound.play(Squarz.valueVolume * 0.15f);
-                    Gdx.input.vibrate(Squarz.valueVibration * 50);
-                    this.score.updateUser();
+        for(Integer columnKey=0; columnKey<3; columnKey++) {
+            if (!player.getMap(columnKey).isEmpty()) {
+                for (int i = player.getFirstSquareKey(columnKey); i < player.getCounter(columnKey); i++) {
+                    player.getMap(columnKey).get(i).move(dt);
+
+                    //dealing with the score
+                    if (player.getMap(columnKey).get(player.getFirstSquareKey(columnKey)).getPosition().y >= HEIGHT
+                            && player.getMap(columnKey).get(player.getFirstSquareKey(columnKey)).getPosition().y < HEIGHT + this.settings.getStepX()*dt) {
+                        sound.play(Squarz.valueVolume * 0.15f);
+                        Gdx.input.vibrate(Squarz.valueVibration * 50);
+                    }
                 }
             }
         }
     }
-
     public void movingOpponentSquare(float dt) {
-        if (!opponent.getLeft().isEmpty()) {
-            for (int i = opponent.getFirstLeftSquaresKey(); i < opponent.getLeftCounter(); i++) {
-                opponent.getLeft().get(i).reverseMove(dt);
-                //dealing with the score
-                if (opponent.getLeft().get(i).getPosition().y <= 0 && opponent.getLeft().get(i).getPosition().y > -this.set.getStepX()*dt) {
-                    sound.play(Squarz.valueVolume * 0.15f);
-                    Gdx.input.vibrate(Squarz.valueVibration * 50);
-                    this.score.updateAi();
-                }
-            }
-        }
-        if (!opponent.getMiddle().isEmpty()) {
-            for (int i = opponent.getFirstMiddleSquaresKey(); i < opponent.getMiddleCounter(); i++) {
-                opponent.getMiddle().get(i).reverseMove(dt);
-                //dealing with the score
-                if (opponent.getMiddle().get(i).getPosition().y <= 0 && opponent.getMiddle().get(i).getPosition().y > -this.set.getStepX()*dt) {
-                    sound.play(Squarz.valueVolume * 0.15f);
-                    Gdx.input.vibrate(Squarz.valueVibration * 50);
-                    this.score.updateAi();
-                }
-            }
-        }
-        if (!opponent.getRight().isEmpty()) {
-            for (int i = opponent.getFirstRightSquaresKey(); i < opponent.getRightCounter(); i++) {
-                opponent.getRight().get(i).reverseMove(dt);
-                if (opponent.getRight().get(i).getPosition().y <= 0 && opponent.getRight().get(i).getPosition().y > -this.set.getStepX()*dt) {
-                    sound.play(Squarz.valueVolume * 0.15f);
-                    Gdx.input.vibrate(Squarz.valueVibration * 50);
-                    this.score.updateAi();
+        for(int columnKey=0; columnKey<3; columnKey++){
+            if (!opponent.getMap(columnKey).isEmpty()) {
+                for (int i = opponent.getFirstSquareKey(columnKey); i < opponent.getCounter(columnKey); i++) {
+                    opponent.getMap(columnKey).get(i).reverseMove(dt);
+                    //dealing with the score
+                    if (opponent.getMap(columnKey).get(i).getPosition().y <= 0 && opponent.getMap(columnKey).get(i).getPosition().y > -this.settings.getStepX()*dt) {
+                        sound.play(Squarz.valueVolume * 0.15f);
+                        Gdx.input.vibrate(Squarz.valueVibration * 50);
+                    }
                 }
             }
         }
@@ -370,10 +398,10 @@ public class PlayModeMulti extends State {
         sb.draw(yellowChoiceSquare.getTexture(), yellowChoiceSquare.getPosX(), yellowChoiceSquare.getPosY());
     }
 
-    //---------------------------------- sending ------------------------------------
+    //---------------------------------- sending and receiving ------------------------------------
 
     public Byte encryption(int columnKey, int colorKey){
-        int number =  columnKey*5 + colorKey * 2;
+        int number = columnKey * 5 + colorKey * 2;
         System.out.println(number);
         return new Byte(""+number);
     }
@@ -382,29 +410,17 @@ public class PlayModeMulti extends State {
         gsm.getMultiplayerInterface().sendIncrement(b);
     }
 
-    //---------------------------------- detection ----------------------------------
-
-   /* public void handleReceivedMessage() {
-        Queue<Byte> moves = receive();
-<<<<<<< HEAD
-        if(moves != null && opponentMoves != null && moves.size()>opponentMoves.size()){
-            opponentMoves.add(moves.remove());
-            detected = true;
-=======
-        for (int i = 0; i < moves.size(); i++) {
-            Byte b = moves.remove();
->>>>>>> Lucas-le-BG-du-27
-        }
-    }*/
-
-    /**
-     * called when a new message has been detected.
-     */
     public void decryptMessage(Queue<Byte> lastMove) {
         Byte b = lastMove.peek();
         ArrayList<Integer> list = getInformation(b);
         if(list.size()>0) {
-            opponent.incrementOpponent(getTexture(list.get(1)), list.get(0), list.get(1));
+            //if clear all bonus is received:
+            if(list.get(1) == 25){
+                this.settings.getBonus2().mrPropreEffect();
+            }
+            else {
+                opponent.incrementOpponent(getTexture(list.get(1)), list.get(0), list.get(1));
+            }
         }
 
     }
@@ -412,6 +428,21 @@ public class PlayModeMulti extends State {
     public ArrayList<Integer> getInformation(Byte b) {
         ArrayList<Integer> information = new ArrayList<Integer>();
 
+        //handle with punisher:
+        if(b.floatValue() == 30){
+            information.set(0, 0);
+            information.set(1, 4);
+        }
+        if(b.floatValue() == 35){
+            information.set(0, 1);
+            information.set(1, 4);
+        }
+        if(b.floatValue() == 40){
+            information.set(0, 2);
+            information.set(1, 4);
+        }
+
+        //otherwise:
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if (i * 5 + j * 2 == b.floatValue()) {
@@ -511,11 +542,11 @@ public class PlayModeMulti extends State {
     }
 
     public PreferencesSettings getSettings() {
-        return set;
+        return settings;
     }
 
     public void setSettings(PreferencesSettings settings) {
-        this.set = settings;
+        this.settings = settings;
     }
 
     public Icon getRedChoiceSquare() {
@@ -532,5 +563,21 @@ public class PlayModeMulti extends State {
 
     public void setAi(AIPlayer opponent) {
         this.opponent = opponent;
+    }
+
+    public Boolean getFirstIsUsed() {
+        return firstIsUsed;
+    }
+
+    public void setFirstIsUsed(Boolean firstIsUsed) {
+        this.firstIsUsed = firstIsUsed;
+    }
+
+    public Boolean getSecondIsUsed() {
+        return secondIsUsed;
+    }
+
+    public void setSecondIsUsed(Boolean secondIsUsed) {
+        this.secondIsUsed = secondIsUsed;
     }
 }

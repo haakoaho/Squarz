@@ -18,26 +18,23 @@ import static com.mygdx.game.Squarz.font3;
 import static com.mygdx.game.Squarz.format;
 import static com.mygdx.game.Squarz.valueVolume;
 
-/**
- * Created by Olivier on 06/03/2018.
- */
 
-public class History extends State {
+public class Tutorial extends State {
     Icon back;
     private GlyphLayout title, part1, part2, part3, part4, part5, part6, part6b, part7, part8, part9, part10, part11;
     private Texture sRed, sBlue, sYellow;
 
-    public History(GameStateManager gsm) {
+    public Tutorial(GameStateManager gsm) {
         super(gsm);
 
         this.title = new GlyphLayout(Squarz.font, "Squarz Tutorial");
         this.part1 = new GlyphLayout(font3, "Squarz has two modes: AI or Multiplayer.");
         this.part2 = new GlyphLayout(font3, "The aim of Squarz is the same in each mode:");
         this.part3 = new GlyphLayout(font3, "Score a maximum of goal!");
-        this.part4 = new GlyphLayout(font3, "To do that, you can launch 3 kind of squares:");
+        this.part4 = new GlyphLayout(font3, "To do that, you can launch 3 kinds of squares:");
         this.part5 = new GlyphLayout(font3, "Red, Blue or Yellow");
         this.part6 = new GlyphLayout(font3, "Your opponent will do the same, care!");
-        this.part6b = new GlyphLayout(font3, "Luckly, you can destroy its squares: Play smart!");
+        this.part6b = new GlyphLayout(font3, "Luckily, you can destroy its squares: Play smart!");
         this.part7 = new GlyphLayout(font3, "If one of your square spends the goal line, you score!");
         this.part8 = new GlyphLayout(font3, "Very important, the strength of each color:");
         this.part9 = new GlyphLayout(font, "<");
@@ -93,7 +90,6 @@ public class History extends State {
         sb.draw(sRed, WIDTH/2 + 3*this.sRed.getWidth() - this.sRed.getWidth()/2,11*HEIGHT/20 - this.sRed.getHeight()/2 - 3*this.part9.height);
         Squarz.font3.draw(sb, this.part10, WIDTH/2 - this.part10.width/2, HEIGHT/3);
         Squarz.font2.draw(sb, this.part11, WIDTH/2 - this.part11.width/2, HEIGHT/3 - 3*this.part11.height);
-
 
         sb.end();
     }

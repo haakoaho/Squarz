@@ -3,6 +3,9 @@ package com.mygdx.game.model;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static com.mygdx.game.Squarz.format;
 
 /**
@@ -80,8 +83,14 @@ public class Bonus {
     public void mrPropreEffect(){
         System.out.println("mrpropre");
         for (int columnKey = 0; columnKey<3; columnKey ++ ) {
-            this.getPlayer().setFirstSquareKey(columnKey, this.getPlayer().getCounter(columnKey));
-            this.getOpponent().setFirstSquareKey(columnKey, this.getOpponent().getCounter(columnKey));
+            //this.getPlayer().setFirstSquareKey(columnKey, this.getPlayer().getCounter(columnKey));
+            //this.getOpponent().setFirstSquareKey(columnKey, this.getOpponent().getCounter(columnKey));
+            this.getPlayer().getMap(columnKey).clear();
+            this.getPlayer().setCounter(columnKey, 0);
+            this.getPlayer().setFirstSquareKey(columnKey, 0);
+            this.getOpponent().getMap(columnKey).clear();
+            this.getOpponent().setCounter(columnKey, 0);
+            this.getOpponent().setFirstSquareKey(columnKey, 0);
         }
     }
 

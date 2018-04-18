@@ -44,15 +44,15 @@ public class Menu extends State {
             int x = Gdx.input.getX();
             int y = HEIGHT - Gdx.input.getY();
             if (play.contains(x,y)) {
-                gsm.set(new Pref(gsm));
+                gsm.set(new Pref(gsm)); // to go to the screen where you can select the mode you want
                 dispose();
             }
             if(settings.contains(x,y)){
-                gsm.set(new com.mygdx.game.view.beginning.Settings(gsm));
+                gsm.set(new Settings(gsm)); // to go the screen where you can choose the level of sound and vibrations
                 dispose();
             }
             if(history.contains(x,y)){
-                gsm.set(new History(gsm));
+                gsm.set(new Tutorial(gsm)); // to go to the tutorial
                 dispose();
             }
         }
@@ -79,8 +79,5 @@ public class Menu extends State {
 
     @Override
     public void dispose() {
-        play.getTexture().dispose();
-        settings.getTexture().dispose();
-        history.getTexture().dispose();
     }
 }

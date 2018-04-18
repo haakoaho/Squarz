@@ -48,9 +48,9 @@ public class Player {
     }
 
 
-    public void increment(Texture t, Integer columnKey, Integer colorkey) {
+    public void increment(Texture t, Integer columnKey, Integer colorKey) {
         //in the case of the bonus none and nurse and Mr.Propre, they don't have to be drawn like an usual square
-        //if (colorkey != 3 && colorkey != 5 && colorkey != 6) {
+        //if (colorKey != 3 && colorKey != 5 && colorKey != 6) {
             //local variables
             Integer counter = getCounter(columnKey);
             Map<Integer, Square> column = getMap(columnKey);
@@ -58,12 +58,12 @@ public class Player {
             //back end info
             column.put(counter, new Square(set));
             incrementCounter(columnKey);
-            squareLimiter.minusOne(colorkey);
+            squareLimiter.minusOne(colorKey);
 
             //front end info
             column.get(counter).setPosition(new Vector2(WIDTH * (3 + (columnKey * 2)) / 8, 0));
             column.get(counter).setTexture(t);
-            column.get(counter).setColorKey(colorkey);
+            column.get(counter).setColorKey(colorKey);
 
             handleOverLapping(columnKey, t, counter, column);
         //}
@@ -139,6 +139,19 @@ public class Player {
         }
         return counter;
     }
+    public void setCounter(Integer columnKey, Integer newValue){
+        if (columnKey == 0){
+            leftCounter = newValue;
+        }
+        else if (columnKey == 1){
+            middleCounter = newValue;
+        }
+        else{
+            rightCounter = newValue;
+        }
+    }
+
+
     public void incrementCounter(Integer columnKey){
         if (columnKey == 0){
             leftCounter += 1;
