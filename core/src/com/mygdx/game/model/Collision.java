@@ -89,15 +89,14 @@ public class Collision {
         }
     }
 
-    public void handleWithPunisherBonus(Player p, Player c, Integer columnKey){
-        // if computer punisher
+    public void handleWhenPlayerPunisherBonus(Player p, Player c, Integer columnKey){
+        // if computer also sent a punisher
         if (c.getMap(columnKey).get(c.getFirstSquareKey(columnKey)).getColorKey() == 4) {
             p.decrement(p.getFirstSquareKey(columnKey), columnKey);
             c.decrement(c.getFirstSquareKey(columnKey), columnKey);
 
         } else {
             c.decrement(p.getFirstSquareKey(columnKey), columnKey);
-
         }
     }
 
@@ -125,7 +124,7 @@ public class Collision {
                         handleWhenPlayerYellow(player, opponent, columnKey);
                         //si player uses the punisher bonus
                     } else if (player.getMap(columnKey).get(player.getFirstSquareKey(columnKey)).getColorKey() == 4) {
-                        handleWithPunisherBonus(player, opponent, columnKey);
+                        handleWhenPlayerPunisherBonus(player, opponent, columnKey);
                         //si player uses the Mr.Propre bonus
                     }
                 }

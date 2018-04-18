@@ -253,20 +253,22 @@ public class PlayModeMulti extends State {
         }
     }
 
+    /**
+     * choosingTheBonus sends the information of clearance in the same time. (M propre effect)
+     */
     public void choosingTheBonuses(int x, int y){
         if (this.bonusChoiceSquare1.contains(x, y) && !firstIsUsed) {
 
-            if(this.settings.getBonus1().getBonusKey() == 1){punisherEffect();}
-            if(this.settings.getBonus1().getBonusKey() == 2){
-                if(this.getSecondIsUsed()) {
-                    nurseEffect(0);
-                }
-                else{
-                    nurseEffect(1);
-                }
+            this.settings.getBonus1().update(this.getPlayer(), this.getAi());
+            if(this.settings.getBonus1().getBonusKey() == 1){
+                this.settings.getBonus1().punisherEffect();
+                this.colorKey = this.settings.getBonus1().getColorKey();
+                this.setTexture(new Texture(Gdx.files.internal(format+"/bonuses/punisher.png")));}
+            if(this.settings.getBonus1().getBonusKey() == 2){this.settings.getBonus1().nurseEffectPlayer();}
+            if(this.settings.getBonus1().getBonusKey() == 3){
+                this.settings.getBonus1().mrPropreEffect();
+                send(new Byte("25"));
             }
-
-            if(this.settings.getBonus1().getBonusKey() == 3){mrPropreEffect();}
 
             //after utilisation
             this.bonusChoiceSquare1.setTexture(new Texture( Gdx.files.internal(format+"/bonuses/used.png")));
@@ -275,52 +277,45 @@ public class PlayModeMulti extends State {
 
         if (this.bonusChoiceSquare2.contains(x, y) && !secondIsUsed) {
 
-            if(this.settings.getBonus2().getBonusKey() == 1){punisherEffect();}
-            if(this.settings.getBonus2().getBonusKey() == 2){
-                if(this.getFirstIsUsed()) {
-                    nurseEffect(0);
-                }
-                else{
-                    nurseEffect(1);
-                }
-            }
-
-            if(this.settings.getBonus2().getBonusKey() == 3){mrPropreEffect();}
+            this.settings.getBonus2().update(this.getPlayer(), this.getAi());
+            if(this.settings.getBonus2().getBonusKey() == 1){this.settings.getBonus2().punisherEffect();this.setTexture(new Texture(Gdx.files.internal(format+"/bonuses/punisheer..png")));}
+            if(this.settings.getBonus2().getBonusKey() == 2){this.settings.getBonus2().nurseEffectPlayer();}
+            if(this.settings.getBonus2().getBonusKey() == 3){
+                this.settings.getBonus2().mrPropreEffect();
+            send(new Byte("25"));}
 
             this.bonusChoiceSquare2.setTexture(new Texture( Gdx.files.internal(format+"/bonuses/used.png")));
             this.setSecondIsUsed(true);
         }
     }
 
-    //the bonuses effect
-    public void punisherEffect(){
-        this.setColorKey(4);
-        this.setTexture(new Texture( Gdx.files.internal((format+"/bonuses/punisher.png"))));
-    }
-    public void nurseEffect(Integer bonusLeft){
-        this.getPlayer().setSquareLimiter(new SquareLimiter(this.getPlayer().getSquareLimiter().getRedLeft() + 3, this.getPlayer().getSquareLimiter().getBlueLeft() + 3, this.getPlayer().getSquareLimiter().getYellowLeft() + 3, bonusLeft));
-    }
-    public void mrPropreEffect(){
-        for (int columnKey = 0; columnKey<3; columnKey ++ ) {
-            this.getPlayer().setFirstSquareKey(columnKey, this.getPlayer().getCounter(columnKey));
-            this.getAi().setFirstSquareKey(columnKey, this.getAi().getCounter(columnKey));
+    public void creatingAndSendingANewSquare(int x) {
+        if(this.getColumn(x) != -1) {
+            player.increment(texture, this.getColumn(x), colorKey);
+        }
+        //punisher bonus:
+        if(colorKey == 4){
+            send(encryption(this.getColumn(x), 15)); //15*2 15*2+5 = 35   15*2 +5*2 = 40
+        }
+        else {
+            send(encryption(this.getColumn(x), colorKey));
         }
     }
 
-    public void creatingAndSendingANewSquare(int x) {
+    public Integer getColumn(int x){
+        int tempColKey = -1;
         if (x > WIDTH / 4 && x < WIDTH / 2) {
-            player.increment(texture, 0, colorKey);
-            send(encryption(0, colorKey));
+            tempColKey = 0;
         }
         if (x > WIDTH / 2 && x < WIDTH * 3 / 4) {
-            player.increment(texture, 1, colorKey);
-            send(encryption(1, colorKey));
+            tempColKey = 1;
         }
         if (x > WIDTH * 3 / 4) {
-            player.increment(texture, 2, colorKey);
-            send(encryption(2, colorKey));
+            tempColKey = 2;
         }
+        return tempColKey;
     }
+
 
     public void movingPlayerSquare(float dt) {
         for(Integer columnKey=0; columnKey<3; columnKey++) {
@@ -403,10 +398,10 @@ public class PlayModeMulti extends State {
         sb.draw(yellowChoiceSquare.getTexture(), yellowChoiceSquare.getPosX(), yellowChoiceSquare.getPosY());
     }
 
-    //---------------------------------- sending ------------------------------------
+    //---------------------------------- sending and receiving ------------------------------------
 
     public Byte encryption(int columnKey, int colorKey){
-        int number =  columnKey*5 + colorKey * 2;
+        int number = columnKey * 5 + colorKey * 2;
         System.out.println(number);
         return new Byte(""+number);
     }
@@ -419,15 +414,35 @@ public class PlayModeMulti extends State {
         Byte b = lastMove.peek();
         ArrayList<Integer> list = getInformation(b);
         if(list.size()>0) {
-            opponent.incrementOpponent(getTexture(list.get(1)), list.get(0), list.get(1));
+            //if clear all bonus is received:
+            if(list.get(1) == 25){
+                this.settings.getBonus2().mrPropreEffect();
+            }
+            else {
+                opponent.incrementOpponent(getTexture(list.get(1)), list.get(0), list.get(1));
+            }
         }
 
     }
 
     public ArrayList<Integer> getInformation(Byte b) {
         ArrayList<Integer> information = new ArrayList<Integer>();
-        int code;
 
+        //handle with punisher:
+        if(b.floatValue() == 30){
+            information.set(0, 0);
+            information.set(1, 4);
+        }
+        if(b.floatValue() == 35){
+            information.set(0, 1);
+            information.set(1, 4);
+        }
+        if(b.floatValue() == 40){
+            information.set(0, 2);
+            information.set(1, 4);
+        }
+
+        //otherwise:
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if (i * 5 + j * 2 == b.floatValue()) {
