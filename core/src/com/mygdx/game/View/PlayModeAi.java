@@ -103,7 +103,7 @@ public class PlayModeAi extends State {
                 , WIDTH * 1 / 16, HEIGHT / 2 - this.texture.getHeight() * 26 / 4);
         this.bonusChoiceSquare2.setTexture(this.settings.getBonus2().getBonustexture(this.settings.getBonus2().getBonusKey()));
 
-        
+
         this.colorKey = 0;
 
     //Pause mode
@@ -364,9 +364,11 @@ public class PlayModeAi extends State {
     }
 
     public void mrPropreEffect(){
-        for (int columnKey = 0; columnKey<3; columnKey ++ ) {
-            this.getPlayer().setFirstSquareKey(columnKey, this.getPlayer().getCounter(columnKey));
-            this.getAi().setFirstSquareKey(columnKey, this.getAi().getCounter(columnKey));
+        for (int columnKey = 0; columnKey<3; columnKey ++) {
+            if(this.getAi().getMap(columnKey) != null){
+                this.getPlayer().setFirstSquareKey(columnKey, this.getPlayer().getCounter(columnKey));
+                this.getAi().setFirstSquareKey(columnKey, this.getAi().getCounter(columnKey));
+            }
         }
     }
 

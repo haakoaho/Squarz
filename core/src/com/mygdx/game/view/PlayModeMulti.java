@@ -19,6 +19,7 @@ import com.mygdx.game.model.Icon;
 import com.mygdx.game.model.Player;
 import com.mygdx.game.model.Score;
 import com.mygdx.game.model.Square;
+import com.mygdx.game.model.SquareLimiter;
 import com.mygdx.game.model.State;
 
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public class PlayModeMulti extends State {
 
     private ShapeRenderer shapeRenderer;
 
-    private PreferencesSettings set;
+    private PreferencesSettings settings;
     private CountDown countDown;
 
     private AIPlayer opponent;
@@ -48,7 +49,7 @@ public class PlayModeMulti extends State {
 
     private Square choiceSquare;
 
-    private Icon redChoiceSquare, blueChoiceSquare, yellowChoiceSquare, mute;
+    private Icon redChoiceSquare, blueChoiceSquare, yellowChoiceSquare, mute, bonusChoiceSquare1, bonusChoiceSquare2;
     private Texture texture;
     private Integer colorKey;
     private Integer columnKey;
@@ -56,17 +57,19 @@ public class PlayModeMulti extends State {
     private Score score;
 
     private float exTime;
+    private Boolean firstIsUsed = false;
+    private Boolean secondIsUsed = false;
 
-    public PlayModeMulti(GameStateManager gsm) {
+    public PlayModeMulti(GameStateManager gsm, PreferencesSettings settings, CountDown countDown) {
 
         super(gsm);
-        this.set = new PreferencesSettings();
-        this.countDown = new CountDown(60);
-        player = new Player(set, countDown);
-        opponent = new AIPlayer(set, countDown);
+        this.settings = settings;
+        this.countDown = countDown;
+        player = new Player(settings, countDown);
+        opponent = new AIPlayer(settings, countDown);
 
 
-        choiceSquare = new Square(set);
+        choiceSquare = new Square(settings);
         choiceSquare.setPosition(new Vector2(WIDTH * 1 / 16, HEIGHT * 1 / 5));
 
         if (valueVolume == 0) {
@@ -103,6 +106,14 @@ public class PlayModeMulti extends State {
         this.scoreUser = new GlyphLayout(Squarz.font, String.valueOf(score.getUserScore()));
         this.time = new GlyphLayout(Squarz.font, String.valueOf(this.countDown.getWorldTimer()));
 
+        this.bonusChoiceSquare1 = new Icon(new Texture(Gdx.files.internal(format + "/bonuses/none.png"))
+                , WIDTH * 1 / 16, HEIGHT / 2 - this.texture.getHeight() * 21 / 4);
+        this.bonusChoiceSquare1.setTexture(this.settings.getBonus1().getBonustexture(this.settings.getBonus1().getBonusKey()));
+
+        this.bonusChoiceSquare2 = new Icon(new Texture(Gdx.files.internal(format + "/bonuses/none.png"))
+                , WIDTH * 1 / 16, HEIGHT / 2 - this.texture.getHeight() * 26 / 4);
+        this.bonusChoiceSquare2.setTexture(this.settings.getBonus2().getBonustexture(this.settings.getBonus2().getBonusKey()));
+
         this.mute.setPosX(redChoiceSquare.getPosX() + redChoiceSquare.getTexture().getWidth() / 2 - this.mute.getTexture().getWidth() / 2);
         this.mute.setPosY(HEIGHT * 29 / 32 - this.mute.getTexture().getHeight() / 2);
 
@@ -125,6 +136,7 @@ public class PlayModeMulti extends State {
 
             //Colour choice button
             chosingTheColour(x, y);
+            choosingTheBonuses(x, y);
 
             if (mute.contains(x, y)) {
                 if (varMute) {
@@ -160,7 +172,7 @@ public class PlayModeMulti extends State {
         this.countDown.update(dt);
         if (this.countDown.isTimeUp()) {
             music.stop();
-            gsm.set(new EndModeAI(gsm, set, score, countDown));
+            gsm.set(new EndModeAI(gsm, settings, score, countDown));
             // leaveRoom();
         }
 
@@ -184,6 +196,9 @@ public class PlayModeMulti extends State {
         drawScore(sb);
         drawCounter(sb);
 
+        sb.draw(bonusChoiceSquare1.getTexture(), bonusChoiceSquare1.getPosX(), bonusChoiceSquare1.getPosY());
+        sb.draw(bonusChoiceSquare2.getTexture(), bonusChoiceSquare2.getPosX(), bonusChoiceSquare2.getPosY());
+
         sb.draw(mute.getTexture(), mute.getPosX(), mute.getPosY());
 
 
@@ -202,6 +217,8 @@ public class PlayModeMulti extends State {
     }
 
 
+
+    //to avoid people sending too many squares
     public boolean isAllowedToPlay(float exTime){
         boolean allowed = false;
         float timeRef = countDown.getWorldTimer()-countDown.getTimeCount();
@@ -236,6 +253,60 @@ public class PlayModeMulti extends State {
         }
     }
 
+    public void choosingTheBonuses(int x, int y){
+        if (this.bonusChoiceSquare1.contains(x, y) && !firstIsUsed) {
+
+            if(this.settings.getBonus1().getBonusKey() == 1){punisherEffect();}
+            if(this.settings.getBonus1().getBonusKey() == 2){
+                if(this.getSecondIsUsed()) {
+                    nurseEffect(0);
+                }
+                else{
+                    nurseEffect(1);
+                }
+            }
+
+            if(this.settings.getBonus1().getBonusKey() == 3){mrPropreEffect();}
+
+            //after utilisation
+            this.bonusChoiceSquare1.setTexture(new Texture( Gdx.files.internal(format+"/bonuses/used.png")));
+            this.setFirstIsUsed(true);
+        }
+
+        if (this.bonusChoiceSquare2.contains(x, y) && !secondIsUsed) {
+
+            if(this.settings.getBonus2().getBonusKey() == 1){punisherEffect();}
+            if(this.settings.getBonus2().getBonusKey() == 2){
+                if(this.getFirstIsUsed()) {
+                    nurseEffect(0);
+                }
+                else{
+                    nurseEffect(1);
+                }
+            }
+
+            if(this.settings.getBonus2().getBonusKey() == 3){mrPropreEffect();}
+
+            this.bonusChoiceSquare2.setTexture(new Texture( Gdx.files.internal(format+"/bonuses/used.png")));
+            this.setSecondIsUsed(true);
+        }
+    }
+
+    //the bonuses effect
+    public void punisherEffect(){
+        this.setColorKey(4);
+        this.setTexture(new Texture( Gdx.files.internal((format+"/bonuses/punisher.png"))));
+    }
+    public void nurseEffect(Integer bonusLeft){
+        this.getPlayer().setSquareLimiter(new SquareLimiter(this.getPlayer().getSquareLimiter().getRedLeft() + 3, this.getPlayer().getSquareLimiter().getBlueLeft() + 3, this.getPlayer().getSquareLimiter().getYellowLeft() + 3, bonusLeft));
+    }
+    public void mrPropreEffect(){
+        for (int columnKey = 0; columnKey<3; columnKey ++ ) {
+            this.getPlayer().setFirstSquareKey(columnKey, this.getPlayer().getCounter(columnKey));
+            this.getAi().setFirstSquareKey(columnKey, this.getAi().getCounter(columnKey));
+        }
+    }
+
     public void creatingAndSendingANewSquare(int x) {
         if (x > WIDTH / 4 && x < WIDTH / 2) {
             player.increment(texture, 0, colorKey);
@@ -259,7 +330,7 @@ public class PlayModeMulti extends State {
 
                     //dealing with the score
                     if (player.getMap(columnKey).get(player.getFirstSquareKey(columnKey)).getPosition().y >= HEIGHT
-                            && player.getMap(columnKey).get(player.getFirstSquareKey(columnKey)).getPosition().y < HEIGHT + this.set.getStepX()*dt) {
+                            && player.getMap(columnKey).get(player.getFirstSquareKey(columnKey)).getPosition().y < HEIGHT + this.settings.getStepX()*dt) {
                         sound.play(Squarz.valueVolume * 0.15f);
                         Gdx.input.vibrate(Squarz.valueVibration * 50);
                     }
@@ -267,14 +338,13 @@ public class PlayModeMulti extends State {
             }
         }
     }
-
     public void movingOpponentSquare(float dt) {
         for(int columnKey=0; columnKey<3; columnKey++){
             if (!opponent.getMap(columnKey).isEmpty()) {
                 for (int i = opponent.getFirstSquareKey(columnKey); i < opponent.getCounter(columnKey); i++) {
                     opponent.getMap(columnKey).get(i).reverseMove(dt);
                     //dealing with the score
-                    if (opponent.getMap(columnKey).get(i).getPosition().y <= 0 && opponent.getMap(columnKey).get(i).getPosition().y > -this.set.getStepX()*dt) {
+                    if (opponent.getMap(columnKey).get(i).getPosition().y <= 0 && opponent.getMap(columnKey).get(i).getPosition().y > -this.settings.getStepX()*dt) {
                         sound.play(Squarz.valueVolume * 0.15f);
                         Gdx.input.vibrate(Squarz.valueVibration * 50);
                     }
@@ -457,11 +527,11 @@ public class PlayModeMulti extends State {
     }
 
     public PreferencesSettings getSettings() {
-        return set;
+        return settings;
     }
 
     public void setSettings(PreferencesSettings settings) {
-        this.set = settings;
+        this.settings = settings;
     }
 
     public Icon getRedChoiceSquare() {
@@ -478,5 +548,21 @@ public class PlayModeMulti extends State {
 
     public void setAi(AIPlayer opponent) {
         this.opponent = opponent;
+    }
+
+    public Boolean getFirstIsUsed() {
+        return firstIsUsed;
+    }
+
+    public void setFirstIsUsed(Boolean firstIsUsed) {
+        this.firstIsUsed = firstIsUsed;
+    }
+
+    public Boolean getSecondIsUsed() {
+        return secondIsUsed;
+    }
+
+    public void setSecondIsUsed(Boolean secondIsUsed) {
+        this.secondIsUsed = secondIsUsed;
     }
 }
