@@ -24,7 +24,6 @@ import static com.mygdx.game.Squarz.format;
  */
 
 public class BonusSelectionMulti extends State {
-
     private GlyphLayout tenToChooseGlyph, clean, bonusDescription1, bonusDescription2;
     private Icon nurse, punisher, none, mrPropre, emptyField1, emptyField2, cleanButton;
     private CountDown countDown, tenToChoose;

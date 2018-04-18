@@ -34,60 +34,57 @@ public class BonusSelection extends State {
     public BonusSelection(GameStateManager gsm, PreferencesSettings settings, CountDown countDown) {
         super(gsm);
 
-        this.bonusTitle = new GlyphLayout(Squarz.font, "CHOOSE YOUR BONUSES");
-        this.clean = new GlyphLayout(Squarz.font2, "CLEAN ALL");
-        this.selected = new GlyphLayout(Squarz.font2, "SELECT");
         this.countDown = countDown;
         this.settings = settings;
 
         this.isFilled1 = false;
         this.isFilled2 = false;
 
-        bonusDescription1 = new GlyphLayout(font2, this.settings.getDescriptionBonus1());
-        bonusDescription2 = new GlyphLayout(font2, this.settings.getDescriptionBonus2());
+        this.bonusTitle = new GlyphLayout(Squarz.font, "CHOOSE YOUR BONUSES");
+        this.clean = new GlyphLayout(Squarz.font2, "CLEAN ALL");
+        this.selected = new GlyphLayout(Squarz.font2, "SELECT");
+        this.bonusDescription1 = new GlyphLayout(font2, this.settings.getDescriptionBonus1());
+        this.bonusDescription2 = new GlyphLayout(font2, this.settings.getDescriptionBonus2());
+
+        this.back = new Icon(new Texture(Gdx.files.internal(format+"/back.png")),0,0);
+        this.back.setPosX(back.getTexture().getWidth()/2);
+        this.back.setPosY(back.getTexture().getHeight()/2);
+
+        this.none = new Icon(new Texture(Gdx.files.internal(format+"/bonuses/none.png")),0,0);
+        this.none.setPosX(WIDTH*1/6 - none.getTexture().getWidth()/2);
+        this.none.setPosY(HEIGHT/2 - none.getTexture().getHeight()/2);
+
+        this.cleanButton = new Icon(new Texture(Gdx.files.internal(format+"/bonuses/button.png")), 0, 0);
+        this.cleanButton.setPosX(WIDTH*1/3 - cleanButton.getTexture().getWidth()/2 - this.none.getTexture().getWidth()/2);
+        this.cleanButton.setPosY(HEIGHT * 5/8 - cleanButton.getTexture().getHeight()/2);
+
+        this.selectButton = new Icon(new Texture(Gdx.files.internal(format+"/bonuses/button.png")), 0, 0);
+        this.selectButton.setPosX(WIDTH*2/3 - cleanButton.getTexture().getWidth()/2 + this.none.getTexture().getWidth()/2);
+        this.selectButton.setPosY(HEIGHT * 5/8 - cleanButton.getTexture().getHeight()/2);
+
+        this.emptyField1 = new Icon(new Texture(Gdx.files.internal(format+"/bonuses/none.png")),0,0);
+        this.emptyField1.setTexture(this.settings.getBonus1().getBonustexture(this.settings.getBonus1().getBonusKey()));
+        this.emptyField1.setPosX(WIDTH/3 - emptyField1.getTexture().getWidth()/2);
+        this.emptyField1.setPosY(HEIGHT*3/4 - emptyField1.getTexture().getHeight()/2);
+
+        this.emptyField2 = new Icon(new Texture(Gdx.files.internal(format+"/bonuses/none.png")),0,0);
+        this.emptyField2.setTexture(this.settings.getBonus2().getBonustexture(this.settings.getBonus2().getBonusKey()));
+        this.emptyField2.setPosX(WIDTH*2/3 - emptyField2.getTexture().getWidth()/2);
+        this.emptyField2.setPosY(HEIGHT*3/4 - emptyField2.getTexture().getHeight()/2);
+
+        this.punisher = new Icon(new Texture(Gdx.files.internal(format+"/bonuses/punisher.png")),0,0);
+        this.punisher.setPosX(WIDTH*1/6 + WIDTH*2/9- punisher.getTexture().getWidth()/2);
+        this.punisher.setPosY(HEIGHT/2 - punisher.getTexture().getHeight()/2);
+
+        this.nurse = new Icon(new Texture(Gdx.files.internal(format+"/bonuses/nurse.png")),0,0);
+        this.nurse.setPosX(WIDTH*1/6 + WIDTH*4/9 - nurse.getTexture().getWidth()/2);
+        this.nurse.setPosY(HEIGHT/2 - nurse.getTexture().getWidth()/2);
+
+        this.mrPropre = new Icon(new Texture(Gdx.files.internal(format+"/bonuses/mrPropre.png")),0,0);
+        this.mrPropre.setPosX(WIDTH*5/6 - nurse.getTexture().getWidth()/2);
+        this.mrPropre.setPosY(HEIGHT/2 - nurse.getTexture().getWidth()/2);
 
         this.shapeRenderer = new ShapeRenderer();
-
-        back = new Icon(new Texture(Gdx.files.internal(format+"/back.png")),0,0);
-        back.setPosX(back.getTexture().getWidth()/2);
-        back.setPosY(back.getTexture().getHeight()/2);
-
-        none = new Icon(new Texture(Gdx.files.internal(format+"/bonuses/none.png")),0,0);
-        none.setPosX(WIDTH*1/6 - none.getTexture().getWidth()/2);
-        none.setPosY(HEIGHT/2 - none.getTexture().getHeight()/2);
-
-        cleanButton = new Icon(new Texture(Gdx.files.internal(format+"/bonuses/button.png")), 0, 0);
-        cleanButton.setPosX(WIDTH*1/3 - cleanButton.getTexture().getWidth()/2 - this.none.getTexture().getWidth()/2);
-        cleanButton.setPosY(HEIGHT * 5/8 - cleanButton.getTexture().getHeight()/2);
-
-        selectButton = new Icon(new Texture(Gdx.files.internal(format+"/bonuses/button.png")), 0, 0);
-        selectButton.setPosX(WIDTH*2/3 - cleanButton.getTexture().getWidth()/2 + this.none.getTexture().getWidth()/2);
-        selectButton.setPosY(HEIGHT * 5/8 - cleanButton.getTexture().getHeight()/2);
-
-        emptyField1 = new Icon(new Texture(Gdx.files.internal(format+"/bonuses/none.png")),0,0);
-        emptyField1.setTexture(this.settings.getBonus1().getBonustexture(this.settings.getBonus1().getBonusKey()));
-        emptyField1.setPosX(WIDTH/3 - emptyField1.getTexture().getWidth()/2);
-        emptyField1.setPosY(HEIGHT*3/4 - emptyField1.getTexture().getHeight()/2);
-
-        emptyField2 = new Icon(new Texture(Gdx.files.internal(format+"/bonuses/none.png")),0,0);
-        emptyField2.setTexture(this.settings.getBonus2().getBonustexture(this.settings.getBonus2().getBonusKey()));
-        emptyField2.setPosX(WIDTH*2/3 - emptyField2.getTexture().getWidth()/2);
-        emptyField2.setPosY(HEIGHT*3/4 - emptyField2.getTexture().getHeight()/2);
-
-        punisher = new Icon(new Texture(Gdx.files.internal(format+"/bonuses/punisher.png")),0,0);
-        punisher.setPosX(WIDTH*1/6 + WIDTH*2/9- punisher.getTexture().getWidth()/2);
-        punisher.setPosY(HEIGHT/2 - punisher.getTexture().getHeight()/2);
-
-        nurse = new Icon(new Texture(Gdx.files.internal(format+"/bonuses/nurse.png")),0,0);
-        nurse.setPosX(WIDTH*1/6 + WIDTH*4/9 - nurse.getTexture().getWidth()/2);
-        nurse.setPosY(HEIGHT/2 - nurse.getTexture().getWidth()/2);
-
-        mrPropre = new Icon(new Texture(Gdx.files.internal(format+"/bonuses/mrPropre.png")),0,0);
-        mrPropre.setPosX(WIDTH*5/6 - nurse.getTexture().getWidth()/2);
-        mrPropre.setPosY(HEIGHT/2 - nurse.getTexture().getWidth()/2);
-
-
-
     }
 
     @Override
@@ -106,15 +103,14 @@ public class BonusSelection extends State {
             chosenBonus(x, y);
 
             if (cleanButton.contains(x, y)){
-                isFilled1 = false;
-                isFilled2 = false;
+                this.isFilled1 = false;
+                this.isFilled2 = false;
                 this.emptyField1.setTexture(this.none.getTexture());
                 this.emptyField2.setTexture(this.none.getTexture());
                 this.settings.getBonus1().setBonusKey(0);
                 this.settings.getBonus2().setBonusKey(0);
-                bonusDescription1.setText(font2, this.settings.getDescriptionBonus1());
-                bonusDescription2.setText(font2, this.settings.getDescriptionBonus2());
-
+                this.bonusDescription1.setText(font2, this.settings.getDescriptionBonus1());
+                this.bonusDescription2.setText(font2, this.settings.getDescriptionBonus2());
             }
 
 
@@ -173,14 +169,14 @@ public class BonusSelection extends State {
             this.emptyField1.setTexture(this.settings.getBonus1().getBonustexture(0));
             this.settings.getBonus1().setBonusKey(0);
             this.settings.getBonus1().setColorKey(3);
-            isFilled1 = false;
+            this.isFilled1 = false;
         }
 
         if(emptyField2.contains(x, y)){
             this.emptyField2.setTexture(this.settings.getBonus2().getBonustexture(0));
             this.settings.getBonus2().setBonusKey(0);
             this.settings.getBonus2().setColorKey(3);
-            isFilled2 = false;
+            this.isFilled2 = false;
         }
 
         if (none.contains(x, y)){
@@ -189,15 +185,15 @@ public class BonusSelection extends State {
                 this.settings.getBonus2().setBonusKey(0);
                 this.settings.getBonus2().setColorKey(3);
 
-                isFilled2 = false;
+                this.isFilled2 = false;
             }else if(isFilled1 && !isFilled2){
-                isFilled1 = false;
+                this.isFilled1 = false;
                 this.emptyField1.setTexture(this.settings.getBonus1().getBonustexture(0));
                 this.settings.getBonus1().setBonusKey(0);
                 this.settings.getBonus1().setColorKey(3);
             }else {
-                isFilled2 = false;
-                isFilled1 = false;
+                this.isFilled2 = false;
+                this.isFilled1 = false;
             }
         }
         if (punisher.contains(x, y)){
@@ -210,18 +206,18 @@ public class BonusSelection extends State {
             isFilled(3, 6);
         }
 
-        bonusDescription1.setText(font2, this.settings.getDescriptionBonus1());
-        bonusDescription2.setText(font2, this.settings.getDescriptionBonus2());
+        this.bonusDescription1.setText(font2, this.settings.getDescriptionBonus1());
+        this.bonusDescription2.setText(font2, this.settings.getDescriptionBonus2());
     }
 
     public void isFilled (int BonusKey, int colorKey){
         if(!isFilled1 && this.settings.getBonus2().getBonusKey() != BonusKey) {
-            isFilled1 = true;
+            this.isFilled1 = true;
             this.emptyField1.setTexture(this.settings.getBonus1().getBonustexture(BonusKey));
             this.settings.getBonus1().setBonusKey(BonusKey);
             this.settings.getBonus1().setColorKey(colorKey);
         }else if(this.settings.getBonus1().getBonusKey() != BonusKey){
-            isFilled2 = true;
+            this.isFilled2 = true;
             this.emptyField2.setTexture(this.settings.getBonus2().getBonustexture(BonusKey));
             this.settings.getBonus2().setBonusKey(BonusKey);
             this.settings.getBonus2().setColorKey(colorKey);
