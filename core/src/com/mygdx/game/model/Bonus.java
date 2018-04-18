@@ -14,6 +14,9 @@ public class Bonus {
 
     private Texture none, punisher, nurse, selectedBonus, mrPropre; // bounce
 
+    private Player player;
+    private AIPlayer opponent;
+
     public Bonus(){
         this.bonusKey = 0;
         this.colorKey = 3;
@@ -24,6 +27,11 @@ public class Bonus {
         this.punisher = new Texture(Gdx.files.internal(format+"/bonuses/punisher.png"));
         this.nurse = new Texture(Gdx.files.internal(format+"/bonuses/nurse.png"));
         this.mrPropre = new Texture((Gdx.files.internal(format+"/bonuses/mrPropre.png")));
+    }
+
+    public void update(Player player, AIPlayer opponent){
+        this.player=player;
+        this.opponent=opponent;
     }
 
     public Texture getBonustexture(Integer bonusKey){
@@ -48,6 +56,25 @@ public class Bonus {
             this.colorKey = 6;
         }
         return selectedBonus;
+    }
+
+    public void punisherEffect(){
+        this.setColorKey(4);
+    }
+
+    public void nurseEffectPlayer(){
+        this.getPlayer().getSquareLimiter().setRedLeft(this.getPlayer().getSquareLimiter().getRedLeft()+3);
+        this.getPlayer().getSquareLimiter().setBlueLeft(this.getPlayer().getSquareLimiter().getBlueLeft()+3);
+        this.getPlayer().getSquareLimiter().setYellowLeft(this.getPlayer().getSquareLimiter().getYellowLeft()+3);
+        this.getPlayer().getSquareLimiter().setBonusPunisherLeft(this.getPlayer().getSquareLimiter().getBonusPunisherLeft());
+        //this.getPlayer().setSquareLimiter(new SquareLimiter(this.getPlayer().getSquareLimiter().getRedLeft() + 3, this.getPlayer().getSquareLimiter().getBlueLeft() + 3, this.getPlayer().getSquareLimiter().getYellowLeft() + 3, bonusLeft));
+    }
+
+    public void mrPropreEffect(){
+        for (int columnKey = 0; columnKey<3; columnKey ++ ) {
+            this.getPlayer().setFirstSquareKey(columnKey, this.getPlayer().getCounter(columnKey));
+            this.getOpponent().setFirstSquareKey(columnKey, this.getOpponent().getCounter(columnKey));
+        }
     }
 
 
@@ -95,5 +122,16 @@ public class Bonus {
     public void setMrPropre(Texture mrPropre) {
         this.mrPropre = mrPropre;
     }
-
+    public Player getPlayer() {
+        return player;
+    }
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+    public AIPlayer getOpponent() {
+        return opponent;
+    }
+    public void setOpponent(AIPlayer opponent) {
+        this.opponent = opponent;
+    }
 }

@@ -325,17 +325,10 @@ public class PlayModeAi extends State {
 
         if (this.bonusChoiceSquare1.contains(x, y) && !firstIsUsed) {
 
-            if(this.settings.getBonus1().getBonusKey() == 1){punisherEffect();}
-            if(this.settings.getBonus1().getBonusKey() == 2){
-                if(this.getSecondIsUsed()) {
-                    nurseEffect(0);
-                }
-                else{
-                    nurseEffect(1);
-                }
-            }
-
-            if(this.settings.getBonus1().getBonusKey() == 3){mrPropreEffect();}
+            this.settings.getBonus1().update(this.getPlayer(), this.getAi());
+            if(this.settings.getBonus1().getBonusKey() == 1){this.settings.getBonus1().punisherEffect();this.setTexture(new Texture(Gdx.files.internal(format+"/bonuses/punisheer..png")));}
+            if(this.settings.getBonus1().getBonusKey() == 2){this.settings.getBonus1().nurseEffectPlayer();}
+            if(this.settings.getBonus1().getBonusKey() == 3){this.settings.getBonus1().mrPropreEffect();}
 
             //after utilisation
             this.bonusChoiceSquare1.setTexture(new Texture( Gdx.files.internal(format+"/bonuses/used.png")));
@@ -344,42 +337,17 @@ public class PlayModeAi extends State {
 
         if (this.bonusChoiceSquare2.contains(x, y) && !secondIsUsed) {
 
-            if(this.settings.getBonus2().getBonusKey() == 1){punisherEffect();}
-            if(this.settings.getBonus2().getBonusKey() == 2){
-                if(this.getFirstIsUsed()) {
-                    nurseEffect(0);
-                }
-                else{
-                    nurseEffect(1);
-                }
-            }
-
-            if(this.settings.getBonus2().getBonusKey() == 3){mrPropreEffect();}
+            this.settings.getBonus2().update(this.getPlayer(), this.getAi());
+            if(this.settings.getBonus2().getBonusKey() == 1){this.settings.getBonus2().punisherEffect();this.setTexture(new Texture(Gdx.files.internal(format+"/bonuses/punisheer..png")));}
+            if(this.settings.getBonus2().getBonusKey() == 2){this.settings.getBonus2().nurseEffectPlayer();}
+            if(this.settings.getBonus2().getBonusKey() == 3){this.settings.getBonus2().mrPropreEffect();}
 
             this.bonusChoiceSquare2.setTexture(new Texture( Gdx.files.internal(format+"/bonuses/used.png")));
             this.setSecondIsUsed(true);
         }
     }
 
-    //Bonus effects
-
-    public void punisherEffect(){
-        this.setColorKey(4);
-        this.setTexture(new Texture( Gdx.files.internal((format+"/bonuses/punisher.png"))));
-    }
-
-    public void nurseEffect(Integer bonusLeft){
-        this.getPlayer().setSquareLimiter(new SquareLimiter(this.getPlayer().getSquareLimiter().getRedLeft() + 3, this.getPlayer().getSquareLimiter().getBlueLeft() + 3, this.getPlayer().getSquareLimiter().getYellowLeft() + 3, bonusLeft));
-    }
-
-    public void mrPropreEffect(){
-        for (int columnKey = 0; columnKey<3; columnKey ++ ) {
-            this.getPlayer().setFirstSquareKey(columnKey, this.getPlayer().getCounter(columnKey));
-            this.getAi().setFirstSquareKey(columnKey, this.getAi().getCounter(columnKey));
-        }
-    }
-
-    public void creatingANewSquare(int x) {
+public void creatingANewSquare(int x) {
         if (x > WIDTH / 4 && x < WIDTH / 2) {
             player.increment(texture, 0, colorKey);
         }
@@ -390,7 +358,6 @@ public class PlayModeAi extends State {
             player.increment(texture, 2, colorKey);
         }
     }
-
 
 public void movingPlayerSquare(float dt){
     if(!player.getLeft().isEmpty()) {
