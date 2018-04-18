@@ -28,6 +28,9 @@ public class AIPlayer extends Player{
     private Integer deltaLauncher;
     private Integer renderCounter;
 
+    private Bonus bonus1, bonus2;
+    private Integer nbofBonusesUsed;
+
     private boolean wave1 = true;
     private boolean wave2 = true;
     private boolean wave3 = true;
@@ -43,6 +46,11 @@ public class AIPlayer extends Player{
         this.deltaLauncher = 70;
 
         this.renderCounter = 0;
+
+        this.bonus1 = set.getBonus1();
+        this.bonus2 = set.getBonus2();
+
+        this.nbofBonusesUsed = 0;
     }
 
     public void send(CountDown countDown){
@@ -51,14 +59,41 @@ public class AIPlayer extends Player{
             if (this.launcherCounter == this.getSet().getDtLaunching() ) {
                 this.launcherCounter = 0;
 
-                //setting the random color
-                int colorKey = random(2);
-                setTheRandomTexture(colorKey);
+                if (countDown.getWorldTimer() == 55) {
+                    bonusSending();
+                }else if ( countDown.getWorldTimer() == 50){
+                    bonusSending();
+                }else {
+                    //setting the random color
+                    int colorKey = random(2);
+                    setTheRandomTexture(colorKey);
 
-                //setting the random Texture in a random column
-                int column = random(2);
-                setTheRandomColumn(column, colorKey);
+                    //setting the random Texture in a random column
+                    int column = random(2);
+                    setTheRandomColumn(column, colorKey);
+                }
             }
+        }
+    }
+
+    public void bonusSending(){
+
+        if(nbofBonusesUsed==0) {
+            this.nbofBonusesUsed = 1;
+            int colorkey = this.bonus1.getColorKey();
+            setTheRandomTexture(colorkey);
+            int column = random(2);
+            setTheRandomColumn(column, colorkey);
+            this.bonus1.chosenAiEffect(this.bonus1.getBonusKey());
+        } else {
+            this.nbofBonusesUsed = 2;
+            System.out.println("ok2");
+            int colorkey = this.bonus2.getColorKey();
+            setTheRandomTexture(colorkey);
+            int column = random(2);
+            setTheRandomColumn(column, colorkey);
+            System.out.println(this.bonus2.getBonusKey());
+            this.bonus2.chosenAiEffect(this.bonus2.getBonusKey());
         }
     }
 
@@ -131,8 +166,10 @@ public class AIPlayer extends Player{
             this.texture = new Texture(Gdx.files.internal(format+"/square/square_red.png"));
         } else if (colorKey == 1) {
             this.texture = new Texture(Gdx.files.internal(format+"/square/square_blue.png"));
-        } else {
+        } else if(colorKey == 2){
             this.texture = new Texture(Gdx.files.internal(format+"/square/square_yellow.png"));
+        } else if(colorKey == 4){
+            this.texture = new Texture(Gdx.files.internal(format+"/bonuses/punisher.png"));
         }
     }
 

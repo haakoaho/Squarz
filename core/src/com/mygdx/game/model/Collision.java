@@ -52,6 +52,10 @@ public class Collision {
             //if computer yellow
         } else if (c.getMap(columnKey).get(c.getFirstSquareKey(columnKey)).getColorKey() == 2) {
             c.decrement(c.getFirstSquareKey(columnKey), columnKey);
+
+            //if computer punisher
+        } else if (c.getMap(columnKey).get(c.getFirstSquareKey(columnKey)).getColorKey() == 4) {
+            p.decrement(p.getFirstSquareKey(columnKey), columnKey);
         }
     }
     public  void handleWhenPlayerBlue(Player p, Player c, Integer columnKey){
@@ -66,6 +70,10 @@ public class Collision {
 
             //if computer yellow
         } else if (c.getMap(columnKey).get(c.getFirstSquareKey(columnKey)).getColorKey() == 2) {
+            p.decrement(p.getFirstSquareKey(columnKey), columnKey);
+
+            //if computer punisher
+        } else if (c.getMap(columnKey).get(c.getFirstSquareKey(columnKey)).getColorKey() == 4) {
             p.decrement(p.getFirstSquareKey(columnKey), columnKey);
         }
     }
@@ -82,6 +90,10 @@ public class Collision {
         } else if (c.getMap(columnKey).get(c.getFirstSquareKey(columnKey)).getColorKey() == 2) {
             p.decrement(p.getFirstSquareKey(columnKey), columnKey);
             c.decrement(c.getFirstSquareKey(columnKey), columnKey);
+
+            //if computer punisher
+        } else if (c.getMap(columnKey).get(c.getFirstSquareKey(columnKey)).getColorKey() == 4) {
+            p.decrement(p.getFirstSquareKey(columnKey), columnKey);
         }
     }
 

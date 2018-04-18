@@ -18,12 +18,6 @@ public class SquareLimiter {
         this.bonusPunisherLeft = bonusLeft;
     }
 
-    public SquareLimiter(Integer redLeft, Integer blueLeft, Integer yellowLeft, Integer bonusLeft){
-        this.redLeft = redLeft;
-        this.blueLeft = blueLeft;
-        this.yellowLeft = yellowLeft;
-        this.bonusPunisherLeft = bonusLeft;
-    }
 
     public void minusOne(Integer colorKey){
         if (colorKey == 0){
