@@ -44,6 +44,7 @@ import java.util.List;
 import java.util.Queue;
 
 
+
 public class AndroidLauncher extends AndroidApplication implements MultiplayerInterface {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -110,10 +111,13 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 	private boolean gameReady;
 
 	private void selectPlayers(int resultCode, Intent data){
+
 		if (resultCode != Activity.RESULT_OK) {
 			// Canceled or some other error.
 			return;
 		}
+
+
 
 		// get the invitee list
 		final ArrayList<String> invitees = data.getStringArrayListExtra(Games.EXTRA_PLAYER_IDS);
@@ -121,20 +125,21 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 
 
 		// Get Automatch criteria.
+		Bundle autoMatchCriteria = null;
 
 		// Create the room configuration.
 		RoomConfig.Builder roomBuilder = RoomConfig.builder(mRoomUpdateCallback)
 				.addPlayersToInvite(invitees)
 				.setOnMessageReceivedListener(mOnRealTimeMessageReceivedListener)
-				.setRoomStatusUpdateCallback(mRoomStatusUpdateCallback);
-		roomBuilder.setAutoMatchCriteria(
-				RoomConfig.createAutoMatchCriteria(1, 1, 0));
+				.setRoomStatusUpdateCallback(mRoomStatusUpdateCallback)
+		        .setAutoMatchCriteria(autoMatchCriteria);
 
 		// Save the roomConfig so we can use it if we call leave().
 		mRoomConfig = roomBuilder.build();
 		Games.getRealTimeMultiplayerClient(this, GoogleSignIn.getLastSignedInAccount(this))
 				.create(mRoomConfig);
 	}
+
 
 	private void waitingRoom(int resultCode, Intent data){
 
@@ -323,8 +328,6 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 
 	@Override
 	public void startQuickGame() {
-		// auto-match criteria to invite one random automatch opponent.
-		// You can also specify more opponents (up to 3).
 		Bundle autoMatchCriteria = RoomConfig.createAutoMatchCriteria(1, 1, 0);
 
 		// build the room config:
@@ -383,7 +386,7 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 
 	private void showWaitingRoom(Room room) {
 		Games.getRealTimeMultiplayerClient(this, GoogleSignIn.getLastSignedInAccount(this))
-				.getWaitingRoomIntent(room, 1)
+				.getWaitingRoomIntent(room,2)
 				.addOnSuccessListener(new OnSuccessListener<Intent>() {
 					@Override
 					public void onSuccess(Intent intent) {
@@ -399,7 +402,7 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 	public void invite() {
 
 		Games.getRealTimeMultiplayerClient(this, GoogleSignIn.getLastSignedInAccount(this))
-				.getSelectOpponentsIntent(1, 1, true)
+				.getSelectOpponentsIntent(1, 1)
 				.addOnSuccessListener(new OnSuccessListener<Intent>() {
 					@Override
 					public void onSuccess(Intent intent) {
