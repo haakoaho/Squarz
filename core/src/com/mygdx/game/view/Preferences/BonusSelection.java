@@ -1,4 +1,4 @@
-package com.mygdx.game.view;
+package com.mygdx.game.view.Preferences;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -12,6 +12,7 @@ import com.mygdx.game.control.aI.PreferencesSettings;
 import com.mygdx.game.model.CountDown;
 import com.mygdx.game.model.Icon;
 import com.mygdx.game.model.State;
+import com.mygdx.game.view.AIPreferences;
 
 import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
@@ -23,18 +24,14 @@ import static com.mygdx.game.Squarz.format;
  */
 
 public class BonusSelection extends State {
-
     private GlyphLayout bonusTitle, clean, selected, bonusDescription1, bonusDescription2;
     private Icon back, nurse, punisher, none, mrPropre, emptyField1, emptyField2, cleanButton, selectButton;
     private CountDown countDown;
     private PreferencesSettings settings;
-    private Boolean isFilled1;
-    private Boolean isFilled2;
-
-
+    private Boolean isFilled1, isFilled2;
     private ShapeRenderer shapeRenderer;
 
-    protected BonusSelection(GameStateManager gsm, PreferencesSettings settings, CountDown countDown) {
+    public BonusSelection(GameStateManager gsm, PreferencesSettings settings, CountDown countDown) {
         super(gsm);
 
         this.bonusTitle = new GlyphLayout(Squarz.font, "CHOOSE YOUR BONUSES");

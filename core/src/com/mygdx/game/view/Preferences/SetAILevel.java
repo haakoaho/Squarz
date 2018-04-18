@@ -10,7 +10,6 @@ import com.mygdx.game.model.CountDown;
 import com.mygdx.game.model.Icon;
 import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.model.State;
-import com.mygdx.game.view.beginning.Menu;
 
 import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;

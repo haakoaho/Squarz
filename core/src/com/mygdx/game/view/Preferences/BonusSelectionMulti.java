@@ -1,4 +1,4 @@
-package com.mygdx.game.view;
+package com.mygdx.game.view.Preferences;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -12,8 +12,7 @@ import com.mygdx.game.control.aI.PreferencesSettings;
 import com.mygdx.game.model.CountDown;
 import com.mygdx.game.model.Icon;
 import com.mygdx.game.model.State;
-
-import java.util.Timer;
+import com.mygdx.game.view.PlayModeMulti;
 
 import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
@@ -26,7 +25,7 @@ import static com.mygdx.game.Squarz.format;
 
 public class BonusSelectionMulti extends State {
 
-    private GlyphLayout bonusTitle, clean, bonusDescription1, bonusDescription2;
+    private GlyphLayout tenToChooseGlyph, clean, bonusDescription1, bonusDescription2;
     private Icon nurse, punisher, none, mrPropre, emptyField1, emptyField2, cleanButton;
     private CountDown countDown, tenToChoose;
     private PreferencesSettings settings;
@@ -41,7 +40,7 @@ public class BonusSelectionMulti extends State {
         this.countDown = new CountDown(60);
         this.tenToChoose = new CountDown(10);
 
-        this.bonusTitle = new GlyphLayout(Squarz.font, "CHOOSE YOUR BONUSES");
+        this.tenToChooseGlyph = new GlyphLayout(Squarz.font, String.valueOf(this.tenToChoose.getWorldTimer()));
         this.clean = new GlyphLayout(Squarz.font2, "CLEAN ALL");
 
         this.isFilled1 = false;
@@ -57,7 +56,7 @@ public class BonusSelectionMulti extends State {
         none.setPosY(HEIGHT/2 - none.getTexture().getHeight()/2);
 
         cleanButton = new Icon(new Texture(Gdx.files.internal(format+"/bonuses/button.png")), 0, 0);
-        cleanButton.setPosX(WIDTH/2 - cleanButton.getTexture().getWidth()/2 - this.none.getTexture().getWidth()/2);
+        cleanButton.setPosX(WIDTH/2 - cleanButton.getTexture().getWidth()/2);
         cleanButton.setPosY(HEIGHT * 5/8 - cleanButton.getTexture().getHeight()/2);
 
         emptyField1 = new Icon(new Texture(Gdx.files.internal(format+"/bonuses/none.png")),0,0);
@@ -126,13 +125,14 @@ public class BonusSelectionMulti extends State {
         shapeRenderer.end();
 
         sb.begin();
-        Squarz.font.draw(sb, bonusTitle, WIDTH/2 - bonusTitle.width/2,HEIGHT-2*bonusTitle.height);
+        tenToChooseGlyph.setText(Squarz.font, String.valueOf(this.tenToChoose.getWorldTimer()));
+        Squarz.font.draw(sb, tenToChooseGlyph, WIDTH/2 - tenToChooseGlyph.width/2, HEIGHT - 2*tenToChooseGlyph.height);
 
         sb.draw(emptyField1.getTexture(), emptyField1.getPosX(), emptyField1.getPosY());
         sb.draw(emptyField2.getTexture(), emptyField2.getPosX(), emptyField2.getPosY());
 
         sb.draw(cleanButton.getTexture(), cleanButton.getPosX(), cleanButton.getPosY());
-        Squarz.font2.draw(sb, clean, WIDTH/2 - clean.width/2 - this.none.getTexture().getWidth()/2, HEIGHT * 5/8 + clean.height/2);
+        Squarz.font2.draw(sb, clean, WIDTH/2 - clean.width/2, HEIGHT * 5/8 + clean.height/2);
 
         sb.draw(none.getTexture(), none.getPosX(), none.getPosY());
         sb.draw(punisher.getTexture(), punisher.getPosX(), punisher.getPosY());
@@ -143,6 +143,8 @@ public class BonusSelectionMulti extends State {
                 this.none.getPosY() - this.none.getTexture().getHeight()/2 - HEIGHT/6 + HEIGHT/6/2 + this.bonusDescription1.height/2);
         font2.draw(sb, this.bonusDescription2, this.none.getPosX() + (WIDTH*2/3+this.none.getTexture().getWidth())/2 - this.bonusDescription2.width/2,
                 this.none.getPosY() - this.none.getTexture().getHeight() - HEIGHT*2/6 + HEIGHT/6/2 + this.bonusDescription2.height/2);
+
+
 
         sb.end();
 
