@@ -407,7 +407,7 @@ public class PlayModeMulti extends State {
 
     public Byte encryption(int columnKey, int colorKey){
         int number = columnKey * 5 + colorKey * 2;
-        System.out.println(number);
+        System.out.println("encryption is: " + number);
         return new Byte(""+number);
     }
 
@@ -426,28 +426,34 @@ public class PlayModeMulti extends State {
     }
 
     public ArrayList<Integer> getInformation(Byte b) {
+        System.out.println("the byte I just received: " + b.floatValue());
         ArrayList<Integer> information = new ArrayList<Integer>();
         //handle with bonuses:
-        //handle with punisher:
-        for(int j=0; j<3; j++){
-            if(30 + j*5 == b.floatValue()){
-                information.set(0, j);
-                information.set(1, 4);
+        if(b.floatValue()>= 25) {
+            //handle M propre (byte = 25)
+            if (b.floatValue() == 25) {
+                this.settings.getBonus1().mrPropreEffect();
+                information.add(-1);
+                information.add( -1);
+            }
+            else {
+                //handle with punisher:
+                for (int j = 0; j < 3; j++) {
+                    if (30 + j * 5 == b.floatValue()) {
+                        information.add(j);
+                        information.add(4);
+                    }
+                }
             }
         }
-        //handle M propre (byte = 25)
-        if(b.floatValue() == 25){
-            this.settings.getBonus1().mrPropreEffect();
-            information.set(0, -1);
-            information.set(0, -1);
-        }
-
         //otherwise:
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (i * 5 + j * 2 == b.floatValue()) {
-                    information.add(i); //column key
-                    information.add(j); //colour key
+        else {
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    if (i * 5 + j * 2 == b.floatValue()) {
+                        information.add(i); //column key
+                        information.add(j); //colour key
+                    }
                 }
             }
         }
