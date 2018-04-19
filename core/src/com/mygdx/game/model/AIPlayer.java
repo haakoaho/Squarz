@@ -189,18 +189,18 @@ public class AIPlayer extends Player{
         }
     }
 
-    public void incrementOpponent(Texture t, Integer columnKey, Integer colorkey) {
+    public void incrementOpponent(Texture t, Integer columnKey, Integer colorKey) {
         Integer counter = this.getCounter(columnKey);
         Map<Integer, Square> row = this.getMap(columnKey);
         //back end
         row.put(counter, new Square(this.getSet()));
         incrementCounter(columnKey);
-        this.getSquareLimiter().minusOne(colorkey);
+        this.getSquareLimiter().minusOne(colorKey);
 
         //front end
         row.get(counter).setPosition(new Vector2(WIDTH * (3+(2*columnKey))/8, HEIGHT));
         row.get(counter).setTexture(t);
-        row.get(counter).setColorKey(colorkey);
+        row.get(counter).setColorKey(colorKey);
 
         handleAIOverLapping(columnKey, t, counter, row);
     }
