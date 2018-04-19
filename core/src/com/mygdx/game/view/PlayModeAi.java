@@ -326,7 +326,7 @@ public class PlayModeAi extends State {
             this.settings.getBonus2().update(this.getPlayer(), this.getAi());
             if(this.settings.getBonus2().getBonusKey() == 1){
                 this.setColorKey(this.settings.getBonus2().punisherEffect());
-                this.setTexture(new Texture(Gdx.files.internal(format+"/bonuses/punisher.png")));
+                this.setPLayerTexture(4);
             }
             if(this.settings.getBonus2().getBonusKey() == 2){this.settings.getBonus2().nurseEffectPlayer();}
             if(this.settings.getBonus2().getBonusKey() == 3){this.settings.getBonus2().mrPropreEffect();}

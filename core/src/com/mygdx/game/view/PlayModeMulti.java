@@ -264,7 +264,8 @@ public class PlayModeMulti extends State {
             if(this.settings.getBonus1().getBonusKey() == 1){
                 this.settings.getBonus1().punisherEffect();
                 this.colorKey = this.settings.getBonus1().getColorKey();
-                this.setTexture(new Texture(Gdx.files.internal(format+"/bonuses/punisher.png")));}
+                this.setTexture(new Texture(Gdx.files.internal(format+"/bonuses/punisher.png")));
+            }
             if(this.settings.getBonus1().getBonusKey() == 2){this.settings.getBonus1().nurseEffectPlayer();}
             if(this.settings.getBonus1().getBonusKey() == 3){
                 this.settings.getBonus1().mrPropreEffect();
@@ -279,7 +280,11 @@ public class PlayModeMulti extends State {
         if (this.bonusChoiceSquare2.contains(x, y) && !secondIsUsed) {
 
             this.settings.getBonus2().update(this.getPlayer(), this.getAi());
-            if(this.settings.getBonus2().getBonusKey() == 1){this.settings.getBonus2().punisherEffect();this.setTexture(new Texture(Gdx.files.internal(format+"/bonuses/punisheer..png")));}
+            if(this.settings.getBonus2().getBonusKey() == 1){
+                this.settings.getBonus2().punisherEffect();
+                this.colorKey = this.settings.getBonus2().getColorKey();
+                this.setTexture(new Texture(Gdx.files.internal(format+"/bonuses/punisher.png")));
+            }
             if(this.settings.getBonus2().getBonusKey() == 2){this.settings.getBonus2().nurseEffectPlayer();}
             if(this.settings.getBonus2().getBonusKey() == 3){
                 this.settings.getBonus2().mrPropreEffect();
