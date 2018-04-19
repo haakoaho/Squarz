@@ -13,6 +13,7 @@ import com.mygdx.game.Squarz;
 import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.control.aI.PreferencesSettings;
 import com.mygdx.game.model.AIPlayer;
+import com.mygdx.game.model.Bonus;
 import com.mygdx.game.model.Collision;
 import com.mygdx.game.model.CountDown;
 import com.mygdx.game.model.Icon;
@@ -282,7 +283,7 @@ public class PlayModeMulti extends State {
             if(this.settings.getBonus2().getBonusKey() == 2){this.settings.getBonus2().nurseEffectPlayer();}
             if(this.settings.getBonus2().getBonusKey() == 3){
                 this.settings.getBonus2().mrPropreEffect();
-            send(new Byte("25"));}
+            send(new Byte(""+25));} //M Propre encryption
 
             this.bonusChoiceSquare2.setTexture(new Texture( Gdx.files.internal(format+"/bonuses/used.png")));
             this.setSecondIsUsed(true);
@@ -293,7 +294,7 @@ public class PlayModeMulti extends State {
         if(this.getColumn(x) != -1) {
             player.increment(texture, this.getColumn(x), colorKey);
         }
-        //punisher bonus:
+        //punisher bonus encrytion:
         if(colorKey == 4){
             send(encryption(this.getColumn(x), 15)); //15*2 15*2+5 = 35   15*2 +5*2 = 40
         }
@@ -414,32 +415,29 @@ public class PlayModeMulti extends State {
         Byte b = lastMove.peek();
         ArrayList<Integer> list = getInformation(b);
         if(list.size()>0) {
-            //if clear all bonus is received:
-            if(list.get(1) == 25){
-                this.settings.getBonus2().mrPropreEffect();
-            }
-            else {
+            if(list.get(0) >= 0){ //if <0 it is Mr Propre, already handled in getInformation.
                 opponent.incrementOpponent(getTexture(list.get(1)), list.get(0), list.get(1));
             }
         }
-
     }
 
     public ArrayList<Integer> getInformation(Byte b) {
         ArrayList<Integer> information = new ArrayList<Integer>();
-
+        //handle with bonuses:
         //handle with punisher:
-        if(b.floatValue() == 30){
-            information.set(0, 0);
-            information.set(1, 4);
+        for(int j=0; j<3; j++){
+            if(30 + j*5 == b.floatValue()){
+                information.set(0, j);
+                information.set(1, 4);
+            }
         }
-        if(b.floatValue() == 35){
-            information.set(0, 1);
-            information.set(1, 4);
-        }
-        if(b.floatValue() == 40){
-            information.set(0, 2);
-            information.set(1, 4);
+        //handle M propre (byte = 25)
+        if(b.floatValue() == 25){
+            Bonus bonus = new Bonus();
+            bonus.update(player, opponent);
+            bonus.mrPropreEffect();
+            information.set(0, -1);
+            information.set(0, -1);
         }
 
         //otherwise:
