@@ -263,7 +263,7 @@ public class PlayModeMulti extends State {
             this.settings.getBonus1().update(this.getPlayer(), this.getAi());
             if(this.settings.getBonus1().getBonusKey() == 1){
                 this.settings.getBonus1().punisherEffect();
-                this.colorKey = this.settings.getBonus1().getColorKey();
+                this.setColorKey(this.settings.getBonus1().getColorKey());
                 this.setTexture(new Texture(Gdx.files.internal(format+"/bonuses/punisher.png")));}
             if(this.settings.getBonus1().getBonusKey() == 2){this.settings.getBonus1().nurseEffectPlayer();}
             if(this.settings.getBonus1().getBonusKey() == 3){
@@ -279,7 +279,11 @@ public class PlayModeMulti extends State {
         if (this.bonusChoiceSquare2.contains(x, y) && !secondIsUsed) {
 
             this.settings.getBonus2().update(this.getPlayer(), this.getAi());
-            if(this.settings.getBonus2().getBonusKey() == 1){this.settings.getBonus2().punisherEffect();this.setTexture(new Texture(Gdx.files.internal(format+"/bonuses/punisheer..png")));}
+            if(this.settings.getBonus2().getBonusKey() == 1){
+                this.settings.getBonus2().punisherEffect();
+                this.setColorKey(this.settings.getBonus1().getColorKey());
+                this.setTexture(new Texture(Gdx.files.internal(format+"/bonuses/punisher.png")));
+            }
             if(this.settings.getBonus2().getBonusKey() == 2){this.settings.getBonus2().nurseEffectPlayer();}
             if(this.settings.getBonus2().getBonusKey() == 3){
                 this.settings.getBonus2().mrPropreEffect();
@@ -433,9 +437,7 @@ public class PlayModeMulti extends State {
         }
         //handle M propre (byte = 25)
         if(b.floatValue() == 25){
-            Bonus bonus = new Bonus();
-            bonus.update(player, opponent);
-            bonus.mrPropreEffect();
+            this.settings.getBonus1().mrPropreEffect();
             information.set(0, -1);
             information.set(0, -1);
         }
@@ -463,6 +465,9 @@ public class PlayModeMulti extends State {
         }
         if (colourKey == 2) {
             t = new Texture(Gdx.files.internal(format + "/square/square_yellow.png"));
+        }
+        if (colourKey == 4) {
+            t = new Texture(Gdx.files.internal(format + "/bonuses/punisher.png"));
         }
         return t;
     }
