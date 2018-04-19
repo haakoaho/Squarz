@@ -4,26 +4,23 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.control.GameStateManager;
-import com.mygdx.game.model.CountDown;
 import com.mygdx.game.model.Icon;
 import com.mygdx.game.model.State;
-import com.mygdx.game.view.BonusSelectionMulti;
-import com.mygdx.game.view.PlayModeMulti;
+import com.mygdx.game.view.AIPreferences;
+import com.mygdx.game.view.Preferences.BonusSelectionMulti;
 
 import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
 import static com.mygdx.game.Squarz.font3;
 import static com.mygdx.game.Squarz.format;
 
-/**
- * Created by Lucas on 06/03/2018.
- */
 
 public class Pref extends State {
     private Icon ai, quick, invite, answer, back;
 
     public Pref(GameStateManager gsm) {
         super(gsm);
+
         this.ai = new Icon(new Texture(Gdx.files.internal(format+"/modes/ai.png")),0,0);
         this.quick = new Icon(new Texture(Gdx.files.internal(format+"/modes/quick.png")),0,0);
         this.invite = new Icon(new Texture(Gdx.files.internal(format+"/modes/invite.png")),0,0);
@@ -52,22 +49,19 @@ public class Pref extends State {
             int x = Gdx.input.getX();
             int y = HEIGHT - Gdx.input.getY();
             if(ai.contains(x,y)){
-                gsm.set(new com.mygdx.game.view.AIPreferences(gsm));
-                dispose();
+                gsm.set(new AIPreferences(gsm)); // to
             }
             if (quick.contains(x,y)){
-                gsm.getMultiplayerInterface().startQuickGame();
+                gsm.getMultiplayerInterface().startQuickGame(); // to start a quick game
             }
             if (answer.contains(x,y)){
-                gsm.getMultiplayerInterface().checkForInvitation();
+                gsm.getMultiplayerInterface().checkForInvitation(); // to answer to an invitation
             }
             if(invite.contains(x,y)){
-                gsm.getMultiplayerInterface().invite();
-
+                gsm.getMultiplayerInterface().invite(); // to invite someone to play
             }
             if (back.contains(x,y)) {
-                gsm.set(new Menu(gsm));
-                dispose();
+                gsm.set(new Menu(gsm)); // to go back to the menu
             }
         }
     }
@@ -75,13 +69,9 @@ public class Pref extends State {
     @Override
     public void update(float dt) {
         handleInput();
-
-        // pushes to the multiplayer screen if room was succsesfully created
         if (gsm.getMultiplayerInterface().isGameReady()) {
-            gsm.set(new BonusSelectionMulti(gsm));
+            gsm.set(new BonusSelectionMulti(gsm)); //if the game is ready to be played, we go to the bonus selection screen
         }
-
-
     }
 
     @Override
@@ -101,10 +91,5 @@ public class Pref extends State {
 
     @Override
     public void dispose() {
-        ai.getTexture().dispose();
-        quick.getTexture().dispose();
-        invite.getTexture().dispose();
-        answer.getTexture().dispose();
-        back.getTexture().dispose();
     }
 }

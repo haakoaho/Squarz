@@ -61,8 +61,9 @@ public class Bonus {
         return selectedBonus;
     }
 
-    public void punisherEffect(){
+    public Integer punisherEffect(){
         this.setColorKey(4);
+        return this.getColorKey();
     }
 
     public void nurseEffectPlayer(){
@@ -70,10 +71,17 @@ public class Bonus {
         this.getPlayer().getSquareLimiter().setBlueLeft(this.getPlayer().getSquareLimiter().getBlueLeft()+3);
         this.getPlayer().getSquareLimiter().setYellowLeft(this.getPlayer().getSquareLimiter().getYellowLeft()+3);
         this.getPlayer().getSquareLimiter().setBonusPunisherLeft(this.getPlayer().getSquareLimiter().getBonusPunisherLeft());
-        //this.getPlayer().setSquareLimiter(new SquareLimiter(this.getPlayer().getSquareLimiter().getRedLeft() + 3, this.getPlayer().getSquareLimiter().getBlueLeft() + 3, this.getPlayer().getSquareLimiter().getYellowLeft() + 3, bonusLeft));
+    }
+
+    public void nurseEffectAi(){
+        this.getOpponent().getSquareLimiter().setRedLeft(this.getPlayer().getSquareLimiter().getRedLeft()+3);
+        this.getOpponent().getSquareLimiter().setBlueLeft(this.getPlayer().getSquareLimiter().getBlueLeft()+3);
+        this.getOpponent().getSquareLimiter().setYellowLeft(this.getPlayer().getSquareLimiter().getYellowLeft()+3);
+        this.getOpponent().getSquareLimiter().setBonusPunisherLeft(this.getPlayer().getSquareLimiter().getBonusPunisherLeft());
     }
 
     public void mrPropreEffect(){
+        System.out.println("mrpropre");
         for (int columnKey = 0; columnKey<3; columnKey ++ ) {
             //this.getPlayer().setFirstSquareKey(columnKey, this.getPlayer().getCounter(columnKey));
             //this.getOpponent().setFirstSquareKey(columnKey, this.getOpponent().getCounter(columnKey));
@@ -84,6 +92,21 @@ public class Bonus {
             this.getOpponent().setCounter(columnKey, 0);
             this.getOpponent().setFirstSquareKey(columnKey, 0);
         }
+    }
+
+    public void chosenAiEffect(int bonusKey){
+        System.out.println("chosen");
+        if(bonusKey == 1){
+            punisherEffect();
+        }
+        if(bonusKey == 2){
+            nurseEffectAi();
+        }
+        if(bonusKey == 3){
+            System.out.println("bonusKey");
+            mrPropreEffect();
+        }
+
     }
 
 

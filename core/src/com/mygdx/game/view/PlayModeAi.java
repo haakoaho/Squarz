@@ -292,35 +292,27 @@ public class PlayModeAi extends State {
     public void chosingTheColour(int x, int y) {
         if (this.redChoiceSquare.contains(x, y)) {
             this.setColorKey(0);
-            this.texture = new Texture(Gdx.files.internal(format + "/square/square_red.png"));
-            this.redChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_red_selected.png")));
-            this.blueChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_blue.png")));
-            this.yellowChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_yellow.png")));
+            setPLayerTexture(this.getColorKey());
         }
 
         if (this.blueChoiceSquare.contains(x, y)) {
             this.setColorKey(1);
-            this.texture = new Texture(Gdx.files.internal(format + "/square/square_blue.png"));
-            this.redChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_red.png")));
-            this.blueChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_blue_selected.png")));
-            this.yellowChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_yellow.png")));
+            setPLayerTexture(this.getColorKey());
         }
 
         if (this.yellowChoiceSquare.contains(x, y)) {
             this.setColorKey(2);
-            this.texture = new Texture(Gdx.files.internal(format + "/square/square_yellow.png"));
-            this.redChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_red.png")));
-            this.blueChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_blue.png")));
-            this.yellowChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_yellow_selected.png")));
+            setPLayerTexture(this.getColorKey());
         }
 
         if (this.bonusChoiceSquare1.contains(x, y) && !firstIsUsed) {
 
             this.settings.getBonus1().update(this.getPlayer(), this.getAi());
             if(this.settings.getBonus1().getBonusKey() == 1){
-                this.settings.getBonus1().punisherEffect();
-                this.colorKey = this.settings.getBonus1().getColorKey();
-                this.setTexture(new Texture(Gdx.files.internal(format+"/bonuses/punisher.png")));}
+                this.setColorKey(this.settings.getBonus1().punisherEffect());
+                this.setPLayerTexture(4);
+            }
+
             if(this.settings.getBonus1().getBonusKey() == 2){this.settings.getBonus1().nurseEffectPlayer();}
             if(this.settings.getBonus1().getBonusKey() == 3){this.settings.getBonus1().mrPropreEffect();}
 
@@ -332,7 +324,10 @@ public class PlayModeAi extends State {
         if (this.bonusChoiceSquare2.contains(x, y) && !secondIsUsed) {
 
             this.settings.getBonus2().update(this.getPlayer(), this.getAi());
-            if(this.settings.getBonus2().getBonusKey() == 1){this.settings.getBonus2().punisherEffect();this.setTexture(new Texture(Gdx.files.internal(format+"/bonuses/punisheer..png")));}
+            if(this.settings.getBonus2().getBonusKey() == 1){
+                this.setColorKey(this.settings.getBonus2().punisherEffect());
+                this.setTexture(new Texture(Gdx.files.internal(format+"/bonuses/punisher.png")));
+            }
             if(this.settings.getBonus2().getBonusKey() == 2){this.settings.getBonus2().nurseEffectPlayer();}
             if(this.settings.getBonus2().getBonusKey() == 3){this.settings.getBonus2().mrPropreEffect();}
 
@@ -431,6 +426,26 @@ public class PlayModeAi extends State {
         Squarz.font.draw(sb, String.valueOf(this.countDown.getWorldTimer()), redChoiceSquare.getPosX() + redChoiceSquare.getTexture().getWidth() / 2 - time.width / 2, HEIGHT * 27 / 32 - time.height / 2);
     }
 
+    public void setPLayerTexture(int colorKey){
+        if (colorKey == 0){
+            this.texture = new Texture(Gdx.files.internal(format + "/square/square_red.png"));
+            this.redChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_red_selected.png")));
+            this.blueChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_blue.png")));
+            this.yellowChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_yellow.png")));
+        } else if(colorKey == 1){
+            this.texture = new Texture(Gdx.files.internal(format + "/square/square_blue.png"));
+            this.redChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_red.png")));
+            this.blueChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_blue_selected.png")));
+            this.yellowChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_yellow.png")));
+        } else if(colorKey == 2){
+            this.texture = new Texture(Gdx.files.internal(format + "/square/square_yellow.png"));
+            this.redChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_red.png")));
+            this.blueChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_blue.png")));
+            this.yellowChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_yellow_selected.png")));
+        } else if(colorKey == 4){
+            this.texture = new Texture(Gdx.files.internal(format + "/bonuses/punisher.png"));
+        }
+    }
 
 
 

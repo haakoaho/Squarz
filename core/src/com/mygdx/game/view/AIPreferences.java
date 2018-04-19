@@ -9,6 +9,7 @@ import com.mygdx.game.control.aI.PreferencesSettings;
 import com.mygdx.game.model.CountDown;
 import com.mygdx.game.model.Icon;
 import com.mygdx.game.model.State;
+import com.mygdx.game.view.Preferences.BonusSelection;
 import com.mygdx.game.view.Preferences.SetAILevel;
 import com.mygdx.game.view.Preferences.SetAITimer;
 import com.mygdx.game.view.beginning.Pref;

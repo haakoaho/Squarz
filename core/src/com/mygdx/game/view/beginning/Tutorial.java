@@ -18,16 +18,13 @@ import static com.mygdx.game.Squarz.font3;
 import static com.mygdx.game.Squarz.format;
 import static com.mygdx.game.Squarz.valueVolume;
 
-/**
- * Created by Olivier on 06/03/2018.
- */
 
-public class History extends State {
+public class Tutorial extends State {
     Icon back;
     private GlyphLayout title, part1, part2, part3, part4, part5, part6, part6b, part7, part8, part9, part10, part11;
     private Texture sRed, sBlue, sYellow;
 
-    public History(GameStateManager gsm) {
+    public Tutorial(GameStateManager gsm) {
         super(gsm);
 
         this.title = new GlyphLayout(Squarz.font, "Squarz Tutorial");
@@ -93,7 +90,6 @@ public class History extends State {
         sb.draw(sRed, WIDTH/2 + 3*this.sRed.getWidth() - this.sRed.getWidth()/2,11*HEIGHT/20 - this.sRed.getHeight()/2 - 3*this.part9.height);
         Squarz.font3.draw(sb, this.part10, WIDTH/2 - this.part10.width/2, HEIGHT/3);
         Squarz.font2.draw(sb, this.part11, WIDTH/2 - this.part11.width/2, HEIGHT/3 - 3*this.part11.height);
-
 
         sb.end();
     }
