@@ -115,6 +115,8 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 			return;
 		}
 
+		Bundle autoMatchCriteria = null;
+
 		// get the invitee list
 		final ArrayList<String> invitees = data.getStringArrayListExtra(Games.EXTRA_PLAYER_IDS);
 		Log.d(TAG, "Invitee count: " + invitees.size());
@@ -126,9 +128,9 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 		RoomConfig.Builder roomBuilder = RoomConfig.builder(mRoomUpdateCallback)
 				.addPlayersToInvite(invitees)
 				.setOnMessageReceivedListener(mOnRealTimeMessageReceivedListener)
-				.setRoomStatusUpdateCallback(mRoomStatusUpdateCallback);
-		roomBuilder.setAutoMatchCriteria(
-				RoomConfig.createAutoMatchCriteria(1, 1, 0));
+				.setRoomStatusUpdateCallback(mRoomStatusUpdateCallback)
+				.setAutoMatchCriteria(autoMatchCriteria);
+
 
 		// Save the roomConfig so we can use it if we call leave().
 		mRoomConfig = roomBuilder.build();
@@ -383,7 +385,7 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 
 	private void showWaitingRoom(Room room) {
 		Games.getRealTimeMultiplayerClient(this, GoogleSignIn.getLastSignedInAccount(this))
-				.getWaitingRoomIntent(room, 1)
+				.getWaitingRoomIntent(room, 2)
 				.addOnSuccessListener(new OnSuccessListener<Intent>() {
 					@Override
 					public void onSuccess(Intent intent) {
@@ -399,7 +401,7 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 	public void invite() {
 
 		Games.getRealTimeMultiplayerClient(this, GoogleSignIn.getLastSignedInAccount(this))
-				.getSelectOpponentsIntent(1, 1, true)
+				.getSelectOpponentsIntent(1, 1)
 				.addOnSuccessListener(new OnSuccessListener<Intent>() {
 					@Override
 					public void onSuccess(Intent intent) {
