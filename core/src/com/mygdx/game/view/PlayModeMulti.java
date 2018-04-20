@@ -67,6 +67,9 @@ public class PlayModeMulti extends State {
         player = new Player(settings, countDown);
         opponent = new AIPlayer(settings, countDown);
 
+        this.settings.getBonus1().update(this.getPlayer(), this.getAi());
+        this.settings.getBonus2().update(this.getPlayer(), this.getAi());
+
         choiceSquare = new Square(settings);
         choiceSquare.setPosition(new Vector2(WIDTH * 1 / 16, HEIGHT * 1 / 5));
 
@@ -203,8 +206,6 @@ public class PlayModeMulti extends State {
         drawCounter(sb);
 
         sb.end();
-
-
     }
 
     @Override
@@ -225,15 +226,18 @@ public class PlayModeMulti extends State {
 
     public void chosingTheColour(int x, int y) {
         if (this.redChoiceSquare.contains(x, y)) {
+            this.setColorKey(0);
             this.setPLayerTexture(0);
         }
 
         if (this.blueChoiceSquare.contains(x, y)) {
+            this.setColorKey(1);
             this.setPLayerTexture(1);
         }
 
         if (this.yellowChoiceSquare.contains(x, y)) {
-           this.setPLayerTexture(2);
+            this.setColorKey(2);
+            this.setPLayerTexture(2);
         }
     }
 
@@ -243,31 +247,31 @@ public class PlayModeMulti extends State {
     public void choosingTheBonuses(int x, int y) {
         if (this.bonusChoiceSquare1.contains(x, y) && !firstIsUsed) {
 
-            this.settings.getBonus1().update(this.getPlayer(), this.getAi());
             if (this.settings.getBonus1().getBonusKey() == 1) {
-                this.setColorKey(this.settings.getBonus1().punisherEffect());
-                this.setPLayerTexture(4);
-                if (this.settings.getBonus1().getBonusKey() == 2) {
-                    this.settings.getBonus1().nurseEffectPlayer();
-                }
-                if (this.settings.getBonus1().getBonusKey() == 3) {
-                    this.settings.getBonus1().mrPropreEffect();
-                    send(new Byte("25"));
-                    System.out.print("Ecryption is 25");
-                }
+                this.colorKey = this.settings.getBonus1().punisherEffect();
+                this.setPLayerTexture(4); //le mettre dans punishereffect
+            }
+            if (this.settings.getBonus1().getBonusKey() == 2) {
+                this.settings.getBonus1().nurseEffectPlayer();
+            }
+            if (this.settings.getBonus1().getBonusKey() == 3) {
+                this.settings.getBonus1().mrPropreEffect();
+                send(new Byte("25"));
+                System.out.print("Ecryption is 25");
+                send(new Byte("25")); //Mr propre encryption
+            }
 
                 //after utilisation
-                this.bonusChoiceSquare1.setTexture(new Texture(Gdx.files.internal(format + "/bonuses/used.png")));
-                this.setFirstIsUsed(true);
-            }
+            this.bonusChoiceSquare1.setTexture(new Texture(Gdx.files.internal(format + "/bonuses/used.png")));
+            this.setFirstIsUsed(true);
         }
 
         if (this.bonusChoiceSquare2.contains(x, y) && !secondIsUsed) {
 
-            this.settings.getBonus2().update(this.getPlayer(), this.getAi());
+
             if (this.settings.getBonus2().getBonusKey() == 1) {
-                this.setColorKey(this.settings.getBonus1().punisherEffect());
-                this.setPLayerTexture(4);
+                this.colorKey = this.settings.getBonus2().punisherEffect();
+                this.setPLayerTexture(4); //lemettre dans le punisherEffect()
             }
             if (this.settings.getBonus2().getBonusKey() == 2) {
                 this.settings.getBonus2().nurseEffectPlayer();
@@ -278,9 +282,11 @@ public class PlayModeMulti extends State {
                 System.out.print("Ecryption is 25");
             } //M Propre encryption
 
+
             this.bonusChoiceSquare2.setTexture(new Texture(Gdx.files.internal(format + "/bonuses/used.png")));
             this.setSecondIsUsed(true);
         }
+
     }
 
     public void creatingAndSendingANewSquare(int x) {
@@ -333,7 +339,7 @@ public class PlayModeMulti extends State {
                 for (int i = opponent.getFirstSquareKey(columnKey); i < opponent.getCounter(columnKey); i++) {
                     opponent.getMap(columnKey).get(i).reverseMove(dt);
                     //dealing with the score
-                    if (opponent.getMap(columnKey).get(i).getPosition().y <= 0 && opponent.getMap(columnKey).get(i).getPosition().y > -this.settings.getStepX()*dt) {
+                    if (opponent.getMap(columnKey).get(i).getPosition().y <= 0 && opponent.getMap(columnKey).get(i).getPosition().y > - this.settings.getStepX()*dt) {
                         sound.play(Squarz.valueVolume * 0.15f);
                         Gdx.input.vibrate(Squarz.valueVibration * 50);
                     }

@@ -58,17 +58,11 @@ public class Square {
     }
 
     public boolean isInAi(){
-        if (this.getPosition().y + this.getTexture().getHeight()<=0 ){
+        if (this.getPosition().y + this.getTexture().getHeight() <=0 ){
             return false;
         }
         return true;
     }
-
-
-
-
-
-
 
 
     public Sprite getSprite() {

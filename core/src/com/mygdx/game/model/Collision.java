@@ -62,7 +62,7 @@ public class Collision {
             p.decrement(p.getFirstSquareKey(columnKey), columnKey);
         }
     }
-    public  void handleWhenPlayerBlue(Player p, Player c, Integer columnKey){
+    public void handleWhenPlayerBlue(Player p, Player c, Integer columnKey){
         // if computer red
         if (c.getMap(columnKey).get(c.getFirstSquareKey(columnKey)).getColorKey() == 0) {
             c.decrement(c.getFirstSquareKey(columnKey), columnKey);
@@ -81,7 +81,7 @@ public class Collision {
             p.decrement(p.getFirstSquareKey(columnKey), columnKey);
         }
     }
-    public  void handleWhenPlayerYellow(Player p, Player c, Integer columnKey){
+    public void handleWhenPlayerYellow(Player p, Player c, Integer columnKey){
         // if computer red
         if (c.getMap(columnKey).get(c.getFirstSquareKey(columnKey)).getColorKey() == 0) {
             p.decrement(p.getFirstSquareKey(columnKey), columnKey);

@@ -85,12 +85,16 @@ public class Bonus {
         for (int columnKey = 0; columnKey<3; columnKey ++ ) {
             //this.getPlayer().setFirstSquareKey(columnKey, this.getPlayer().getCounter(columnKey));
             //this.getOpponent().setFirstSquareKey(columnKey, this.getOpponent().getCounter(columnKey));
-            this.getPlayer().getMap(columnKey).clear();
-            this.getPlayer().setCounter(columnKey, 0);
-            this.getPlayer().setFirstSquareKey(columnKey, 0);
-            this.getOpponent().getMap(columnKey).clear();
-            this.getOpponent().setCounter(columnKey, 0);
-            this.getOpponent().setFirstSquareKey(columnKey, 0);
+            if (this.getPlayer().getMap(columnKey) != null) {
+                this.getPlayer().getMap(columnKey).clear();
+                this.getPlayer().setCounter(columnKey, 0);
+                this.getPlayer().setFirstSquareKey(columnKey, 0);
+            }
+            if (this.getOpponent().getMap(columnKey) != null) {
+                this.getOpponent().getMap(columnKey).clear();
+                this.getOpponent().setCounter(columnKey, 0);
+                this.getOpponent().setFirstSquareKey(columnKey, 0);
+            }
         }
     }
 
