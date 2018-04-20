@@ -73,6 +73,9 @@ public class PlayModeAi extends State {
         this.player = new Player(this.settings,this.countDown);
         this.ai = new AIPlayer(this.settings,this.countDown);
 
+        this.settings.getBonus1().update(this.getPlayer(), this.getAi());
+        this.settings.getBonus2().update(this.getPlayer(), this.getAi());
+
         this.score = Score.getInstance();
         this.shapeRenderer = new ShapeRenderer();
 

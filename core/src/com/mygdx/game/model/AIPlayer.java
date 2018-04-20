@@ -62,7 +62,7 @@ public class AIPlayer extends Player{
 
                 if (countDown.getWorldTimer() == 55) {
                     bonusSending();
-                }else if ( countDown.getWorldTimer() == 50){
+                }else if (countDown.getWorldTimer() == 50){
                     bonusSending();
                 }else {
                     //setting the random color
