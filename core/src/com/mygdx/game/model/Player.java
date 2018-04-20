@@ -2,6 +2,7 @@ package com.mygdx.game.model;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.control.aI.PreferencesSettings;
+import com.mygdx.game.model.AbstractFactory.CountdownDuration.ICountdownDuration;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,7 +28,7 @@ public class Player {
     private Integer firstLeftSquaresKey, firstMiddleSquaresKey, firstRightSquaresKey;
 
 
-    public Player(PreferencesSettings set, CountDown countDown) {
+    public Player(PreferencesSettings set, ICountdownDuration countDown) {
         this.set = set;
 
         this.left = new HashMap<Integer, Square>();
@@ -49,8 +50,6 @@ public class Player {
 
 
     public void increment(Texture t, Integer columnKey, Integer colorKey) {
-        //in the case of the bonus none and nurse and Mr.Propre, they don't have to be drawn like an usual square
-        //if (colorKey != 3 && colorKey != 5 && colorKey != 6) {
             //local variables
             Integer counter = getCounter(columnKey);
             Map<Integer, Square> column = getMap(columnKey);

@@ -6,10 +6,12 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Squarz;
 import com.mygdx.game.control.aI.PreferencesSettings;
-import com.mygdx.game.model.CountDown;
+import com.mygdx.game.model.AbstractFactory.CountdownDuration.ICountdownDuration;
+import com.mygdx.game.model.Countdown;
 import com.mygdx.game.model.Icon;
 import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.model.State;
+import com.mygdx.game.view.AIPreferences;
 
 import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
@@ -19,12 +21,21 @@ import static com.mygdx.game.Squarz.format;
 // CLEAN //
 public class SetAILevel extends State{
     private Icon add, delete, levelToDraw, back;
+<<<<<<< HEAD
     private PreferencesSettings settings;
     private CountDown countDown;
     private GlyphLayout choose, levelTitle;
 
 
     public SetAILevel(GameStateManager gsm, PreferencesSettings settings, CountDown countDown){
+=======
+    private PreferencesSettings set;
+    private ICountdownDuration countDown;
+    private GlyphLayout choose, levelTitle;
+
+
+    public SetAILevel(GameStateManager gsm, PreferencesSettings setting, ICountdownDuration countDown){
+>>>>>>> 2cd1869f471b46c99867f7d31763bde5d5bd28e6
         super(gsm);
 
         this.settings = settings;
@@ -64,11 +75,19 @@ public class SetAILevel extends State{
                 this.choose = new GlyphLayout(font2,this.settings.getStringLevel());
                 setTextureToDraw();
             }
+<<<<<<< HEAD
             if(this.levelToDraw.contains(x,y)){//go back
                 gsm.set(new com.mygdx.game.view.AIPreferences(gsm, settings, countDown));
             }
             if(this.back.contains(x,y)) {
                 gsm.set(new com.mygdx.game.view.AIPreferences(gsm, settings, countDown));
+=======
+            if(levelToDraw.contains(x,y)){//go back
+                gsm.set(new AIPreferences(gsm, set, countDown));
+            }
+            if (back.contains(x,y)) {
+                gsm.set(new AIPreferences(gsm, set, countDown));
+>>>>>>> 2cd1869f471b46c99867f7d31763bde5d5bd28e6
                 dispose();
             }
         }

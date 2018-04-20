@@ -7,7 +7,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Squarz;
 import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.control.aI.PreferencesSettings;
-import com.mygdx.game.model.CountDown;
+import com.mygdx.game.model.AbstractFactory.CountdownDuration.ICountdownDuration;
+import com.mygdx.game.model.AbstractFactory.CountdownDuration.LongCountdown;
+import com.mygdx.game.model.AbstractFactory.CountdownDuration.ShortCountdown;
+import com.mygdx.game.model.AbstractFactory.CountdownDuration.VeryLongCountdown;
+import com.mygdx.game.model.AbstractFactory.CountdownFactory.LongCountdownFactory;
+import com.mygdx.game.model.AbstractFactory.CountdownFactory.ShortCountdownFactory;
+import com.mygdx.game.model.AbstractFactory.CountdownFactory.VeryLongCountdownFactory;
+import com.mygdx.game.model.Countdown;
 import com.mygdx.game.model.Icon;
 import com.mygdx.game.model.State;
 
@@ -18,12 +25,21 @@ import static com.mygdx.game.Squarz.format;
 
 // CLEAN //
 public class SetAITimer extends State {
+<<<<<<< HEAD
     private PreferencesSettings settings;
     private CountDown countDown;
     private Icon add, delete, countDownIcon, back;
     private GlyphLayout choose, timeTitle;
 
     public SetAITimer(GameStateManager gsm, PreferencesSettings settings, CountDown countDown){
+=======
+    private PreferencesSettings set;
+    private ICountdownDuration countDown;
+    private Icon add, delete, countDownIcon, back;
+    private GlyphLayout choose, timeTitle;
+
+    public SetAITimer(GameStateManager gsm, PreferencesSettings setting, ICountdownDuration countDown){
+>>>>>>> 2cd1869f471b46c99867f7d31763bde5d5bd28e6
         super(gsm);
 
         this.settings = settings;
@@ -53,15 +69,24 @@ public class SetAITimer extends State {
         if(Gdx.input.justTouched()){
             int x = Gdx.input.getX();
             int y = HEIGHT - Gdx.input.getY();
+            System.out.println(this.countDown.getWorldTimer()+" seconds");
             if(add.contains(x,y)) { //add
-                if (this.countDown.getWorldTimer() != 60) {
-                    this.countDown.increaseTime();
+                if(this.countDown.getWorldTimer() == 45){
+                    this.countDown = new VeryLongCountdownFactory().createCountDown();
+                    this.choose = new GlyphLayout(font2, this.countDown.getWorldTimer()+" seconds");
+                }
+                if(this.countDown.getWorldTimer() == 30){
+                    this.countDown = new LongCountdownFactory().createCountDown();
                     this.choose = new GlyphLayout(font2, this.countDown.getWorldTimer()+" seconds");
                 }
             }
             if(delete.contains(x,y)) { //delete
-                if (this.countDown.getWorldTimer() != 30) {
-                    this.countDown.decreaseTime();
+                if(this.countDown.getWorldTimer() == 45){
+                    this.countDown = new ShortCountdownFactory().createCountDown();
+                    this.choose = new GlyphLayout(font2, this.countDown.getWorldTimer()+" seconds");
+                }
+                if(this.countDown.getWorldTimer() == 60){
+                    this.countDown = new LongCountdownFactory().createCountDown();
                     this.choose = new GlyphLayout(font2, this.countDown.getWorldTimer()+" seconds");
                 }
             }

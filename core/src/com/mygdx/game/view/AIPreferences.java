@@ -6,7 +6,9 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.control.aI.PreferencesSettings;
-import com.mygdx.game.model.CountDown;
+import com.mygdx.game.model.AbstractFactory.CountdownDuration.LongCountdown;
+import com.mygdx.game.model.AbstractFactory.CountdownDuration.ICountdownDuration;
+import com.mygdx.game.model.AbstractFactory.CountdownFactory.LongCountdownFactory;
 import com.mygdx.game.model.Icon;
 import com.mygdx.game.model.State;
 import com.mygdx.game.view.Preferences.BonusSelection;
@@ -24,11 +26,41 @@ import static com.mygdx.game.Squarz.format;
 public class AIPreferences extends State {
     private Icon setAILevel, setTimer, setBonuses, play, back;
     private PreferencesSettings setting;
-    private CountDown countDown;
+    private ICountdownDuration countDown;
     private GlyphLayout AILevel, Timer, Bonuses;
 
     public AIPreferences(GameStateManager gsm){ // used if the settings have not been changed yet
         super(gsm);
+<<<<<<< HEAD
+=======
+        setAILevel = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/setAILevel.png")),0,0);
+        setTimer = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/setTimer.png")),0,0);
+        setBonuses = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/setBonus.png")),0,0);
+        play = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/play.png")),0,0);
+        back = new Icon(new Texture(Gdx.files.internal(format+"/back.png")),0,0);
+
+        setting = new PreferencesSettings();
+        countDown = new LongCountdownFactory().createCountDown();
+
+        AILevel = new GlyphLayout(font2, this.setting.getStringLevel());
+        Timer = new GlyphLayout(font2, this.countDown.getWorldTimer()+" seconds");
+        Bonuses = new GlyphLayout(font2, "None \n\nNone");
+
+        setAILevel.setPosX(WIDTH/4-setAILevel.getTexture().getWidth()/2);
+        setAILevel.setPosY(HEIGHT*4/5-setAILevel.getTexture().getHeight()/2);
+        setAILevel.setLegend("Choose AI Level");
+        setTimer.setPosX(WIDTH/4-setTimer.getTexture().getWidth()/2);
+        setTimer.setPosY(HEIGHT*3/5-setTimer.getTexture().getHeight()/2);
+        setTimer.setLegend("Choose the time");
+        setBonuses.setPosX(WIDTH/4-setBonuses.getTexture().getWidth()/2);
+        setBonuses.setPosY(HEIGHT*2/5-setBonuses.getTexture().getHeight()/2);
+        setBonuses.setLegend("Choose your bonuses");
+        play.setPosX(WIDTH/2-play.getTexture().getWidth()/2);
+        play.setPosY(HEIGHT/8-play.getTexture().getHeight()/2);
+        back.setPosX(back.getTexture().getWidth()/2);
+        back.setPosY(back.getTexture().getHeight()/2);
+
+>>>>>>> 2cd1869f471b46c99867f7d31763bde5d5bd28e6
 
         this.setting = new PreferencesSettings();
         this.countDown = new CountDown(60); // initial countDown, but he can be changed if the player wants
@@ -58,7 +90,12 @@ public class AIPreferences extends State {
         this.back.setPosY(this.back.getTexture().getHeight()/2);
     }
 
+<<<<<<< HEAD
     public AIPreferences(GameStateManager gsm, PreferencesSettings setting, CountDown countDown){ // used once the settings have been changed
+=======
+    //used once a setting is changed
+    public AIPreferences(GameStateManager gsm, PreferencesSettings setting, ICountdownDuration countDown){
+>>>>>>> 2cd1869f471b46c99867f7d31763bde5d5bd28e6
 
         super(gsm);
         this.setAILevel = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/setAILevel.png")),0,0);

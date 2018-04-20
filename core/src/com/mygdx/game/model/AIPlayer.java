@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.control.aI.PreferencesSettings;
+import com.mygdx.game.model.AbstractFactory.CountdownDuration.ICountdownDuration;
 
 import java.util.Map;
 
@@ -23,7 +24,7 @@ import static com.mygdx.game.Squarz.format;
 
 public class AIPlayer extends Player{
     private Texture texture;
-    private com.mygdx.game.model.Square square;
+    private Square square;
     private Integer launcherCounter;
     private Integer deltaLauncher;
     private Integer renderCounter;
@@ -37,7 +38,7 @@ public class AIPlayer extends Player{
     private boolean wave4 = true;
     private boolean wave5 = true;
 
-    public AIPlayer (PreferencesSettings set, CountDown countDown){
+    public AIPlayer (PreferencesSettings set, ICountdownDuration countDown){
         super(set, countDown);
         this.texture = new Texture (Gdx.files.internal(format+"/square/square.png"));
         this.square = new com.mygdx.game.model.Square(set);
@@ -53,7 +54,7 @@ public class AIPlayer extends Player{
         this.nbofBonusesUsed = 0;
     }
 
-    public void send(CountDown countDown){
+    public void send(ICountdownDuration countDown){
         this.launcherCounter += 1;
         if (countDown.getWorldTimer() > 0) {
             if (this.launcherCounter == this.getSet().getDtLaunching() ) {
@@ -97,7 +98,7 @@ public class AIPlayer extends Player{
         }
     }
 
-    public void prgrmdSending(CountDown countDown) {
+    public void prgrmdSending(ICountdownDuration countDown) {
         this.launcherCounter += 1;
         if (countDown.getWorldTimer() > 0) {
             //random flow
@@ -122,7 +123,7 @@ public class AIPlayer extends Player{
 
     }
 
-    public void myWave(CountDown countDown){
+    public void myWave(ICountdownDuration countDown){
         if (wave1) {
             wave1 =  createAWave(55, countDown);
         }
@@ -149,7 +150,7 @@ public class AIPlayer extends Player{
         setTheRandomColumn(row,colorkey);
     }
 
-    public boolean createAWave(int time, CountDown countDown){
+    public boolean createAWave(int time, ICountdownDuration countDown){
 
         if (time == countDown.getWorldTimer()){
             setOneSquare(random(2),random(2));

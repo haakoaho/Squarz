@@ -11,12 +11,12 @@ import com.mygdx.game.Squarz;
 import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.control.aI.PreferencesSettings;
 import com.mygdx.game.model.AIPlayer;
+import com.mygdx.game.model.AbstractFactory.CountdownDuration.ICountdownDuration;
 import com.mygdx.game.model.Collision;
-import com.mygdx.game.model.CountDown;
+import com.mygdx.game.model.Countdown;
 import com.mygdx.game.model.Icon;
 import com.mygdx.game.model.Player;
 import com.mygdx.game.model.Score;
-import com.mygdx.game.model.SquareLimiter;
 import com.mygdx.game.model.State;
 
 
@@ -41,7 +41,7 @@ public class PlayModeAi extends State {
     private ShapeRenderer shapeRenderer;
 
     private PreferencesSettings settings;
-    private CountDown countDown;
+    private ICountdownDuration countDown;
 
     private AIPlayer ai;
     private Player player;
@@ -65,7 +65,7 @@ public class PlayModeAi extends State {
     private Boolean secondIsUsed = false;
 
 
-    public PlayModeAi(GameStateManager gsm, PreferencesSettings settings, CountDown countDown) {
+    public PlayModeAi(GameStateManager gsm, PreferencesSettings settings, ICountdownDuration countDown) {
         super(gsm);
 
         this.settings = settings;

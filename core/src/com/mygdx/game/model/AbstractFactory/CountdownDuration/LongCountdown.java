@@ -1,15 +1,14 @@
-package com.mygdx.game.model;
+package com.mygdx.game.model.AbstractFactory.CountdownDuration;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.graphics.Color;
-
 
 /**
- * Created by Max on 12/03/2018.
+ * Created by Antoine Dc on 20/04/2018.
  */
 
-public class Countdown {
+public class LongCountdown implements ICountdownDuration {
     private Integer worldTimer;
 
     private float timeCount;
@@ -17,10 +16,10 @@ public class Countdown {
     private Boolean timeUp;
     private Integer timerKey;
 
-    public Countdown(Integer time) {
-        this.worldTimer = time;
+    public LongCountdown() {
+        this.worldTimer = 45;
         this.timeCount = 0f;
-        this.timerKey = time;
+        this.timerKey = 45;
 
         this.countdownLabel = new Label(String.format("%02d", worldTimer),
                 new Label.LabelStyle(new BitmapFont(), Color.WHITE));
@@ -89,4 +88,5 @@ public class Countdown {
             this.timeCount = 0;
         }
     }
+
 }

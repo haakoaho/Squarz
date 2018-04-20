@@ -7,7 +7,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Squarz;
 import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.control.aI.PreferencesSettings;
-import com.mygdx.game.model.CountDown;
+import com.mygdx.game.model.AbstractFactory.CountdownDuration.ICountdownDuration;
+import com.mygdx.game.model.AbstractFactory.CountdownDuration.ShortCountdown;
+import com.mygdx.game.model.AbstractFactory.CountdownFactory.LongCountdownFactory;
+import com.mygdx.game.model.AbstractFactory.CountdownFactory.ShortCountdownFactory;
+import com.mygdx.game.model.AbstractFactory.CountdownFactory.VeryLongCountdownFactory;
+import com.mygdx.game.model.Countdown;
 import com.mygdx.game.model.Icon;
 import com.mygdx.game.model.Score;
 import com.mygdx.game.model.State;
@@ -24,10 +29,16 @@ import static com.mygdx.game.Squarz.format;
 public class EndModeAI extends State {
     private PreferencesSettings setting;
     private Icon replay, back;
+<<<<<<< HEAD
     private CountDown countDown;
     private GlyphLayout scoreUser, scoreAi, message1, message2;
 
     public EndModeAI(GameStateManager gsm, PreferencesSettings setting, Score s, CountDown countDown){
+=======
+    private ICountdownDuration countDown1;
+    private GlyphLayout scoreUser, scoreAi, message1, message2;
+    public EndModeAI(GameStateManager gsm, PreferencesSettings setting, Score s, ICountdownDuration countDown){
+>>>>>>> 2cd1869f471b46c99867f7d31763bde5d5bd28e6
         super(gsm);
 
         this.setting = setting; // we keep the settings, like this, if the player wants to play again, he does not have to choose again (even if he can modify them if he wants to)
@@ -54,6 +65,19 @@ public class EndModeAI extends State {
             this.message1 = new GlyphLayout(Squarz.font, "Tie!");
             this.message2 = new GlyphLayout(Squarz.font, "Revenge?");
         }
+<<<<<<< HEAD
+=======
+
+        if(countDown.getTimerKey()==30){
+            this.countDown1 = new ShortCountdownFactory().createCountDown();
+        }
+        if(countDown.getTimerKey()==45){
+            this.countDown1 = new LongCountdownFactory().createCountDown();
+        }
+        if(countDown.getTimerKey()==60){
+            this.countDown1 = new VeryLongCountdownFactory().createCountDown();
+        }
+>>>>>>> 2cd1869f471b46c99867f7d31763bde5d5bd28e6
     }
 
     @Override
