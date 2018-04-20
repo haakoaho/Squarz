@@ -64,7 +64,7 @@ public class PlayModeMulti extends State {
         this.countDown = countDown;
 
         player = new Player(settings, countDown);
-        opponent = new AIPlayer(settings, countDown);
+        opponent = new AIPlayer(settings, countDown, player);
 
         this.settings.getBonus1().update(this.getPlayer(), this.getAi());
         this.settings.getBonus2().update(this.getPlayer(), this.getAi());
