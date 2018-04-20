@@ -38,9 +38,9 @@ public class Player {
         this.middleCounter = 0;
         this.rightCounter = 0;
 
-        if (countDown.getWorldTimer()==30) {this.squareLimiter = new SquareLimiter(10, 1);}
-        if (countDown.getWorldTimer()==45) {this.squareLimiter = new SquareLimiter(15, 1);}
-        if (countDown.getWorldTimer()==60) {this.squareLimiter = new SquareLimiter(20, 1);}
+        if (countDown.getWorldTimer()==30) {this.squareLimiter = new SquareLimiter(7, 1);}
+        if (countDown.getWorldTimer()==45) {this.squareLimiter = new SquareLimiter(10, 1);}
+        if (countDown.getWorldTimer()==60) {this.squareLimiter = new SquareLimiter(15, 1);}
 
 
         this.firstLeftSquaresKey = 0;
