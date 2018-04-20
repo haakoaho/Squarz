@@ -66,7 +66,6 @@ public class PlayModeAi extends State {
 
 
     public PlayModeAi(GameStateManager gsm, PreferencesSettings settings, CountDown countDown) {
-
         super(gsm);
 
         this.settings = settings;
@@ -74,9 +73,8 @@ public class PlayModeAi extends State {
 
         this.player = new Player(this.settings,this.countDown);
         this.ai = new AIPlayer(this.settings,this.countDown);
-        this.ai.setSet(settings);
 
-        this.score = new Score();
+        this.score = Score.getInstance();
         this.shapeRenderer = new ShapeRenderer();
 
         this.redLeft = new GlyphLayout(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getRedLeft()));
