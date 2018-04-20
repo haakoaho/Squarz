@@ -5,8 +5,13 @@ package com.mygdx.game.model;
  */
 
 public class Score {
+    private static final Score ourInstance = new Score();
     private Integer userScore;
     private Integer opponentScore;
+
+    public static Score getInstance() {
+        return ourInstance;
+    }
 
     public Score(){
         this.userScore = 0;
