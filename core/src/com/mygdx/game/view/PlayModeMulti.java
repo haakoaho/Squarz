@@ -16,7 +16,6 @@ import com.mygdx.game.model.AIPlayer;
 import com.mygdx.game.model.AbstractFactory.CountdownDuration.ICountdownDuration;
 import com.mygdx.game.model.AbstractFactory.CountdownDuration.VeryLongCountdown;
 import com.mygdx.game.model.Collision;
-import com.mygdx.game.model.Countdown;
 import com.mygdx.game.model.Icon;
 import com.mygdx.game.model.Player;
 import com.mygdx.game.model.Score;
@@ -58,12 +57,7 @@ public class PlayModeMulti extends State {
     private float exTime;
     private Boolean varMute, firstIsUsed = false, secondIsUsed = false;
 
-<<<<<<< HEAD
-    public PlayModeMulti(GameStateManager gsm, PreferencesSettings settings, CountDown countDown) {
-=======
     public PlayModeMulti(GameStateManager gsm, PreferencesSettings settings, ICountdownDuration countDown) {
-
->>>>>>> 2cd1869f471b46c99867f7d31763bde5d5bd28e6
         super(gsm);
 
         this.settings = settings;

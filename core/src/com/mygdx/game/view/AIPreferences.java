@@ -31,8 +31,6 @@ public class AIPreferences extends State {
 
     public AIPreferences(GameStateManager gsm){ // used if the settings have not been changed yet
         super(gsm);
-<<<<<<< HEAD
-=======
         setAILevel = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/setAILevel.png")),0,0);
         setTimer = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/setTimer.png")),0,0);
         setBonuses = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/setBonus.png")),0,0);
@@ -59,44 +57,10 @@ public class AIPreferences extends State {
         play.setPosY(HEIGHT/8-play.getTexture().getHeight()/2);
         back.setPosX(back.getTexture().getWidth()/2);
         back.setPosY(back.getTexture().getHeight()/2);
-
->>>>>>> 2cd1869f471b46c99867f7d31763bde5d5bd28e6
-
-        this.setting = new PreferencesSettings();
-        this.countDown = new CountDown(60); // initial countDown, but he can be changed if the player wants
-
-        this.setAILevel = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/setAILevel.png")),0,0);
-        this.setTimer = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/setTimer.png")),0,0);
-        this.setBonuses = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/setBonus.png")),0,0);
-        this.play = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/play.png")),0,0);
-        this.back = new Icon(new Texture(Gdx.files.internal(format+"/back.png")),0,0);
-
-        this.AILevel = new GlyphLayout(font2, this.setting.getStringLevel());
-        this.Timer = new GlyphLayout(font2, this.countDown.getWorldTimer()+" seconds");
-        this.Bonuses = new GlyphLayout(font2, "None \n\nNone");
-
-        this.setAILevel.setPosX(WIDTH/4-this.setAILevel.getTexture().getWidth()/2);
-        this.setAILevel.setPosY(HEIGHT*4/5-this.setAILevel.getTexture().getHeight()/2);
-        this.setAILevel.setLegend("Choose AI Level");
-        this.setTimer.setPosX(WIDTH/4-this.setTimer.getTexture().getWidth()/2);
-        this.setTimer.setPosY(HEIGHT*3/5-this.setTimer.getTexture().getHeight()/2);
-        this.setTimer.setLegend("Choose the time");
-        this.setBonuses.setPosX(WIDTH/4-this.setBonuses.getTexture().getWidth()/2);
-        this.setBonuses.setPosY(HEIGHT*2/5-this.setBonuses.getTexture().getHeight()/2);
-        this.setBonuses.setLegend("Choose your bonuses");
-        this.play.setPosX(WIDTH/2-this.play.getTexture().getWidth()/2);
-        this.play.setPosY(HEIGHT/8-this.play.getTexture().getHeight()/2);
-        this.back.setPosX(this.back.getTexture().getWidth()/2);
-        this.back.setPosY(this.back.getTexture().getHeight()/2);
     }
 
-<<<<<<< HEAD
-    public AIPreferences(GameStateManager gsm, PreferencesSettings setting, CountDown countDown){ // used once the settings have been changed
-=======
     //used once a setting is changed
     public AIPreferences(GameStateManager gsm, PreferencesSettings setting, ICountdownDuration countDown){
->>>>>>> 2cd1869f471b46c99867f7d31763bde5d5bd28e6
-
         super(gsm);
         this.setAILevel = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/setAILevel.png")),0,0);
         this.setTimer = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/setTimer.png")),0,0);

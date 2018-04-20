@@ -18,6 +18,11 @@ public class Score {
         this.opponentScore = 0;
     }
 
+    public void reset() {
+        this.userScore=0;
+        this.opponentScore=0;
+    }
+
     public Integer getUserScore() {
         return userScore;
     }

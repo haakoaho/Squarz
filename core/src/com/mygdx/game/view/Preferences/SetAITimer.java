@@ -8,13 +8,9 @@ import com.mygdx.game.Squarz;
 import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.control.aI.PreferencesSettings;
 import com.mygdx.game.model.AbstractFactory.CountdownDuration.ICountdownDuration;
-import com.mygdx.game.model.AbstractFactory.CountdownDuration.LongCountdown;
-import com.mygdx.game.model.AbstractFactory.CountdownDuration.ShortCountdown;
-import com.mygdx.game.model.AbstractFactory.CountdownDuration.VeryLongCountdown;
 import com.mygdx.game.model.AbstractFactory.CountdownFactory.LongCountdownFactory;
 import com.mygdx.game.model.AbstractFactory.CountdownFactory.ShortCountdownFactory;
 import com.mygdx.game.model.AbstractFactory.CountdownFactory.VeryLongCountdownFactory;
-import com.mygdx.game.model.Countdown;
 import com.mygdx.game.model.Icon;
 import com.mygdx.game.model.State;
 
@@ -25,21 +21,12 @@ import static com.mygdx.game.Squarz.format;
 
 // CLEAN //
 public class SetAITimer extends State {
-<<<<<<< HEAD
     private PreferencesSettings settings;
-    private CountDown countDown;
-    private Icon add, delete, countDownIcon, back;
-    private GlyphLayout choose, timeTitle;
-
-    public SetAITimer(GameStateManager gsm, PreferencesSettings settings, CountDown countDown){
-=======
-    private PreferencesSettings set;
     private ICountdownDuration countDown;
     private Icon add, delete, countDownIcon, back;
     private GlyphLayout choose, timeTitle;
 
-    public SetAITimer(GameStateManager gsm, PreferencesSettings setting, ICountdownDuration countDown){
->>>>>>> 2cd1869f471b46c99867f7d31763bde5d5bd28e6
+    public SetAITimer(GameStateManager gsm, PreferencesSettings settings, ICountdownDuration countDown){
         super(gsm);
 
         this.settings = settings;

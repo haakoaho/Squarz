@@ -11,7 +11,7 @@ import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.control.aI.PreferencesSettings;
 import com.mygdx.game.model.AbstractFactory.CountdownDuration.ICountdownDuration;
 import com.mygdx.game.model.AbstractFactory.CountdownDuration.VeryLongCountdown;
-import com.mygdx.game.model.Countdown;
+import com.mygdx.game.model.CountDown;
 import com.mygdx.game.model.Icon;
 import com.mygdx.game.model.State;
 import com.mygdx.game.view.PlayModeMulti;
@@ -26,7 +26,7 @@ public class BonusSelectionMulti extends State {
     private GlyphLayout tenToChooseGlyph, clean, bonusDescription1, bonusDescription2;
     private Icon nurse, punisher, none, mrPropre, emptyField1, emptyField2, cleanButton;
     private ICountdownDuration countDown;
-    private Countdown tenToChoose;
+    private CountDown tenToChoose;
     private PreferencesSettings settings;
     private Boolean isFilled1;
     private Boolean isFilled2;
@@ -36,16 +36,11 @@ public class BonusSelectionMulti extends State {
         super(gsm);
 
         this.settings = new PreferencesSettings();
-<<<<<<< HEAD
-        this.countDown = new CountDown(60); // set the countDown to a fixed value: 1 minute
-        this.tenToChoose = new CountDown(10); // set the time each player has to select his bonuses 10 seconds
-=======
         this.countDown = new VeryLongCountdown();
-        this.tenToChoose = new Countdown(10);
+        this.tenToChoose = new CountDown(10);
 
         this.tenToChooseGlyph = new GlyphLayout(Squarz.font, String.valueOf(this.tenToChoose.getWorldTimer()));
         this.clean = new GlyphLayout(Squarz.font2, "CLEAN ALL");
->>>>>>> 2cd1869f471b46c99867f7d31763bde5d5bd28e6
 
         this.isFilled1 = false;
         this.isFilled2 = false;

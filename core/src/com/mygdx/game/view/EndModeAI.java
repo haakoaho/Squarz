@@ -8,11 +8,9 @@ import com.mygdx.game.Squarz;
 import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.control.aI.PreferencesSettings;
 import com.mygdx.game.model.AbstractFactory.CountdownDuration.ICountdownDuration;
-import com.mygdx.game.model.AbstractFactory.CountdownDuration.ShortCountdown;
 import com.mygdx.game.model.AbstractFactory.CountdownFactory.LongCountdownFactory;
 import com.mygdx.game.model.AbstractFactory.CountdownFactory.ShortCountdownFactory;
 import com.mygdx.game.model.AbstractFactory.CountdownFactory.VeryLongCountdownFactory;
-import com.mygdx.game.model.Countdown;
 import com.mygdx.game.model.Icon;
 import com.mygdx.game.model.Score;
 import com.mygdx.game.model.State;
@@ -29,20 +27,13 @@ import static com.mygdx.game.Squarz.format;
 public class EndModeAI extends State {
     private PreferencesSettings setting;
     private Icon replay, back;
-<<<<<<< HEAD
-    private CountDown countDown;
-    private GlyphLayout scoreUser, scoreAi, message1, message2;
-
-    public EndModeAI(GameStateManager gsm, PreferencesSettings setting, Score s, CountDown countDown){
-=======
     private ICountdownDuration countDown1;
     private GlyphLayout scoreUser, scoreAi, message1, message2;
+
     public EndModeAI(GameStateManager gsm, PreferencesSettings setting, Score s, ICountdownDuration countDown){
->>>>>>> 2cd1869f471b46c99867f7d31763bde5d5bd28e6
         super(gsm);
 
         this.setting = setting; // we keep the settings, like this, if the player wants to play again, he does not have to choose again (even if he can modify them if he wants to)
-        this.countDown = new CountDown(countDown.getTimerKey()); // we keep the countDown for the same reasons
 
         this.replay = new Icon(new Texture(Gdx.files.internal(format+"/endMode/replay.png")), 0, 0);
         this.back = new Icon(new Texture(Gdx.files.internal(format+"/endMode/backToMenu.png")), 0, 0);
@@ -65,8 +56,6 @@ public class EndModeAI extends State {
             this.message1 = new GlyphLayout(Squarz.font, "Tie!");
             this.message2 = new GlyphLayout(Squarz.font, "Revenge?");
         }
-<<<<<<< HEAD
-=======
 
         if(countDown.getTimerKey()==30){
             this.countDown1 = new ShortCountdownFactory().createCountDown();
@@ -77,7 +66,6 @@ public class EndModeAI extends State {
         if(countDown.getTimerKey()==60){
             this.countDown1 = new VeryLongCountdownFactory().createCountDown();
         }
->>>>>>> 2cd1869f471b46c99867f7d31763bde5d5bd28e6
     }
 
     @Override
@@ -86,9 +74,11 @@ public class EndModeAI extends State {
             int x = Gdx.input.getX();
             int y = HEIGHT - Gdx.input.getY();
             if(this.replay.contains(x, y)){
-                gsm.set(new AIPreferences(gsm, setting, countDown));
+                Score.getInstance().reset();
+                gsm.set(new AIPreferences(gsm, setting, countDown1));
             }
             if(this.back.contains(x, y)){
+                Score.getInstance().reset();
                 gsm.set(new com.mygdx.game.view.beginning.Menu(gsm));
             }
         }

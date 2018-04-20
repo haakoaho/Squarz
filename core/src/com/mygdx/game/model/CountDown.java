@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.Color;
  * Created by Max on 12/03/2018.
  */
 
-public class Countdown {
+public class CountDown {
     private Integer worldTimer;
 
     private float timeCount;
@@ -17,7 +17,7 @@ public class Countdown {
     private Boolean timeUp;
     private Integer timerKey;
 
-    public Countdown(Integer time) {
+    public CountDown(Integer time) {
         this.worldTimer = time;
         this.timeCount = 0f;
         this.timerKey = time;
