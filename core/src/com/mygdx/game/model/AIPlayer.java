@@ -23,6 +23,7 @@ import static com.mygdx.game.Squarz.format;
 //    red < blue < yellow < red
 
 public class AIPlayer extends Player{
+    private Player player;
     private Texture texture;
     private Square square;
     private Integer launcherCounter;
@@ -38,8 +39,9 @@ public class AIPlayer extends Player{
     private boolean wave4 = true;
     private boolean wave5 = true;
 
-    public AIPlayer (PreferencesSettings set, ICountdownDuration countDown){
+    public AIPlayer (PreferencesSettings set, ICountdownDuration countDown, Player player){
         super(set, countDown);
+        this.player = player;
         this.texture = new Texture (Gdx.files.internal(format+"/square/square.png"));
         this.square = new com.mygdx.game.model.Square(set);
 
@@ -60,10 +62,16 @@ public class AIPlayer extends Player{
             if (this.launcherCounter == this.getSet().getDtLaunching() ) {
                 this.launcherCounter = 0;
 
-                if (countDown.getWorldTimer() == 55) {
-                    bonusSending();
-                }else if ( countDown.getWorldTimer() == 50){
-                    bonusSending();
+                if (random(10) == 1) {
+                    boolean playerResistance = false;
+                    for (int columnKey = 0; columnKey<3; columnKey++){
+                        if(this.player.getMap(columnKey) != null){
+                            playerResistance = true;
+                        }
+                    }
+                    if (playerResistance){
+                        bonusSending();
+                }
                 }else {
                     //setting the random color
                     int colorKey = random(2);
