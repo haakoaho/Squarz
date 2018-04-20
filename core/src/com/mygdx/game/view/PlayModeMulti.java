@@ -208,8 +208,6 @@ public class PlayModeMulti extends State {
         drawCounter(sb);
 
         sb.end();
-
-
     }
 
     @Override
@@ -250,39 +248,41 @@ public class PlayModeMulti extends State {
 
             this.settings.getBonus1().update(this.getPlayer(), this.getAi());
             if (this.settings.getBonus1().getBonusKey() == 1) {
-                this.setColorKey(this.settings.getBonus1().punisherEffect());
-                this.setPLayerTexture(4);
+                this.colorKey = this.settings.getBonus1().punisherEffect();
+                this.setPLayerTexture(4); //le mettre dans punishereffect
                 if (this.settings.getBonus1().getBonusKey() == 2) {
                     this.settings.getBonus1().nurseEffectPlayer();
                 }
                 if (this.settings.getBonus1().getBonusKey() == 3) {
                     this.settings.getBonus1().mrPropreEffect();
-                    send(new Byte("25"));
+                    send(new Byte("25")); //Mr propre encryption
+                    System.out.println("encryption is: 25");
                 }
 
                 //after utilisation
                 this.bonusChoiceSquare1.setTexture(new Texture(Gdx.files.internal(format + "/bonuses/used.png")));
                 this.setFirstIsUsed(true);
             }
+        }
 
-            if (this.bonusChoiceSquare2.contains(x, y) && !secondIsUsed) {
+        if (this.bonusChoiceSquare2.contains(x, y) && !secondIsUsed) {
 
-                this.settings.getBonus2().update(this.getPlayer(), this.getAi());
-                if (this.settings.getBonus2().getBonusKey() == 1) {
-                    this.setColorKey(this.settings.getBonus1().punisherEffect());
-                    this.setPLayerTexture(4);
-                }
-                if (this.settings.getBonus2().getBonusKey() == 2) {
-                    this.settings.getBonus2().nurseEffectPlayer();
-                }
-                if (this.settings.getBonus2().getBonusKey() == 3) {
-                    this.settings.getBonus2().mrPropreEffect();
-                    send(new Byte("" + 25));
-                } //M Propre encryption
-
-                this.bonusChoiceSquare2.setTexture(new Texture(Gdx.files.internal(format + "/bonuses/used.png")));
-                this.setSecondIsUsed(true);
+            this.settings.getBonus2().update(this.getPlayer(), this.getAi());
+            if (this.settings.getBonus2().getBonusKey() == 1) {
+                this.colorKey = this.settings.getBonus2().punisherEffect();
+                this.setPLayerTexture(4); //lemettre dans le punisherEffect()
             }
+            if (this.settings.getBonus2().getBonusKey() == 2) {
+                this.settings.getBonus2().nurseEffectPlayer();
+            }
+            if (this.settings.getBonus2().getBonusKey() == 3) {
+                this.settings.getBonus2().mrPropreEffect();
+                send(new Byte("" + 25));//M Propre encryption
+                System.out.println("encryption is: 25");
+            }
+
+            this.bonusChoiceSquare2.setTexture(new Texture(Gdx.files.internal(format + "/bonuses/used.png")));
+            this.setSecondIsUsed(true);
         }
     }
 
