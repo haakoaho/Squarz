@@ -248,6 +248,7 @@ public class PlayModeMulti extends State {
 
             if (this.settings.getBonus1().getBonusKey() == 1) {
                 this.colorKey = this.settings.getBonus1().punisherEffect();
+                System.out.println("selectionner sur punisher, avec la clé:"+this.settings.getBonus1().getBonusKey());
                 this.setPLayerTexture(4); //le mettre dans punishereffect
             }
             if (this.settings.getBonus1().getBonusKey() == 2) {
@@ -255,8 +256,7 @@ public class PlayModeMulti extends State {
             }
             if (this.settings.getBonus1().getBonusKey() == 3) {
                 this.settings.getBonus1().mrPropreEffect();
-                send(new Byte("25"));
-                System.out.print("Ecryption is 25");
+                System.out.println("mr propre utilisé");
                 send(new Byte("25")); //Mr propre encryption
             }
 
@@ -271,14 +271,16 @@ public class PlayModeMulti extends State {
             if (this.settings.getBonus2().getBonusKey() == 1) {
                 this.colorKey = this.settings.getBonus2().punisherEffect();
                 this.setPLayerTexture(4); //lemettre dans le punisherEffect()
+                System.out.println("selectionner sur punisher, avec la clé:"+this.settings.getBonus1().getBonusKey());
+
             }
             if (this.settings.getBonus2().getBonusKey() == 2) {
                 this.settings.getBonus2().nurseEffectPlayer();
             }
             if (this.settings.getBonus2().getBonusKey() == 3) {
                 this.settings.getBonus2().mrPropreEffect();
-                send(new Byte("" + 25));
-                System.out.print("Ecryption is 25");
+                System.out.println("mr propre utilisé");
+                send(new Byte("25"));
             } //M Propre encryption
 
 
@@ -291,14 +293,19 @@ public class PlayModeMulti extends State {
     public void creatingAndSendingANewSquare(int x) {
         if(this.getColumn(x) != -1) {
             player.increment(texture, this.getColumn(x), colorKey);
+
+            //punisher bonus encrytion:
+            if(colorKey == 4){
+                System.out.println("send color key 4");
+                send(encryption(this.getColumn(x), 15)); //15*2 15*2+5 = 35   15*2 +5*2 = 40
+            }
+            else {
+                System.out.println("send color key classic");
+                send(encryption(this.getColumn(x), colorKey));
+            }
+
         }
-        //punisher bonus encrytion:
-        if(colorKey == 4){
-            send(encryption(this.getColumn(x), 15)); //15*2 15*2+5 = 35   15*2 +5*2 = 40
-        }
-        else {
-            send(encryption(this.getColumn(x), colorKey));
-        }
+
     }
 
     public Integer getColumn(int x){
@@ -401,7 +408,7 @@ public class PlayModeMulti extends State {
 
     public Byte encryption(int columnKey, int colorKey){
         int number = columnKey * 5 + colorKey * 2;
-        System.out.println("encryption is: " + number);
+        System.out.println("colorKey is "+colorKey+"columKey is "+columnKey+"  =  " + number);
         return new Byte(""+number);
     }
 

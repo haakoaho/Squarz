@@ -114,11 +114,7 @@ public class AIPlayer extends Player{
 
                 setTheRandomColumn(row, colorKey);
             }
-
             myWave(countDown);
-
-
-
         }
 
     }
