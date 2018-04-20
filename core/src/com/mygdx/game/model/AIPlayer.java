@@ -71,7 +71,7 @@ public class AIPlayer extends Player{
                     }
                     if (playerResistance){
                         bonusSending();
-                }
+                    }
                 }else {
                     //setting the random color
                     int colorKey = random(2);
