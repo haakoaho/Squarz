@@ -16,38 +16,36 @@ import static com.mygdx.game.Squarz.WIDTH;
 import static com.mygdx.game.Squarz.font2;
 import static com.mygdx.game.Squarz.format;
 
-/**
- * Created by mathi on 06/03/2018.
- */
-
+// CLEAN //
 public class SetAILevel extends State{
     private Icon add, delete, levelToDraw, back;
-    private PreferencesSettings set;
+    private PreferencesSettings settings;
     private CountDown countDown;
     private GlyphLayout choose, levelTitle;
 
 
-    public SetAILevel(GameStateManager gsm, PreferencesSettings setting, CountDown countDown){
+    public SetAILevel(GameStateManager gsm, PreferencesSettings settings, CountDown countDown){
         super(gsm);
-        this.add = new Icon(new Texture(Gdx.files.internal(format+"/add.png")),0,0);
-        this.delete = new Icon(new Texture(Gdx.files.internal(format+"/delete.png")),0,0);
-        this.levelToDraw = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/ai_levels/beginer.png")),0,0);
-        this.set = setting;
+
+        this.settings = settings;
         this.countDown = countDown;
+
+        this.add = new Icon(new Texture(Gdx.files.internal(format+"/add.png")),0,0); // to increase the level of the AI (until Expert)
+        this.delete = new Icon(new Texture(Gdx.files.internal(format+"/delete.png")),0,0); // to decrease the level of the AI (until Beginner)
+        this.levelToDraw = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/ai_levels/beginer.png")),0,0);
         this.back = new Icon(new Texture(Gdx.files.internal(format+"/back.png")),0,0);
 
+        this.add.setPosX(WIDTH/2-this.add.getTexture().getWidth()/2);
+        this.add.setPosY(HEIGHT*2/3-this.add.getTexture().getHeight()/2);
+        this.delete.setPosX(WIDTH/2-this.delete.getTexture().getWidth()/2);
+        this.delete.setPosY(HEIGHT/3-this.delete.getTexture().getHeight()/2);
+        this.levelToDraw.setPosX(WIDTH/2-this.levelToDraw.getTexture().getWidth()/2);
+        this.levelToDraw.setPosY(HEIGHT/2-this.levelToDraw.getTexture().getHeight()/2);
+        this.back.setPosX(this.back.getTexture().getWidth()/2);
+        this.back.setPosY(this.back.getTexture().getHeight()/2);
+
         this.levelTitle = new GlyphLayout(Squarz.font, "CHOOSE AI LEVEL");
-        this.choose = new GlyphLayout(font2,this.set.getStringLevel());
-
-        add.setPosX(WIDTH/2-add.getTexture().getWidth()/2);
-        add.setPosY(HEIGHT*2/3-add.getTexture().getHeight()/2);
-        delete.setPosX(WIDTH/2-delete.getTexture().getWidth()/2);
-        delete.setPosY(HEIGHT/3-delete.getTexture().getHeight()/2);
-        levelToDraw.setPosX(WIDTH/2-levelToDraw.getTexture().getWidth()/2);
-        levelToDraw.setPosY(HEIGHT/2-levelToDraw.getTexture().getHeight()/2);
-        back.setPosX(back.getTexture().getWidth()/2);
-        back.setPosY(back.getTexture().getHeight()/2);
-
+        this.choose = new GlyphLayout(font2,this.settings.getStringLevel());
 
         setTextureToDraw();
     }
@@ -56,21 +54,21 @@ public class SetAILevel extends State{
         if(Gdx.input.justTouched()){
             int x = Gdx.input.getX();
             int y = HEIGHT - Gdx.input.getY();
-            if(add.contains(x,y)){ //add
-                this.set.AILevelUp();
-                this.choose = new GlyphLayout(font2,this.set.getStringLevel());
+            if(this.add.contains(x,y)){ //add
+                this.settings.AILevelUp();
+                this.choose = new GlyphLayout(font2,this.settings.getStringLevel());
                 setTextureToDraw();
             }
-            if(delete.contains(x,y)){ //delete
-                this.set.AILevelDown();
-                this.choose = new GlyphLayout(font2,this.set.getStringLevel());
+            if(this.delete.contains(x,y)){ //delete
+                this.settings.AILevelDown();
+                this.choose = new GlyphLayout(font2,this.settings.getStringLevel());
                 setTextureToDraw();
             }
-            if(levelToDraw.contains(x,y)){//go back
-                gsm.set(new com.mygdx.game.view.AIPreferences(gsm, set, countDown));
+            if(this.levelToDraw.contains(x,y)){//go back
+                gsm.set(new com.mygdx.game.view.AIPreferences(gsm, settings, countDown));
             }
-            if (back.contains(x,y)) {
-                gsm.set(new com.mygdx.game.view.AIPreferences(gsm, set, countDown));
+            if(this.back.contains(x,y)) {
+                gsm.set(new com.mygdx.game.view.AIPreferences(gsm, settings, countDown));
                 dispose();
             }
         }
@@ -84,12 +82,12 @@ public class SetAILevel extends State{
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
-        Squarz.font.draw(sb, levelTitle, WIDTH/2 - levelTitle.width/2,HEIGHT-2*levelTitle.height);
+        Squarz.font.draw(sb, this.levelTitle, WIDTH/2 - this.levelTitle.width/2,HEIGHT-2*this.levelTitle.height);
         font2.draw(sb, this.choose, WIDTH/2 - this.choose.width/2, 8*HEIGHT/10 - this.choose.height/2);
-        sb.draw(add.getTexture(), add.getPosX(),add.getPosY() );
-        sb.draw(delete.getTexture(),delete.getPosX() ,delete.getPosY() );
-        sb.draw(levelToDraw.getTexture(),levelToDraw.getPosX() , levelToDraw.getPosY());
-        sb.draw(back.getTexture(),back.getPosX(),back.getPosY());
+        sb.draw(this.add.getTexture(), this.add.getPosX(),this.add.getPosY() );
+        sb.draw(this.delete.getTexture(),this.delete.getPosX() ,this.delete.getPosY() );
+        sb.draw(this.levelToDraw.getTexture(),this.levelToDraw.getPosX() , this.levelToDraw.getPosY());
+        sb.draw(this.back.getTexture(),this.back.getPosX(),this.back.getPosY());
         sb.end();
     }
 
@@ -97,18 +95,18 @@ public class SetAILevel extends State{
     public void dispose() {
     }
 
-    public void setTextureToDraw(){
-        if(set.getLevelKey()==0){
-            levelToDraw.setTexture(new Texture(Gdx.files.internal(format+"/ai_settings/ai_levels/beginer.png")));
+    public void setTextureToDraw(){ // draw the good texture according to the level, to give a good visual experience
+        if(this.settings.getLevelKey()==0){
+            this.levelToDraw.setTexture(new Texture(Gdx.files.internal(format+"/ai_settings/ai_levels/beginer.png")));
         }
-        if(set.getLevelKey()==1){
-            levelToDraw.setTexture(new Texture(Gdx.files.internal(format+"/ai_settings/ai_levels/medium.png")));
+        if(this.settings.getLevelKey()==1){
+            this.levelToDraw.setTexture(new Texture(Gdx.files.internal(format+"/ai_settings/ai_levels/medium.png")));
         }
-        if(set.getLevelKey()==2){
-            levelToDraw.setTexture(new Texture(Gdx.files.internal(format+"/ai_settings/ai_levels/advanced.png")));
+        if(this.settings.getLevelKey()==2){
+            this.levelToDraw.setTexture(new Texture(Gdx.files.internal(format+"/ai_settings/ai_levels/advanced.png")));
         }
-        if(set.getLevelKey()==3){
-            levelToDraw.setTexture(new Texture(Gdx.files.internal(format+"/ai_settings/ai_levels/expert.png")));
+        if(this.settings.getLevelKey()==3){
+            this.levelToDraw.setTexture(new Texture(Gdx.files.internal(format+"/ai_settings/ai_levels/expert.png")));
         }
     }
 }

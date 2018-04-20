@@ -76,9 +76,9 @@ public class Squarz extends ApplicationAdapter  {
 			parameter.size = 70;
 			parameter2.size = 40;
 			parameter3.size = 20;
-			parameter.borderWidth = 4;
-			parameter2.borderWidth = 3;
-			parameter3.borderWidth = 2;
+			parameter.borderWidth = 3;
+			parameter2.borderWidth = 2;
+			parameter3.borderWidth = 1;
 			parameter3.color = Color.BLACK;
 			parameter.borderColor = Color.WHITE;
 			parameter2.borderColor = Color.WHITE;

@@ -21,8 +21,8 @@ import static com.mygdx.game.Squarz.valueVolume;
 
 public class Tutorial extends State {
     Icon back;
-    private GlyphLayout title, part1, part2, part3, part4, part5, part6, part6b, part7, part8, part9, part10, part11;
-    private Texture sRed, sBlue, sYellow;
+    private GlyphLayout title, part1, part2, part3, part4, part5, part6, part6b, part7, part8, part9, part10, part11; // the different parts of the tutorial
+    private Texture sRed, sBlue, sYellow; // useful for the design
 
     public Tutorial(GameStateManager gsm) {
         super(gsm);
@@ -55,7 +55,7 @@ public class Tutorial extends State {
         if(Gdx.input.justTouched()) {
             int x = Gdx.input.getX();
             int y = HEIGHT - Gdx.input.getY();
-            if (back.contains(x,y)) {
+            if (this.back.contains(x,y)) {
                 gsm.set(new Menu(gsm));
                 dispose();
             }
@@ -70,7 +70,7 @@ public class Tutorial extends State {
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
-        sb.draw(back.getTexture(),back.getPosX(),back.getPosY());
+        sb.draw(this.back.getTexture(),this.back.getPosX(),this.back.getPosY());
         Squarz.font.draw(sb, this.title, WIDTH/2 - this.title.width/2, HEIGHT - 2* this.title.height);
         Squarz.font3.draw(sb, this.part1, WIDTH/2 - this.part1.width/2, HEIGHT - 5* this.title.height - this.part1.height);
         Squarz.font3.draw(sb, this.part2, WIDTH/2 - this.part2.width/2, HEIGHT - 5* this.title.height - 2*this.part1.height - this.part2.height);
@@ -96,6 +96,5 @@ public class Tutorial extends State {
 
     @Override
     public void dispose() {
-        back.getTexture().dispose();
     }
 }

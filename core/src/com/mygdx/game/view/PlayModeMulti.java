@@ -35,9 +35,8 @@ import static com.mygdx.game.Squarz.valueVolume;
 public class PlayModeMulti extends State {
     private Music music;
     private Sound sound;
-    private GlyphLayout readyGlyph, redLeft, yellowLeft, blueLeft, scoreUser, scoreOpponent, time;
-    private boolean varMute;
 
+    private GlyphLayout redLeft, yellowLeft, blueLeft, scoreUser, scoreOpponent, time;
     private ShapeRenderer shapeRenderer;
 
     private PreferencesSettings settings;
@@ -52,23 +51,21 @@ public class PlayModeMulti extends State {
 
     private Icon redChoiceSquare, blueChoiceSquare, yellowChoiceSquare, mute, bonusChoiceSquare1, bonusChoiceSquare2;
     private Texture texture;
-    private Integer colorKey;
-    private Integer columnKey;
+    private Integer colorKey, columnKey;
 
     private Score score;
 
     private float exTime;
-    private Boolean firstIsUsed = false;
-    private Boolean secondIsUsed = false;
+    private Boolean varMute, firstIsUsed = false, secondIsUsed = false;
 
     public PlayModeMulti(GameStateManager gsm, PreferencesSettings settings, CountDown countDown) {
-
         super(gsm);
+
         this.settings = settings;
         this.countDown = countDown;
+
         player = new Player(settings, countDown);
         opponent = new AIPlayer(settings, countDown);
-
 
         choiceSquare = new Square(settings);
         choiceSquare.setPosition(new Vector2(WIDTH * 1 / 16, HEIGHT * 1 / 5));
@@ -117,8 +114,6 @@ public class PlayModeMulti extends State {
 
         this.mute.setPosX(redChoiceSquare.getPosX() + redChoiceSquare.getTexture().getWidth() / 2 - this.mute.getTexture().getWidth() / 2);
         this.mute.setPosY(HEIGHT * 29 / 32 - this.mute.getTexture().getHeight() / 2);
-
-        this.readyGlyph = new GlyphLayout(Squarz.font, "READY ?");
 
         music = Gdx.audio.newMusic(Gdx.files.internal("sound/reset.mp3"));
         music.setLooping(true);
@@ -258,31 +253,33 @@ public class PlayModeMulti extends State {
                 if (this.settings.getBonus1().getBonusKey() == 3) {
                     this.settings.getBonus1().mrPropreEffect();
                     send(new Byte("25"));
+                    System.out.print("Ecryption is 25");
                 }
 
                 //after utilisation
                 this.bonusChoiceSquare1.setTexture(new Texture(Gdx.files.internal(format + "/bonuses/used.png")));
                 this.setFirstIsUsed(true);
             }
+        }
 
-            if (this.bonusChoiceSquare2.contains(x, y) && !secondIsUsed) {
+        if (this.bonusChoiceSquare2.contains(x, y) && !secondIsUsed) {
 
-                this.settings.getBonus2().update(this.getPlayer(), this.getAi());
-                if (this.settings.getBonus2().getBonusKey() == 1) {
-                    this.setColorKey(this.settings.getBonus1().punisherEffect());
-                    this.setPLayerTexture(4);
-                }
-                if (this.settings.getBonus2().getBonusKey() == 2) {
-                    this.settings.getBonus2().nurseEffectPlayer();
-                }
-                if (this.settings.getBonus2().getBonusKey() == 3) {
-                    this.settings.getBonus2().mrPropreEffect();
-                    send(new Byte("" + 25));
-                } //M Propre encryption
-
-                this.bonusChoiceSquare2.setTexture(new Texture(Gdx.files.internal(format + "/bonuses/used.png")));
-                this.setSecondIsUsed(true);
+            this.settings.getBonus2().update(this.getPlayer(), this.getAi());
+            if (this.settings.getBonus2().getBonusKey() == 1) {
+                this.setColorKey(this.settings.getBonus1().punisherEffect());
+                this.setPLayerTexture(4);
             }
+            if (this.settings.getBonus2().getBonusKey() == 2) {
+                this.settings.getBonus2().nurseEffectPlayer();
+            }
+            if (this.settings.getBonus2().getBonusKey() == 3) {
+                this.settings.getBonus2().mrPropreEffect();
+                send(new Byte("" + 25));
+                System.out.print("Ecryption is 25");
+            } //M Propre encryption
+
+            this.bonusChoiceSquare2.setTexture(new Texture(Gdx.files.internal(format + "/bonuses/used.png")));
+            this.setSecondIsUsed(true);
         }
     }
 

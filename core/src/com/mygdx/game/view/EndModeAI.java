@@ -23,22 +23,23 @@ import static com.mygdx.game.Squarz.format;
 
 public class EndModeAI extends State {
     private PreferencesSettings setting;
-    private Score score;
     private Icon replay, back;
-    private CountDown countDown1;
+    private CountDown countDown;
     private GlyphLayout scoreUser, scoreAi, message1, message2;
+
     public EndModeAI(GameStateManager gsm, PreferencesSettings setting, Score s, CountDown countDown){
         super(gsm);
-        this.setting = setting;
-        this.score  = s;
+
+        this.setting = setting; // we keep the settings, like this, if the player wants to play again, he does not have to choose again (even if he can modify them if he wants to)
+        this.countDown = new CountDown(countDown.getTimerKey()); // we keep the countDown for the same reasons
 
         this.replay = new Icon(new Texture(Gdx.files.internal(format+"/endMode/replay.png")), 0, 0);
-        this.replay.setPosX(WIDTH/2-replay.getTexture().getWidth()/2);
-        this.replay.setPosY(HEIGHT*2/5-replay.getTexture().getHeight()/2);
-
         this.back = new Icon(new Texture(Gdx.files.internal(format+"/endMode/backToMenu.png")), 0, 0);
-        this.back.setPosX(WIDTH/2 - back.getTexture().getWidth()/2);
-        this.back.setPosY(HEIGHT/5 - back.getTexture().getHeight()/2);
+
+        this.replay.setPosX(WIDTH/2-this.replay.getTexture().getWidth()/2);
+        this.replay.setPosY(HEIGHT*2/5-this.replay.getTexture().getHeight()/2);
+        this.back.setPosX(WIDTH/2 - this.back.getTexture().getWidth()/2);
+        this.back.setPosY(HEIGHT/5 - this.back.getTexture().getHeight()/2);
 
         this.scoreAi = new GlyphLayout(Squarz.font, s.getOpponentScore().toString());
         this.scoreUser = new GlyphLayout(Squarz.font, s.getUserScore().toString());
@@ -53,8 +54,6 @@ public class EndModeAI extends State {
             this.message1 = new GlyphLayout(Squarz.font, "Tie!");
             this.message2 = new GlyphLayout(Squarz.font, "Revenge?");
         }
-
-        this.countDown1 = new CountDown(countDown.getTimerKey());
     }
 
     @Override
@@ -62,10 +61,10 @@ public class EndModeAI extends State {
         if(Gdx.input.justTouched()){
             int x = Gdx.input.getX();
             int y = HEIGHT - Gdx.input.getY();
-            if(replay.contains(x, y)){
-                gsm.set(new AIPreferences(gsm, setting, countDown1));
+            if(this.replay.contains(x, y)){
+                gsm.set(new AIPreferences(gsm, setting, countDown));
             }
-            if(back.contains(x, y)){
+            if(this.back.contains(x, y)){
                 gsm.set(new com.mygdx.game.view.beginning.Menu(gsm));
             }
         }
@@ -79,12 +78,12 @@ public class EndModeAI extends State {
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
-        Squarz.font.draw(sb, message1, WIDTH/2 - message1.width/2,HEIGHT * 4/5);
-        Squarz.font.draw(sb, message2, WIDTH/2 - message2.width/2,HEIGHT * 4/5-message1.height*3/2);
-        Squarz.font.draw(sb, scoreUser, WIDTH * 2/5 - scoreUser.width/2, HEIGHT * 3/5);
-        Squarz.font.draw(sb, scoreAi, WIDTH * 3/5 - scoreUser.width/2, HEIGHT * 3/5);
-        sb.draw(replay.getTexture(), replay.getPosX(), replay.getPosY());
-        sb.draw(back.getTexture(), back.getPosX(), back.getPosY());
+        Squarz.font.draw(sb, this.message1, WIDTH/2 - this.message1.width/2,HEIGHT * 4/5);
+        Squarz.font.draw(sb, this.message2, WIDTH/2 - this.message2.width/2,HEIGHT * 4/5- this.message1.height*3/2);
+        Squarz.font.draw(sb, this.scoreUser, WIDTH * 2/5 - this.scoreUser.width/2, HEIGHT * 3/5);
+        Squarz.font.draw(sb, this.scoreAi, WIDTH * 3/5 - this.scoreUser.width/2, HEIGHT * 3/5);
+        sb.draw(this.replay.getTexture(), this.replay.getPosX(), this.replay.getPosY());
+        sb.draw(this.back.getTexture(), this.back.getPosX(), this.back.getPosY());
         sb.end();
     }
 

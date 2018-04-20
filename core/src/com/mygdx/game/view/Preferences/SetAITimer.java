@@ -16,27 +16,23 @@ import static com.mygdx.game.Squarz.WIDTH;
 import static com.mygdx.game.Squarz.font2;
 import static com.mygdx.game.Squarz.format;
 
-/**
- * Created by mathi on 12/03/2018.
- */
-
+// CLEAN //
 public class SetAITimer extends State {
-    private PreferencesSettings set;
+    private PreferencesSettings settings;
     private CountDown countDown;
     private Icon add, delete, countDownIcon, back;
     private GlyphLayout choose, timeTitle;
 
-    public SetAITimer(GameStateManager gsm, PreferencesSettings setting, CountDown countDown){
+    public SetAITimer(GameStateManager gsm, PreferencesSettings settings, CountDown countDown){
         super(gsm);
-        this.add = new Icon(new Texture(Gdx.files.internal(format+"/add.png")),0,0);
-        this.delete = new Icon(new Texture(Gdx.files.internal(format+"/delete.png")),0,0);
-        this.countDownIcon = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/setTimer.png")),0,0);
-        this.set = setting;
-        this.countDown = countDown;
-        this.back = new Icon(new Texture(Gdx.files.internal(format+"/back.png")),0,0);
 
-        this.timeTitle = new GlyphLayout(Squarz.font, "CHOOSE THE TIME");
-        this.choose = new GlyphLayout(font2, this.countDown.getWorldTimer()+" seconds");
+        this.settings = settings;
+        this.countDown = countDown;
+
+        this.add = new Icon(new Texture(Gdx.files.internal(format+"/add.png")),0,0); // to increase the time of the game (until 60s)
+        this.delete = new Icon(new Texture(Gdx.files.internal(format+"/delete.png")),0,0); // to decrease the time of the game (until 30s)
+        this.countDownIcon = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/setTimer.png")),0,0);
+        this.back = new Icon(new Texture(Gdx.files.internal(format+"/back.png")),0,0);
 
         add.setPosX(WIDTH/2-add.getTexture().getWidth()/2);
         add.setPosY(HEIGHT*2/3-add.getTexture().getHeight()/2);
@@ -47,6 +43,8 @@ public class SetAITimer extends State {
         back.setPosX(back.getTexture().getWidth()/2);
         back.setPosY(back.getTexture().getHeight()/2);
 
+        this.timeTitle = new GlyphLayout(Squarz.font, "CHOOSE THE TIME");
+        this.choose = new GlyphLayout(font2, this.countDown.getWorldTimer()+" seconds");
     }
 
 
@@ -68,10 +66,10 @@ public class SetAITimer extends State {
                 }
             }
             if(countDownIcon.contains(x,y)){ //go back
-                gsm.set(new com.mygdx.game.view.AIPreferences(gsm, set, countDown));
+                gsm.set(new com.mygdx.game.view.AIPreferences(gsm, settings, countDown));
             }
             if (back.contains(x,y)) {
-                gsm.set(new com.mygdx.game.view.AIPreferences(gsm, set, countDown));
+                gsm.set(new com.mygdx.game.view.AIPreferences(gsm, settings, countDown));
                 dispose();
             }
         }
@@ -99,7 +97,7 @@ public class SetAITimer extends State {
     public void dispose() {
     }
 
-    public void drawAccurateTexture(SpriteBatch sb){
+    public void drawAccurateTexture(SpriteBatch sb){ // draw the good number of stopwatch, according to the time you have chosen
         if(countDown.getWorldTimer() == 30){
             sb.draw(countDownIcon.getTexture(), countDownIcon.getPosX() , countDownIcon.getPosY());
         }

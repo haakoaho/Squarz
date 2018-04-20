@@ -20,77 +20,72 @@ import static com.mygdx.game.Squarz.font2;
 import static com.mygdx.game.Squarz.font3;
 import static com.mygdx.game.Squarz.format;
 
-/**
- * Created by mathi on 06/03/2018.
- */
-
+//CLEAN//
 public class AIPreferences extends State {
     private Icon setAILevel, setTimer, setBonuses, play, back;
     private PreferencesSettings setting;
     private CountDown countDown;
     private GlyphLayout AILevel, Timer, Bonuses;
 
-    public AIPreferences(GameStateManager gsm){
+    public AIPreferences(GameStateManager gsm){ // used if the settings have not been changed yet
         super(gsm);
-        setAILevel = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/setAILevel.png")),0,0);
-        setTimer = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/setTimer.png")),0,0);
-        setBonuses = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/setBonus.png")),0,0);
-        play = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/play.png")),0,0);
-        back = new Icon(new Texture(Gdx.files.internal(format+"/back.png")),0,0);
 
-        setting = new PreferencesSettings();
-        countDown = new CountDown(60);
+        this.setting = new PreferencesSettings();
+        this.countDown = new CountDown(60); // initial countDown, but he can be changed if the player wants
 
-        AILevel = new GlyphLayout(font2, this.setting.getStringLevel());
-        Timer = new GlyphLayout(font2, this.countDown.getWorldTimer()+" seconds");
-        Bonuses = new GlyphLayout(font2, "None \n\nNone");
+        this.setAILevel = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/setAILevel.png")),0,0);
+        this.setTimer = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/setTimer.png")),0,0);
+        this.setBonuses = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/setBonus.png")),0,0);
+        this.play = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/play.png")),0,0);
+        this.back = new Icon(new Texture(Gdx.files.internal(format+"/back.png")),0,0);
 
-        setAILevel.setPosX(WIDTH/4-setAILevel.getTexture().getWidth()/2);
-        setAILevel.setPosY(HEIGHT*4/5-setAILevel.getTexture().getHeight()/2);
-        setAILevel.setLegend("Choose AI Level");
-        setTimer.setPosX(WIDTH/4-setTimer.getTexture().getWidth()/2);
-        setTimer.setPosY(HEIGHT*3/5-setTimer.getTexture().getHeight()/2);
-        setTimer.setLegend("Choose the time");
-        setBonuses.setPosX(WIDTH/4-setBonuses.getTexture().getWidth()/2);
-        setBonuses.setPosY(HEIGHT*2/5-setBonuses.getTexture().getHeight()/2);
-        setBonuses.setLegend("Choose your bonuses");
-        play.setPosX(WIDTH/2-play.getTexture().getWidth()/2);
-        play.setPosY(HEIGHT/8-play.getTexture().getHeight()/2);
-        back.setPosX(back.getTexture().getWidth()/2);
-        back.setPosY(back.getTexture().getHeight()/2);
+        this.AILevel = new GlyphLayout(font2, this.setting.getStringLevel());
+        this.Timer = new GlyphLayout(font2, this.countDown.getWorldTimer()+" seconds");
+        this.Bonuses = new GlyphLayout(font2, "None \n\nNone");
 
-
+        this.setAILevel.setPosX(WIDTH/4-this.setAILevel.getTexture().getWidth()/2);
+        this.setAILevel.setPosY(HEIGHT*4/5-this.setAILevel.getTexture().getHeight()/2);
+        this.setAILevel.setLegend("Choose AI Level");
+        this.setTimer.setPosX(WIDTH/4-this.setTimer.getTexture().getWidth()/2);
+        this.setTimer.setPosY(HEIGHT*3/5-this.setTimer.getTexture().getHeight()/2);
+        this.setTimer.setLegend("Choose the time");
+        this.setBonuses.setPosX(WIDTH/4-this.setBonuses.getTexture().getWidth()/2);
+        this.setBonuses.setPosY(HEIGHT*2/5-this.setBonuses.getTexture().getHeight()/2);
+        this.setBonuses.setLegend("Choose your bonuses");
+        this.play.setPosX(WIDTH/2-this.play.getTexture().getWidth()/2);
+        this.play.setPosY(HEIGHT/8-this.play.getTexture().getHeight()/2);
+        this.back.setPosX(this.back.getTexture().getWidth()/2);
+        this.back.setPosY(this.back.getTexture().getHeight()/2);
     }
 
-    //used once a setting is changed
-    public AIPreferences(GameStateManager gsm, PreferencesSettings setting, CountDown countDown){
+    public AIPreferences(GameStateManager gsm, PreferencesSettings setting, CountDown countDown){ // used once the settings have been changed
 
         super(gsm);
-        setAILevel = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/setAILevel.png")),0,0);
-        setTimer = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/setTimer.png")),0,0);
-        setBonuses = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/setBonus.png")),0,0);
-        play = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/play.png")),0,0);
-        back = new Icon(new Texture(Gdx.files.internal(format+"/back.png")),0,0);
+        this.setAILevel = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/setAILevel.png")),0,0);
+        this.setTimer = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/setTimer.png")),0,0);
+        this.setBonuses = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/setBonus.png")),0,0);
+        this.play = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/play.png")),0,0);
+        this.back = new Icon(new Texture(Gdx.files.internal(format+"/back.png")),0,0);
         this.setting = setting;
         this.countDown = countDown;
 
-        AILevel = new GlyphLayout(font2, this.setting.getStringLevel());
-        Timer = new GlyphLayout(font2, this.countDown.getWorldTimer()+" seconds");
-        Bonuses = new GlyphLayout(font2, this.setting.getStringBonus1() + "\n\n" + this.setting.getStringBonus2());
+        this.AILevel = new GlyphLayout(font2, this.setting.getStringLevel());
+        this.Timer = new GlyphLayout(font2, this.countDown.getWorldTimer()+" seconds");
+        this.Bonuses = new GlyphLayout(font2, this.setting.getStringBonus1() + "\n\n" + this.setting.getStringBonus2());
 
-        setAILevel.setPosX(WIDTH/4-setAILevel.getTexture().getWidth()/2);
-        setAILevel.setPosY(HEIGHT*4/5-setAILevel.getTexture().getHeight()/2);
-        setAILevel.setLegend("Choose AI Level");
-        setTimer.setPosX(WIDTH/4-setTimer.getTexture().getWidth()/2);
-        setTimer.setPosY(HEIGHT*3/5-setTimer.getTexture().getHeight()/2);
-        setTimer.setLegend("Choose the time");
-        setBonuses.setPosX(WIDTH/4-setBonuses.getTexture().getWidth()/2);
-        setBonuses.setPosY(HEIGHT*2/5-setBonuses.getTexture().getHeight()/2);
-        setBonuses.setLegend("Choose your bonuses");
-        play.setPosX(WIDTH/2-play.getTexture().getWidth()/2);
-        play.setPosY(HEIGHT/8-play.getTexture().getHeight()/2);
-        back.setPosX(back.getTexture().getWidth()/2);
-        back.setPosY(back.getTexture().getHeight()/2);
+        this.setAILevel.setPosX(WIDTH/4-this.setAILevel.getTexture().getWidth()/2);
+        this.setAILevel.setPosY(HEIGHT*4/5-this.setAILevel.getTexture().getHeight()/2);
+        this.setAILevel.setLegend("Choose AI Level");
+        this.setTimer.setPosX(WIDTH/4-this.setTimer.getTexture().getWidth()/2);
+        this.setTimer.setPosY(HEIGHT*3/5-this.setTimer.getTexture().getHeight()/2);
+        this.setTimer.setLegend("Choose the time");
+        this.setBonuses.setPosX(WIDTH/4-this.setBonuses.getTexture().getWidth()/2);
+        this.setBonuses.setPosY(HEIGHT*2/5-this.setBonuses.getTexture().getHeight()/2);
+        this.setBonuses.setLegend("Choose your bonuses");
+        this.play.setPosX(WIDTH/2-this.play.getTexture().getWidth()/2);
+        this.play.setPosY(HEIGHT/8-this.play.getTexture().getHeight()/2);
+        this.back.setPosX(this.back.getTexture().getWidth()/2);
+        this.back.setPosY(this.back.getTexture().getHeight()/2);
     }
 
     @Override
@@ -98,19 +93,19 @@ public class AIPreferences extends State {
         if (Gdx.input.justTouched()) {
             int x = Gdx.input.getX();
             int y = HEIGHT - Gdx.input.getY();
-            if (setAILevel.contains(x,y)) {
+            if (this.setAILevel.contains(x,y)) {
                 gsm.set(new SetAILevel(gsm, setting, countDown));
             }
-            if (setTimer.contains(x,y)) {
+            if (this.setTimer.contains(x,y)) {
                 gsm.set(new SetAITimer(gsm, setting, countDown));
             }
-            if (play.contains(x,y)) {
+            if (this.play.contains(x,y)) {
                 gsm.set(new PlayModeAi(gsm, setting, countDown));
             }
-            if (back.contains(x, y)){
+            if (this.back.contains(x, y)){
                 gsm.set(new Pref(gsm));
             }
-            if(setBonuses.contains(x, y)){
+            if(this.setBonuses.contains(x, y)){
                 gsm.set(new BonusSelection(gsm, setting, countDown));
             }
         }
@@ -124,17 +119,17 @@ public class AIPreferences extends State {
     @Override
     public void render(SpriteBatch sb){
         sb.begin();
-        sb.draw(setAILevel.getTexture(),setAILevel.getPosX() ,setAILevel.getPosY() );
-        font3.draw(sb,this.setAILevel.getLegend(), setAILevel.getPosX() + setAILevel.getTexture().getWidth()/2 - this.setAILevel.getLegend().width/2, setAILevel.getPosY() - 2*this.setAILevel.getLegend().height);
-        font2.draw(sb,this.AILevel, 3*WIDTH/4 - this.AILevel.width/2, setAILevel.getPosY() + setAILevel.getTexture().getHeight()/2 - this.AILevel.height/2);
-        sb.draw(setTimer.getTexture(),setTimer.getPosX() ,setTimer.getPosY() );
-        font3.draw(sb,this.setTimer.getLegend(), setTimer.getPosX() + setTimer.getTexture().getWidth()/2 - this.setTimer.getLegend().width/2, setTimer.getPosY() - 2*this.setTimer.getLegend().height);
-        font2.draw(sb,this.Timer, 3*WIDTH/4 - this.Timer.width/2, setTimer.getPosY() + setTimer.getTexture().getHeight()/2 - this.Timer.height/2);
-        sb.draw(setBonuses.getTexture(),setBonuses.getPosX() ,setBonuses.getPosY() );
-        font3.draw(sb,this.setBonuses.getLegend(), setBonuses.getPosX() + setBonuses.getTexture().getWidth()/2 - this.setBonuses.getLegend().width/2, setBonuses.getPosY() - 2*this.setBonuses.getLegend().height);
-        font2.draw(sb,this.Bonuses, 3*WIDTH/4 - this.Bonuses.width/2, setBonuses.getPosY() + setBonuses.getTexture().getHeight()/2 + this.Bonuses.height/2 - this.setBonuses.getLegend().height/2);
-        sb.draw(play.getTexture(),play.getPosX(),play.getPosY());
-        sb.draw(back.getTexture(), back.getPosX(), back.getPosX());
+        sb.draw(this.setAILevel.getTexture(),this.setAILevel.getPosX() ,this.setAILevel.getPosY() );
+        font3.draw(sb,this.setAILevel.getLegend(), this.setAILevel.getPosX() + this.setAILevel.getTexture().getWidth()/2 - this.setAILevel.getLegend().width/2, this.setAILevel.getPosY() - 2*this.setAILevel.getLegend().height);
+        font2.draw(sb,this.AILevel, 3*WIDTH/4 - this.AILevel.width/2, this.setAILevel.getPosY() + this.setAILevel.getTexture().getHeight()/2 - this.AILevel.height/2);
+        sb.draw(this.setTimer.getTexture(), this.setTimer.getPosX(), this.setTimer.getPosY());
+        font3.draw(sb,this.setTimer.getLegend(), this.setTimer.getPosX() + this.setTimer.getTexture().getWidth()/2 - this.setTimer.getLegend().width/2, this.setTimer.getPosY() - 2*this.setTimer.getLegend().height);
+        font2.draw(sb,this.Timer, 3*WIDTH/4 - this.Timer.width/2, this.setTimer.getPosY() + this.setTimer.getTexture().getHeight()/2 - this.Timer.height/2);
+        sb.draw(this.setBonuses.getTexture(), this.setBonuses.getPosX(), this.setBonuses.getPosY() );
+        font3.draw(sb,this.setBonuses.getLegend(), this.setBonuses.getPosX() + this.setBonuses.getTexture().getWidth()/2 - this.setBonuses.getLegend().width/2, this.setBonuses.getPosY() - 2*this.setBonuses.getLegend().height);
+        font2.draw(sb,this.Bonuses, 3*WIDTH/4 - this.Bonuses.width/2, this.setBonuses.getPosY() + this.setBonuses.getTexture().getHeight()/2 + this.Bonuses.height/2 - this.setBonuses.getLegend().height/2);
+        sb.draw(this.play.getTexture(),this.play.getPosX(),this.play.getPosY());
+        sb.draw(this.back.getTexture(), this.back.getPosX(), this.back.getPosX());
         sb.end();
 
     }
