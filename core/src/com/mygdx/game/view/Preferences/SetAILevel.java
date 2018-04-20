@@ -6,10 +6,12 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Squarz;
 import com.mygdx.game.control.aI.PreferencesSettings;
-import com.mygdx.game.model.CountDown;
+import com.mygdx.game.model.AbstractFactory.CountdownDuration.ICountdownDuration;
+import com.mygdx.game.model.Countdown;
 import com.mygdx.game.model.Icon;
 import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.model.State;
+import com.mygdx.game.view.AIPreferences;
 
 import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
@@ -23,11 +25,11 @@ import static com.mygdx.game.Squarz.format;
 public class SetAILevel extends State{
     private Icon add, delete, levelToDraw, back;
     private PreferencesSettings set;
-    private CountDown countDown;
+    private ICountdownDuration countDown;
     private GlyphLayout choose, levelTitle;
 
 
-    public SetAILevel(GameStateManager gsm, PreferencesSettings setting, CountDown countDown){
+    public SetAILevel(GameStateManager gsm, PreferencesSettings setting, ICountdownDuration countDown){
         super(gsm);
         this.add = new Icon(new Texture(Gdx.files.internal(format+"/add.png")),0,0);
         this.delete = new Icon(new Texture(Gdx.files.internal(format+"/delete.png")),0,0);
@@ -67,10 +69,10 @@ public class SetAILevel extends State{
                 setTextureToDraw();
             }
             if(levelToDraw.contains(x,y)){//go back
-                gsm.set(new com.mygdx.game.view.AIPreferences(gsm, set, countDown));
+                gsm.set(new AIPreferences(gsm, set, countDown));
             }
             if (back.contains(x,y)) {
-                gsm.set(new com.mygdx.game.view.AIPreferences(gsm, set, countDown));
+                gsm.set(new AIPreferences(gsm, set, countDown));
                 dispose();
             }
         }

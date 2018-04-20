@@ -13,14 +13,14 @@ import com.mygdx.game.Squarz;
 import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.control.aI.PreferencesSettings;
 import com.mygdx.game.model.AIPlayer;
-import com.mygdx.game.model.Bonus;
+import com.mygdx.game.model.AbstractFactory.CountdownDuration.ICountdownDuration;
+import com.mygdx.game.model.AbstractFactory.CountdownDuration.VeryLongCountdown;
 import com.mygdx.game.model.Collision;
-import com.mygdx.game.model.CountDown;
+import com.mygdx.game.model.Countdown;
 import com.mygdx.game.model.Icon;
 import com.mygdx.game.model.Player;
 import com.mygdx.game.model.Score;
 import com.mygdx.game.model.Square;
-import com.mygdx.game.model.SquareLimiter;
 import com.mygdx.game.model.State;
 
 import java.util.ArrayList;
@@ -41,7 +41,7 @@ public class PlayModeMulti extends State {
     private ShapeRenderer shapeRenderer;
 
     private PreferencesSettings settings;
-    private CountDown countDown;
+    private ICountdownDuration countDown;
 
     private AIPlayer opponent;
     private Player player;
@@ -61,7 +61,7 @@ public class PlayModeMulti extends State {
     private Boolean firstIsUsed = false;
     private Boolean secondIsUsed = false;
 
-    public PlayModeMulti(GameStateManager gsm, PreferencesSettings settings, CountDown countDown) {
+    public PlayModeMulti(GameStateManager gsm, PreferencesSettings settings, ICountdownDuration countDown) {
 
         super(gsm);
         this.settings = settings;
@@ -84,7 +84,7 @@ public class PlayModeMulti extends State {
 
         this.colorKey = 0;
         score = new Score();
-        countDown = new CountDown(60);
+        countDown = new VeryLongCountdown();
         collision = new Collision(score);
 
         //all the texture

@@ -9,7 +9,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.game.Squarz;
 import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.control.aI.PreferencesSettings;
-import com.mygdx.game.model.CountDown;
+import com.mygdx.game.model.AbstractFactory.CountdownDuration.ICountdownDuration;
+import com.mygdx.game.model.Countdown;
 import com.mygdx.game.model.Icon;
 import com.mygdx.game.model.State;
 import com.mygdx.game.view.AIPreferences;
@@ -26,12 +27,12 @@ import static com.mygdx.game.Squarz.format;
 public class BonusSelection extends State {
     private GlyphLayout bonusTitle, clean, selected, bonusDescription1, bonusDescription2;
     private Icon back, nurse, punisher, none, mrPropre, emptyField1, emptyField2, cleanButton, selectButton;
-    private CountDown countDown;
+    private ICountdownDuration countDown;
     private PreferencesSettings settings;
     private Boolean isFilled1, isFilled2;
     private ShapeRenderer shapeRenderer;
 
-    public BonusSelection(GameStateManager gsm, PreferencesSettings settings, CountDown countDown) {
+    public BonusSelection(GameStateManager gsm, PreferencesSettings settings, ICountdownDuration countDown) {
         super(gsm);
 
         this.countDown = countDown;

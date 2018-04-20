@@ -6,7 +6,9 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.control.GameStateManager;
 import com.mygdx.game.control.aI.PreferencesSettings;
-import com.mygdx.game.model.CountDown;
+import com.mygdx.game.model.AbstractFactory.CountdownDuration.LongCountdown;
+import com.mygdx.game.model.AbstractFactory.CountdownDuration.ICountdownDuration;
+import com.mygdx.game.model.AbstractFactory.CountdownFactory.LongCountdownFactory;
 import com.mygdx.game.model.Icon;
 import com.mygdx.game.model.State;
 import com.mygdx.game.view.Preferences.BonusSelection;
@@ -27,7 +29,7 @@ import static com.mygdx.game.Squarz.format;
 public class AIPreferences extends State {
     private Icon setAILevel, setTimer, setBonuses, play, back;
     private PreferencesSettings setting;
-    private CountDown countDown;
+    private ICountdownDuration countDown;
     private GlyphLayout AILevel, Timer, Bonuses;
 
     public AIPreferences(GameStateManager gsm){
@@ -39,7 +41,7 @@ public class AIPreferences extends State {
         back = new Icon(new Texture(Gdx.files.internal(format+"/back.png")),0,0);
 
         setting = new PreferencesSettings();
-        countDown = new CountDown(60);
+        countDown = new LongCountdownFactory().createCountDown();
 
         AILevel = new GlyphLayout(font2, this.setting.getStringLevel());
         Timer = new GlyphLayout(font2, this.countDown.getWorldTimer()+" seconds");
@@ -63,7 +65,7 @@ public class AIPreferences extends State {
     }
 
     //used once a setting is changed
-    public AIPreferences(GameStateManager gsm, PreferencesSettings setting, CountDown countDown){
+    public AIPreferences(GameStateManager gsm, PreferencesSettings setting, ICountdownDuration countDown){
 
         super(gsm);
         setAILevel = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/setAILevel.png")),0,0);
