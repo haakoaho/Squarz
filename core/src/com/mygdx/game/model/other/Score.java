@@ -23,7 +23,7 @@ public class Score {
         return userScore;
     }
 
-    public void setUserScore(Integer userScore) {
+    private void setUserScore(Integer userScore) {
         this.userScore = userScore;
     }
 
@@ -31,7 +31,7 @@ public class Score {
         return opponentScore;
     }
 
-    public void setOpponentScore(Integer opponentScore) {
+    private void setOpponentScore(Integer opponentScore) {
         this.opponentScore = opponentScore;
     }
 

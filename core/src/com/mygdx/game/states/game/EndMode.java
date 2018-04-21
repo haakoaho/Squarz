@@ -26,10 +26,14 @@ import static com.mygdx.game.Squarz.format;
  */
 
 public class EndMode extends State {
-    private PreferencesSettings setting;
-    private Icon replay, back;
+    private final PreferencesSettings setting;
+    private final Icon replay;
+    private final Icon back;
     private ICountdownDuration countDown1;
-    private GlyphLayout scoreUser, scoreAi, message1, message2;
+    private final GlyphLayout scoreUser;
+    private final GlyphLayout scoreAi;
+    private final GlyphLayout message1;
+    private final GlyphLayout message2;
 
     public EndMode(GameStateManager gsm, PreferencesSettings setting, Score s, ICountdownDuration countDown){
         super(gsm);

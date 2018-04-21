@@ -47,9 +47,7 @@ public class SquareLimiter {
             }
         }
         if (colorkey == 4){
-            if(this.getBonusPunisherLeft() == 0){
-                return true;
-            }
+            return this.getBonusPunisherLeft() == 0;
         }
         return false;
     }

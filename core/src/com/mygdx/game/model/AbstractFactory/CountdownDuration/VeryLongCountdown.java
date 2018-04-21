@@ -8,7 +8,7 @@ public class VeryLongCountdown implements ICountdownDuration {
     private Integer worldTimer;
 
     private float timeCount;
-    private Label countdownLabel;
+    private final Label countdownLabel;
     private Boolean timeUp;
     private Integer timerKey;
 

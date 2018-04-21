@@ -21,11 +21,12 @@ import static com.mygdx.game.Squarz.format;
 //    red < blue < yellow < red
 
 public class AIPlayer extends Player {
-    private Player player;
+    private final Player player;
     private Texture texture;
     private Integer launcherCounter;
 
-    private Bonus bonus1, bonus2;
+    private final Bonus bonus1;
+    private final Bonus bonus2;
     private Integer nbofBonusesUsed;
 
 /**
@@ -81,7 +82,7 @@ public class AIPlayer extends Player {
         }
     }
 
-    public void bonusSending(){
+    private void bonusSending(){
 
         if(nbofBonusesUsed==0) {
             this.nbofBonusesUsed = 1;
@@ -104,7 +105,7 @@ public class AIPlayer extends Player {
 
 
 
-    public void setTheRandomTexture(int colorKey){
+    private void setTheRandomTexture(int colorKey){
         if (colorKey == 0) {
             this.texture = new Texture(Gdx.files.internal(format+"/square/square_red.png"));
         } else if (colorKey == 1) {
@@ -116,7 +117,7 @@ public class AIPlayer extends Player {
         }
     }
 
-    public void setTheRandomColumn(int columnKey, int colorKey) {
+    private void setTheRandomColumn(int columnKey, int colorKey) {
         if(!this.getSquareLimiter().isOver(colorKey)) {
 
             if (columnKey == 0) {
@@ -148,7 +149,7 @@ public class AIPlayer extends Player {
         handleAIOverLapping(columnKey, t, counter, row);
     }
 
-    public void handleAIOverLapping(Integer columnKey, Texture t, Integer counter, Map<Integer, Square> map){
+    private void handleAIOverLapping(Integer columnKey, Texture t, Integer counter, Map<Integer, Square> map){
         if (counter != this.getFirstSquareKey(columnKey) && counter > 0 && map.get(counter - 1).getPosition().y >= HEIGHT - (t.getHeight()) - 5) {
             map.get(counter).setPosition(new Vector2(WIDTH * 3 / 8,
                     map.get(counter - 1).getPosition().y + t.getHeight() + 5));
@@ -157,14 +158,7 @@ public class AIPlayer extends Player {
 
     // ---------  general getters and setters
 
-    public Texture getTexture() {
-        return texture;
-    }
-    public void setTexture(Texture texture) {
-        this.texture = texture;
-    }
-
- /**
+    /**
     The beginning of  the implementation of an Ai more intelligent and reactuve for a more chaleenging game !
 
     public void prgrmdSending(ICountdownDuration countDown) {

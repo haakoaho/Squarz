@@ -20,16 +20,15 @@ import static com.mygdx.game.Squarz.format;
 //    red < blue < yellow < red
 
 public class Square {
-    private Sprite sprite;
     private Texture texture;
     private Vector2 position;
-    private Rectangle rectangle;
+    private final Rectangle rectangle;
     private Integer colorKey;
-    private PreferencesSettings set;
+    private final PreferencesSettings set;
 
     public Square (PreferencesSettings set){
         this.texture = new Texture(Gdx.files.internal(format+"/square/square.png"));
-        this.sprite = new Sprite(texture);
+        Sprite sprite = new Sprite(texture);
         this.position = new Vector2 (0, 0);
         this.rectangle = new Rectangle(this.getPosition().x, this.getPosition().y,
                 this.getTexture().getWidth(), this.getTexture().getHeight());
@@ -47,17 +46,11 @@ public class Square {
     }
 
     public boolean isInUser(){
-        if (this.getPosition().y >= HEIGHT){
-            return false;
-        }
-        return true;
+        return !(this.getPosition().y >= HEIGHT);
     }
 
     public boolean isInAi(){
-        if (this.getPosition().y + this.getTexture().getHeight() <=0 ){
-            return false;
-        }
-        return true;
+        return !(this.getPosition().y + this.getTexture().getHeight() <= 0);
     }
 
     public Texture getTexture() {

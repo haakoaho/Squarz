@@ -21,10 +21,16 @@ import static com.mygdx.game.Squarz.format;
 
 //CLEAN//
 public class AIPreferences extends State {
-    private Icon setAILevel, setTimer, setBonuses, play, back;
-    private PreferencesSettings setting;
-    private ICountdownDuration countDown;
-    private GlyphLayout AILevel, Timer, Bonuses;
+    private final Icon setAILevel;
+    private final Icon setTimer;
+    private final Icon setBonuses;
+    private final Icon play;
+    private final Icon back;
+    private final PreferencesSettings setting;
+    private final ICountdownDuration countDown;
+    private final GlyphLayout AILevel;
+    private final GlyphLayout Timer;
+    private final GlyphLayout Bonuses;
 
     public AIPreferences(GameStateManager gsm){ // used if the settings have not been changed yet
         super(gsm);

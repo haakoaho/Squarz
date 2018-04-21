@@ -147,7 +147,7 @@ public class Player {
     }
 
 
-    public void incrementCounter(Integer columnKey){
+    void incrementCounter(Integer columnKey){
         if (columnKey == 0){
             leftCounter += 1;
         }
@@ -159,7 +159,7 @@ public class Player {
         }
     }
 
-    public void handleOverLapping(Integer columnKey, Texture t, Integer counter, Map<Integer, Square> row){
+    private void handleOverLapping(Integer columnKey, Texture t, Integer counter, Map<Integer, Square> row){
         if (counter != this.getFirstSquareKey(columnKey) && counter > 0 && row.get(counter - 1).getPosition().y < t.getHeight() + 5) {
             row.get(counter).setPosition(new Vector2(WIDTH * (3+(columnKey*2))/8,
                     row.get(counter - 1).getPosition().y - t.getHeight() - 5));
@@ -169,63 +169,48 @@ public class Player {
 
     //----------   setters and getters
 
-    public Integer getFirstLeftSquaresKey() {
+    private Integer getFirstLeftSquaresKey() {
         return firstLeftSquaresKey;
     }
 
-    public void setFirstLeftSquaresKey(Integer firstLeftSquaresKey) {
+    private void setFirstLeftSquaresKey(Integer firstLeftSquaresKey) {
         this.firstLeftSquaresKey = firstLeftSquaresKey;
     }
 
-    public Integer getFirstMiddleSquaresKey() {
+    private Integer getFirstMiddleSquaresKey() {
         return firstMiddleSquaresKey;
     }
 
-    public void setFirstMiddleSquaresKey(Integer firstMiddleSquaresKey) {
+    private void setFirstMiddleSquaresKey(Integer firstMiddleSquaresKey) {
         this.firstMiddleSquaresKey = firstMiddleSquaresKey;
     }
 
-    public Integer getFirstRightSquaresKey() {
+    private Integer getFirstRightSquaresKey() {
         return firstRightSquaresKey;
     }
 
-    public void setFirstRightSquaresKey(Integer firstRightSquaresKey) {
+    private void setFirstRightSquaresKey(Integer firstRightSquaresKey) {
         this.firstRightSquaresKey = firstRightSquaresKey;
     }
 
-    public Map<Integer, Square> getLeft() {
+    private Map<Integer, Square> getLeft() {
         return left;
     }
 
-    public void setLeft(Map<Integer, Square> left) {
-        this.left = left;
-    }
-
-    public Map<Integer, Square> getMiddle() {
+    private Map<Integer, Square> getMiddle() {
         return middle;
     }
 
-    public void setMiddle(Map<Integer, Square> middle) {
-        this.middle = middle;
-    }
-
-    public Map<Integer, Square> getRight() {
+    private Map<Integer, Square> getRight() {
         return right;
-    }
-
-    public void setRight(Map<Integer, Square> right) {
-        this.right = right;
     }
 
     public SquareLimiter getSquareLimiter() {
         return squareLimiter;
     }
 
-    public PreferencesSettings getSet() {
+    PreferencesSettings getSet() {
         return set;
     }
 
-    public void setSet(PreferencesSettings set) {
-        this.set = set;
-    }
 }

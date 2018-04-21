@@ -12,12 +12,11 @@ import com.mygdx.game.model.multiplayer.MultiplayerInterface;
 import com.mygdx.game.states.beginning.Menu;
 
 public class Squarz extends ApplicationAdapter  {
-	public final String TITLE = "Squarz";
 	public static int WIDTH;
 	public static int HEIGHT;
 	public static String format;
 
-	public MultiplayerInterface multiplayerInterface;
+	private MultiplayerInterface multiplayerInterface;
 
 	public static BitmapFont font, font2, font3;
 
@@ -30,14 +29,12 @@ public class Squarz extends ApplicationAdapter  {
 		this.multiplayerInterface = multiplayerInterface;
 	}
 
-	public Squarz(){
-	}
-
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		gsm = new GameStateManager();
 		gsm.setMultiplayerInterface(multiplayerInterface);
+		gsm.getMultiplayerInterface().startSignInIntent();
 
 
 

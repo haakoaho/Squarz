@@ -16,7 +16,11 @@ import static com.mygdx.game.Squarz.format;
 
 // CLEAN //
 public class Pref extends State {
-    private Icon ai, quick, invite, answer, back;
+    private final Icon ai;
+    private final Icon quick;
+    private final Icon invite;
+    private final Icon answer;
+    private final Icon back;
 
     public Pref(GameStateManager gsm) {
         super(gsm);
