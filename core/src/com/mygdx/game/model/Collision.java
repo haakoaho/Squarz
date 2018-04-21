@@ -1,10 +1,5 @@
 package com.mygdx.game.model;
 
-
-/**
- * Created by Max on 14/03/2018.
- */
-
 // Color - number association
 // red == 0; blue == 1; yellow == 2;
 // Collision convention
@@ -18,7 +13,6 @@ public class Collision {
 
     public void deleteOncePlayerOut(Player p, Integer column) {
         //if square goes outside (scores)
-        //revoir !
             if (p.getCounter(column) >= p.getFirstSquareKey(column) && !p.getMap(column).get(p.getFirstSquareKey(column)).isInUser()) {
                 p.decrement(p.getFirstSquareKey(column), column);
                 score.updateUser();
@@ -100,7 +94,6 @@ public class Collision {
             p.decrement(p.getFirstSquareKey(columnKey), columnKey);
         }
     }
-
     public void handleWhenPlayerPunisherBonus(Player p, Player c, Integer columnKey){
         // if computer also sent a punisher
         if (c.getMap(columnKey).get(c.getFirstSquareKey(columnKey)).getColorKey() == 4) {

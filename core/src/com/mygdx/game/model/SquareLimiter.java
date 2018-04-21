@@ -1,9 +1,5 @@
 package com.mygdx.game.model;
 
-/**
- * Created by Max on 17/03/2018.
- */
-
 public class SquareLimiter {
     private Integer redLeft;
     private Integer blueLeft;

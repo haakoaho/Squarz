@@ -5,10 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 
 import static com.mygdx.game.Squarz.format;
 
-/**
- * Created by Max on 15/04/2018.
- */
-
 public class Bonus {
     private Integer bonusKey, colorKey;
 

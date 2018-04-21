@@ -111,12 +111,4 @@ public class PauseScreen {
     public Icon getBackToPause() {
         return backToPause;
     }
-
-    public GlyphLayout getPauseGlyph() {
-        return pauseGlyph;
-    }
-    public void setPauseGlyph(GlyphLayout pauseGlyph) {
-        this.pauseGlyph = pauseGlyph;
-    }
-
 }

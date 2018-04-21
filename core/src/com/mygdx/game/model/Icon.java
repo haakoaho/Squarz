@@ -5,10 +5,6 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 
 import static com.mygdx.game.Squarz.font3;
 
-/**
- * Created by Lucas on 12/03/2018.
- */
-
 public class Icon {
     private Texture texture;
     private Texture selected, off;
@@ -30,22 +26,6 @@ public class Icon {
 
     public void setTexture(Texture texture) {
         this.texture = texture;
-    }
-
-    public Texture getSelected() {
-        return this.selected;
-    }
-
-    public void setSelected(Texture selected) {
-        this.selected = selected;
-    }
-
-    public Texture getOff() {
-        return this.off;
-    }
-
-    public void setOff(Texture off) {
-        this.off = off;
     }
 
     public int getPosX() {

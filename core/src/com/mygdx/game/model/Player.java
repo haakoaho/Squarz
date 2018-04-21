@@ -9,10 +9,6 @@ import java.util.Map;
 
 import static com.mygdx.game.Squarz.WIDTH;
 
-/**
- * Created by mathi on 13/03/2018.
- */
-
 // Color - number association
 // red == 0; blue == 1; yellow == 2;
 // Collision convention
@@ -65,8 +61,6 @@ public class Player {
             column.get(counter).setColorKey(colorKey);
 
             handleOverLapping(columnKey, t, counter, column);
-        //}
-
     }
 
 
@@ -221,36 +215,8 @@ public class Player {
         this.right = right;
     }
 
-    public Integer getLeftCounter() {
-        return leftCounter;
-    }
-
-    public void setLeftCounter(Integer leftCounter) {
-        this.leftCounter = leftCounter;
-    }
-
-    public Integer getMiddleCounter() {
-        return middleCounter;
-    }
-
-    public void setMiddleCounter(Integer middleCounter) {
-        this.middleCounter = middleCounter;
-    }
-
-    public Integer getRightCounter() {
-        return rightCounter;
-    }
-
-    public void setRightCounter(Integer rightCounter) {
-        this.rightCounter = rightCounter;
-    }
-
     public SquareLimiter getSquareLimiter() {
         return squareLimiter;
-    }
-
-    public void setSquareLimiter(SquareLimiter squareLimiter) {
-        this.squareLimiter = squareLimiter;
     }
 
     public PreferencesSettings getSet() {

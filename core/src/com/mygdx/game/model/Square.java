@@ -20,15 +20,12 @@ import static com.mygdx.game.Squarz.format;
 //    red < blue < yellow < red
 
 public class Square {
-    private static final double TIME = 1/30;
     private Sprite sprite;
     private Texture texture;
     private Vector2 position;
     private Rectangle rectangle;
     private Integer colorKey;
     private PreferencesSettings set;
-
-    private Integer freezeSpeed;
 
     public Square (PreferencesSettings set){
         this.texture = new Texture(Gdx.files.internal(format+"/square/square.png"));
@@ -38,7 +35,6 @@ public class Square {
                 this.getTexture().getWidth(), this.getTexture().getHeight());
         this.colorKey = 0;
         this.set = set;
-        this.freezeSpeed = 0;
     }
 
 
@@ -64,15 +60,6 @@ public class Square {
         return true;
     }
 
-
-    public Sprite getSprite() {
-        return sprite;
-    }
-
-    public void setSprite(Sprite sprite) {
-        this.sprite = sprite;
-    }
-
     public Texture getTexture() {
         return texture;
     }
@@ -92,10 +79,6 @@ public class Square {
 
     public Rectangle getRectangle() {
         return rectangle;
-    }
-
-    public void setRectangle(Rectangle rectangle) {
-        this.rectangle = rectangle;
     }
 
     public Integer getColorKey() {
