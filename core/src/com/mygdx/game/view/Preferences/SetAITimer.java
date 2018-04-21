@@ -21,10 +21,14 @@ import static com.mygdx.game.Squarz.format;
 
 // CLEAN //
 public class SetAITimer extends State {
-    private PreferencesSettings settings;
+    private final PreferencesSettings settings;
     private ICountdownDuration countDown;
-    private Icon add, delete, countDownIcon, back;
-    private GlyphLayout choose, timeTitle;
+    private final Icon add;
+    private final Icon delete;
+    private final Icon countDownIcon;
+    private final Icon back;
+    private GlyphLayout choose;
+    private final GlyphLayout timeTitle;
 
     public SetAITimer(GameStateManager gsm, PreferencesSettings settings, ICountdownDuration countDown){
         super(gsm);
@@ -109,7 +113,7 @@ public class SetAITimer extends State {
     public void dispose() {
     }
 
-    public void drawAccurateTexture(SpriteBatch sb){ // draw the good number of stopwatch, according to the time you have chosen
+    private void drawAccurateTexture(SpriteBatch sb){ // draw the good number of stopwatch, according to the time you have chosen
         if(countDown.getWorldTimer() == 30){
             sb.draw(countDownIcon.getTexture(), countDownIcon.getPosX() , countDownIcon.getPosY());
         }

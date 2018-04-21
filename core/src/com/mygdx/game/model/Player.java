@@ -75,7 +75,7 @@ public class Player {
         Map<Integer, Square> column = getMap(columnKey);
         column.remove(toRemoveKey);
 
-        if(toRemoveKey != getFirstSquareKey(columnKey)){
+        if(!toRemoveKey.equals(getFirstSquareKey(columnKey))){
             for (int i = toRemoveKey; toRemoveKey > getFirstSquareKey(columnKey); i--) {
                 column.put(i, column.get(i - 1));
             }
@@ -87,39 +87,45 @@ public class Player {
     //used in collision to make code less cumbersome
     public Integer getFirstSquareKey(Integer columnKey){
         int toReturn;
-        if(columnKey == 0){
-            toReturn = getFirstLeftSquaresKey();
-        }
-        else if(columnKey == 1){
-            toReturn = getFirstMiddleSquaresKey();
-        }
-        else{
-            toReturn = getFirstRightSquaresKey();
+        switch (columnKey) {
+            case 0:
+                toReturn = getFirstLeftSquaresKey();
+                break;
+            case 1:
+                toReturn = getFirstMiddleSquaresKey();
+                break;
+            default:
+                toReturn = getFirstRightSquaresKey();
+                break;
         }
         return  toReturn;
     }
     public void setFirstSquareKey(Integer columnKey, Integer newFirst){
-        if(columnKey == 0){
-            setFirstLeftSquaresKey(newFirst);
-        }
-        else if(columnKey == 1){
-            setFirstMiddleSquaresKey(newFirst);
-        }
-        else{
-            setFirstRightSquaresKey(newFirst);
+        switch (columnKey) {
+            case 0:
+                setFirstLeftSquaresKey(newFirst);
+                break;
+            case 1:
+                setFirstMiddleSquaresKey(newFirst);
+                break;
+            default:
+                setFirstRightSquaresKey(newFirst);
+                break;
         }
     }
 
     public Map<Integer, Square> getMap(Integer columnKey){
         Map<Integer, Square> toReturn;
-        if(columnKey == 0){
-            toReturn = getLeft();
-        }
-        else if(columnKey == 1){
-            toReturn = getMiddle();
-        }
-        else{
-            toReturn = getRight();
+        switch (columnKey) {
+            case 0:
+                toReturn = getLeft();
+                break;
+            case 1:
+                toReturn = getMiddle();
+                break;
+            default:
+                toReturn = getRight();
+                break;
         }
         return  toReturn;
     }
@@ -127,44 +133,50 @@ public class Player {
     //returns the column's counter
     public Integer getCounter(Integer columnKey){
         Integer counter;
-        if (columnKey == 0){
-            counter = leftCounter;
-        }
-        else if (columnKey == 1){
-            counter = middleCounter;
-        }
-        else{
-            counter = rightCounter;
+        switch (columnKey) {
+            case 0:
+                counter = leftCounter;
+                break;
+            case 1:
+                counter = middleCounter;
+                break;
+            default:
+                counter = rightCounter;
+                break;
         }
         return counter;
     }
     public void setCounter(Integer columnKey, Integer newValue){
-        if (columnKey == 0){
-            leftCounter = newValue;
-        }
-        else if (columnKey == 1){
-            middleCounter = newValue;
-        }
-        else{
-            rightCounter = newValue;
-        }
-    }
-
-
-    public void incrementCounter(Integer columnKey){
-        if (columnKey == 0){
-            leftCounter += 1;
-        }
-        else if (columnKey == 1){
-            middleCounter += 1;
-        }
-        else{
-            rightCounter += 1;
+        switch (columnKey) {
+            case 0:
+                leftCounter = newValue;
+                break;
+            case 1:
+                middleCounter = newValue;
+                break;
+            default:
+                rightCounter = newValue;
+                break;
         }
     }
 
-    public void handleOverLapping(Integer columnKey, Texture t, Integer counter, Map<Integer, Square> row){
-        if (counter != this.getFirstSquareKey(columnKey) && counter > 0 && row.get(counter - 1).getPosition().y < t.getHeight() + 5) {
+
+    void incrementCounter(Integer columnKey){
+        switch (columnKey) {
+            case 0:
+                leftCounter += 1;
+                break;
+            case 1:
+                middleCounter += 1;
+                break;
+            default:
+                rightCounter += 1;
+                break;
+        }
+    }
+
+    private void handleOverLapping(Integer columnKey, Texture t, Integer counter, Map<Integer, Square> row){
+        if (!counter.equals(this.getFirstSquareKey(columnKey)) && counter > 0 && row.get(counter - 1).getPosition().y < t.getHeight() + 5) {
             row.get(counter).setPosition(new Vector2(WIDTH * (3+(columnKey*2))/8,
                     row.get(counter - 1).getPosition().y - t.getHeight() - 5));
         }
@@ -173,31 +185,31 @@ public class Player {
 
     //----------   setters and getters
 
-    public Integer getFirstLeftSquaresKey() {
+    private Integer getFirstLeftSquaresKey() {
         return firstLeftSquaresKey;
     }
 
-    public void setFirstLeftSquaresKey(Integer firstLeftSquaresKey) {
+    private void setFirstLeftSquaresKey(Integer firstLeftSquaresKey) {
         this.firstLeftSquaresKey = firstLeftSquaresKey;
     }
 
-    public Integer getFirstMiddleSquaresKey() {
+    private Integer getFirstMiddleSquaresKey() {
         return firstMiddleSquaresKey;
     }
 
-    public void setFirstMiddleSquaresKey(Integer firstMiddleSquaresKey) {
+    private void setFirstMiddleSquaresKey(Integer firstMiddleSquaresKey) {
         this.firstMiddleSquaresKey = firstMiddleSquaresKey;
     }
 
-    public Integer getFirstRightSquaresKey() {
+    private Integer getFirstRightSquaresKey() {
         return firstRightSquaresKey;
     }
 
-    public void setFirstRightSquaresKey(Integer firstRightSquaresKey) {
+    private void setFirstRightSquaresKey(Integer firstRightSquaresKey) {
         this.firstRightSquaresKey = firstRightSquaresKey;
     }
 
-    public Map<Integer, Square> getLeft() {
+    private Map<Integer, Square> getLeft() {
         return left;
     }
 
@@ -205,7 +217,7 @@ public class Player {
         this.left = left;
     }
 
-    public Map<Integer, Square> getMiddle() {
+    private Map<Integer, Square> getMiddle() {
         return middle;
     }
 
@@ -213,7 +225,7 @@ public class Player {
         this.middle = middle;
     }
 
-    public Map<Integer, Square> getRight() {
+    private Map<Integer, Square> getRight() {
         return right;
     }
 
@@ -253,7 +265,7 @@ public class Player {
         this.squareLimiter = squareLimiter;
     }
 
-    public PreferencesSettings getSet() {
+    PreferencesSettings getSet() {
         return set;
     }
 

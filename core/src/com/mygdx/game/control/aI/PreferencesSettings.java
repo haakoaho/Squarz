@@ -26,7 +26,7 @@ public class PreferencesSettings {
     }
 
     public int getLevelKey() { return levelKey; }
-    public void setLevelKey(int levelKey) { this.levelKey = levelKey; }
+    private void setLevelKey(int levelKey) { this.levelKey = levelKey; }
     public int getStepX() {
         return stepX;
     }
@@ -36,13 +36,13 @@ public class PreferencesSettings {
     public float getDtLaunching() {
         return dtLaunching;
     }
-    public void setDtLaunching(float dtLaunching) {
+    private void setDtLaunching(float dtLaunching) {
         this.dtLaunching = dtLaunching;
     }
     public float getDtWaves() {
         return dtWaves;
     }
-    public void setDtWaves(float dtWaves) {
+    private void setDtWaves(float dtWaves) {
         this.dtWaves = dtWaves;
     }
     public Bonus getBonus1() { return bonus1; }
@@ -104,14 +104,16 @@ public class PreferencesSettings {
     public void AILevelUp() {
         int currentLevel = this.getLevelKey();
         if (currentLevel != 3) {
-            if (levelKey == 0) {
-                setMedium();
-            }
-            else if (levelKey == 1) {
-                setAdvanced();
-            }
-            else if (levelKey == 2) {
-                setExpert();
+            switch (levelKey) {
+                case 0:
+                    setMedium();
+                    break;
+                case 1:
+                    setAdvanced();
+                    break;
+                case 2:
+                    setExpert();
+                    break;
             }
         }
     }
@@ -119,40 +121,42 @@ public class PreferencesSettings {
     public void AILevelDown(){
         int currentLevel = this.getLevelKey();
         if (currentLevel != 0) {
-            if (levelKey == 1) {
-                setBeginner();
-            }
-            else if (levelKey == 2) {
-                setMedium();
-            }
-            else if (levelKey == 3) {
-                setAdvanced();
+            switch (levelKey) {
+                case 1:
+                    setBeginner();
+                    break;
+                case 2:
+                    setMedium();
+                    break;
+                case 3:
+                    setAdvanced();
+                    break;
             }
         }
     }
 
-    public void setBeginner(){
+    private void setBeginner(){
         setLevelKey(0);
         setStepX(HEIGHT/6);
         setDtLaunching(80);
         setDtWaves(400);
     }
 
-    public void setMedium(){
+    private void setMedium(){
         setLevelKey(1);
         setStepX(HEIGHT/6);
         setDtLaunching(60);
         setDtWaves(300);
     }
 
-    public void setAdvanced(){
+    private void setAdvanced(){
         setLevelKey(2);
         setStepX(HEIGHT/6);
         setDtLaunching(50);
         setDtWaves(200);
     }
 
-    public void setExpert(){
+    private void setExpert(){
         setLevelKey(3);
         setStepX(HEIGHT/6);
         setDtLaunching(40);

@@ -15,10 +15,10 @@ public interface ICountdownDuration {
     Integer getTimerKey();
     void setTimerKey(Integer timerKey);
     void update(float dt);
-    public void setTimeCount(float timeCount);
-    public Label getCountdownLabel();
-    public void setCountdownLabel(Label countdownLabel);
-    public float getTimeCount();
+    void setTimeCount(float timeCount);
+    Label getCountdownLabel();
+    void setCountdownLabel(Label countdownLabel);
+    float getTimeCount();
 
 
 }

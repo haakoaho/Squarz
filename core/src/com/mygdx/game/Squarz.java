@@ -17,7 +17,7 @@ public class Squarz extends ApplicationAdapter  {
 	public static int HEIGHT;
 	public static String format;
 
-	public MultiplayerInterface multiplayerInterface;
+	private MultiplayerInterface multiplayerInterface;
 
 	public static BitmapFont font, font2, font3;
 

@@ -18,10 +18,14 @@ import static com.mygdx.game.Squarz.format;
 
 // CLEAN //
 public class SetAILevel extends State{
-    private Icon add, delete, levelToDraw, back;
-    private PreferencesSettings settings;
-    private ICountdownDuration countDown;
-    private GlyphLayout choose, levelTitle;
+    private final Icon add;
+    private final Icon delete;
+    private final Icon levelToDraw;
+    private final Icon back;
+    private final PreferencesSettings settings;
+    private final ICountdownDuration countDown;
+    private GlyphLayout choose;
+    private final GlyphLayout levelTitle;
 
 
     public SetAILevel(GameStateManager gsm, PreferencesSettings settings, ICountdownDuration countDown){
@@ -95,7 +99,7 @@ public class SetAILevel extends State{
     public void dispose() {
     }
 
-    public void setTextureToDraw(){ // draw the good texture according to the level, to give a good visual experience
+    private void setTextureToDraw(){ // draw the good texture according to the level, to give a good visual experience
         if(this.settings.getLevelKey()==0){
             this.levelToDraw.setTexture(new Texture(Gdx.files.internal(format+"/ai_settings/ai_levels/beginer.png")));
         }

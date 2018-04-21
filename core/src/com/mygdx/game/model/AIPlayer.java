@@ -29,7 +29,8 @@ public class AIPlayer extends Player{
     private Integer deltaLauncher;
     private Integer renderCounter;
 
-    private Bonus bonus1, bonus2;
+    private final Bonus bonus1;
+    private final Bonus bonus2;
     private Integer nbofBonusesUsed;
 
     private boolean wave1 = true;
@@ -60,24 +61,28 @@ public class AIPlayer extends Player{
             if (this.launcherCounter == this.getSet().getDtLaunching() ) {
                 this.launcherCounter = 0;
 
-                if (countDown.getWorldTimer() == 55) {
-                    bonusSending();
-                }else if ( countDown.getWorldTimer() == 50){
-                    bonusSending();
-                }else {
-                    //setting the random color
-                    int colorKey = random(2);
-                    setTheRandomTexture(colorKey);
+                switch (countDown.getWorldTimer()) {
+                    case 55:
+                        bonusSending();
+                        break;
+                    case 50:
+                        bonusSending();
+                        break;
+                    default:
+                        //setting the random color
+                        int colorKey = random(2);
+                        setTheRandomTexture(colorKey);
 
-                    //setting the random Texture in a random column
-                    int column = random(2);
-                    setTheRandomColumn(column, colorKey);
+                        //setting the random Texture in a random column
+                        int column = random(2);
+                        setTheRandomColumn(column, colorKey);
+                        break;
                 }
             }
         }
     }
 
-    public void bonusSending(){
+    private void bonusSending(){
 
         if(nbofBonusesUsed==0) {
             this.nbofBonusesUsed = 1;
@@ -123,7 +128,7 @@ public class AIPlayer extends Player{
 
     }
 
-    public void myWave(ICountdownDuration countDown){
+    private void myWave(ICountdownDuration countDown){
         if (wave1) {
             wave1 =  createAWave(55, countDown);
         }
@@ -145,12 +150,12 @@ public class AIPlayer extends Player{
     }
 
 
-    public void setOneSquare(int row, int colorkey){
+    private void setOneSquare(int row, int colorkey){
         setTheRandomTexture(colorkey);
         setTheRandomColumn(row,colorkey);
     }
 
-    public boolean createAWave(int time, ICountdownDuration countDown){
+    private boolean createAWave(int time, ICountdownDuration countDown){
 
         if (time == countDown.getWorldTimer()){
             setOneSquare(random(2),random(2));
@@ -162,19 +167,24 @@ public class AIPlayer extends Player{
     }
 
 
-    public void setTheRandomTexture(int colorKey){
-        if (colorKey == 0) {
-            this.texture = new Texture(Gdx.files.internal(format+"/square/square_red.png"));
-        } else if (colorKey == 1) {
-            this.texture = new Texture(Gdx.files.internal(format+"/square/square_blue.png"));
-        } else if(colorKey == 2){
-            this.texture = new Texture(Gdx.files.internal(format+"/square/square_yellow.png"));
-        } else if(colorKey == 4){
-            this.texture = new Texture(Gdx.files.internal(format+"/bonuses/punisher.png"));
+    private void setTheRandomTexture(int colorKey){
+        switch (colorKey) {
+            case 0:
+                this.texture = new Texture(Gdx.files.internal(format + "/square/square_red.png"));
+                break;
+            case 1:
+                this.texture = new Texture(Gdx.files.internal(format + "/square/square_blue.png"));
+                break;
+            case 2:
+                this.texture = new Texture(Gdx.files.internal(format + "/square/square_yellow.png"));
+                break;
+            case 4:
+                this.texture = new Texture(Gdx.files.internal(format + "/bonuses/punisher.png"));
+                break;
         }
     }
 
-    public void setTheRandomColumn(int columnKey, int colorKey) {
+    private void setTheRandomColumn(int columnKey, int colorKey) {
         if(!this.getSquareLimiter().isOver(colorKey)) {
 
             if (columnKey == 0) {
@@ -206,8 +216,8 @@ public class AIPlayer extends Player{
         handleAIOverLapping(columnKey, t, counter, row);
     }
 
-    public void handleAIOverLapping(Integer columnKey, Texture t, Integer counter, Map<Integer, Square> map){
-        if (counter != this.getFirstSquareKey(columnKey) && counter > 0 && map.get(counter - 1).getPosition().y >= HEIGHT - (t.getHeight()) - 5) {
+    private void handleAIOverLapping(Integer columnKey, Texture t, Integer counter, Map<Integer, Square> map){
+        if (!counter.equals(this.getFirstSquareKey(columnKey)) && counter > 0 && map.get(counter - 1).getPosition().y >= HEIGHT - (t.getHeight()) - 5) {
             map.get(counter).setPosition(new Vector2(WIDTH * 3 / 8,
                     map.get(counter - 1).getPosition().y + t.getHeight() + 5));
         }

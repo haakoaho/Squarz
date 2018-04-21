@@ -2,24 +2,33 @@ package com.mygdx.game.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.game.Squarz;
 import com.mygdx.game.model.Icon;
 
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.mygdx.game.model.Score;
-
-import static com.mygdx.game.Squarz.WIDTH;
 import static com.mygdx.game.Squarz.HEIGHT;
+import static com.mygdx.game.Squarz.WIDTH;
 import static com.mygdx.game.Squarz.format;
 import static com.mygdx.game.Squarz.valueVibration;
 import static com.mygdx.game.Squarz.valueVolume;
 
 //CLEAN//
-public class PauseScreen {
-    private Icon texture, sound, vibration, resume, back, quickSetting, addS, deleteS, addV, deleteV, backToPause;
-    private GlyphLayout pauseGlyph, sGlyph, vGlyph;
+class PauseScreen {
+    private final Icon texture;
+    private final Icon sound;
+    private final Icon vibration;
+    private final Icon resume;
+    private final Icon back;
+    private final Icon quickSetting;
+    private final Icon addS;
+    private final Icon deleteS;
+    private final Icon addV;
+    private final Icon deleteV;
+    private final Icon backToPause;
+    private GlyphLayout pauseGlyph;
+    private final GlyphLayout sGlyph;
+    private final GlyphLayout vGlyph;
 
 
     public PauseScreen() {
@@ -40,22 +49,22 @@ public class PauseScreen {
         this.texture.setPosY(HEIGHT/2 - this.texture.getTexture().getHeight()/2);
         this.resume.setPosX(WIDTH/2 - this.resume.getTexture().getWidth()/2 );
         this.resume.setPosY(HEIGHT/2 - this.texture.getTexture().getHeight()/6 - this.resume.getTexture().getHeight()/2);
-        this.back.setPosX(WIDTH/2 - this.texture.getTexture().getWidth()*1/3 - this.back.getTexture().getWidth()/2);
+        this.back.setPosX(WIDTH/2 - this.texture.getTexture().getWidth() /3 - this.back.getTexture().getWidth()/2);
         this.back.setPosY(HEIGHT/2 - this.texture.getTexture().getHeight()/6 - this.back.getTexture().getHeight()/2);
-        this.quickSetting.setPosX(WIDTH/2 + this.texture.getTexture().getWidth()*1/3 - this.quickSetting.getTexture().getWidth()/2 );
+        this.quickSetting.setPosX(WIDTH/2 + this.texture.getTexture().getWidth() /3 - this.quickSetting.getTexture().getWidth()/2 );
         this.quickSetting.setPosY(HEIGHT/2 - this.texture.getTexture().getHeight()/6 - this.quickSetting.getTexture().getHeight()/2);
         this.sound.setPosX(this.texture.getPosX() + this.texture.getTexture().getWidth()/5 - this.sound.getTexture().getWidth()/2);
         this.sound.setPosY(this.texture.getPosY() + this.texture.getTexture().getHeight()*2/4  - this.sound.getTexture().getHeight()/2);
         this.vibration.setPosX(this.texture.getPosX() + this.texture.getTexture().getWidth()/5 - this.vibration.getTexture().getWidth()/2);
-        this.vibration.setPosY(this.texture.getPosY() + this.texture.getTexture().getHeight()*1/4  - this.vibration.getTexture().getHeight()/2);
+        this.vibration.setPosY(this.texture.getPosY() + this.texture.getTexture().getHeight() /4  - this.vibration.getTexture().getHeight()/2);
         this.addS.setPosX(this.texture.getPosX() + this.texture.getTexture().getWidth()*4/5 - this.addS.getTexture().getWidth()/2);
         this.addS.setPosY(this.texture.getPosY() + this.texture.getTexture().getHeight()*2/4  - this.addS.getTexture().getHeight()/2);
         this.deleteS.setPosX(this.texture.getPosX() + this.texture.getTexture().getWidth()*2/5 - this.deleteS.getTexture().getWidth()/2);
         this.deleteS.setPosY(this.texture.getPosY() + this.texture.getTexture().getHeight()*2/4  - this.deleteS.getTexture().getHeight()/2);
         this.addV.setPosX(this.texture.getPosX() + this.texture.getTexture().getWidth()*4/5 - this.addV.getTexture().getWidth()/2);
-        this.addV.setPosY(this.texture.getPosY() + this.texture.getTexture().getHeight()*1/4  - this.addV.getTexture().getHeight()/2);
+        this.addV.setPosY(this.texture.getPosY() + this.texture.getTexture().getHeight() /4  - this.addV.getTexture().getHeight()/2);
         this.deleteV.setPosX(this.texture.getPosX() + this.texture.getTexture().getWidth()*2/5 - this.deleteV.getTexture().getWidth()/2);
-        this.deleteV.setPosY(this.texture.getPosY() + this.texture.getTexture().getHeight()*1/4  - this.deleteV.getTexture().getHeight()/2);
+        this.deleteV.setPosY(this.texture.getPosY() + this.texture.getTexture().getHeight() /4  - this.deleteV.getTexture().getHeight()/2);
         this.backToPause.setPosX(this.texture.getPosX() + this.texture.getTexture().getWidth()*9/10 - this.backToPause.getTexture().getWidth()/2);
         this.backToPause.setPosY(this.texture.getPosY() + this.texture.getTexture().getHeight()*3/4  - this.backToPause.getTexture().getHeight()/2);
 
@@ -84,7 +93,7 @@ public class PauseScreen {
         this.sGlyph.setText(Squarz.font2, String.valueOf(valueVolume));
         Squarz.font2.draw(sb, this.sGlyph, this.texture.getPosX() + this.texture.getTexture().getWidth()*3/5 - this.sGlyph.width/2,this.texture.getPosY() + this.texture.getTexture().getHeight()*2/4  +this.sGlyph.height/2);
         this.vGlyph.setText(Squarz.font2, String.valueOf(valueVibration));
-        Squarz.font2.draw(sb, this.vGlyph, this.texture.getPosX() + this.texture.getTexture().getWidth()*3/5 - this.vGlyph.width/2,this.texture.getPosY() + this.texture.getTexture().getHeight()*1/4  +this.vGlyph.height/2);
+        Squarz.font2.draw(sb, this.vGlyph, this.texture.getPosX() + this.texture.getTexture().getWidth()*3/5 - this.vGlyph.width/2,this.texture.getPosY() + this.texture.getTexture().getHeight() /4  +this.vGlyph.height/2);
 
         Squarz.font.draw(sb, this.pauseGlyph,
                 (WIDTH/2 - this.pauseGlyph.width/2), this.texture.getPosY() + this.texture.getTexture().getHeight()*3/4 + this.pauseGlyph.height/2);

@@ -26,9 +26,7 @@ public class Square {
     private Vector2 position;
     private Rectangle rectangle;
     private Integer colorKey;
-    private PreferencesSettings set;
-
-    private Integer freezeSpeed;
+    private final PreferencesSettings set;
 
     public Square (PreferencesSettings set){
         this.texture = new Texture(Gdx.files.internal(format+"/square/square.png"));
@@ -38,7 +36,7 @@ public class Square {
                 this.getTexture().getWidth(), this.getTexture().getHeight());
         this.colorKey = 0;
         this.set = set;
-        this.freezeSpeed = 0;
+        Integer freezeSpeed = 0;
     }
 
 
@@ -51,17 +49,11 @@ public class Square {
     }
 
     public boolean isInUser(){
-        if (this.getPosition().y >= HEIGHT){
-            return false;
-        }
-        return true;
+        return !(this.getPosition().y >= HEIGHT);
     }
 
     public boolean isInAi(){
-        if (this.getPosition().y + this.getTexture().getHeight() <=0 ){
-            return false;
-        }
-        return true;
+        return !(this.getPosition().y + this.getTexture().getHeight() <= 0);
     }
 
 

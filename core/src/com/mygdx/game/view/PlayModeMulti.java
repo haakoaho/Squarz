@@ -35,20 +35,28 @@ public class PlayModeMulti extends State {
     private Music music;
     private Sound sound;
 
-    private GlyphLayout redLeft, yellowLeft, blueLeft, scoreUser, scoreOpponent, time;
-    private ShapeRenderer shapeRenderer;
+    private final GlyphLayout redLeft;
+    private final GlyphLayout yellowLeft;
+    private final GlyphLayout blueLeft;
+    private final GlyphLayout scoreUser;
+    private final GlyphLayout scoreOpponent;
+    private final GlyphLayout time;
+    private final ShapeRenderer shapeRenderer;
 
     private PreferencesSettings settings;
-    private ICountdownDuration countDown;
+    private final ICountdownDuration countDown;
 
     private AIPlayer opponent;
     private Player player;
 
-    private Collision collision;
+    private final Collision collision;
 
-    private Square choiceSquare;
-
-    private Icon redChoiceSquare, blueChoiceSquare, yellowChoiceSquare, mute, bonusChoiceSquare1, bonusChoiceSquare2;
+    private Icon redChoiceSquare;
+    private final Icon blueChoiceSquare;
+    private final Icon yellowChoiceSquare;
+    private final Icon mute;
+    private final Icon bonusChoiceSquare1;
+    private final Icon bonusChoiceSquare2;
     private Texture texture;
     private Integer colorKey, columnKey;
 
@@ -69,8 +77,8 @@ public class PlayModeMulti extends State {
         this.settings.getBonus1().update(this.getPlayer(), this.getAi());
         this.settings.getBonus2().update(this.getPlayer(), this.getAi());
 
-        choiceSquare = new Square(settings);
-        choiceSquare.setPosition(new Vector2(WIDTH * 1 / 16, HEIGHT * 1 / 5));
+        Square choiceSquare = new Square(settings);
+        choiceSquare.setPosition(new Vector2(WIDTH / 16, HEIGHT / 5));
 
         if (valueVolume == 0) {
             this.mute = new Icon(new Texture(Gdx.files.internal(format + "/mute.png")), 0, 0);
@@ -92,11 +100,11 @@ public class PlayModeMulti extends State {
         this.texture = new Texture(Gdx.files.internal(format + "/square/square_red.png"));
 
         this.redChoiceSquare = new Icon(new Texture(Gdx.files.internal(format + "/square/square_red_selected.png"))
-                , WIDTH * 1 / 16, HEIGHT / 2 - this.texture.getHeight() * 3 / 2);
+                , WIDTH / 16, HEIGHT / 2 - this.texture.getHeight() * 3 / 2);
         this.blueChoiceSquare = new Icon(new Texture(Gdx.files.internal(format + "/square/square_blue.png"))
-                , WIDTH * 1 / 16, HEIGHT / 2 - this.texture.getHeight() * 11 / 4);
+                , WIDTH / 16, HEIGHT / 2 - this.texture.getHeight() * 11 / 4);
         this.yellowChoiceSquare = new Icon(new Texture(Gdx.files.internal(format + "/square/square_yellow.png"))
-                , WIDTH * 1 / 16, HEIGHT / 2 - this.texture.getHeight() * 4);
+                , WIDTH / 16, HEIGHT / 2 - this.texture.getHeight() * 4);
 
         //texts on the screen
         this.redLeft = new GlyphLayout(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getRedLeft()));
@@ -107,11 +115,11 @@ public class PlayModeMulti extends State {
         this.time = new GlyphLayout(Squarz.font, String.valueOf(this.countDown.getWorldTimer()));
 
         this.bonusChoiceSquare1 = new Icon(new Texture(Gdx.files.internal(format + "/bonuses/none.png"))
-                , WIDTH * 1 / 16, HEIGHT / 2 - this.texture.getHeight() * 21 / 4);
+                , WIDTH / 16, HEIGHT / 2 - this.texture.getHeight() * 21 / 4);
         this.bonusChoiceSquare1.setTexture(this.settings.getBonus1().getBonustexture(this.settings.getBonus1().getBonusKey()));
 
         this.bonusChoiceSquare2 = new Icon(new Texture(Gdx.files.internal(format + "/bonuses/none.png"))
-                , WIDTH * 1 / 16, HEIGHT / 2 - this.texture.getHeight() * 26 / 4);
+                , WIDTH / 16, HEIGHT / 2 - this.texture.getHeight() * 26 / 4);
         this.bonusChoiceSquare2.setTexture(this.settings.getBonus2().getBonustexture(this.settings.getBonus2().getBonusKey()));
 
         this.mute.setPosX(redChoiceSquare.getPosX() + redChoiceSquare.getTexture().getWidth() / 2 - this.mute.getTexture().getWidth() / 2);
@@ -215,15 +223,15 @@ public class PlayModeMulti extends State {
 
 
     //to avoid people sending too many squares
-    public boolean isAllowedToPlay(float exTime){
-        boolean allowed = false;
+    private boolean isAllowedToPlay(float exTime){
+        boolean allowed;
         float timeRef = countDown.getWorldTimer()-countDown.getTimeCount();
         allowed = exTime - timeRef > 0.45;
         if(allowed){this.exTime = timeRef;}
         return  allowed;
     }
 
-    public void chosingTheColour(int x, int y) {
+    private void chosingTheColour(int x, int y) {
         if (this.redChoiceSquare.contains(x, y)) {
             this.setColorKey(0);
             this.setPLayerTexture(0);
@@ -243,7 +251,7 @@ public class PlayModeMulti extends State {
     /**
      * choosingTheBonus sends the information of clearance in the same time. (M propre effect)
      */
-    public void choosingTheBonuses(int x, int y) {
+    private void choosingTheBonuses(int x, int y) {
         if (this.bonusChoiceSquare1.contains(x, y) && !firstIsUsed) {
 
             if (this.settings.getBonus1().getBonusKey() == 1) {
@@ -255,9 +263,9 @@ public class PlayModeMulti extends State {
             }
             if (this.settings.getBonus1().getBonusKey() == 3) {
                 this.settings.getBonus1().mrPropreEffect();
-                send(new Byte("25"));
+                send(Byte.valueOf("25"));
                 System.out.print("Ecryption is 25");
-                send(new Byte("25")); //Mr propre encryption
+                send(Byte.valueOf("25")); //Mr propre encryption
             }
 
                 //after utilisation
@@ -277,7 +285,7 @@ public class PlayModeMulti extends State {
             }
             if (this.settings.getBonus2().getBonusKey() == 3) {
                 this.settings.getBonus2().mrPropreEffect();
-                send(new Byte("" + 25));
+                send(Byte.valueOf("" + 25));
                 System.out.print("Ecryption is 25");
             } //M Propre encryption
 
@@ -288,7 +296,7 @@ public class PlayModeMulti extends State {
 
     }
 
-    public void creatingAndSendingANewSquare(int x) {
+    private void creatingAndSendingANewSquare(int x) {
         if(this.getColumn(x) != -1) {
             player.increment(texture, this.getColumn(x), colorKey);
         }
@@ -301,7 +309,7 @@ public class PlayModeMulti extends State {
         }
     }
 
-    public Integer getColumn(int x){
+    private Integer getColumn(int x){
         int tempColKey = -1;
         if (x > WIDTH / 4 && x < WIDTH / 2) {
             tempColKey = 0;
@@ -316,7 +324,7 @@ public class PlayModeMulti extends State {
     }
 
 
-    public void movingPlayerSquare(float dt) {
+    private void movingPlayerSquare(float dt) {
         for(Integer columnKey=0; columnKey<3; columnKey++) {
             if (!player.getMap(columnKey).isEmpty()) {
                 for (int i = player.getFirstSquareKey(columnKey); i < player.getCounter(columnKey); i++) {
@@ -332,7 +340,7 @@ public class PlayModeMulti extends State {
             }
         }
     }
-    public void movingOpponentSquare(float dt) {
+    private void movingOpponentSquare(float dt) {
         for(int columnKey=0; columnKey<3; columnKey++){
             if (!opponent.getMap(columnKey).isEmpty()) {
                 for (int i = opponent.getFirstSquareKey(columnKey); i < opponent.getCounter(columnKey); i++) {
@@ -347,7 +355,7 @@ public class PlayModeMulti extends State {
         }
     }
 
-    public void drawingSquares(SpriteBatch sb, Player p) {
+    private void drawingSquares(SpriteBatch sb, Player p) {
         for (int columnKey = 0; columnKey < 3; columnKey++) {
             if (!p.getMap(columnKey).isEmpty()) {
                 for (int i = p.getFirstSquareKey(columnKey); i < p.getCounter(columnKey); i++) {
@@ -357,13 +365,13 @@ public class PlayModeMulti extends State {
             }
         }
     }
-    public void drawScore(SpriteBatch sb) {
+    private void drawScore(SpriteBatch sb) {
         scoreOpponent.setText(Squarz.font, String.valueOf(score.getOpponentScore()));
         scoreUser.setText(Squarz.font, String.valueOf(score.getUserScore()));
         Squarz.font.draw(sb, scoreOpponent, redChoiceSquare.getPosX() + redChoiceSquare.getTexture().getWidth() / 2 - scoreOpponent.width / 2, HEIGHT * 45 / 64 - scoreOpponent.height / 2);
         Squarz.font.draw(sb, scoreUser, redChoiceSquare.getPosX() + redChoiceSquare.getTexture().getWidth() / 2 - scoreUser.width / 2, HEIGHT * 39 / 64 - scoreUser.height / 2);
     }
-    public void drawCounter(SpriteBatch sb) {
+    private void drawCounter(SpriteBatch sb) {
         //number of user squares lefting
         redLeft.setText(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getRedLeft()));
         blueLeft.setText(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getBlueLeft()));
@@ -373,12 +381,12 @@ public class PlayModeMulti extends State {
         Squarz.font2.draw(sb, yellowLeft, yellowChoiceSquare.getPosX() + yellowChoiceSquare.getTexture().getWidth() / 2 - yellowLeft.width / 2, yellowChoiceSquare.getPosY() + yellowChoiceSquare.getTexture().getHeight() / 2 + yellowLeft.height / 2);
     }
 
-    public void drawTimeLeft(SpriteBatch sb) {
+    private void drawTimeLeft(SpriteBatch sb) {
         time.setText(Squarz.font, String.valueOf(this.countDown.getWorldTimer()));
         Squarz.font.draw(sb, String.valueOf(this.countDown.getWorldTimer()), redChoiceSquare.getPosX() + redChoiceSquare.getTexture().getWidth() / 2 - time.width / 2, HEIGHT * 27 / 32 - time.height / 2);
     }
 
-    public void drawLines() {
+    private void drawLines() {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         shapeRenderer.setColor(1, 1, 1, 1);
         shapeRenderer.line(WIDTH / 4, 0, WIDTH / 4, HEIGHT);
@@ -391,7 +399,7 @@ public class PlayModeMulti extends State {
 
     }
 
-    public void drawChosingColorSquares(SpriteBatch sb) {
+    private void drawChosingColorSquares(SpriteBatch sb) {
         sb.draw(redChoiceSquare.getTexture(), redChoiceSquare.getPosX(), redChoiceSquare.getPosY());
         sb.draw(blueChoiceSquare.getTexture(), blueChoiceSquare.getPosX(), blueChoiceSquare.getPosY());
         sb.draw(yellowChoiceSquare.getTexture(), yellowChoiceSquare.getPosX(), yellowChoiceSquare.getPosY());
@@ -399,17 +407,17 @@ public class PlayModeMulti extends State {
 
     //---------------------------------- sending and receiving ------------------------------------
 
-    public Byte encryption(int columnKey, int colorKey){
+    private Byte encryption(int columnKey, int colorKey){
         int number = columnKey * 5 + colorKey * 2;
         System.out.println("encryption is: " + number);
-        return new Byte(""+number);
+        return Byte.valueOf(""+number);
     }
 
-    void send(byte b){
+    private void send(byte b){
         gsm.getMultiplayerInterface().sendIncrement(b);
     }
 
-    public void decryptMessage(Queue<Byte> lastMove) {
+    private void decryptMessage(Queue<Byte> lastMove) {
         Byte b = lastMove.peek();
         ArrayList<Integer> list = getInformation(b);
         if(list.size()>0) {
@@ -419,7 +427,7 @@ public class PlayModeMulti extends State {
         }
     }
 
-    public ArrayList<Integer> getInformation(Byte b) {
+    private ArrayList<Integer> getInformation(Byte b) {
         System.out.println("the byte I just received: " + b.floatValue());
         ArrayList<Integer> information = new ArrayList<Integer>();
         //handle with bonuses:
@@ -454,7 +462,7 @@ public class PlayModeMulti extends State {
         return information;
     }
 
-    public Texture getTexture(Integer colourKey) {
+    private Texture getTexture(Integer colourKey) {
         Texture t = new Texture(Gdx.files.internal(format + "/square/square_red.png"));
 
         if (colourKey == 0) {
@@ -472,28 +480,33 @@ public class PlayModeMulti extends State {
         return t;
     }
 
-    public void setPLayerTexture(int colorKey){
-        if (colorKey == 0){
-            this.texture = new Texture(Gdx.files.internal(format + "/square/square_red.png"));
-            this.redChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_red_selected.png")));
-            this.blueChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_blue.png")));
-            this.yellowChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_yellow.png")));
-        } else if(colorKey == 1){
-            this.texture = new Texture(Gdx.files.internal(format + "/square/square_blue.png"));
-            this.redChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_red.png")));
-            this.blueChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_blue_selected.png")));
-            this.yellowChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_yellow.png")));
-        } else if(colorKey == 2){
-            this.texture = new Texture(Gdx.files.internal(format + "/square/square_yellow.png"));
-            this.redChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_red.png")));
-            this.blueChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_blue.png")));
-            this.yellowChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_yellow_selected.png")));
-        } else if(colorKey == 4){
-            this.texture = new Texture(Gdx.files.internal(format + "/bonuses/punisher.png"));
+    private void setPLayerTexture(int colorKey){
+        switch (colorKey) {
+            case 0:
+                this.texture = new Texture(Gdx.files.internal(format + "/square/square_red.png"));
+                this.redChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_red_selected.png")));
+                this.blueChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_blue.png")));
+                this.yellowChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_yellow.png")));
+                break;
+            case 1:
+                this.texture = new Texture(Gdx.files.internal(format + "/square/square_blue.png"));
+                this.redChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_red.png")));
+                this.blueChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_blue_selected.png")));
+                this.yellowChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_yellow.png")));
+                break;
+            case 2:
+                this.texture = new Texture(Gdx.files.internal(format + "/square/square_yellow.png"));
+                this.redChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_red.png")));
+                this.blueChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_blue.png")));
+                this.yellowChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_yellow_selected.png")));
+                break;
+            case 4:
+                this.texture = new Texture(Gdx.files.internal(format + "/bonuses/punisher.png"));
+                break;
         }
     }
 
-    Queue<Byte> receive() {
+    private Queue<Byte> receive() {
         return gsm.getMultiplayerInterface().popMoves();
     }
 
@@ -525,7 +538,7 @@ public class PlayModeMulti extends State {
         this.opponent = opponent;
     }
 
-    public Player getPlayer() {
+    private Player getPlayer() {
         return player;
     }
 
@@ -537,7 +550,7 @@ public class PlayModeMulti extends State {
         return colorKey;
     }
 
-    public void setColorKey(Integer colorKey) {
+    private void setColorKey(Integer colorKey) {
         this.colorKey = colorKey;
     }
 
@@ -581,7 +594,7 @@ public class PlayModeMulti extends State {
         this.redChoiceSquare = redChoiceSquare;
     }
 
-    public AIPlayer getAi() {
+    private AIPlayer getAi() {
         return opponent;
     }
 
@@ -593,7 +606,7 @@ public class PlayModeMulti extends State {
         return firstIsUsed;
     }
 
-    public void setFirstIsUsed(Boolean firstIsUsed) {
+    private void setFirstIsUsed(Boolean firstIsUsed) {
         this.firstIsUsed = firstIsUsed;
     }
 
@@ -601,7 +614,7 @@ public class PlayModeMulti extends State {
         return secondIsUsed;
     }
 
-    public void setSecondIsUsed(Boolean secondIsUsed) {
+    private void setSecondIsUsed(Boolean secondIsUsed) {
         this.secondIsUsed = secondIsUsed;
     }
 }

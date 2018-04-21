@@ -23,14 +23,23 @@ import static com.mygdx.game.Squarz.format;
 
 // CLEAN // This class is very similar to BonusSelection, please read it before reading this one for more understanding
 public class BonusSelectionMulti extends State {
-    private GlyphLayout tenToChooseGlyph, clean, bonusDescription1, bonusDescription2;
-    private Icon nurse, punisher, none, mrPropre, emptyField1, emptyField2, cleanButton;
-    private ICountdownDuration countDown;
-    private CountDown tenToChoose;
-    private PreferencesSettings settings;
+    private GlyphLayout tenToChooseGlyph;
+    private GlyphLayout clean;
+    private final GlyphLayout bonusDescription1;
+    private final GlyphLayout bonusDescription2;
+    private final Icon nurse;
+    private final Icon punisher;
+    private final Icon none;
+    private final Icon mrPropre;
+    private final Icon emptyField1;
+    private final Icon emptyField2;
+    private final Icon cleanButton;
+    private final ICountdownDuration countDown;
+    private final CountDown tenToChoose;
+    private final PreferencesSettings settings;
     private Boolean isFilled1;
     private Boolean isFilled2;
-    private ShapeRenderer shapeRenderer;
+    private final ShapeRenderer shapeRenderer;
 
     public BonusSelectionMulti(GameStateManager gsm) {
         super(gsm);
@@ -58,7 +67,7 @@ public class BonusSelectionMulti extends State {
         this.nurse = new Icon(new Texture(Gdx.files.internal(format+"/bonuses/nurse.png")),0,0);
         this.mrPropre = new Icon(new Texture(Gdx.files.internal(format+"/bonuses/mrPropre.png")),0,0);
 
-        this.none.setPosX(WIDTH*1/6 - this.none.getTexture().getWidth()/2);
+        this.none.setPosX(WIDTH /6 - this.none.getTexture().getWidth()/2);
         this.none.setPosY(HEIGHT/2 - this.none.getTexture().getHeight()/2);
         this.cleanButton.setPosX(WIDTH/2 - this.cleanButton.getTexture().getWidth()/2);
         this.cleanButton.setPosY(HEIGHT * 5/8 - this.cleanButton.getTexture().getHeight()/2);
@@ -66,9 +75,9 @@ public class BonusSelectionMulti extends State {
         this.emptyField1.setPosY(HEIGHT*3/4 - this.emptyField1.getTexture().getHeight()/2);
         this.emptyField2.setPosX(WIDTH*2/3 - this.emptyField2.getTexture().getWidth()/2);
         this.emptyField2.setPosY(HEIGHT*3/4 - this.emptyField2.getTexture().getHeight()/2);
-        this.punisher.setPosX(WIDTH*1/6 + WIDTH*2/9- this.punisher.getTexture().getWidth()/2);
+        this.punisher.setPosX(WIDTH /6 + WIDTH*2/9- this.punisher.getTexture().getWidth()/2);
         this.punisher.setPosY(HEIGHT/2 - this.punisher.getTexture().getHeight()/2);
-        this.nurse.setPosX(WIDTH*1/6 + WIDTH*4/9 - this.nurse.getTexture().getWidth()/2);
+        this.nurse.setPosX(WIDTH /6 + WIDTH*4/9 - this.nurse.getTexture().getWidth()/2);
         this.nurse.setPosY(HEIGHT/2 - this.nurse.getTexture().getWidth()/2);
         this.mrPropre.setPosX(WIDTH*5/6 - this.nurse.getTexture().getWidth()/2);
         this.mrPropre.setPosY(HEIGHT/2 - this.nurse.getTexture().getWidth()/2);
@@ -143,7 +152,7 @@ public class BonusSelectionMulti extends State {
     }
 
 
-    public void chosenBonus(int x, int y){
+    private void chosenBonus(int x, int y){
         if(this.emptyField1.contains(x, y)){
             this.emptyField1.setTexture(this.settings.getBonus1().getBonustexture(0));
             this.settings.getBonus1().setBonusKey(0);
@@ -188,7 +197,7 @@ public class BonusSelectionMulti extends State {
         this.bonusDescription2.setText(font2, this.settings.getDescriptionBonus2());
     }
 
-    public void isFilled (int BonusKey, int colorKey){
+    private void isFilled(int BonusKey, int colorKey){
         if(!this.isFilled1 && this.settings.getBonus2().getBonusKey() != BonusKey) {
             this.isFilled1 = true;
             this.emptyField1.setTexture(this.settings.getBonus1().getBonustexture(BonusKey));

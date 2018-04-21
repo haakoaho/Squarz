@@ -41,7 +41,7 @@ public class CountDown {
         return worldTimer;
     }
 
-    public void setWorldTimer(Integer worldTimer) {
+    private void setWorldTimer(Integer worldTimer) {
         this.worldTimer = worldTimer;
     }
 
@@ -69,11 +69,11 @@ public class CountDown {
         this.timeUp = timeUp;
     }
 
-    public Integer getTimerKey() {
+    private Integer getTimerKey() {
         return timerKey;
     }
 
-    public void setTimerKey(Integer timerKey) {
+    private void setTimerKey(Integer timerKey) {
         this.timerKey = timerKey;
     }
 
