@@ -153,7 +153,7 @@ public class PlayModeAi extends State {
                     }
                     if (pauseScreen.getBack().contains(x, y)){
                         defreeze();
-                        gsm.set(new EndModeAI(gsm, settings, score, countDown));
+                        gsm.set(new EndMode(gsm, settings, score, countDown));
                     }
                     if (pauseScreen.getQuickSetting().contains(x, y)){
                         //let freeze while changing settings then return to pause mode with new settings
@@ -215,7 +215,7 @@ public class PlayModeAi extends State {
 
             if (this.countDown.isTimeUp()) {
                 music.stop();
-                gsm.set(new EndModeAI(gsm, settings, score, countDown));
+                gsm.set(new EndMode(gsm, settings, score, countDown));
             }
 
             movingPlayerSquare(dt);

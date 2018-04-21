@@ -90,7 +90,6 @@ public class AIPlayer extends Player {
             this.bonus1.chosenAiEffect(this.bonus1.getBonusKey());
         } else {
             this.nbofBonusesUsed = 2;
-            System.out.println("ok2");
             int colorkey = this.bonus2.getColorKey();
             setTheRandomTexture(colorkey);
             int column = random(2);

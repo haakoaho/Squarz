@@ -24,13 +24,13 @@ import static com.mygdx.game.Squarz.format;
  * Created by mathi on 13/03/2018.
  */
 
-public class EndModeAI extends State {
+public class EndMode extends State {
     private PreferencesSettings setting;
     private Icon replay, back;
     private ICountdownDuration countDown1;
     private GlyphLayout scoreUser, scoreAi, message1, message2;
 
-    public EndModeAI(GameStateManager gsm, PreferencesSettings setting, Score s, ICountdownDuration countDown){
+    public EndMode(GameStateManager gsm, PreferencesSettings setting, Score s, ICountdownDuration countDown){
         super(gsm);
 
         this.setting = setting; // we keep the settings, like this, if the player wants to play again, he does not have to choose again (even if he can modify them if he wants to)
@@ -47,11 +47,11 @@ public class EndModeAI extends State {
         this.scoreUser = new GlyphLayout(Squarz.font, s.getUserScore().toString());
 
         if(s.getOpponentScore()>s.getUserScore()) {
-            this.message1 = new GlyphLayout(Squarz.font, "Haha!");
-            this.message2 = new GlyphLayout(Squarz.font, "Computer better!");
+            this.message1 = new GlyphLayout(Squarz.font, "Hooo...");
+            this.message2 = new GlyphLayout(Squarz.font, "You lost!");
         } else if (s.getOpponentScore()<s.getUserScore()) {
-            this.message1 = new GlyphLayout(Squarz.font, "Human won...");
-            this.message2 = new GlyphLayout(Squarz.font, "Well played!");
+            this.message1 = new GlyphLayout(Squarz.font, "Haaa!");
+            this.message2 = new GlyphLayout(Squarz.font, "You won!");
         } else {
             this.message1 = new GlyphLayout(Squarz.font, "Tie!");
             this.message2 = new GlyphLayout(Squarz.font, "Revenge?");
