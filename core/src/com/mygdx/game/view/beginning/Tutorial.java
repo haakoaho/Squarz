@@ -18,9 +18,23 @@ import static com.mygdx.game.Squarz.format;
 
 
 public class Tutorial extends State {
-    Icon back;
-    private GlyphLayout title, part1, part2, part3, part4, part5, part6, part6b, part7, part8, part9, part10, part11; // the different parts of the tutorial
-    private Texture sRed, sBlue, sYellow; // useful for the design
+    private final Icon back;
+    private final GlyphLayout title;
+    private final GlyphLayout part1;
+    private final GlyphLayout part2;
+    private final GlyphLayout part3;
+    private final GlyphLayout part4;
+    private final GlyphLayout part5;
+    private final GlyphLayout part6;
+    private final GlyphLayout part6b;
+    private final GlyphLayout part7;
+    private final GlyphLayout part8;
+    private final GlyphLayout part9;
+    private final GlyphLayout part10;
+    private final GlyphLayout part11; // the different parts of the tutorial
+    private final Texture sRed;
+    private final Texture sBlue;
+    private final Texture sYellow; // useful for the design
 
     public Tutorial(GameStateManager gsm) {
         super(gsm);

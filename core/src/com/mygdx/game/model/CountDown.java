@@ -27,16 +27,6 @@ public class CountDown {
         this.timeUp = false;
     }
 
-    public void increaseTime(){
-        setWorldTimer(this.getWorldTimer()+15);
-        setTimerKey(this.getTimerKey()+15);
-    }
-
-    public void decreaseTime(){
-        setWorldTimer(this.getWorldTimer()-15);
-        setTimerKey(this.getTimerKey()-15);
-    }
-
     public Integer getWorldTimer() {
         return worldTimer;
     }
@@ -45,28 +35,8 @@ public class CountDown {
         this.worldTimer = worldTimer;
     }
 
-    public float getTimeCount() {
-        return timeCount;
-    }
-
-    public void setTimeCount(float timeCount) {
-        this.timeCount = timeCount;
-    }
-
-    public Label getCountdownLabel() {
-        return countdownLabel;
-    }
-
-    public void setCountdownLabel(Label countdownLabel) {
-        this.countdownLabel = countdownLabel;
-    }
-
     public Boolean isTimeUp() {
         return timeUp;
-    }
-
-    public void setTimeUp(Boolean timeUp) {
-        this.timeUp = timeUp;
     }
 
     private Integer getTimerKey() {

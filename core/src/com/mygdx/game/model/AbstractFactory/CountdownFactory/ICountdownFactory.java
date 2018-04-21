@@ -8,5 +8,4 @@ import com.mygdx.game.model.AbstractFactory.CountdownDuration.ICountdownDuration
 
 interface ICountdownFactory {
 
-    ICountdownDuration createCountDown();
 }

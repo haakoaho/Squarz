@@ -122,24 +122,15 @@ public class Bonus {
     private Texture getNone() {
         return none;
     }
-    public void setNone(Texture none) {
-        this.none = none;
-    }
+
     private Texture getPunisher() {
         return punisher;
     }
-    public void setPunisher(Texture punisher) {
-        this.punisher = punisher;
-    }
+
     private Texture getNurse() {
         return nurse;
     }
-    public void setNurse(Texture nurse) {
-        this.nurse = nurse;
-    }
-    public Texture getSelectedBonus() {
-        return selectedBonus;
-    }
+
     private void setSelectedBonus(Texture selectedBonus) {
         this.selectedBonus = selectedBonus;
     }
@@ -152,19 +143,12 @@ public class Bonus {
     private Texture getMrPropre() {
         return mrPropre;
     }
-    public void setMrPropre(Texture mrPropre) {
-        this.mrPropre = mrPropre;
-    }
+
     private Player getPlayer() {
         return player;
     }
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
+
     private AIPlayer getOpponent() {
         return opponent;
-    }
-    public void setOpponent(AIPlayer opponent) {
-        this.opponent = opponent;
     }
 }

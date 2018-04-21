@@ -16,5 +16,5 @@ public interface MultiplayerInterface {
     void checkForInvitation(); //receive an invitation
     void leaveRoom(); //game is over we destroy the room
 
-    void writeToLog(String s); //writes data to the log for debugging purposes
+
 }

@@ -326,7 +326,7 @@ public class PlayModeAi extends State {
 
             //after utilisation
             this.bonusChoiceSquare1.setTexture(new Texture( Gdx.files.internal(format+"/bonuses/used.png")));
-            this.setFirstIsUsed(true);
+            this.setFirstIsUsed();
         }
 
         if (this.bonusChoiceSquare2.contains(x, y) && !secondIsUsed) {
@@ -340,7 +340,7 @@ public class PlayModeAi extends State {
             if(this.settings.getBonus2().getBonusKey() == 3){this.settings.getBonus2().mrPropreEffect();}
 
             this.bonusChoiceSquare2.setTexture(new Texture( Gdx.files.internal(format+"/bonuses/used.png")));
-            this.setSecondIsUsed(true);
+            this.setSecondIsUsed();
         }
     }
     private void creatingANewSquare(int x) {
@@ -461,15 +461,6 @@ public class PlayModeAi extends State {
     }
 
 
-
-    public Texture getTexture() {
-        return texture;
-    }
-
-    public void setTexture(Texture texture) {
-        this.texture = texture;
-    }
-
     private Integer getColorKey() {
         return colorKey;
     }
@@ -478,76 +469,20 @@ public class PlayModeAi extends State {
         this.colorKey = colorKey;
     }
 
-    public Score getScore() {
-        return score;
-    }
-
-    public void setScore(Score score) {
-        this.score = score;
-    }
-
-    public Music getMusic() {
-        return music;
-    }
-
-    public void setMusic(Music music) {
-        this.music = music;
-    }
-
-    public Sound getSound() {
-        return sound;
-    }
-
-    public void setSound(Sound sound) {
-        this.sound = sound;
-    }
-
-    public PreferencesSettings getSettings() {
-        return settings;
-    }
-
-    public void setSettings(PreferencesSettings settings) {
-        this.settings = settings;
-    }
-
-    public Icon getRedChoiceSquare() {
-        return redChoiceSquare;
-    }
-
-    public void setRedChoiceSquare(Icon redChoiceSquare) {
-        this.redChoiceSquare = redChoiceSquare;
-    }
-
     private AIPlayer getAi() {
         return ai;
-    }
-
-    public void setAi(AIPlayer ai) {
-        this.ai = ai;
     }
 
     private Player getPlayer() {
         return player;
     }
 
-    public void setPlayer(Player player) {
-        this.player = player;
+    private void setFirstIsUsed() {
+        this.firstIsUsed = true;
     }
 
-    public Boolean getFirstIsUsed() {
-        return firstIsUsed;
-    }
-
-    private void setFirstIsUsed(Boolean firstIsUsed) {
-        this.firstIsUsed = firstIsUsed;
-    }
-
-    public Boolean getSecondIsUsed() {
-        return secondIsUsed;
-    }
-
-    private void setSecondIsUsed(Boolean secondIsUsed) {
-        this.secondIsUsed = secondIsUsed;
+    private void setSecondIsUsed() {
+        this.secondIsUsed = true;
     }
 
     private void inc(int i) {

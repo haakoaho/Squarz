@@ -90,8 +90,6 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 	// Holds the configuration of the current room.
 	private RoomConfig mRoomConfig;
 
-	// Are we playing in multiplayer mode?
-	boolean mMultiplayer = false;
 
 	// The participants in the currently active game
 	private ArrayList<Participant> mParticipants = null;

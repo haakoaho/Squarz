@@ -12,8 +12,7 @@ import com.mygdx.game.model.MultiplayerInterface;
 import com.mygdx.game.view.beginning.Menu;
 
 public class Squarz extends ApplicationAdapter  {
-	public final String TITLE = "Squarz";
-	public static int WIDTH;
+    public static int WIDTH;
 	public static int HEIGHT;
 	public static String format;
 
@@ -30,10 +29,7 @@ public class Squarz extends ApplicationAdapter  {
 		this.multiplayerInterface = multiplayerInterface;
 	}
 
-	public Squarz(){
-	}
-
-	@Override
+    @Override
 	public void create () {
 		batch = new SpriteBatch();
 		gsm = new GameStateManager();

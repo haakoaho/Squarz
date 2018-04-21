@@ -100,9 +100,6 @@ class PauseScreen {
         sb.draw(this.backToPause.getTexture(), this.backToPause.getPosX(),this.backToPause.getPosY());
     }
 
-    public Texture getTexture() {
-        return texture.getTexture();
-    }
     public Icon getResume() {
         return resume;
     }
@@ -122,13 +119,6 @@ class PauseScreen {
     }
     public Icon getBackToPause() {
         return backToPause;
-    }
-
-    public GlyphLayout getPauseGlyph() {
-        return pauseGlyph;
-    }
-    public void setPauseGlyph(GlyphLayout pauseGlyph) {
-        this.pauseGlyph = pauseGlyph;
     }
 
 }

@@ -64,10 +64,6 @@ public class LongCountdown implements ICountdownDuration {
         return timeUp;
     }
 
-    public void setTimeUp(Boolean timeUp) {
-        this.timeUp = timeUp;
-    }
-
     public Integer getTimerKey() {
         return timerKey;
     }

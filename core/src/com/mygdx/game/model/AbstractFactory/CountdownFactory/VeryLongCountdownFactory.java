@@ -8,7 +8,6 @@ import com.mygdx.game.model.AbstractFactory.CountdownDuration.ICountdownDuration
  */
 
 public class VeryLongCountdownFactory implements ICountdownFactory {
-    @Override
     public ICountdownDuration createCountDown() {
         return new VeryLongCountdown();
     }

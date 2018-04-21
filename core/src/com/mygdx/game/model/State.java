@@ -6,15 +6,13 @@ import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.control.GameStateManager;
 
 public abstract class State {
-    private final OrthographicCamera cam;
-    private final Vector3 mouse;
     protected final GameStateManager gsm;
 
 
     protected State(GameStateManager gsm){
         this.gsm = gsm;
-        cam = new OrthographicCamera();
-        mouse = new Vector3();
+        OrthographicCamera cam = new OrthographicCamera();
+        Vector3 mouse = new Vector3();
     }
 
     public abstract void handleInput();

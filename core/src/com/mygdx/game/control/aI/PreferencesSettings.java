@@ -39,17 +39,13 @@ public class PreferencesSettings {
     private void setDtLaunching(float dtLaunching) {
         this.dtLaunching = dtLaunching;
     }
-    public float getDtWaves() {
-        return dtWaves;
-    }
+
     private void setDtWaves(float dtWaves) {
         this.dtWaves = dtWaves;
     }
     public Bonus getBonus1() { return bonus1; }
-    public void setBonus1(Bonus bonus1) { this.bonus1 = bonus1; }
 
     public Bonus getBonus2() { return bonus2; }
-    public void setBonus2(Bonus bonus2) { this.bonus2 = bonus2; }
 
     public String getStringLevel() {
         String res = "";
