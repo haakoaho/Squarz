@@ -40,6 +40,7 @@ public class Menu extends State {
 
         this.name = new GlyphLayout(Squarz.font,"Let\'s play to Squarz!");
         this.credits = new GlyphLayout(Squarz.font2,"A NTNU creation");
+
     }
 
     @Override
