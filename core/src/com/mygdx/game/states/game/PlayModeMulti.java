@@ -141,7 +141,7 @@ public class PlayModeMulti extends State {
             int y = HEIGHT - Gdx.input.getY();
 
             //Colour choice button
-            chosingTheColour(x, y);
+            choosingTheColour(x, y);
             choosingTheBonuses(x, y);
 
             if (mute.contains(x, y)) {

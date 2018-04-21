@@ -51,8 +51,5 @@ public class DesktopMultiPlayer implements MultiplayerInterface {
 
     }
 
-    @Override
-    public void writeToLog(String s) {
 
-    }
 }
