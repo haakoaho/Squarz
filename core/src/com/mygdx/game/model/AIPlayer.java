@@ -56,7 +56,7 @@ public class AIPlayer extends Player {
             if (this.launcherCounter == this.getSet().getDtLaunching() ) {
                 this.launcherCounter = 0;
 
-                if (random(10) == 1) {
+                if (random(15) == 1) {
                     boolean playerResistance = false;
                     for (int columnKey = 0; columnKey<3; columnKey++){
                         if(this.player.getMap(columnKey) != null){

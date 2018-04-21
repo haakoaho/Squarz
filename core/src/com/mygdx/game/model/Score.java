@@ -1,9 +1,5 @@
 package com.mygdx.game.model;
 
-/**
- * Created by Max on 11/03/2018.
- */
-
 public class Score {
     private static final Score ourInstance = new Score();
     private Integer userScore;

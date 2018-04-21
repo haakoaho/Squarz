@@ -4,16 +4,12 @@ import com.mygdx.game.model.Bonus;
 
 import static com.mygdx.game.Squarz.HEIGHT;
 
-/**
- * Created by mathi on 06/03/2018.
- */
 
 public class PreferencesSettings {
     //setAILevels parameters
     private int levelKey;
     private int stepX;
     private float dtLaunching;
-    private float dtWaves;
     private Bonus bonus1;
     private Bonus bonus2;
 
@@ -39,17 +35,8 @@ public class PreferencesSettings {
     public void setDtLaunching(float dtLaunching) {
         this.dtLaunching = dtLaunching;
     }
-    public float getDtWaves() {
-        return dtWaves;
-    }
-    public void setDtWaves(float dtWaves) {
-        this.dtWaves = dtWaves;
-    }
     public Bonus getBonus1() { return bonus1; }
-    public void setBonus1(Bonus bonus1) { this.bonus1 = bonus1; }
-
     public Bonus getBonus2() { return bonus2; }
-    public void setBonus2(Bonus bonus2) { this.bonus2 = bonus2; }
 
     public String getStringLevel() {
         String res = "";
@@ -135,27 +122,23 @@ public class PreferencesSettings {
         setLevelKey(0);
         setStepX(HEIGHT/6);
         setDtLaunching(80);
-        setDtWaves(400);
     }
 
     public void setMedium(){
         setLevelKey(1);
         setStepX(HEIGHT/6);
         setDtLaunching(60);
-        setDtWaves(300);
     }
 
     public void setAdvanced(){
         setLevelKey(2);
         setStepX(HEIGHT/6);
         setDtLaunching(50);
-        setDtWaves(200);
     }
 
     public void setExpert(){
         setLevelKey(3);
         setStepX(HEIGHT/6);
         setDtLaunching(40);
-        setDtWaves(150);
     }
 }

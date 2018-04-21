@@ -4,10 +4,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
-/**
- * Created by Max on 20/04/2018.
- */
-
 public class ShortCountdown implements ICountdownDuration{
     private Integer worldTimer;
 
@@ -26,16 +22,6 @@ public class ShortCountdown implements ICountdownDuration{
         this.timeUp = false;
     }
 
-    public void increaseTime(){
-        setWorldTimer(this.getWorldTimer()+15);
-        setTimerKey(this.getTimerKey()+15);
-    }
-
-    public void decreaseTime(){
-        setWorldTimer(this.getWorldTimer()-15);
-        setTimerKey(this.getTimerKey()-15);
-    }
-
     public Integer getWorldTimer() {
         return worldTimer;
     }
@@ -48,24 +34,8 @@ public class ShortCountdown implements ICountdownDuration{
         return timeCount;
     }
 
-    public void setTimeCount(float timeCount) {
-        this.timeCount = timeCount;
-    }
-
-    public Label getCountdownLabel() {
-        return countdownLabel;
-    }
-
-    public void setCountdownLabel(Label countdownLabel) {
-        this.countdownLabel = countdownLabel;
-    }
-
     public Boolean isTimeUp() {
         return timeUp;
-    }
-
-    public void setTimeUp(Boolean timeUp) {
-        this.timeUp = timeUp;
     }
 
     public Integer getTimerKey() {
