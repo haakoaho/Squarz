@@ -120,25 +120,25 @@ public class PreferencesSettings {
 
     public void setBeginner(){
         setLevelKey(0);
-        setStepX(HEIGHT/6);
-        setDtLaunching(80);
+        setStepX(HEIGHT/8);
+        setDtLaunching(90);
     }
 
     public void setMedium(){
         setLevelKey(1);
-        setStepX(HEIGHT/6);
-        setDtLaunching(60);
+        setStepX(HEIGHT/7);
+        setDtLaunching(80);
     }
 
     public void setAdvanced(){
         setLevelKey(2);
         setStepX(HEIGHT/6);
-        setDtLaunching(50);
+        setDtLaunching(70);
     }
 
     public void setExpert(){
         setLevelKey(3);
-        setStepX(HEIGHT/6);
-        setDtLaunching(40);
+        setStepX(HEIGHT/5);
+        setDtLaunching(60);
     }
 }

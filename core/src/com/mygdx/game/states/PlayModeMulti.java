@@ -170,7 +170,7 @@ public class PlayModeMulti extends State {
         this.countDown.update(dt);
         if (this.countDown.isTimeUp()) {
             music.stop();
-            gsm.set(new EndModeAI(gsm, settings, score, countDown));
+            gsm.set(new EndMode(gsm, settings, score, countDown));
             // leaveRoom();
         }
 

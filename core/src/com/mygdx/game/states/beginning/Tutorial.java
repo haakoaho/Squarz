@@ -69,10 +69,10 @@ public class Tutorial extends State {
     public void render(SpriteBatch sb) {
         sb.begin();
         sb.draw(this.back.getTexture(),this.back.getPosX(),this.back.getPosY());
-        Squarz.font.draw(sb, this.title, WIDTH/2 - this.title.width/2, HEIGHT - 2* this.title.height);
-        Squarz.font3.draw(sb, this.part1, WIDTH/2 - this.part1.width/2, HEIGHT - 5* this.title.height - this.part1.height);
-        Squarz.font3.draw(sb, this.part2, WIDTH/2 - this.part2.width/2, HEIGHT - 5* this.title.height - 2*this.part1.height - this.part2.height);
-        Squarz.font3.draw(sb, this.part3, WIDTH/2 - this.part3.width/2, HEIGHT - 5* this.title.height - 2*this.part1.height - 2*this.part2.height - this.part3.height);
+        Squarz.font.draw(sb, this.title, WIDTH/2 - this.title.width/2, HEIGHT - 3/2* this.title.height);
+        Squarz.font3.draw(sb, this.part1, WIDTH/2 - this.part1.width/2, HEIGHT - 4* this.title.height - this.part1.height);
+        Squarz.font3.draw(sb, this.part2, WIDTH/2 - this.part2.width/2, HEIGHT - 4* this.title.height - 2*this.part1.height - this.part2.height);
+        Squarz.font3.draw(sb, this.part3, WIDTH/2 - this.part3.width/2, HEIGHT - 4* this.title.height - 2*this.part1.height - 2*this.part2.height - this.part3.height);
         Squarz.font3.draw(sb, this.part4, WIDTH/2 - this.part4.width/2, 3*HEIGHT/4);
         Squarz.font3.draw(sb, this.part5, WIDTH/2 - this.part5.width/2, 3*HEIGHT/4 - 2*this.part5.height);
         Squarz.font3.draw(sb, this.part6, WIDTH/2 - this.part6.width/2, 3*HEIGHT/4 - 2*this.part5.height - 2*this.part6.height);
