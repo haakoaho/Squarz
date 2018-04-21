@@ -64,7 +64,6 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
      * the game with the Google Play game services API.
      */
 
-	private final static String TAG = "Squarz";
 
 	// Request codes for the UIs that we show with startActivityForResult:
 	private final static int RC_SELECT_PLAYERS = 10000;
@@ -112,11 +111,9 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 			return;
 		}
 
-		Bundle autoMatchCriteria = null;
 
 		// get the invitee list
 		final ArrayList<String> invitees = data.getStringArrayListExtra(Games.EXTRA_PLAYER_IDS);
-		Log.d(TAG, "Invitee count: " + invitees.size());
 
 
 		// Get Automatch criteria.
@@ -126,7 +123,7 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 				.addPlayersToInvite(invitees)
 				.setOnMessageReceivedListener(mOnRealTimeMessageReceivedListener)
 				.setRoomStatusUpdateCallback(mRoomStatusUpdateCallback)
-				.setAutoMatchCriteria(autoMatchCriteria);
+				.setAutoMatchCriteria(null);
 
 
 		// Save the roomConfig so we can use it if we call leave().
@@ -140,7 +137,6 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 
 		if (resultCode == Activity.RESULT_OK) {
 			// Start the game!
-			Log.d(TAG, "ready to start the game");
 			gameReady = true;
 		} else if (resultCode == Activity.RESULT_CANCELED) {
 			leaveRoom();
@@ -152,11 +148,9 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 
 	private void handleInvitationInboxResult(int response, Intent data) {
 		if (response != Activity.RESULT_OK) {
-			Log.w(TAG, "*** invitation inbox UI cancelled, " + response);
 			return;
 		}
 
-		Log.d(TAG, "Invitation inbox UI succeeded.");
 		Invitation invitation = data.getExtras().getParcelable(Multiplayer.EXTRA_INVITATION);
 
 		// accept invitation
@@ -168,7 +162,6 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 	// Accept the given invitation.
 	private void acceptInviteToRoom(String invitationId) {
 		// accept the invitation
-		Log.d(TAG, "Accepting invitation: " + invitationId);
 
 		mRoomConfig = RoomConfig.builder(mRoomUpdateCallback)
 				.setInvitationIdToAccept(invitationId)
@@ -181,7 +174,6 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 				.addOnSuccessListener(new OnSuccessListener<Void>() {
 					@Override
 					public void onSuccess(Void aVoid) {
-						Log.d(TAG, "Room Joined Successfully!");
 					}
 				});
 	}
@@ -230,8 +222,6 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 	@Override
 	protected void onResume() {
 		super.onResume();
-		Log.d(TAG, "onResume()");
-
 		// Since the state of the signed in user can change when the activity is not active
 		// it is recommended to try and sign in silently from when the app resumes.
 		signInSilently();
@@ -303,17 +293,14 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 	 * If the user has already signed in previously, it will not show dialog.
 	 */
 	public void signInSilently() {
-		Log.d(TAG, "signInSilently()");
 
 		mGoogleSignInClient.silentSignIn().addOnCompleteListener(this,
 				new OnCompleteListener<GoogleSignInAccount>() {
 					@Override
 					public void onComplete(@NonNull Task<GoogleSignInAccount> task) {
 						if (task.isSuccessful()) {
-							Log.d(TAG, "signInSilently(): success");
 							onConnected(task.getResult());
 						} else {
-							Log.d(TAG, "signInSilently(): failure", task.getException());
 							onDisconnected();
 						}
 					}
@@ -346,7 +333,6 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 
 
 	public void signOut() {
-		Log.d(TAG, "signOut()");
 
 		mGoogleSignInClient.signOut().addOnCompleteListener(this,
 				new OnCompleteListener<Void>() {
@@ -354,7 +340,6 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 					public void onComplete(@NonNull Task<Void> task) {
 
 						if (task.isSuccessful()) {
-							Log.d(TAG, "signOut(): success");
 						} else {
 							handleException(task.getException(), "signOut() failed!");
 						}
@@ -411,7 +396,6 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 	// Activity is going to the background. We have to leave the current room.
 	@Override
 	public void onStop() {
-		Log.d(TAG, "**** got onStop");
 
 		// if we're in a room, leave it.
 		leaveRoom();
@@ -423,7 +407,6 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 
 	// Leave the room.
 	public void leaveRoom() {
-		Log.d(TAG, "Leaving room.");
 		gameReady = false;
 		if (mRoomId != null) {
 			Games.getRealTimeMultiplayerClient(this,
@@ -433,10 +416,6 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 		}
 	}
 
-	@Override
-	public void writeToLog(String s) {
-		Log.d(TAG, s);
-	}
 
 
 
@@ -452,7 +431,6 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 	private GoogleSignInAccount mSignedInAccount = null;
 
 	private void onConnected(GoogleSignInAccount googleSignInAccount) {
-		Log.d(TAG, "onConnected(): connected to Google APIs");
 		if (mSignedInAccount != googleSignInAccount) {
 
 			mSignedInAccount = googleSignInAccount;
@@ -486,7 +464,6 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 	}
 
 	private void onDisconnected() {
-		Log.d(TAG, "onDisconnected()");
 
 		mRealTimeMultiplayerClient = null;
 		mInvitationsClient = null;
@@ -498,7 +475,6 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 		// is connected yet).
 		@Override
 		public void onConnectedToRoom(Room room) {
-			Log.d(TAG, "onConnectedToRoom.");
 
 			//get participants and my ID:
 			mParticipants = room.getParticipants();
@@ -509,10 +485,6 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 				mRoomId = room.getRoomId();
 			}
 
-			// print out the list of participants (for debug purposes)
-			Log.d(TAG, "Room ID: " + mRoomId);
-			Log.d(TAG, "My ID " + mMyId);
-			Log.d(TAG, "<< CONNECTED TO ROOM>>");
 		}
 
 		// Called when we get disconnected from the room. We return to the main screen.
@@ -581,11 +553,9 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 		public void onRoomCreated(int code, @Nullable Room room) {
 			// Update UI and internal state based on room updates.
 			if (code == GamesCallbackStatusCodes.OK && room != null) {
-				Log.d(TAG, "Room " + room.getRoomId() + " created.");
 				mRoomId = room.getRoomId();
 				showWaitingRoom(room);
 			} else {
-				Log.w(TAG, "Error creating room: " + code);
 
             }
 
@@ -595,26 +565,21 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 		public void onJoinedRoom(int code, @Nullable Room room) {
 			// Update UI and internal state based on room updates.
 			if (code == GamesCallbackStatusCodes.OK && room != null) {
-				Log.d(TAG, "Room " + room.getRoomId() + " joined.");
 				showWaitingRoom(room);
 			} else {
-				Log.w(TAG, "Error joining room: " + code);
 
 			}
 		}
 
 		@Override
 		public void onLeftRoom(int code, @NonNull String roomId) {
-			Log.d(TAG, "Left room" + roomId);
 			gameReady = false;
 		}
 
 		@Override
 		public void onRoomConnected(int code, @Nullable Room room) {
 			if (code == GamesCallbackStatusCodes.OK && room != null) {
-				Log.d(TAG, "Room " + room.getRoomId() + " connected.");
 			} else {
-				Log.w(TAG, "Error connecting to room: " + code);
 				// let screen go to sleep
 
 			}
@@ -646,16 +611,11 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 						new RealTimeMultiplayerClient.ReliableMessageSentCallback() {
 							@Override
 							public void onRealTimeMessageSent(int statusCode, int tokenId, String recipientParticipantId) {
-								Log.d(TAG, "RealTime message sent");
-								Log.d(TAG, "  statusCode: " + statusCode);
-								Log.d(TAG, "  tokenId: " + tokenId);
-								Log.d(TAG, "  recipientParticipantId: " + recipientParticipantId);
 							}
 						})
 				.addOnSuccessListener(new OnSuccessListener<Integer>() {
 					@Override
 					public void onSuccess(Integer tokenId) {
-						Log.d(TAG, "Created a reliable message with tokenId: " + tokenId);
 					}
 				});
 	}
@@ -675,7 +635,6 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 
 
 		}
-		writeToLog("error in getParticipantId");
 		return "";
 	}
 }
