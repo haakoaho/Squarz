@@ -19,6 +19,7 @@ public class Intro extends State {
     private TextureAtlas introduction;
     private Animation animation;
     private float timePassed1 = 0;
+    private float startAnimate = 50;
     private CountDown countDown;
 
     public Intro (GameStateManager gsm){
@@ -51,9 +52,11 @@ public class Intro extends State {
 
         sb.begin();
         timePassed1 += Gdx.graphics.getDeltaTime();
-        sb.draw((TextureRegion) animation.getKeyFrame(timePassed1, false),
-                Gdx.graphics.getWidth()/2 - introduction.getRegions().get(0).getRegionWidth()/2,
-                Gdx.graphics.getHeight()/2 - introduction.getRegions().get(0).getRegionHeight()/2);
+        if (timePassed1 >= startAnimate) {
+            sb.draw((TextureRegion) animation.getKeyFrame(timePassed1, false),
+                    Gdx.graphics.getWidth() / 2 - introduction.getRegions().get(0).getRegionWidth() / 2,
+                    Gdx.graphics.getHeight() / 2 - introduction.getRegions().get(0).getRegionHeight() / 2);
+        }
         sb.end();
 
     }
