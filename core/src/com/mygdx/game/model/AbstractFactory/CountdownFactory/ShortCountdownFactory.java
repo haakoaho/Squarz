@@ -5,7 +5,6 @@ import com.mygdx.game.model.AbstractFactory.CountdownDuration.ICountdownDuration
 
 public class ShortCountdownFactory implements ICountdownFactory{
 
-    @Override
     public ICountdownDuration createCountDown() {
         return new ShortCountdown();
     }
