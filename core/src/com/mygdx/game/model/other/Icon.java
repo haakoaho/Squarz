@@ -1,4 +1,4 @@
-package com.mygdx.game.model;
+package com.mygdx.game.model.other;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -7,14 +7,13 @@ import static com.mygdx.game.Squarz.font3;
 
 public class Icon {
     private Texture texture;
-    private Texture selected, off;
     private GlyphLayout legend;
     private int posX, posY;
 
     public Icon (Texture texture, int posx, int posy) {
         this.texture = texture;
-        this.selected = texture;
-        this.off = texture;
+        Texture selected = texture;
+        Texture off = texture;
         this.posX = posx;
         this.posY = posy;
         this.legend = new GlyphLayout(font3, "");

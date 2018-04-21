@@ -1,17 +1,20 @@
-package com.mygdx.game.model;
+package com.mygdx.game.model.other;
 
 // Color - number association
 // red == 0; blue == 1; yellow == 2;
 // Collision convention
 //    red < blue < yellow < red
 
+import com.mygdx.game.model.players.AIPlayer;
+import com.mygdx.game.model.players.Player;
+
 public class Collision {
-    private Score score;
+    private final Score score;
     public Collision(Score score) {
         this.score = score;
     }
 
-    public void deleteOncePlayerOut(Player p, Integer column) {
+    private void deleteOncePlayerOut(Player p, Integer column) {
         //if square goes outside (scores)
             if (p.getCounter(column) >= p.getFirstSquareKey(column) && !p.getMap(column).get(p.getFirstSquareKey(column)).isInUser()) {
                 p.decrement(p.getFirstSquareKey(column), column);
@@ -19,7 +22,7 @@ public class Collision {
             }
     }
 
-    public void deleteOnceOpponentOut(Player p, Integer column){
+    private void deleteOnceOpponentOut(Player p, Integer column){
         //if square goes outside
         if (p.getCounter(column) > p.getFirstSquareKey(column) && !p.getMap(column).get(p.getFirstSquareKey(column)).isInAi()) {
             p.decrement(p.getFirstSquareKey(column), column);
@@ -27,17 +30,17 @@ public class Collision {
         }
     }
 
-    public boolean isCollisionPossible(Player p, Player c, Integer columnKey){
+    private boolean isCollisionPossible(Player p, Player c, Integer columnKey){
         return p.getCounter(columnKey) > p.getFirstSquareKey(columnKey)
                 && c.getCounter(columnKey) > c.getFirstSquareKey(columnKey);
     }
-    public boolean isOverlapping(Player p, Player c, Integer columnKey){
+    private boolean isOverlapping(Player p, Player c, Integer columnKey){
         return (p.getMap(columnKey).get(p.getFirstSquareKey(columnKey)).getRectangle().overlaps(
                 c.getMap(columnKey).get(c.getFirstSquareKey(columnKey)).getRectangle()) || c.getMap(columnKey).get(c.getFirstSquareKey(columnKey)).getRectangle().overlaps(
                 p.getMap(columnKey).get(p.getFirstSquareKey(columnKey)).getRectangle()));
     }
 
-    public void handleWhenPlayerRed(Player p, Player c, Integer columnKey){
+    private void handleWhenPlayerRed(Player p, Player c, Integer columnKey){
         // if computer red
         if (c.getMap(columnKey).get(c.getFirstSquareKey(columnKey)).getColorKey() == 0) {
             p.decrement(p.getFirstSquareKey(columnKey), columnKey);
@@ -56,7 +59,7 @@ public class Collision {
             p.decrement(p.getFirstSquareKey(columnKey), columnKey);
         }
     }
-    public void handleWhenPlayerBlue(Player p, Player c, Integer columnKey){
+    private void handleWhenPlayerBlue(Player p, Player c, Integer columnKey){
         // if computer red
         if (c.getMap(columnKey).get(c.getFirstSquareKey(columnKey)).getColorKey() == 0) {
             c.decrement(c.getFirstSquareKey(columnKey), columnKey);
@@ -75,7 +78,7 @@ public class Collision {
             p.decrement(p.getFirstSquareKey(columnKey), columnKey);
         }
     }
-    public void handleWhenPlayerYellow(Player p, Player c, Integer columnKey){
+    private void handleWhenPlayerYellow(Player p, Player c, Integer columnKey){
         // if computer red
         if (c.getMap(columnKey).get(c.getFirstSquareKey(columnKey)).getColorKey() == 0) {
             p.decrement(p.getFirstSquareKey(columnKey), columnKey);
@@ -94,7 +97,7 @@ public class Collision {
             p.decrement(p.getFirstSquareKey(columnKey), columnKey);
         }
     }
-    public void handleWhenPlayerPunisherBonus(Player p, Player c, Integer columnKey){
+    private void handleWhenPlayerPunisherBonus(Player p, Player c, Integer columnKey){
         // if computer also sent a punisher
         if (c.getMap(columnKey).get(c.getFirstSquareKey(columnKey)).getColorKey() == 4) {
             p.decrement(p.getFirstSquareKey(columnKey), columnKey);

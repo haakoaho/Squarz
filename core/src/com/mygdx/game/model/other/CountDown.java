@@ -1,4 +1,4 @@
-package com.mygdx.game.model;
+package com.mygdx.game.model.other;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -8,14 +8,13 @@ public class CountDown {
     private Integer worldTimer;
 
     private float timeCount;
-    private Label countdownLabel;
+    private final Label countdownLabel;
     private Boolean timeUp;
-    private Integer timerKey;
 
     public CountDown(Integer time) {
         this.worldTimer = time;
         this.timeCount = 0f;
-        this.timerKey = time;
+        Integer timerKey = time;
 
         this.countdownLabel = new Label(String.format("%02d", worldTimer),
                 new Label.LabelStyle(new BitmapFont(), Color.WHITE));

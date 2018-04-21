@@ -1,7 +1,9 @@
-package com.mygdx.game.model;
+package com.mygdx.game.model.other;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.mygdx.game.model.players.AIPlayer;
+import com.mygdx.game.model.players.Player;
 
 import static com.mygdx.game.Squarz.format;
 
@@ -66,7 +68,7 @@ public class Bonus {
         this.getPlayer().getSquareLimiter().setBonusPunisherLeft(this.getPlayer().getSquareLimiter().getBonusPunisherLeft());
     }
 
-    public void nurseEffectAi(){
+    private void nurseEffectAi(){
         this.getOpponent().getSquareLimiter().setRedLeft(this.getPlayer().getSquareLimiter().getRedLeft()+3);
         this.getOpponent().getSquareLimiter().setBlueLeft(this.getPlayer().getSquareLimiter().getBlueLeft()+3);
         this.getOpponent().getSquareLimiter().setYellowLeft(this.getPlayer().getSquareLimiter().getYellowLeft()+3);
@@ -115,28 +117,19 @@ public class Bonus {
     public void setBonusKey(Integer bonusKey) {
         this.bonusKey = bonusKey;
     }
-    public Texture getNone() {
+    private Texture getNone() {
         return none;
     }
-    public void setNone(Texture none) {
-        this.none = none;
-    }
-    public Texture getPunisher() {
+
+    private Texture getPunisher() {
         return punisher;
     }
-    public void setPunisher(Texture punisher) {
-        this.punisher = punisher;
-    }
-    public Texture getNurse() {
+
+    private Texture getNurse() {
         return nurse;
     }
-    public void setNurse(Texture nurse) {
-        this.nurse = nurse;
-    }
-    public Texture getSelectedBonus() {
-        return selectedBonus;
-    }
-    public void setSelectedBonus(Texture selectedBonus) {
+
+    private void setSelectedBonus(Texture selectedBonus) {
         this.selectedBonus = selectedBonus;
     }
     public Integer getColorKey() {
@@ -145,22 +138,15 @@ public class Bonus {
     public void setColorKey(Integer colorKey) {
         this.colorKey = colorKey;
     }
-    public Texture getMrPropre() {
+    private Texture getMrPropre() {
         return mrPropre;
     }
-    public void setMrPropre(Texture mrPropre) {
-        this.mrPropre = mrPropre;
-    }
-    public Player getPlayer() {
+
+    private Player getPlayer() {
         return player;
     }
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
-    public AIPlayer getOpponent() {
+
+    private AIPlayer getOpponent() {
         return opponent;
-    }
-    public void setOpponent(AIPlayer opponent) {
-        this.opponent = opponent;
     }
 }

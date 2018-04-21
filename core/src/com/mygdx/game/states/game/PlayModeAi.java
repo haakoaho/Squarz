@@ -1,4 +1,4 @@
-package com.mygdx.game.states;
+package com.mygdx.game.states.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
@@ -7,16 +7,16 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.mygdx.game.model.AIPlayer;
-import com.mygdx.game.model.Collision;
-import com.mygdx.game.model.Icon;
-import com.mygdx.game.model.PauseScreen;
-import com.mygdx.game.model.Player;
-import com.mygdx.game.model.Score;
+import com.mygdx.game.model.players.AIPlayer;
+import com.mygdx.game.model.other.Collision;
+import com.mygdx.game.model.other.Icon;
+import com.mygdx.game.model.other.PauseScreen;
+import com.mygdx.game.model.players.Player;
+import com.mygdx.game.model.other.Score;
 import com.mygdx.game.Squarz;
 import com.mygdx.game.gameStateManager.State;
 import com.mygdx.game.gameStateManager.GameStateManager;
-import com.mygdx.game.model.aI.PreferencesSettings;
+import com.mygdx.game.model.ai_settings.PreferencesSettings;
 import com.mygdx.game.model.AbstractFactory.CountdownDuration.ICountdownDuration;
 
 
@@ -36,19 +36,30 @@ import static com.mygdx.game.Squarz.format;
 public class PlayModeAi extends State {
     private Music music;
     private Sound sound;
-    private GlyphLayout readyGlyph, redLeft, yellowLeft, blueLeft, scoreUser, scoreAi, time;
+    private final GlyphLayout readyGlyph;
+    private final GlyphLayout redLeft;
+    private final GlyphLayout yellowLeft;
+    private final GlyphLayout blueLeft;
+    private final GlyphLayout scoreUser;
+    private final GlyphLayout scoreAi;
+    private final GlyphLayout time;
 
-    private ShapeRenderer shapeRenderer;
+    private final ShapeRenderer shapeRenderer;
 
     private PreferencesSettings settings;
-    private ICountdownDuration countDown;
+    private final ICountdownDuration countDown;
 
     private AIPlayer ai;
     private Player player;
 
-    private Collision collision;
+    private final Collision collision;
 
-    private Icon redChoiceSquare, blueChoiceSquare, yellowChoiceSquare, pause, bonusChoiceSquare1, bonusChoiceSquare2;
+    private Icon redChoiceSquare;
+    private final Icon blueChoiceSquare;
+    private final Icon yellowChoiceSquare;
+    private final Icon pause;
+    private final Icon bonusChoiceSquare1;
+    private final Icon bonusChoiceSquare2;
     private Texture texture;
     private Integer colorKey;
 
@@ -58,8 +69,8 @@ public class PlayModeAi extends State {
 
     private Boolean pauseFlag = false;
     private Boolean pauseSettings = false;
-    private PauseScreen pauseScreen;
-    private Integer temporarySpeed;
+    private final PauseScreen pauseScreen;
+    private final Integer temporarySpeed;
     private float exTime;
     private Boolean firstIsUsed = false;
     private Boolean secondIsUsed = false;
@@ -90,18 +101,18 @@ public class PlayModeAi extends State {
         this.texture = new Texture(Gdx.files.internal(format + "/square/square_red.png"));
 
         this.redChoiceSquare = new Icon(new Texture(Gdx.files.internal(format + "/square/square_red_selected.png"))
-            , WIDTH * 1 / 16, HEIGHT / 2 - this.texture.getHeight() * 3 / 2);
+            , WIDTH / 16, HEIGHT / 2 - this.texture.getHeight() * 3 / 2);
         this.blueChoiceSquare = new Icon(new Texture(Gdx.files.internal(format + "/square/square_blue.png"))
-            , WIDTH * 1 / 16, HEIGHT / 2 - this.texture.getHeight() * 11 / 4);
+            , WIDTH / 16, HEIGHT / 2 - this.texture.getHeight() * 11 / 4);
         this.yellowChoiceSquare = new Icon(new Texture(Gdx.files.internal(format + "/square/square_yellow.png"))
-            , WIDTH * 1 / 16, HEIGHT / 2 - this.texture.getHeight() * 4);
+            , WIDTH / 16, HEIGHT / 2 - this.texture.getHeight() * 4);
 
         this.bonusChoiceSquare1 = new Icon(new Texture(Gdx.files.internal(format + "/bonuses/none.png"))
-                , WIDTH * 1 / 16, HEIGHT / 2 - this.texture.getHeight() * 21 / 4);
+                , WIDTH / 16, HEIGHT / 2 - this.texture.getHeight() * 21 / 4);
         this.bonusChoiceSquare1.setTexture(this.settings.getBonus1().getBonustexture(this.settings.getBonus1().getBonusKey()));
 
         this.bonusChoiceSquare2 = new Icon(new Texture(Gdx.files.internal(format + "/bonuses/none.png"))
-                , WIDTH * 1 / 16, HEIGHT / 2 - this.texture.getHeight() * 26 / 4);
+                , WIDTH / 16, HEIGHT / 2 - this.texture.getHeight() * 26 / 4);
         this.bonusChoiceSquare2.setTexture(this.settings.getBonus2().getBonustexture(this.settings.getBonus2().getBonusKey()));
 
 
@@ -181,7 +192,7 @@ public class PlayModeAi extends State {
                 }
                 else {
                     //Colour choice button
-                    chosingTheColour(x, y);
+                    choosingTheColour(x, y);
 
                     //Implementation for the launcher of each row
                     if (!this.player.getSquareLimiter().isOver(colorKey) && isAllowedToPlay(exTime)) {
@@ -192,7 +203,7 @@ public class PlayModeAi extends State {
         }
     }
 
-    public boolean isAllowedToPlay(float exTime){
+    private boolean isAllowedToPlay(float exTime){
         boolean allowed;
         float timeRef = countDown.getWorldTimer()-countDown.getTimeCount();
         allowed = exTime - timeRef > 0.5;
@@ -279,18 +290,18 @@ public class PlayModeAi extends State {
     }
 
 
-    public void freeze() {
+    private void freeze() {
         this.settings.setStepX(0);
     }
 
-    public void defreeze() {
+    private void defreeze() {
         this.settings.setStepX(this.temporarySpeed);
         this.pauseFlag = false;
         pauseSettings = false;
     }
 
 
-    public void chosingTheColour(int x, int y) {
+    private void choosingTheColour(int x, int y) {
         if (this.redChoiceSquare.contains(x, y)) {
             this.setColorKey(0);
             setPLayerTexture(this.getColorKey());
@@ -336,14 +347,14 @@ public class PlayModeAi extends State {
             this.setSecondIsUsed(true);
         }
     }
-    public void creatingANewSquare(int x) {
+    private void creatingANewSquare(int x) {
         Integer tempColKey = this.getColumn(x);
         if(tempColKey != -1) {
             player.increment(texture, tempColKey, colorKey);
         }
     }
 
-    public Integer getColumn(int x){
+    private Integer getColumn(int x){
         int tempColKey = -1;
         if (x > WIDTH / 4 && x < WIDTH / 2) {
             tempColKey = 0;
@@ -357,7 +368,7 @@ public class PlayModeAi extends State {
         return tempColKey;
     }
 
-    public void movingPlayerSquare (float dt){
+    private void movingPlayerSquare(float dt){
         for (Integer columnKey = 0; columnKey < 3; columnKey++) {
            if (!player.getMap(columnKey).isEmpty()) {
                for (int i = player.getFirstSquareKey(columnKey); i < player.getCounter(columnKey); i++) {
@@ -373,7 +384,7 @@ public class PlayModeAi extends State {
             }
         }
     }
-    public void movingAiSquare(float dt) {
+    private void movingAiSquare(float dt) {
     for(int columnKey=0; columnKey<3; columnKey++) {
         if(!ai.getMap(columnKey).isEmpty()) {
             for (int i = ai.getFirstSquareKey(columnKey); i < ai.getCounter(columnKey); i++) {
@@ -389,7 +400,7 @@ public class PlayModeAi extends State {
 }
 
 
-    public void drawingSquares(SpriteBatch sb, Player p){
+    private void drawingSquares(SpriteBatch sb, Player p){
         for(int columnKey = 0; columnKey < 3; columnKey ++) {
             if (!p.getMap(columnKey).isEmpty()) {
                 for (int i = p.getFirstSquareKey(columnKey); i < p.getCounter(columnKey); i++) {
@@ -399,7 +410,7 @@ public class PlayModeAi extends State {
             }
         }
     }
-    public void drawScore(SpriteBatch sb) {
+    private void drawScore(SpriteBatch sb) {
         scoreAi.setText(Squarz.font, String.valueOf(score.getOpponentScore()));
         scoreUser.setText(Squarz.font, String.valueOf(score.getUserScore()));
         Squarz.font.draw(sb, scoreAi, redChoiceSquare.getPosX() + redChoiceSquare.getTexture().getWidth() / 2 - scoreAi.width / 2, HEIGHT * 45 / 64 - scoreAi.height / 2);
@@ -413,7 +424,7 @@ public class PlayModeAi extends State {
         Squarz.font.draw(sb, scoreUser, WIDTH/2 - pauseScreen.getTexture().getWidth()*1/8 - scoreUser.width/2, HEIGHT/2 + 2*scoreUser.height);
      }
      */
-    public void drawCounter(SpriteBatch sb) {
+    private void drawCounter(SpriteBatch sb) {
         //number of user squares left
         redLeft.setText(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getRedLeft()));
         blueLeft.setText(Squarz.font2, String.valueOf(this.player.getSquareLimiter().getBlueLeft()));
@@ -422,12 +433,12 @@ public class PlayModeAi extends State {
         Squarz.font2.draw(sb, blueLeft, blueChoiceSquare.getPosX() + blueChoiceSquare.getTexture().getWidth() / 2 - blueLeft.width / 2, blueChoiceSquare.getPosY() + blueChoiceSquare.getTexture().getHeight() / 2 + blueLeft.height / 2);
         Squarz.font2.draw(sb, yellowLeft, yellowChoiceSquare.getPosX() + yellowChoiceSquare.getTexture().getWidth() / 2 - yellowLeft.width / 2, yellowChoiceSquare.getPosY() + yellowChoiceSquare.getTexture().getHeight() / 2 + yellowLeft.height / 2);
     }
-    public void drawTimeLeft(SpriteBatch sb) {
+    private void drawTimeLeft(SpriteBatch sb) {
         time.setText(Squarz.font, String.valueOf(this.countDown.getWorldTimer()));
         Squarz.font.draw(sb, String.valueOf(this.countDown.getWorldTimer()), redChoiceSquare.getPosX() + redChoiceSquare.getTexture().getWidth() / 2 - time.width / 2, HEIGHT * 27 / 32 - time.height / 2);
     }
 
-    public void setPLayerTexture(int colorKey){
+    private void setPLayerTexture(int colorKey){
         if (colorKey == 0){
             this.texture = new Texture(Gdx.files.internal(format + "/square/square_red.png"));
             this.redChoiceSquare.setTexture(new Texture(Gdx.files.internal(format + "/square/square_red_selected.png")));
@@ -449,96 +460,31 @@ public class PlayModeAi extends State {
     }
 
 
-
-    public Texture getTexture() {
-        return texture;
-    }
-
-    public void setTexture(Texture texture) {
-        this.texture = texture;
-    }
-
-    public Integer getColorKey() {
+    private Integer getColorKey() {
         return colorKey;
     }
 
-    public void setColorKey(Integer colorKey) {
+    private void setColorKey(Integer colorKey) {
         this.colorKey = colorKey;
     }
 
-    public Score getScore() {
-        return score;
-    }
-
-    public void setScore(Score score) {
-        this.score = score;
-    }
-
-    public Music getMusic() {
-        return music;
-    }
-
-    public void setMusic(Music music) {
-        this.music = music;
-    }
-
-    public Sound getSound() {
-        return sound;
-    }
-
-    public void setSound(Sound sound) {
-        this.sound = sound;
-    }
-
-    public PreferencesSettings getSettings() {
-        return settings;
-    }
-
-    public void setSettings(PreferencesSettings settings) {
-        this.settings = settings;
-    }
-
-    public Icon getRedChoiceSquare() {
-        return redChoiceSquare;
-    }
-
-    public void setRedChoiceSquare(Icon redChoiceSquare) {
-        this.redChoiceSquare = redChoiceSquare;
-    }
-
-    public AIPlayer getAi() {
+    private AIPlayer getAi() {
         return ai;
     }
 
-    public void setAi(AIPlayer ai) {
-        this.ai = ai;
-    }
-
-    public Player getPlayer() {
+    private Player getPlayer() {
         return player;
     }
 
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
-
-    public Boolean getFirstIsUsed() {
-        return firstIsUsed;
-    }
-
-    public void setFirstIsUsed(Boolean firstIsUsed) {
+    private void setFirstIsUsed(Boolean firstIsUsed) {
         this.firstIsUsed = firstIsUsed;
     }
 
-    public Boolean getSecondIsUsed() {
-        return secondIsUsed;
-    }
-
-    public void setSecondIsUsed(Boolean secondIsUsed) {
+    private void setSecondIsUsed(Boolean secondIsUsed) {
         this.secondIsUsed = secondIsUsed;
     }
 
-    public void inc(int i) {
+    private void inc(int i) {
         if(i==0) { //volume
             if (Squarz.valueVolume < 10) {
                 Squarz.valueVolume++;
@@ -552,7 +498,7 @@ public class PlayModeAi extends State {
 
     }
 
-    public void dec(int i) {
+    private void dec(int i) {
         if(i==0) { //volume
             if (Squarz.valueVolume > 0) {
                 Squarz.valueVolume--;

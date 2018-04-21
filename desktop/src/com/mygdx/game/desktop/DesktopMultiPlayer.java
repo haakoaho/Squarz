@@ -1,6 +1,6 @@
 package com.mygdx.game.desktop;
 
-import com.mygdx.game.model.MultiplayerInterface;
+import com.mygdx.game.model.multiplayer.MultiplayerInterface;
 
 import java.util.Queue;
 
@@ -50,8 +50,5 @@ public class DesktopMultiPlayer implements MultiplayerInterface {
 
     }
 
-    @Override
-    public void writeToLog(String s) {
 
-    }
 }

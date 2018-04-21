@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Squarz;
 import com.mygdx.game.gameStateManager.GameStateManager;
-import com.mygdx.game.model.Icon;
+import com.mygdx.game.model.other.Icon;
 import com.mygdx.game.gameStateManager.State;
 
 import static com.mygdx.game.Squarz.HEIGHT;
@@ -17,8 +17,15 @@ import static com.mygdx.game.Squarz.valueVolume;
 
 // CLEAN //
 public class Settings extends State {
-    private Icon sound, vibration, back, maxS,minS,maxV,minV;
-    private GlyphLayout sLayout, vLayout;
+    private final Icon sound;
+    private final Icon vibration;
+    private final Icon back;
+    private final Icon maxS;
+    private final Icon minS;
+    private final Icon maxV;
+    private final Icon minV;
+    private final GlyphLayout sLayout;
+    private final GlyphLayout vLayout;
 
     public Settings(GameStateManager gsm) {
         super(gsm);
@@ -100,7 +107,7 @@ public class Settings extends State {
     public void dispose() {
     }
 
-    public void inc(int i) { // this function will increase the volume (i=0) or the vibration (i=1)
+    private void inc(int i) { // this function will increase the volume (i=0) or the vibration (i=1)
         if(i==0) { //volume
             if (Squarz.valueVolume < 10) {
                 Squarz.valueVolume++;
@@ -114,7 +121,7 @@ public class Settings extends State {
 
     }
 
-    public void dec(int i) { // this function will decrease the volume (i=0) or the vibration (i=1)
+    private void dec(int i) { // this function will decrease the volume (i=0) or the vibration (i=1)
         if(i==0) { //volume
             if (Squarz.valueVolume > 0) {
                 Squarz.valueVolume--;

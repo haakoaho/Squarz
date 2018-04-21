@@ -8,11 +8,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.game.Squarz;
 import com.mygdx.game.gameStateManager.GameStateManager;
-import com.mygdx.game.model.aI.PreferencesSettings;
+import com.mygdx.game.model.ai_settings.PreferencesSettings;
 import com.mygdx.game.model.AbstractFactory.CountdownDuration.ICountdownDuration;
-import com.mygdx.game.model.Icon;
+import com.mygdx.game.model.other.Icon;
 import com.mygdx.game.gameStateManager.State;
-import com.mygdx.game.states.AIPreferences;
 
 import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
@@ -21,12 +20,24 @@ import static com.mygdx.game.Squarz.format;
 
 // CLEAN //
 public class BonusSelection extends State {
-    private GlyphLayout bonusTitle, clean, selected, bonusDescription1, bonusDescription2;
-    private Icon back, nurse, punisher, none, mrPropre, field1, field2, cleanButton, selectButton;
-    private ICountdownDuration countDown;
-    private PreferencesSettings settings;
+    private final GlyphLayout bonusTitle;
+    private final GlyphLayout clean;
+    private final GlyphLayout selected;
+    private final GlyphLayout bonusDescription1;
+    private final GlyphLayout bonusDescription2;
+    private final Icon back;
+    private final Icon nurse;
+    private final Icon punisher;
+    private final Icon none;
+    private final Icon mrPropre;
+    private final Icon field1;
+    private final Icon field2;
+    private final Icon cleanButton;
+    private final Icon selectButton;
+    private final ICountdownDuration countDown;
+    private final PreferencesSettings settings;
     private Boolean isFilled1, isFilled2;
-    private ShapeRenderer shapeRenderer;
+    private final ShapeRenderer shapeRenderer;
 
     public BonusSelection(GameStateManager gsm, PreferencesSettings settings, ICountdownDuration countDown) {
         super(gsm);
@@ -49,9 +60,9 @@ public class BonusSelection extends State {
 
         this.back.setPosX(back.getTexture().getWidth()/2);
         this.back.setPosY(back.getTexture().getHeight()/2);
-        this.none.setPosX(WIDTH*1/6 - this.none.getTexture().getWidth()/2);
+        this.none.setPosX(WIDTH /6 - this.none.getTexture().getWidth()/2);
         this.none.setPosY(HEIGHT/2 - this.none.getTexture().getHeight()/2);
-        this.cleanButton.setPosX(WIDTH*1/3 - this.cleanButton.getTexture().getWidth()/2 - this.none.getTexture().getWidth()/2);
+        this.cleanButton.setPosX(WIDTH /3 - this.cleanButton.getTexture().getWidth()/2 - this.none.getTexture().getWidth()/2);
         this.cleanButton.setPosY(HEIGHT * 5/8 - this.cleanButton.getTexture().getHeight()/2);
         this.selectButton.setPosX(WIDTH*2/3 - this.cleanButton.getTexture().getWidth()/2 + this.none.getTexture().getWidth()/2);
         this.selectButton.setPosY(HEIGHT * 5/8 - this.cleanButton.getTexture().getHeight()/2);
@@ -59,9 +70,9 @@ public class BonusSelection extends State {
         this.field1.setPosY(HEIGHT*3/4 - this.field1.getTexture().getHeight()/2);
         this.field2.setPosX(WIDTH*2/3 - this.field2.getTexture().getWidth()/2);
         this.field2.setPosY(HEIGHT*3/4 - this.field2.getTexture().getHeight()/2);
-        this.punisher.setPosX(WIDTH*1/6 + WIDTH*2/9- this.punisher.getTexture().getWidth()/2);
+        this.punisher.setPosX(WIDTH /6 + WIDTH*2/9- this.punisher.getTexture().getWidth()/2);
         this.punisher.setPosY(HEIGHT/2 - this.punisher.getTexture().getHeight()/2);
-        this.nurse.setPosX(WIDTH*1/6 + WIDTH*4/9 - this.nurse.getTexture().getWidth()/2);
+        this.nurse.setPosX(WIDTH /6 + WIDTH*4/9 - this.nurse.getTexture().getWidth()/2);
         this.nurse.setPosY(HEIGHT/2 - this.nurse.getTexture().getWidth()/2);
         this.mrPropre.setPosX(WIDTH*5/6 - this.nurse.getTexture().getWidth()/2);
         this.mrPropre.setPosY(HEIGHT/2 - this.nurse.getTexture().getWidth()/2);
@@ -124,7 +135,7 @@ public class BonusSelection extends State {
         sb.draw(this.field2.getTexture(), this.field2.getPosX(), this.field2.getPosY());
 
         sb.draw(this.cleanButton.getTexture(), this.cleanButton.getPosX(), this.cleanButton.getPosY());
-        Squarz.font2.draw(sb, this.clean, WIDTH * 1/3 - this.clean.width/2 - this.none.getTexture().getWidth()/2, HEIGHT * 5/8 + this.clean.height/2);
+        Squarz.font2.draw(sb, this.clean, WIDTH /3 - this.clean.width/2 - this.none.getTexture().getWidth()/2, HEIGHT * 5/8 + this.clean.height/2);
         sb.draw(this.selectButton.getTexture(), this.selectButton.getPosX(), this.selectButton.getPosY());
         Squarz.font2.draw(sb, this.selected, WIDTH * 2/3 - this.selected.width/2 + this.none.getTexture().getWidth()/2, HEIGHT * 5/8 + this.selected.height/2);
 
@@ -146,7 +157,7 @@ public class BonusSelection extends State {
     public void dispose() {
     }
 
-    public void chosenBonus(int x, int y){ // called each time you touch the screen, this function will select the bonus you want to use
+    private void chosenBonus(int x, int y){ // called each time you touch the screen, this function will select the bonus you want to use
         if(this.field1.contains(x, y)){ // if field1 is touched, it removes the bonus 1 previously selected
             this.field1.setTexture(this.settings.getBonus1().getBonustexture(0));
             this.settings.getBonus1().setBonusKey(0);
@@ -189,7 +200,7 @@ public class BonusSelection extends State {
         this.bonusDescription2.setText(font2, this.settings.getDescriptionBonus2());
     }
 
-    public void isFilled (int BonusKey, int colorKey){ // fill the bonus field with your choice (the bonus you have selected)
+    private void isFilled(int BonusKey, int colorKey){ // fill the bonus field with your choice (the bonus you have selected)
         if(!this.isFilled1 && this.settings.getBonus2().getBonusKey() != BonusKey) {
             this.isFilled1 = true;
             this.field1.setTexture(this.settings.getBonus1().getBonustexture(BonusKey));

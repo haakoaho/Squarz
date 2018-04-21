@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Squarz;
 import com.mygdx.game.gameStateManager.GameStateManager;
-import com.mygdx.game.model.Icon;
+import com.mygdx.game.model.other.Icon;
 import com.mygdx.game.gameStateManager.State;
 
 import static com.mygdx.game.Squarz.HEIGHT;
@@ -15,8 +15,11 @@ import static com.mygdx.game.Squarz.format;
 
 // CLEAN //
 public class Menu extends State {
-    private Icon play, settings, tutorial;
-    private GlyphLayout name, credits;
+    private final Icon play;
+    private final Icon settings;
+    private final Icon tutorial;
+    private final GlyphLayout name;
+    private final GlyphLayout credits;
 
     public Menu(GameStateManager gsm) {
         super(gsm);
@@ -32,7 +35,7 @@ public class Menu extends State {
         this.settings.setPosY(HEIGHT*2/4-this.settings.getTexture().getHeight()/2);
         this.settings.setLegend("Sounds & Vibrations");
         this.tutorial.setPosX(WIDTH/2-this.tutorial.getTexture().getWidth()/2);
-        this.tutorial.setPosY(HEIGHT*1/4-this.tutorial.getTexture().getHeight()/2);
+        this.tutorial.setPosY(HEIGHT /4-this.tutorial.getTexture().getHeight()/2);
         this.tutorial.setLegend("Tutorial");
 
         this.name = new GlyphLayout(Squarz.font,"Let\'s play to Squarz!");

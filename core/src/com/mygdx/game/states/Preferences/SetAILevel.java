@@ -4,11 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.states.AIPreferences;
 import com.mygdx.game.Squarz;
-import com.mygdx.game.model.aI.PreferencesSettings;
+import com.mygdx.game.model.ai_settings.PreferencesSettings;
 import com.mygdx.game.model.AbstractFactory.CountdownDuration.ICountdownDuration;
-import com.mygdx.game.model.Icon;
+import com.mygdx.game.model.other.Icon;
 import com.mygdx.game.gameStateManager.GameStateManager;
 import com.mygdx.game.gameStateManager.State;
 
@@ -19,10 +18,14 @@ import static com.mygdx.game.Squarz.format;
 
 // CLEAN //
 public class SetAILevel extends State{
-    private Icon add, delete, levelToDraw, back;
-    private PreferencesSettings settings;
-    private ICountdownDuration countDown;
-    private GlyphLayout choose, levelTitle;
+    private final Icon add;
+    private final Icon delete;
+    private final Icon levelToDraw;
+    private final Icon back;
+    private final PreferencesSettings settings;
+    private final ICountdownDuration countDown;
+    private GlyphLayout choose;
+    private final GlyphLayout levelTitle;
 
 
     public SetAILevel(GameStateManager gsm, PreferencesSettings settings, ICountdownDuration countDown){
@@ -33,7 +36,7 @@ public class SetAILevel extends State{
 
         this.add = new Icon(new Texture(Gdx.files.internal(format+"/add.png")),0,0); // to increase the level of the AI (until Expert)
         this.delete = new Icon(new Texture(Gdx.files.internal(format+"/delete.png")),0,0); // to decrease the level of the AI (until Beginner)
-        this.levelToDraw = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/ai_levels/beginer.png")),0,0);
+        this.levelToDraw = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/ai_levels/beginner.png")),0,0);
         this.back = new Icon(new Texture(Gdx.files.internal(format+"/back.png")),0,0);
 
         this.add.setPosX(WIDTH/2-this.add.getTexture().getWidth()/2);
@@ -96,9 +99,9 @@ public class SetAILevel extends State{
     public void dispose() {
     }
 
-    public void setTextureToDraw(){ // draw the good texture according to the level, to give a good visual experience
+    private void setTextureToDraw(){ // draw the good texture according to the level, to give a good visual experience
         if(this.settings.getLevelKey()==0){
-            this.levelToDraw.setTexture(new Texture(Gdx.files.internal(format+"/ai_settings/ai_levels/beginer.png")));
+            this.levelToDraw.setTexture(new Texture(Gdx.files.internal(format+"/ai_settings/ai_levels/beginner.png")));
         }
         if(this.settings.getLevelKey()==1){
             this.levelToDraw.setTexture(new Texture(Gdx.files.internal(format+"/ai_settings/ai_levels/medium.png")));

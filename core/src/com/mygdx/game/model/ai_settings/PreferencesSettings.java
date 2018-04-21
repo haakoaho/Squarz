@@ -1,6 +1,6 @@
-package com.mygdx.game.model.aI;
+package com.mygdx.game.model.ai_settings;
 
-import com.mygdx.game.model.Bonus;
+import com.mygdx.game.model.other.Bonus;
 
 import static com.mygdx.game.Squarz.HEIGHT;
 
@@ -10,8 +10,8 @@ public class PreferencesSettings {
     private int levelKey;
     private int stepX;
     private float dtLaunching;
-    private Bonus bonus1;
-    private Bonus bonus2;
+    private final Bonus bonus1;
+    private final Bonus bonus2;
 
     public PreferencesSettings(){
         //default AI level settings
@@ -22,7 +22,7 @@ public class PreferencesSettings {
     }
 
     public int getLevelKey() { return levelKey; }
-    public void setLevelKey(int levelKey) { this.levelKey = levelKey; }
+    private void setLevelKey(int levelKey) { this.levelKey = levelKey; }
     public int getStepX() {
         return stepX;
     }
@@ -32,7 +32,7 @@ public class PreferencesSettings {
     public float getDtLaunching() {
         return dtLaunching;
     }
-    public void setDtLaunching(float dtLaunching) {
+    private void setDtLaunching(float dtLaunching) {
         this.dtLaunching = dtLaunching;
     }
     public Bonus getBonus1() { return bonus1; }
@@ -118,25 +118,25 @@ public class PreferencesSettings {
         }
     }
 
-    public void setBeginner(){
+    private void setBeginner(){
         setLevelKey(0);
         setStepX(HEIGHT/8);
         setDtLaunching(90);
     }
 
-    public void setMedium(){
+    private void setMedium(){
         setLevelKey(1);
         setStepX(HEIGHT/7);
         setDtLaunching(80);
     }
 
-    public void setAdvanced(){
+    private void setAdvanced(){
         setLevelKey(2);
         setStepX(HEIGHT/6);
         setDtLaunching(70);
     }
 
-    public void setExpert(){
+    private void setExpert(){
         setLevelKey(3);
         setStepX(HEIGHT/5);
         setDtLaunching(60);
