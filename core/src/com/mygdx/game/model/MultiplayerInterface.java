@@ -6,7 +6,7 @@ import java.util.Queue;
 //platform specific code for implementing multiplayer
 public interface MultiplayerInterface {
     Queue<Byte> popMoves(); // Receives buffered data from the opponent
-    void sendIncrement(Byte msg); //sends a byte of data to the oppoent
+    void sendIncrement(Byte msg); //sends a byte of data to the opponent
     void startSignInIntent();  // sign in to Google's API, use this when you are not signed in
     void signInSilently(); // sign in silently to Google's API use this when you are already signed in
 

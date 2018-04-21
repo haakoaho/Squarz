@@ -36,7 +36,7 @@ public class SetAILevel extends State{
 
         this.add = new Icon(new Texture(Gdx.files.internal(format+"/add.png")),0,0); // to increase the level of the AI (until Expert)
         this.delete = new Icon(new Texture(Gdx.files.internal(format+"/delete.png")),0,0); // to decrease the level of the AI (until Beginner)
-        this.levelToDraw = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/ai_levels/beginer.png")),0,0);
+        this.levelToDraw = new Icon(new Texture(Gdx.files.internal(format+"/ai_settings/ai_levels/beginner.png")),0,0);
         this.back = new Icon(new Texture(Gdx.files.internal(format+"/back.png")),0,0);
 
         this.add.setPosX(WIDTH/2-this.add.getTexture().getWidth()/2);
@@ -101,7 +101,7 @@ public class SetAILevel extends State{
 
     private void setTextureToDraw(){ // draw the good texture according to the level, to give a good visual experience
         if(this.settings.getLevelKey()==0){
-            this.levelToDraw.setTexture(new Texture(Gdx.files.internal(format+"/ai_settings/ai_levels/beginer.png")));
+            this.levelToDraw.setTexture(new Texture(Gdx.files.internal(format+"/ai_settings/ai_levels/beginner.png")));
         }
         if(this.settings.getLevelKey()==1){
             this.levelToDraw.setTexture(new Texture(Gdx.files.internal(format+"/ai_settings/ai_levels/medium.png")));

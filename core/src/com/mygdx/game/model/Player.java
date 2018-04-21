@@ -9,9 +9,7 @@ import java.util.Map;
 
 import static com.mygdx.game.Squarz.WIDTH;
 
-/**
- * Created by mathi on 13/03/2018.
- */
+
 
 // Color - number association
 // red == 0; blue == 1; yellow == 2;

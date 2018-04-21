@@ -43,11 +43,11 @@ public class BonusSelection extends State {
     public BonusSelection(GameStateManager gsm, PreferencesSettings settings, ICountdownDuration countDown) {
         super(gsm);
 
-        this.countDown = countDown; // set the coutDown
+        this.countDown = countDown; // set the countDown
         this.settings = settings; // set the AI settings
 
         this.isFilled1 = false; // true if the first slot of bonus is filled, else false
-        this.isFilled2 = false; // true if the second slot of binus is filled, else false
+        this.isFilled2 = false; // true if the second slot of bonus is filled, else false
 
         this.back = new Icon(new Texture(Gdx.files.internal(format+"/back.png")),0,0);
         this.none = new Icon(new Texture(Gdx.files.internal(format+"/bonuses/none.png")),0,0);
@@ -171,7 +171,7 @@ public class BonusSelection extends State {
             this.settings.getBonus2().setColorKey(3);
             this.isFilled2 = false;
         }
-        if (this.none.contains(x, y)){ // if none is touched, one bonus is subsituted by nothing (no bonus)
+        if (this.none.contains(x, y)){ // if none is touched, one bonus is substituted by nothing (no bonus)
             if(this.isFilled1 && this.isFilled2) {
                 this.field2.setTexture(this.settings.getBonus2().getBonustexture(0));
                 this.settings.getBonus2().setBonusKey(0);
