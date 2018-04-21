@@ -1,0 +1,82 @@
+
+introduction.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+squarz0
+  rotate: false
+  xy: 1, 377
+  size: 237, 92
+  orig: 237, 92
+  offset: 0, 0
+  index: -1
+squarz1
+  rotate: false
+  xy: 1, 283
+  size: 237, 92
+  orig: 237, 92
+  offset: 0, 0
+  index: -1
+squarz2
+  rotate: false
+  xy: 240, 377
+  size: 237, 92
+  orig: 237, 92
+  offset: 0, 0
+  index: -1
+squarz3
+  rotate: false
+  xy: 1, 189
+  size: 237, 92
+  orig: 237, 92
+  offset: 0, 0
+  index: -1
+squarz4
+  rotate: false
+  xy: 240, 283
+  size: 237, 92
+  orig: 237, 92
+  offset: 0, 0
+  index: -1
+squarz5
+  rotate: false
+  xy: 479, 377
+  size: 237, 92
+  orig: 237, 92
+  offset: 0, 0
+  index: -1
+squarz6
+  rotate: false
+  xy: 1, 95
+  size: 237, 92
+  orig: 237, 92
+  offset: 0, 0
+  index: -1
+squarz7
+  rotate: false
+  xy: 240, 189
+  size: 237, 92
+  orig: 237, 92
+  offset: 0, 0
+  index: -1
+squarz8
+  rotate: false
+  xy: 479, 283
+  size: 237, 92
+  orig: 237, 92
+  offset: 0, 0
+  index: -1
+squarz9
+  rotate: false
+  xy: 718, 377
+  size: 237, 92
+  orig: 237, 92
+  offset: 0, 0
+  index: -1
+squarz91
+  rotate: false
+  xy: 1, 1
+  size: 237, 92
+  orig: 237, 92
+  offset: 0, 0
+  index: -1

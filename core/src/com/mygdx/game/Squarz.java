@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.mygdx.game.gameStateManager.GameStateManager;
 import com.mygdx.game.model.multiplayer.MultiplayerInterface;
+import com.mygdx.game.states.Intro;
 import com.mygdx.game.states.beginning.Menu;
 
 public class Squarz extends ApplicationAdapter  {
@@ -107,7 +108,7 @@ public class Squarz extends ApplicationAdapter  {
 		}
 
 
-        gsm.push(new Menu(gsm));
+        gsm.push(new Intro(gsm));
 	}
 
 	@Override
