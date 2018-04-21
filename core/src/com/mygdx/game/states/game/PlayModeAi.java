@@ -192,7 +192,7 @@ public class PlayModeAi extends State {
                 }
                 else {
                     //Colour choice button
-                    chosingTheColour(x, y);
+                    choosingTheColour(x, y);
 
                     //Implementation for the launcher of each row
                     if (!this.player.getSquareLimiter().isOver(colorKey) && isAllowedToPlay(exTime)) {
@@ -301,7 +301,7 @@ public class PlayModeAi extends State {
     }
 
 
-    private void chosingTheColour(int x, int y) {
+    private void choosingTheColour(int x, int y) {
         if (this.redChoiceSquare.contains(x, y)) {
             this.setColorKey(0);
             setPLayerTexture(this.getColorKey());

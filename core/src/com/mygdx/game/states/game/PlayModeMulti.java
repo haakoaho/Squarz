@@ -231,7 +231,7 @@ public class PlayModeMulti extends State {
         return  allowed;
     }
 
-    private void chosingTheColour(int x, int y) {
+    private void choosingTheColour(int x, int y) {
         if (this.redChoiceSquare.contains(x, y)) {
             this.setColorKey(0);
             this.setPLayerTexture(0);
