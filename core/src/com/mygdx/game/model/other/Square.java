@@ -1,11 +1,11 @@
-package com.mygdx.game.model;
+package com.mygdx.game.model.other;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.model.aI.PreferencesSettings;
+import com.mygdx.game.model.ai_settings.PreferencesSettings;
 
 import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.format;

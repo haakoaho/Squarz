@@ -1,9 +1,12 @@
-package com.mygdx.game.model;
+package com.mygdx.game.model.other;
 
 // Color - number association
 // red == 0; blue == 1; yellow == 2;
 // Collision convention
 //    red < blue < yellow < red
+
+import com.mygdx.game.model.players.AIPlayer;
+import com.mygdx.game.model.players.Player;
 
 public class Collision {
     private Score score;

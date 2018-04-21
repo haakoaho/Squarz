@@ -1,4 +1,4 @@
-package com.mygdx.game.model;
+package com.mygdx.game.model.other;
 
 public class Score {
     private static final Score ourInstance = new Score();

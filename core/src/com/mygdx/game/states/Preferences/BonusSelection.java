@@ -8,11 +8,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.game.Squarz;
 import com.mygdx.game.gameStateManager.GameStateManager;
-import com.mygdx.game.model.aI.PreferencesSettings;
+import com.mygdx.game.model.ai_settings.PreferencesSettings;
 import com.mygdx.game.model.AbstractFactory.CountdownDuration.ICountdownDuration;
-import com.mygdx.game.model.Icon;
+import com.mygdx.game.model.other.Icon;
 import com.mygdx.game.gameStateManager.State;
-import com.mygdx.game.states.AIPreferences;
 
 import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;

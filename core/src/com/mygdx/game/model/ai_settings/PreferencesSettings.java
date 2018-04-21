@@ -1,6 +1,6 @@
-package com.mygdx.game.model.aI;
+package com.mygdx.game.model.ai_settings;
 
-import com.mygdx.game.model.Bonus;
+import com.mygdx.game.model.other.Bonus;
 
 import static com.mygdx.game.Squarz.HEIGHT;
 

@@ -36,7 +36,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.mygdx.game.model.MultiplayerInterface;
+import com.mygdx.game.model.multiplayer.MultiplayerInterface;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

@@ -1,18 +1,16 @@
-package com.mygdx.game.states;
+package com.mygdx.game.states.Preferences;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.model.Icon;
+import com.mygdx.game.model.other.Icon;
 import com.mygdx.game.gameStateManager.State;
 import com.mygdx.game.gameStateManager.GameStateManager;
-import com.mygdx.game.model.aI.PreferencesSettings;
+import com.mygdx.game.model.ai_settings.PreferencesSettings;
 import com.mygdx.game.model.AbstractFactory.CountdownDuration.ICountdownDuration;
 import com.mygdx.game.model.AbstractFactory.CountdownFactory.LongCountdownFactory;
-import com.mygdx.game.states.Preferences.BonusSelection;
-import com.mygdx.game.states.Preferences.SetAILevel;
-import com.mygdx.game.states.Preferences.SetAITimer;
+import com.mygdx.game.states.game.PlayModeAi;
 import com.mygdx.game.states.beginning.Pref;
 
 import static com.mygdx.game.Squarz.HEIGHT;

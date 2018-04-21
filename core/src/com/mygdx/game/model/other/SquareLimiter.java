@@ -1,4 +1,4 @@
-package com.mygdx.game.model;
+package com.mygdx.game.model.other;
 
 public class SquareLimiter {
     private Integer redLeft;

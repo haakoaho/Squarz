@@ -4,9 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.gameStateManager.GameStateManager;
-import com.mygdx.game.model.Icon;
+import com.mygdx.game.model.other.Icon;
 import com.mygdx.game.gameStateManager.State;
-import com.mygdx.game.states.AIPreferences;
+import com.mygdx.game.states.Preferences.AIPreferences;
 import com.mygdx.game.states.Preferences.BonusSelectionMulti;
 
 import static com.mygdx.game.Squarz.HEIGHT;

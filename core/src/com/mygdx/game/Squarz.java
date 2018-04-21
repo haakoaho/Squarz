@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.mygdx.game.gameStateManager.GameStateManager;
-import com.mygdx.game.model.MultiplayerInterface;
+import com.mygdx.game.model.multiplayer.MultiplayerInterface;
 import com.mygdx.game.states.beginning.Menu;
 
 public class Squarz extends ApplicationAdapter  {
