@@ -211,63 +211,20 @@ public class Player {
         return left;
     }
 
-    public void setLeft(Map<Integer, Square> left) {
-        this.left = left;
-    }
-
     private Map<Integer, Square> getMiddle() {
         return middle;
-    }
-
-    public void setMiddle(Map<Integer, Square> middle) {
-        this.middle = middle;
     }
 
     private Map<Integer, Square> getRight() {
         return right;
     }
 
-    public void setRight(Map<Integer, Square> right) {
-        this.right = right;
-    }
-
-    public Integer getLeftCounter() {
-        return leftCounter;
-    }
-
-    public void setLeftCounter(Integer leftCounter) {
-        this.leftCounter = leftCounter;
-    }
-
-    public Integer getMiddleCounter() {
-        return middleCounter;
-    }
-
-    public void setMiddleCounter(Integer middleCounter) {
-        this.middleCounter = middleCounter;
-    }
-
-    public Integer getRightCounter() {
-        return rightCounter;
-    }
-
-    public void setRightCounter(Integer rightCounter) {
-        this.rightCounter = rightCounter;
-    }
-
     public SquareLimiter getSquareLimiter() {
         return squareLimiter;
-    }
-
-    public void setSquareLimiter(SquareLimiter squareLimiter) {
-        this.squareLimiter = squareLimiter;
     }
 
     PreferencesSettings getSet() {
         return set;
     }
 
-    public void setSet(PreferencesSettings set) {
-        this.set = set;
-    }
 }

@@ -141,7 +141,7 @@ public class PlayModeMulti extends State {
             int y = HEIGHT - Gdx.input.getY();
 
             //Colour choice button
-            chosingTheColour(x, y);
+            choosingTheColour(x, y);
             choosingTheBonuses(x, y);
 
             if (mute.contains(x, y)) {
@@ -179,7 +179,7 @@ public class PlayModeMulti extends State {
         if (this.countDown.isTimeUp()) {
             music.stop();
             gsm.set(new EndModeAI(gsm, settings, score, countDown));
-            // leaveRoom();
+            gsm.getMultiplayerInterface().leaveRoom();
         }
 
         movingPlayerSquare(dt);
@@ -231,7 +231,7 @@ public class PlayModeMulti extends State {
         return  allowed;
     }
 
-    private void chosingTheColour(int x, int y) {
+    private void choosingTheColour(int x, int y) {
         if (this.redChoiceSquare.contains(x, y)) {
             this.setColorKey(0);
             this.setPLayerTexture(0);

@@ -32,22 +32,6 @@ public class Icon {
         this.texture = texture;
     }
 
-    public Texture getSelected() {
-        return this.selected;
-    }
-
-    public void setSelected(Texture selected) {
-        this.selected = selected;
-    }
-
-    public Texture getOff() {
-        return this.off;
-    }
-
-    public void setOff(Texture off) {
-        this.off = off;
-    }
-
     public int getPosX() {
         return this.posX;
     }
