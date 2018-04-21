@@ -3,9 +3,6 @@ package com.mygdx.game.model;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import static com.mygdx.game.Squarz.format;
 
 /**

@@ -1,4 +1,4 @@
-package com.mygdx.game.view;
+package com.mygdx.game.states;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
@@ -7,16 +7,17 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.mygdx.game.Squarz;
-import com.mygdx.game.control.GameStateManager;
-import com.mygdx.game.control.aI.PreferencesSettings;
 import com.mygdx.game.model.AIPlayer;
-import com.mygdx.game.model.AbstractFactory.CountdownDuration.ICountdownDuration;
 import com.mygdx.game.model.Collision;
 import com.mygdx.game.model.Icon;
+import com.mygdx.game.model.PauseScreen;
 import com.mygdx.game.model.Player;
 import com.mygdx.game.model.Score;
-import com.mygdx.game.model.State;
+import com.mygdx.game.Squarz;
+import com.mygdx.game.gameStateManager.State;
+import com.mygdx.game.gameStateManager.GameStateManager;
+import com.mygdx.game.model.aI.PreferencesSettings;
+import com.mygdx.game.model.AbstractFactory.CountdownDuration.ICountdownDuration;
 
 
 import static com.mygdx.game.Squarz.HEIGHT;
@@ -71,7 +72,7 @@ public class PlayModeAi extends State {
         this.countDown = countDown;
 
         this.player = new Player(this.settings,this.countDown);
-        this.ai = new AIPlayer(this.settings,this.countDown);
+        this.ai = new AIPlayer(this.settings,this.countDown, this.player);
 
         this.settings.getBonus1().update(this.getPlayer(), this.getAi());
         this.settings.getBonus2().update(this.getPlayer(), this.getAi());

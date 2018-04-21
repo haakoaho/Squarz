@@ -1,7 +1,7 @@
 package com.mygdx.game.model;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.control.aI.PreferencesSettings;
+import com.mygdx.game.model.aI.PreferencesSettings;
 import com.mygdx.game.model.AbstractFactory.CountdownDuration.ICountdownDuration;
 
 import java.util.HashMap;

@@ -1,15 +1,16 @@
-package com.mygdx.game.view.Preferences;
+package com.mygdx.game.states.Preferences;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.states.AIPreferences;
 import com.mygdx.game.Squarz;
-import com.mygdx.game.control.aI.PreferencesSettings;
+import com.mygdx.game.model.aI.PreferencesSettings;
 import com.mygdx.game.model.AbstractFactory.CountdownDuration.ICountdownDuration;
 import com.mygdx.game.model.Icon;
-import com.mygdx.game.control.GameStateManager;
-import com.mygdx.game.model.State;
+import com.mygdx.game.gameStateManager.GameStateManager;
+import com.mygdx.game.gameStateManager.State;
 
 import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
@@ -65,10 +66,10 @@ public class SetAILevel extends State{
                 setTextureToDraw();
             }
             if(this.levelToDraw.contains(x,y)){//go back
-                gsm.set(new com.mygdx.game.view.AIPreferences(gsm, settings, countDown));
+                gsm.set(new AIPreferences(gsm, settings, countDown));
             }
             if(this.back.contains(x,y)) {
-                gsm.set(new com.mygdx.game.view.AIPreferences(gsm, settings, countDown));
+                gsm.set(new AIPreferences(gsm, settings, countDown));
                 dispose();
             }
         }

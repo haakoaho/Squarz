@@ -1,4 +1,4 @@
-package com.mygdx.game.control.aI;
+package com.mygdx.game.model.aI;
 
 import com.mygdx.game.model.Bonus;
 

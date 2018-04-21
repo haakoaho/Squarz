@@ -1,4 +1,4 @@
-package com.mygdx.game.view.Preferences;
+package com.mygdx.game.states.Preferences;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -7,12 +7,12 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.game.Squarz;
-import com.mygdx.game.control.GameStateManager;
-import com.mygdx.game.control.aI.PreferencesSettings;
+import com.mygdx.game.gameStateManager.GameStateManager;
+import com.mygdx.game.model.aI.PreferencesSettings;
 import com.mygdx.game.model.AbstractFactory.CountdownDuration.ICountdownDuration;
 import com.mygdx.game.model.Icon;
-import com.mygdx.game.model.State;
-import com.mygdx.game.view.AIPreferences;
+import com.mygdx.game.gameStateManager.State;
+import com.mygdx.game.states.AIPreferences;
 
 import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;

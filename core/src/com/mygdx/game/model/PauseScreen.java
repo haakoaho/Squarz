@@ -1,14 +1,11 @@
-package com.mygdx.game.view;
+package com.mygdx.game.model;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.game.Squarz;
-import com.mygdx.game.model.Icon;
 
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.mygdx.game.model.Score;
 
 import static com.mygdx.game.Squarz.WIDTH;
 import static com.mygdx.game.Squarz.HEIGHT;

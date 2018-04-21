@@ -1,9 +1,8 @@
-package com.mygdx.game.control;
+package com.mygdx.game.gameStateManager;
 
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.model.MultiplayerInterface;
-import com.mygdx.game.model.State;
 
 import java.util.Stack;
 

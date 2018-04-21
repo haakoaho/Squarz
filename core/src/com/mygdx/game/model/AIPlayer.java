@@ -3,7 +3,7 @@ package com.mygdx.game.model;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.control.aI.PreferencesSettings;
+import com.mygdx.game.model.aI.PreferencesSettings;
 import com.mygdx.game.model.AbstractFactory.CountdownDuration.ICountdownDuration;
 
 import java.util.Map;
@@ -13,42 +13,36 @@ import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
 import static com.mygdx.game.Squarz.format;
 
-/**
- * Created by Max on 13/03/2018.
- */
-
 // Color - number association
 // red == 0; blue == 1; yellow == 2;
 // Collision convention
 //    red < blue < yellow < red
 
-public class AIPlayer extends Player{
+public class AIPlayer extends Player {
     private Player player;
     private Texture texture;
-    private Square square;
     private Integer launcherCounter;
-    private Integer deltaLauncher;
-    private Integer renderCounter;
 
     private Bonus bonus1, bonus2;
     private Integer nbofBonusesUsed;
 
+/**
+ * part of the improvement of the Ai
+ *
     private boolean wave1 = true;
     private boolean wave2 = true;
     private boolean wave3 = true;
     private boolean wave4 = true;
     private boolean wave5 = true;
+ */
 
     public AIPlayer (PreferencesSettings set, ICountdownDuration countDown, Player player){
         super(set, countDown);
         this.player = player;
         this.texture = new Texture (Gdx.files.internal(format+"/square/square.png"));
-        this.square = new com.mygdx.game.model.Square(set);
 
         this.launcherCounter = 0;
-        this.deltaLauncher = 70;
 
-        this.renderCounter = 0;
 
         this.bonus1 = set.getBonus1();
         this.bonus2 = set.getBonus2();
@@ -106,64 +100,7 @@ public class AIPlayer extends Player{
         }
     }
 
-    public void prgrmdSending(ICountdownDuration countDown) {
-        this.launcherCounter += 1;
-        if (countDown.getWorldTimer() > 0) {
-            //random flow
-            if (this.launcherCounter == this.getSet().getDtLaunching()) {
-                this.launcherCounter = 0;
 
-                //setting the random color
-                int colorKey = random(2);
-                setTheRandomTexture(colorKey);
-
-                //setting the random Texture in a random row
-                int row = random(2);
-
-                setTheRandomColumn(row, colorKey);
-            }
-            myWave(countDown);
-        }
-
-    }
-
-    public void myWave(ICountdownDuration countDown){
-        if (wave1) {
-            wave1 =  createAWave(55, countDown);
-        }
-        if (wave2) {
-            wave2 =  createAWave(40, countDown);
-            //createAWave(40, countDown);
-        }
-        if (wave3) {
-            wave3 =  createAWave(30, countDown);
-        }
-        if (wave4) {
-            wave4 =  createAWave(25, countDown);
-        }
-        if (wave5) {
-            wave5 =  createAWave(10, countDown);
-            //createAWave(40, countDown);
-        }
-
-    }
-
-
-    public void setOneSquare(int row, int colorkey){
-        setTheRandomTexture(colorkey);
-        setTheRandomColumn(row,colorkey);
-    }
-
-    public boolean createAWave(int time, ICountdownDuration countDown){
-
-        if (time == countDown.getWorldTimer()){
-            setOneSquare(random(2),random(2));
-            setOneSquare(random(2),random(2));
-            setOneSquare(random(2),random(2));
-            return false;
-        }
-        return true;
-    }
 
 
     public void setTheRandomTexture(int colorKey){
@@ -225,28 +162,68 @@ public class AIPlayer extends Player{
     public void setTexture(Texture texture) {
         this.texture = texture;
     }
-    public com.mygdx.game.model.Square getSquare() {
-        return square;
+
+ /**
+    The beginning of  the implementation of an Ai more intelligent and reactuve for a more chaleenging game !
+
+    public void prgrmdSending(ICountdownDuration countDown) {
+        this.launcherCounter += 1;
+        if (countDown.getWorldTimer() > 0) {
+            //random flow
+            if (this.launcherCounter == this.getSet().getDtLaunching()) {
+                this.launcherCounter = 0;
+
+                //setting the random color
+                int colorKey = random(2);
+                setTheRandomTexture(colorKey);
+
+                //setting the random Texture in a random row
+                int row = random(2);
+
+                setTheRandomColumn(row, colorKey);
+            }
+            myWave(countDown);
+        }
+
     }
-    public void setSquare(com.mygdx.game.model.Square square) {
-        this.square = square;
+
+    public void myWave(ICountdownDuration countDown){
+        if (wave1) {
+            wave1 =  createAWave(55, countDown);
+        }
+        if (wave2) {
+            wave2 =  createAWave(40, countDown);
+            //createAWave(40, countDown);
+        }
+        if (wave3) {
+            wave3 =  createAWave(30, countDown);
+        }
+        if (wave4) {
+            wave4 =  createAWave(25, countDown);
+        }
+        if (wave5) {
+            wave5 =  createAWave(10, countDown);
+            //createAWave(40, countDown);
+        }
+
     }
-    public Integer getLauncherCounter() {
-        return launcherCounter;
+
+
+    public void setOneSquare(int row, int colorkey){
+        setTheRandomTexture(colorkey);
+        setTheRandomColumn(row,colorkey);
     }
-    public void setLauncherCounter(Integer launcherCounter) {
-        this.launcherCounter = launcherCounter;
+
+    public boolean createAWave(int time, ICountdownDuration countDown){
+
+        if (time == countDown.getWorldTimer()){
+            setOneSquare(random(2),random(2));
+            setOneSquare(random(2),random(2));
+            setOneSquare(random(2),random(2));
+            return false;
+        }
+        return true;
     }
-    public Integer getDeltaLauncher() {
-        return deltaLauncher;
-    }
-    public void setDeltaLauncher(Integer deltaLauncher) {
-        this.deltaLauncher = deltaLauncher;
-    }
-    public Integer getRenderCounter() {
-        return renderCounter;
-    }
-    public void setRenderCounter(Integer renderCounter) {
-        this.renderCounter = renderCounter;
-    }
+*/
+
 }
