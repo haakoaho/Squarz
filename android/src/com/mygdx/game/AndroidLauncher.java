@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
@@ -99,11 +98,15 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 	// invitation listener
 	private String mIncomingInvitationId = null;
 
+	//is signed in to Google Play Games
+	private boolean signedIn = false;
+
 	//opponent's moves
 	private final Queue<Byte> moves = new LinkedList<Byte>();
 
 	//game ready to start
 	private boolean gameReady;
+
 
 	private void selectPlayers(int resultCode, Intent data){
 		if (resultCode != Activity.RESULT_OK) {
@@ -284,6 +287,10 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 	 * your Activity's onActivityResult function
 	 */
 	public void startSignInIntent() {
+		signInSilently();
+		if (signedIn){
+			return;
+		}
 		startActivityForResult(mGoogleSignInClient.getSignInIntent(), RC_SIGN_IN);
 	}
 
@@ -300,6 +307,7 @@ public class AndroidLauncher extends AndroidApplication implements MultiplayerIn
 					public void onComplete(@NonNull Task<GoogleSignInAccount> task) {
 						if (task.isSuccessful()) {
 							onConnected(task.getResult());
+							signedIn = true;
 						} else {
 							onDisconnected();
 						}
