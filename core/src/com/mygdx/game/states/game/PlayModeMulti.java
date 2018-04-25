@@ -84,7 +84,7 @@ public class PlayModeMulti extends State {
             this.mute = new Icon(new Texture(Gdx.files.internal(format + "/mute.png")), 0, 0);
             this.varMute = true;
         } else {
-            this.mute = new Icon(new Texture(Gdx.files.internal(format + "/settings/sound.png")), 0, 0);
+            this.mute = new Icon(new Texture(Gdx.files.internal(format + "/nomute.png")), 0, 0);
             this.varMute = false;
         }
 
@@ -148,7 +148,7 @@ public class PlayModeMulti extends State {
                 if (varMute) {
                     valueVolume = 5;
                     music.setVolume(valueVolume);
-                    this.mute.setTexture(new Texture(Gdx.files.internal(format + "/settings/sound.png")));
+                    this.mute.setTexture(new Texture(Gdx.files.internal(format + "/nomute.png")));
                     varMute = false;
                 } else {
                     valueVolume = 0;

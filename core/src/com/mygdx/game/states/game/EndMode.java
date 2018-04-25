@@ -19,6 +19,7 @@ import com.mygdx.game.states.Preferences.AIPreferences;
 
 import static com.mygdx.game.Squarz.HEIGHT;
 import static com.mygdx.game.Squarz.WIDTH;
+import static com.mygdx.game.Squarz.font3;
 import static com.mygdx.game.Squarz.format;
 
 /**
@@ -41,10 +42,12 @@ public class EndMode extends State {
         this.setting = setting; // we keep the settings, like this, if the player wants to play again, he does not have to choose again (even if he can modify them if he wants to)
 
         this.replay = new Icon(new Texture(Gdx.files.internal(format+"/endMode/replay.png")), 0, 0);
-        this.back = new Icon(new Texture(Gdx.files.internal(format+"/endMode/backToMenu.png")), 0, 0);
-
+        this.replay.setLegend("Replay against AI");
         this.replay.setPosX(WIDTH/2-this.replay.getTexture().getWidth()/2);
         this.replay.setPosY(HEIGHT*2/5-this.replay.getTexture().getHeight()/2);
+
+        this.back = new Icon(new Texture(Gdx.files.internal(format+"/endMode/backToMenu.png")), 0, 0);
+        this.back.setLegend("Go to the Menu");
         this.back.setPosX(WIDTH/2 - this.back.getTexture().getWidth()/2);
         this.back.setPosY(HEIGHT/5 - this.back.getTexture().getHeight()/2);
 
@@ -102,7 +105,9 @@ public class EndMode extends State {
         Squarz.font.draw(sb, this.scoreUser, WIDTH * 2/5 - this.scoreUser.width/2, HEIGHT * 3/5);
         Squarz.font.draw(sb, this.scoreAi, WIDTH * 3/5 - this.scoreUser.width/2, HEIGHT * 3/5);
         sb.draw(this.replay.getTexture(), this.replay.getPosX(), this.replay.getPosY());
+        font3.draw(sb, this.replay.getLegend(), this.replay.getPosX() + this.replay.getTexture().getWidth()/2 - this.replay.getLegend().width/2, this.replay.getPosY() - 2*this.replay.getLegend().height);
         sb.draw(this.back.getTexture(), this.back.getPosX(), this.back.getPosY());
+        font3.draw(sb, this.back.getLegend(), this.back.getPosX() + this.back.getTexture().getWidth()/2 - this.back.getLegend().width/2, this.back.getPosY() - 2*this.back.getLegend().height);
         sb.end();
     }
 
